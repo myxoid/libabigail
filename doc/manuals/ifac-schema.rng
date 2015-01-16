@@ -1,0 +1,433 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <start>
+    <ref name="AbiChanges"/>
+  </start>
+
+  <define name="AbiChanges">
+    <element name="abi-changes">
+      <zeroOrMore>
+	<choice>
+	  <ref name="TypeChange"/>
+	  <ref name="DeclChange"/>
+	</choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="TypeChange">
+    <choice>
+      <ref name="BasicTypeChange"/>
+      <ref name="EnumTypeChange"/>
+      <ref name="TypedefChange"/>
+      <ref name="PointerTypeChange"/>
+      <ref name="ReferenceTypeChange"/>
+      <ref name="QualifiedTypeChange"/>
+      <ref name="ArrayTypeChange"/>
+      <ref name="DistinctTypeChange"/>
+    </choice>
+  </define>
+
+  <define name="DeclChange">
+    <choice>
+      <ref name="VarDeclChange"/>
+      <ref name="FunctionDeclChange"/>
+    </choice>
+  </define>
+
+  <define name="BasicTypeChange">
+    <ref name="NameSizeOrAlignmentChange"/>
+    <optional>
+      <ref name="VisibilityChange"/>
+    </optional>
+    <optional>
+      <ref name="LinkageNameChange"/>
+    </optional>
+  </define>
+
+  <define name="EnumTypeChange">
+    <ref name="NameSizeOrAlignmentChange"/>
+    <optional>
+      <ref name="AccessChange"/>
+    </optional>
+    <!-- Underlying type diff -->
+    <optional>
+      <ref name="TypeChange"/>
+    </optional>
+    <!-- Deleted enumerators -->
+    <optional>
+      <element name="deleted-enumerators">
+	<oneOrMore>
+	  <ref name="Enumerator"/>
+	</oneOrMore>
+      </element>
+    </optional>
+    <!-- Added enumerators -->
+    <optional>
+      <element name="added-enumerators">
+	<oneOrMore>
+	  <ref name="Enumerator"/>
+	</oneOrMore>
+      </element>
+    </optional>
+    <!-- Changed enumerators -->
+    <optional>
+      <element name="changed-enumerators">
+	<oneOrMore>
+	  <ref name="ChangedEnumerator"/>
+	</oneOrMore>
+      </element>
+    </optional>
+  </define>
+
+  <define name="TypedefChange">
+    <element name="typedef-change">
+      <optional>
+	<ref name="AccessChange"/>
+      </optional>
+      <optional>
+	<ref name="NameChange"/>
+      </optional>
+      <!-- Underlying type change -->
+      <optional>
+	<ref name="TypeChange"/>
+      </optional>
+    </element>
+  </define>
+
+  <define name="PointerTypeChange">
+    <element name="pointer-type-change">
+      <!-- Change in pointed-to type -->
+      <ref name="TypeChange"/>
+    </element>
+  </define>
+
+  <define name="ReferenceTypeChange">
+    <element name="reference-type-change">
+      <!-- Change in referred-to type -->
+      <ref name="TypeChange"/>
+    </element>
+  </define>
+
+  <define name="QualifiedTypeChange">
+    <element name="qualified-type-change">
+      <optional>
+	<choice>
+	  <ref name="NameChange"/>
+	  <!-- Change in the unqualified underlying type -->
+	  <ref name="TypeChange"/>
+	</choice>
+      </optional>
+    </element>
+  </define>
+
+  <define name="ArrayTypeChange">
+    <element name="array-type-change">
+      <optional>
+	<!-- Change in array element type -->
+	<ref name="TypeChange"/>
+      </optional>
+      <optional>
+	<!-- Size of the array -->
+	<ref name="SizeChange"/>
+      </optional>
+      <optional>
+	<!-- Change of the number of dimensions of the array -->
+	<element name="dimension-count-change">
+	  <attribute name="old">
+	    <text/>
+	  </attribute>
+	  <attribute name="new">
+	    <text/>
+	  </attribute>
+	</element>
+      </optional>
+      <optional>
+	<!-- Change of length of sub-ranges -->
+	<element name="sub-range-changes">
+	  <oneOrMore>
+	    <element name="sub-range-change">
+	      <!-- The index of the sub-range.  Must be a number
+	           starting at zero -->
+	      <attribute name="index">
+		<text/>
+	      </attribute>
+	      <!-- The old length of the changed array sub-range.
+	           Must be a number. -->
+	      <attribute name="old">
+		<text/>
+	      </attribute>
+	      <!-- The new length of the changed array sub-range.
+	           Must be a number. -->
+	      <attribute name="new">
+		<text/>
+	      </attribute>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </optional>
+    </element>
+  </define>
+
+  <define name="DistinctTypeChange">
+    <element name="distinct-type-change">
+      <attribute name="is-compatible">
+	<choice>
+	  <value>true</value>
+	  <value>false</value>
+	</choice>
+      </attribute>
+      <element name="old-representation">
+	<text/>
+      </element>
+      <element name="new-representation">
+	<text/>
+      </element>
+      <optional>
+	<choice>
+	  <!-- Change of the two compatible subjects of the
+	       DistinctTypeChange -->
+	  <ref name="TypeChange"/>
+	  <!-- If the two subjects of the DistinctTypeChange are not
+	       compatible then it might carry a size or alignment
+	       changes -->
+	  <ref name="SizeOrAlignmentChange"/>
+	</choice>
+      </optional>
+    </element>
+  </define>
+
+  <define name="VarDeclChange">
+    <element name="var-decl-change">
+      <ref name="NameSizeOrAlignmentChange"/>
+      <ref name="AccessOrStaticNessChange"/>
+      <optional>
+	<!-- Changes of the type of the variable declaration. -->
+	<ref name="TypeChange"/>
+      </optional>
+    </element>
+  </define>
+
+  <define name="FunctionDeclChange">
+    <element name="function-decl-change">
+      <ref name="AccessOrStaticNessChange"/>
+      <!-- inline-ness change -->
+      <optional>
+	<element name="inline-ness-change">
+	  <attribute name="old"><text/></attribute>
+	  <attribute name="new"><text/></attribute>
+	</element>
+      </optional>
+      <!-- Function address size change -->
+      <optional>
+	<ref name="AddressSizeChange"/>
+      </optional>
+      <!-- Function address alignment size change -->
+      <optional>
+	<ref name="AddressAlignmentSizeChange"/>
+      </optional>
+      <optional>
+	<!-- Return type change -->
+	<element name="return-type-change">
+	  <ref name="TypeChange"/>
+	</element>
+      </optional>
+      <optional>
+	<!-- Removed parameters. -->
+	<element name="removed-parameters">
+	  <oneOrMore>
+	    <element name="removed-parameter">
+	      <attribute name="index"><text/></attribute>
+	      <element name="pretty-representation">
+		<text/>
+	      </element>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </optional>
+      <optional>
+	<!-- Parameters that have changed sub-types. -->
+	<element name="changed-parameters">
+	  <oneOrMore>
+	    <element name="changed-parameter">
+	      <!-- The index of the changed parameter.  It's a number
+	           that starts at zero. -->
+	      <attribute name="index"><text/></attribute>
+	      <!-- Change in the type of the variable. -->
+	      <ref name="TypeChange"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </optional>
+      <optional>
+	<!-- Added parameters -->
+	<element name="added-parameters">
+	  <oneOrMore>
+	    <element name="added-parameter">
+	      <attribute name="index"><text/></attribute>
+	      <element name="pretty-representation">
+		<text/>
+	      </element>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </optional>
+    </element>
+  </define>
+
+  <define name="OldAttr">
+    <attribute name="old">
+      <text/>
+    </attribute>
+  </define>
+
+  <define name="NewAttr">
+    <attribute name="new">
+      <text/>
+    </attribute>
+  </define>
+
+  <define name="NewAndOldAttr">
+    <group>
+      <ref name="OldAttr"/>
+      <ref name="NewAttr"/>
+    </group>
+  </define>
+
+  <define name="NameChange">
+    <element name="name-change">
+      <ref name="NewAndOldAttr"/>
+    </element>
+  </define>
+
+  <define name="SizeChange">
+    <element name="size-change">
+      <ref name="NewAndOldAttr"/>
+    </element>
+  </define>
+
+  <define name="AddressSizeChange">
+    <element name="address-size-change">
+      <ref name="NewAndOldAttr"/>
+    </element>
+  </define>
+
+  <define name="AlignmentChange">
+    <element name="alignment-change">
+      <ref name="OldAttr"/>
+      <ref name="NewAttr"/>
+    </element>
+  </define>
+
+  <define name="AddressAlignmentChange">
+    <element name="address-alignment-change">
+      <ref name="OldAttr"/>
+      <ref name="NewAttr"/>
+    </element>
+  </define>
+
+  <define name="NameSizeOrAlignmentChange">
+    <optional>
+      <ref name="NameChange"/>
+    </optional>
+    <optional>
+      <ref name="SizeChange"/>
+    </optional>
+    <optional>
+      <ref name="AlignmentChange"/>
+    </optional>
+  </define>
+
+  <define name="SizeOrAlignmentChange">
+    <optional>
+      <ref name="SizeChange"/>
+    </optional>
+    <optional>
+      <ref name="AlignmentChange"/>
+    </optional>
+  </define>
+
+  <define name="VisibilityChange">
+    <element name="visibility-change">
+      <ref name="OldAttr"/>
+      <ref name="NewAttr"/>
+    </element>
+  </define>
+
+  <define name="LinkageNameChange">
+    <element name="linkage-name-change">
+      <ref name="OldAttr"/>
+      <ref name="NewAttr"/>
+    </element>
+  </define>
+
+  <define name="StaticNessChange">
+    <element name="static-ness-change">
+      <attribute name="old">
+	<choice>
+	  <value>static</value>
+	  <value>non-static</value>
+	</choice>
+      </attribute>
+      <attribute name="new">
+	<choice>
+	  <value>static</value>
+	  <value>non-static</value>
+	</choice>
+      </attribute>      
+    </element>
+  </define>
+
+  <define name="AccessChange">
+    <element name="access-change">
+      <attribute name="old">
+	<text/>
+      </attribute>
+      <attribute name="new">
+	<text/>
+      </attribute>
+    </element>
+  </define>
+
+  <define name="AccessOrStaticNessChange">
+    <optional>
+      <ref name="AccessChange"/>
+    </optional>
+    <optional>
+      <ref name="StaticNessChange"/>
+    </optional>
+  </define>
+
+  <define name="Enumerator">
+    <element name="enumerator">
+      <choice>
+	<attribute name="qualified-name">
+	  <text/>
+	</attribute>
+	<attribute name="name">
+	  <text/>
+	</attribute>
+      </choice>
+      <attribute name="value">
+	<text/>
+      </attribute>
+    </element>
+  </define>
+  <define name="ChangedEnumerator">
+    <element name="changed-enumerator">
+      <choice>
+	<attribute name="qualified-name">
+	  <text/>
+	</attribute>
+	<attribute name="name">
+	  <text/>
+	</attribute>
+      </choice>
+      <attribute name="old-value">
+	<text/>
+      </attribute>
+      <attribute name="new-value">
+	<text/>
+      </attribute>
+    </element>
+  </define>
+</grammar>

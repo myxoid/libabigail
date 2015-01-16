@@ -1,15 +1,18 @@
 # Makefile for Sphinx documentation
 
 EXTRA_DIST = \
+conf.py \
+ifac-schema.rng \
 abidiff.rst \
 abicompat.rst \
 abidw.rst \
 abilint.rst \
-conf.py \
 index.rst \
 libabigail-concepts.rst \
 libabigail-overview.rst \
-libabigail-tools.rst
+libabigail-tools.rst \
+libabigail-xml-report.rst
+
 
 # You can set these variables from the command line.
 SPHINXOPTS    =

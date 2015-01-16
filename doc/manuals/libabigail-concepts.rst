@@ -685,6 +685,17 @@ Suppression specifications
 
        $
 
+.. _report_formats_label:
+
+Report formats
+==============
+
+The comparison engine of libabigail emits reports about the changes
+between two ABI :ref:`ABI artifacts <abi_artifacts_label>` in two
+primary formats: text and XML.  The XML format used is named
+Interchange Format for ABI Change and is :doc:`specified formally
+<libabigail-xml-report>`.
+
 .. _ELF: http://en.wikipedia.org/wiki/Executable_and_Linkable_Format
 
 .. _Ini File Syntax: http://en.wikipedia.org/wiki/INI_file
