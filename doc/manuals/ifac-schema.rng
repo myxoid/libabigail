@@ -292,6 +292,10 @@
   <!-- A change between two corpora denotes ... -->
   <define name="CorpusChange">
     <element name="corpus-change">
+      <!-- either a soname change ... -->
+      <optional><ref name="SonameChange"/></optional>
+      <!-- either an architecture change ... -->
+      <optional><ref name="ArchChange"/></optional>
       <!-- either some exported functions that got removed ... -->
       <optional><ref name="RemovedFunctions"/></optional>
       <!-- or some exported variable that got removed ... -->
@@ -304,6 +308,18 @@
       <optional><ref name="AddedFunctions"/></optional>
       <!-- or some exported variables that got added ... -->
       <optional><ref name="AddedVariables"/></optional>
+      <!-- or some exported function symbol (not referenced from any
+           function debug info) that got removed ... -->
+      <optional><ref name="RemovedFunctionSymbols"/></optional>
+      <!-- or some exported function symbol (not referenced from any
+           function debug info) that got added ... -->
+      <optional><ref name="AddedFunctionSymbols"/></optional>
+      <!-- or some exported variable symbol (not referenced from any
+           function debug info) that got removed ... -->
+      <optional><ref name="RemovedVariableSymbols"/></optional>
+      <!-- or some exported variable symbol (not referenced from any
+           function debug info) that got added ... -->
+      <optional><ref name="AddedVariableSymbols"/></optional>
     </element>
   </define>
 
@@ -321,6 +337,46 @@
     <element name="removed-functions">
       <oneOrMore>
 	<ref name="FunctionDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- Representation of a list of added function symbols not
+       referenced by any debug info.  -->
+  <define name="AddedFunctionSymbols">
+    <element name="added-function-symbols">
+      <oneOrMore>
+	<ref name="SymbolDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- Representation of a list of removed function symbols not
+       referenced by any debug info.  -->
+  <define name="RemovedFunctionSymbols">
+    <element name="removed-function-symbols">
+      <oneOrMore>
+	<ref name="SymbolDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- Representation of a list of added variable symbols not
+       referenced by any debug info.  -->
+  <define name="AddedVariableSymbols">
+    <element name="added-variable-symbols">
+      <oneOrMore>
+	<ref name="SymbolDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- Representation of a list of removed variable symbols not
+       referenced by any debug info.  -->
+  <define name="RemovedVariableSymbols">
+    <element name="removed-variable-symbols">
+      <oneOrMore>
+	<ref name="SymbolDecl"/>
       </oneOrMore>
     </element>
   </define>
@@ -365,7 +421,7 @@
   <define name="FunctionDecl">
     <element name="function-decl">
       <element name="pretty-representation"><text/></element>
-      <ref name="SymbolDef"/>
+      <ref name="SymbolDecl"/>
     </element>
   </define>
 
@@ -373,7 +429,7 @@
   <define name="VariableDecl">
     <element name="variable-decl">
       <element name="pretty-representation"><text/></element>
-      <ref name="SymbolDef"/>
+      <ref name="SymbolDecl"/>
     </element>
   </define>
 
@@ -393,6 +449,20 @@
       <zeroOrMore>
 	<element name="alias"><text/></element>
       </zeroOrMore>
+    </element>
+  </define>
+
+  <!-- Representation of a soname change.  -->
+  <define name="SonameChange">
+    <element name="soname-change">
+      <ref name="NewAndOldAttr"/>
+    </element>
+  </define>
+
+  <!-- Representation of an architecture change.  -->
+  <define name="ArchChange">
+    <element name="arch-change">
+      <ref name="NewAndOldAttr"/>
     </element>
   </define>
 
@@ -534,6 +604,7 @@
       </attribute>
     </element>
   </define>
+
   <define name="ChangedEnumerator">
     <element name="changed-enumerator">
       <choice>
