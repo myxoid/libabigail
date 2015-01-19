@@ -3,17 +3,16 @@
     <ref name="AbiChanges"/>
   </start>
 
+  <!-- The representation of an ABI change.  -->
   <define name="AbiChanges">
     <element name="abi-changes">
       <zeroOrMore>
-	<choice>
-	  <ref name="TypeChange"/>
-	  <ref name="DeclChange"/>
-	</choice>
+	<ref name="CorpusChange"/>
       </zeroOrMore>
     </element>
   </define>
 
+  <!-- The representation of a change between two types.  -->
   <define name="TypeChange">
     <choice>
       <ref name="BasicTypeChange"/>
@@ -27,13 +26,15 @@
     </choice>
   </define>
 
+  <!-- The representation of a change between two declarations.  -->
   <define name="DeclChange">
     <choice>
-      <ref name="VarDeclChange"/>
+      <ref name="VariableDeclChange"/>
       <ref name="FunctionDeclChange"/>
     </choice>
   </define>
 
+  <!-- The representation of a change between two basic types.  -->
   <define name="BasicTypeChange">
     <ref name="NameSizeOrAlignmentChange"/>
     <optional>
@@ -44,6 +45,7 @@
     </optional>
   </define>
 
+  <!-- The representation of a change between two enum types.  -->
   <define name="EnumTypeChange">
     <ref name="NameSizeOrAlignmentChange"/>
     <optional>
@@ -79,6 +81,7 @@
     </optional>
   </define>
 
+  <!-- The representation of a change between two typedef types.  -->
   <define name="TypedefChange">
     <element name="typedef-change">
       <optional>
@@ -94,6 +97,7 @@
     </element>
   </define>
 
+  <!-- The representation of a chagne between two pointer types.  -->
   <define name="PointerTypeChange">
     <element name="pointer-type-change">
       <!-- Change in pointed-to type -->
@@ -101,6 +105,8 @@
     </element>
   </define>
 
+  <!-- The representation of a change between two references types.
+       -->
   <define name="ReferenceTypeChange">
     <element name="reference-type-change">
       <!-- Change in referred-to type -->
@@ -108,6 +114,8 @@
     </element>
   </define>
 
+  <!-- The representation of a change between two qualified types.
+       -->
   <define name="QualifiedTypeChange">
     <element name="qualified-type-change">
       <optional>
@@ -120,6 +128,7 @@
     </element>
   </define>
 
+  <!-- The representation of a change between too array types.  -->
   <define name="ArrayTypeChange">
     <element name="array-type-change">
       <optional>
@@ -168,6 +177,8 @@
     </element>
   </define>
 
+  <!-- The representation of a change between two types that are not
+       of the same kind.  (hence the 'distinct' in the name).  -->
   <define name="DistinctTypeChange">
     <element name="distinct-type-change">
       <attribute name="is-compatible">
@@ -196,7 +207,9 @@
     </element>
   </define>
 
-  <define name="VarDeclChange">
+  <!-- The representation of an exported variable that has some
+       sub-type change. -->
+  <define name="VariableDeclChange">
     <element name="var-decl-change">
       <ref name="NameSizeOrAlignmentChange"/>
       <ref name="AccessOrStaticNessChange"/>
@@ -207,6 +220,8 @@
     </element>
   </define>
 
+  <!-- The representation of an exported function that has some
+       sub-type change. -->
   <define name="FunctionDeclChange">
     <element name="function-decl-change">
       <ref name="AccessOrStaticNessChange"/>
@@ -271,6 +286,113 @@
 	  </oneOrMore>
 	</element>
       </optional>
+    </element>
+  </define>
+
+  <!-- A change between two corpora denotes ... -->
+  <define name="CorpusChange">
+    <element name="corpus-change">
+      <!-- either some exported functions that got removed ... -->
+      <optional><ref name="RemovedFunctions"/></optional>
+      <!-- or some exported variable that got removed ... -->
+      <optional><ref name="RemovedVariables"/></optional>
+      <!-- or some exported functions that have sub-type changes ... -->
+      <optional><ref name="ChangedFunctions"/></optional>
+      <!-- or some exported variables that have sub-type changes ... -->
+      <optional><ref name="ChangedVariables"/></optional>
+      <!-- or some exported functions that got added ... -->
+      <optional><ref name="AddedFunctions"/></optional>
+      <!-- or some exported variables that got added ... -->
+      <optional><ref name="AddedVariables"/></optional>
+    </element>
+  </define>
+
+  <!-- List of functions that got added -->
+  <define name="AddedFunctions">
+    <element name="added-functions">
+      <oneOrMore>
+	<ref name="FunctionDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- List of functions that got removed -->
+  <define name="RemovedFunctions">
+    <element name="removed-functions">
+      <oneOrMore>
+	<ref name="FunctionDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- List of variables that got added -->
+  <define name="AddedVariables">
+    <element name="added-variables">
+      <oneOrMore>
+	<ref name="VariableDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+  
+  <!-- List of variables that got removed -->
+  <define name="RemovedVariables">
+    <element name="removed-variables">
+      <oneOrMore>
+	<ref name="VariableDecl"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- List of functions with sub-type changes -->
+  <define name="ChangedFunctions">
+    <element name="changed-functions">
+      <oneOrMore>
+	<ref name="FunctionDeclChange"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- List of functions with sub-type changes -->
+  <define name="ChangedVariables">
+    <element name="changed-variables">
+      <oneOrMore>
+	<ref name="VariableDeclChange"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- The representation of a function entry point -->
+  <define name="FunctionDecl">
+    <element name="function-decl">
+      <element name="pretty-representation"><text/></element>
+      <ref name="SymbolDef"/>
+    </element>
+  </define>
+
+  <!-- The representation of a variable entry point -->
+  <define name="VariableDecl">
+    <element name="variable-decl">
+      <element name="pretty-representation"><text/></element>
+      <ref name="SymbolDef"/>
+    </element>
+  </define>
+
+  <!-- Representation of a symbol entry point-->
+  <define name="SymbolDecl">
+    <element name="symbol-decl">
+      <attribute name="name"><text/></attribute>
+      <attribute name="version"><text/></attribute>
+      <optional>
+	<attribute name="kind">
+	  <choice>
+	    <value>function</value>
+	    <value>variable</value>
+	  </choice>
+	</attribute>
+      </optional>
+      <zeroOrMore>
+	<element name="alias"><text/></element>
+      </zeroOrMore>
     </element>
   </define>
 
