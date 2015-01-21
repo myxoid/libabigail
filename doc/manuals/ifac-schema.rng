@@ -17,6 +17,7 @@
     <choice>
       <ref name="BasicTypeChange"/>
       <ref name="EnumTypeChange"/>
+      <ref name="ClassTypeChange"/>
       <ref name="TypedefChange"/>
       <ref name="PointerTypeChange"/>
       <ref name="ReferenceTypeChange"/>
@@ -204,6 +205,110 @@
 	  <ref name="SizeOrAlignmentChange"/>
 	</choice>
       </optional>
+    </element>
+  </define>
+
+  <!-- The representation of a change between two class types.  -->
+  <define name="ClassTypeChange">
+    <element name="class-type-change">
+      <ref name="NameSizeOrAlignmentChange"/>
+      <ref name="AccessOrStaticNessChange"/>
+      <!-- Base changes.  -->
+      <element name="base-changes">
+	<element name="deleted-bases">
+	  <oneOrMore>
+	    <element name="deleted-base">
+	      <attribute name="name"><text/></attribute>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="changed-bases">
+	  <oneOrMore>
+	    <element name="changed-base">
+	      <attribute name="name"><text/></attribute>
+	      <ref name="class-change"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="added-bases">
+	  <oneOrMore>
+	    <element name="added-base"><text/></element>
+	  </oneOrMore>
+	</element>
+      </element>
+      <!-- Virtual member function changes.  -->
+      <element name="virtual-member-function-changes">
+	<element name="deleted-virt-mem-fns">
+	  <oneOrMore>
+	    <element name="deleted-virt-mem-fn">
+	      <ref name="FunctionDecl"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="changed-virt-mem-fns">
+	  <oneOrMore>
+	    <element name="changed-virt-mem-fn">
+	      <element name="pretty-representation"><text/></element>
+	      <ref name="FunctionDeclChange"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="added-virt-mem-fns">
+	  <oneOrMore>
+	    <element name="added-virt-mem-fn">
+	      <ref name="FunctionDecl"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </element>
+      <!-- Data member changes.  -->
+      <element name="data-member-changes">
+	<element name="deleted-data-members">
+	  <oneOrMore>
+	    <element name="deleted-data-member">
+	      <element name="pretty-representation"><text/></element>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="changed-data-members">
+	  <element name="changed-data-member">
+	    <element name="pretty-representation"><text/></element>
+	    <ref name="VariableDeclChange"/>
+	  </element>
+	</element>
+	<element name="added-data-members">
+	  <oneOrMore>
+	    <element name="added-data-member">
+	      <element name="pretty-representation"><text/></element>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </element>
+      <!-- Member types -->
+      <element name="member-type-changes">
+	<element name="deleted-member-types">
+	  <oneOrMore>
+	    <element name="deleted-member-type">
+	      <element name="pretty-representation"><text/></element>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="changed-member-types">
+	  <oneOrMore>
+	    <element name="changed-member-type">
+	      <element name="pretty-representation"><text/></element>
+	      <ref name="TypeChange"/>
+	    </element>
+	  </oneOrMore>
+	</element>
+	<element name="added-member-types">
+	  <oneOrMore>
+	    <element name="added-member-type">
+	      <element name="pretty-representation"><text/></element>
+	    </element>
+	  </oneOrMore>
+	</element>
+      </element>
     </element>
   </define>
 
