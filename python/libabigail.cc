@@ -37,6 +37,7 @@ using namespace abigail::dwarf_reader;
 using abigail::comparison::diff_context;
 using abigail::comparison::corpus_diff_sptr;
 using abigail::comparison::diff_context_sptr;
+using abigail::comparison::string_function_ptr_map;
 
 static PyObject* read_corpus_from_elf(PyObject* self, PyObject* args)
 {
@@ -84,6 +85,68 @@ static PyObject* corpus_diff_report(PyObject* self, PyObject* args)
     return Py_None;
 }
 
+static PyObject* corpus_diff_deleted_functions(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+
+    corpus_diff_sptr ptr = *((corpus_diff_sptr*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob)));
+    PyObject *deleted_functions = PyList_New(0);
+    if (!ptr->deleted_functions().empty()) {
+        for (string_function_ptr_map::const_iterator it =
+            ptr->deleted_functions().begin();
+          it != ptr->deleted_functions().end(); ++it) {
+            PyList_Append(deleted_functions, PyCapsule_New(
+                (void*)it->second, it->first.c_str(), NULL));
+        }
+        return deleted_functions;
+    }
+    return Py_None;
+}
+
+static PyObject* corpus_diff_added_functions(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+
+    corpus_diff_sptr ptr = *((corpus_diff_sptr*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob)));
+    PyObject *added_functions = PyList_New(0);
+    if (!ptr->added_functions().empty()) {
+        for (string_function_ptr_map::const_iterator it =
+            ptr->added_functions().begin();
+          it != ptr->added_functions().end(); ++it) {
+            PyList_Append(added_functions, PyCapsule_New(
+                (void*)it->second, it->first.c_str(), NULL));
+        }
+        return added_functions;
+    }
+    return Py_None;
+}
+
+static PyObject* corpus_diff_deleted_variables(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    return Py_None;
+}
+
+static PyObject* corpus_diff_added_variables(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    return Py_None;
+}
+
 static PyObject* corpus_diff_has_changes(PyObject* self, PyObject* args)
 {
     PyObject *ob;
@@ -106,6 +169,116 @@ static PyObject* corpus_diff_soname_changed(PyObject* self, PyObject* args)
     return PyBool_FromLong(ptr->soname_changed());
 }
 
+static PyObject* function_decl_get_pretty_representation(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyString_FromString(ptr->get_pretty_representation().c_str());
+}
+
+static PyObject* function_decl_get_type(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return Py_None;
+}
+
+static PyObject* function_decl_get_return_type(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return Py_None;
+}
+
+static PyObject* function_decl_get_parameters(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return Py_None;
+}
+
+static PyObject* function_decl_get_symbol(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return Py_None;
+}
+
+static PyObject* function_decl_is_declared_inline(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyBool_FromLong(ptr->is_declared_inline());
+}
+
+static PyObject* function_decl_get_binding(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyInt_FromLong(ptr->get_binding());
+}
+
+static PyObject* function_decl_is_vardict(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyBool_FromLong(ptr->is_variadic());
+}
+
+static PyObject* function_decl_get_hash(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyInt_FromLong(ptr->get_hash());
+}
+
+static PyObject* function_decl_get_id(PyObject* self, PyObject* args)
+{
+    PyObject *ob;
+    if (!PyArg_ParseTuple(args, "O", &ob)) {
+        return Py_None;
+    }
+    function_decl *ptr = (function_decl*) PyCapsule_GetPointer(
+        ob, PyCapsule_GetName(ob));
+    return PyString_FromString(ptr->get_id().c_str());
+}
+
 static PyMethodDef PyliabigailMethods[] =
 {
     {"read_corpus_from_elf", read_corpus_from_elf, METH_VARARGS, "Read all abig\
@@ -113,12 +286,42 @@ static PyMethodDef PyliabigailMethods[] =
         elf file"},
     {"compute_diff", compute_diff, METH_VARARGS, "Computes diff between two\
         corpus"},
+
     {"corpus_diff_report", corpus_diff_report, METH_VARARGS, "Report abi diff in serialized\
         form"},
     {"corpus_diff_has_changes", corpus_diff_has_changes, METH_VARARGS,
         "Checking if ABIdiff has changes"},
+    {"corpus_diff_deleted_functions", corpus_diff_deleted_functions, METH_VARARGS,
+        "Provides details of deleted functions from abi diff generated"},
+    {"corpus_diff_added_functions", corpus_diff_added_functions, METH_VARARGS,
+        "Provides details of added functions from abi diff generated"},
+    {"corpus_diff_deleted_variables", corpus_diff_deleted_variables, METH_VARARGS,
+        "Provides details of deleted variables from abi diff generated"},
+    {"corpus_diff_added_variables", corpus_diff_added_variables, METH_VARARGS,
+        "Provides details of added variables from abi diff generated"},
     {"corpus_diff_soname_changed", corpus_diff_soname_changed, METH_VARARGS,
         "Check if soname of the underying corpus has changed"},
+
+    {"function_decl_get_pretty_representation", function_decl_get_pretty_representation,
+        METH_VARARGS,"Return pretty representation for a function"},
+    {"function_decl_get_type", function_decl_get_type, METH_VARARGS,
+        "Type of current instacne of function_decl"},
+    {"function_decl_get_return_type", function_decl_get_return_type, METH_VARARGS,
+        "Return type of current instance of function_decl"},
+    {"function_decl_get_parameters", function_decl_get_parameters, METH_VARARGS,
+        "Parameters of the function"},
+    {"function_decl_get_symbol", function_decl_get_symbol, METH_VARARGS,
+        "Provides underlying ELF symbol"},
+    {"function_decl_is_declared_inline", function_decl_is_declared_inline, METH_VARARGS,
+        "Check if function is declared inline"},
+    {"function_decl_get_binding", function_decl_get_binding, METH_VARARGS,
+        "Binding of function"},
+    {"function_decl_is_vardict", function_decl_is_vardict, METH_VARARGS,
+        "Check if function takes variable number of parameter"},
+    {"function_decl_get_hash", function_decl_get_hash, METH_VARARGS,
+        "Hash value of function_declaration"},
+    {"function_decl_get_id", function_decl_get_id, METH_VARARGS,
+        "Gives ID which uniquely identify function in library"},
     {NULL, NULL, 0, NULL}
 };
 

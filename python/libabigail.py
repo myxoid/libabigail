@@ -22,8 +22,9 @@
 
 import pylibabigail
 import cStringIO
+import ir
 
-class corpus_diff:
+class CorpusDiff:
     def __init__(self, _obj=None):
         if _obj != None:
             self._o = _obj
@@ -51,6 +52,17 @@ class corpus_diff:
         """
         return pylibabigail.corpus_diff_soname_changed(self._o)
 
+    def deleted_functions(self):
+        """
+        Details about deleted functions from abi diff
+        """
+        return pylibabigail.corpus_diff_deleted_functions(self._o)
+
+    def added_functions(self):
+        """
+        Details about added functions from abi diff
+        """
+        return pylibabigail.corpus_diff_added_functions(self._o)
 
 def enum(**enums):
     return type('Enum', (), enums)
