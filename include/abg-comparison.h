@@ -136,6 +136,10 @@ class class_diff;
 /// Convenience typedef for a shared pointer on a @ref class_diff type.
 typedef shared_ptr<class_diff> class_diff_sptr;
 
+/// Convenience typedef for a shared pointer on a @ref
+/// class_or_union_diff type.
+typedef shared_ptr<class_or_union_diff> class_or_union_diff_sptr;
+
 /// Convenience typedef for a map of pointer values.  The Key is a
 /// pointer value and the value is potentially another pointer value
 /// associated to the first one.
@@ -496,6 +500,12 @@ public:
   string_diff_ptr_map&
   get_fn_parm_diff_map();
 
+  const diff_ptrs_type&
+  get_sorted_leaf_diffs() const;
+
+  diff_ptrs_type&
+  get_sorted_leaf_diffs();
+
   const string_diff_ptr_map&
   get_function_type_diff_map() const;
 
@@ -616,6 +626,9 @@ public:
 
   void
   mark_diff_as_visited(const diff*);
+
+  void
+  mark_diff_as_visited(const diff_sptr&);
 
   void
   forget_visited_diffs();
@@ -1551,6 +1564,14 @@ public:
   edit_script&
   member_class_tmpls_changes();
 
+  const vector<decl_base_sptr>& sorted_deleted_data_members() const;
+
+  const vector<decl_base_sptr>& sorted_inserted_data_members() const;
+
+  const var_diff_sptrs_type& sorted_subtype_changed_data_members() const;
+
+  const var_diff_sptrs_type& sorted_changed_data_members() const;
+
   virtual bool
   has_changes() const;
 
@@ -2292,6 +2313,12 @@ public:
   const string_elf_symbol_map&
   added_unrefed_variable_symbols() const;
 
+  const diff_maps&
+  leaf_diffs() const;
+
+  diff_maps&
+  leaf_diffs();
+
   const diff_context_sptr
   context() const;
 
@@ -2666,6 +2693,9 @@ is_diff_of_class_or_union_type(const diff *d);
 bool
 has_basic_type_change_only(const diff* diff);
 
+bool
+has_local_type_change_only(const diff *d);
+
 const enum_diff*
 is_enum_diff(const diff *diff);
 
@@ -2677,6 +2707,9 @@ is_union_diff(const diff* diff);
 
 const class_or_union_diff*
 is_class_or_union_diff(const diff* d);
+
+const class_or_union_diff_sptr
+is_class_or_union_diff(const diff_sptr& d);
 
 const class_or_union_diff*
 is_anonymous_class_or_union_diff(const diff* d);
@@ -2696,6 +2729,9 @@ is_typedef_diff(const diff *diff);
 const var_diff*
 is_var_diff(const diff* diff);
 
+const var_diff*
+is_data_member_diff(const diff* dif);
+
 const function_decl_diff*
 is_function_decl_diff(const diff* diff);
 
@@ -2707,8 +2743,12 @@ is_reference_diff(const diff* diff);
 
 const qualified_type_diff*
 is_qualified_type_diff(const diff* diff);
+
 bool
 is_reference_or_pointer_diff(const diff* diff);
+
+bool
+is_reference_or_pointer_diff(const diff_sptr &diff);
 
 bool
 is_reference_or_pointer_diff_to_non_basic_distinct_types(const diff* diff);

@@ -480,7 +480,7 @@ static InOutSpec in_out_specs[] =
   {
     "data/test-diff-pkg/spice-server-0.12.4-19.el7.x86_64.rpm",
     "data/test-diff-pkg/spice-server-0.12.8-1.el7.x86_64.rpm",
-    "--no-default-suppression --redundant",
+    "--no-default-suppression",
     "",
     "data/test-diff-pkg/spice-debuginfo-0.12.4-19.el7.x86_64.rpm",
     "data/test-diff-pkg/spice-debuginfo-0.12.8-1.el7.x86_64.rpm",
@@ -492,7 +492,7 @@ static InOutSpec in_out_specs[] =
   {
     "data/test-diff-pkg/libcdio-0.94-1.fc26.x86_64.rpm",
     "data/test-diff-pkg/libcdio-0.94-2.fc26.x86_64.rpm",
-    "--no-default-suppression --redundant",
+    "--no-default-suppression",
     "",
     "data/test-diff-pkg/libcdio-debuginfo-0.94-1.fc26.x86_64.rpm",
     "data/test-diff-pkg/libcdio-debuginfo-0.94-2.fc26.x86_64.rpm",

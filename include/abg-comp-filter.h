@@ -48,6 +48,16 @@ has_virtual_mem_fn_change(const function_decl_diff* diff);
 bool
 has_class_decl_only_def_change(const class_or_union_sptr& first,
 			       const class_or_union_sptr& second);
+
+bool
+has_layout_change(const class_or_union_diff& klass_diff);
+
+bool
+has_layout_change(const class_or_union_diff *klass_diff);
+
+bool
+has_layout_change(const diff_sptr&);
+
 bool
 has_class_decl_only_def_change(const diff *diff);
 
@@ -58,7 +68,8 @@ bool
 has_class_or_union_type_name_change(const diff *d);
 
 bool
-has_basic_or_class_type_name_change(const diff *d);
+has_basic_or_class_type_name_change(const diff *d,
+				    bool look_through_pointers = false);
 
 bool
 is_mostly_distinct_diff(const diff *d);

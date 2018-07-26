@@ -43,7 +43,113 @@ namespace comparison
 /// reporting hasn't been suppressed.
 bool
 leaf_reporter::diff_to_be_reported(const diff *d) const
-{return d && d->to_be_reported() && d->has_local_changes();}
+{return diff_has_local_changes_to_be_reported(d);}
+
+/// Tests if a diff node has local changes that are meant to be
+/// reported, in the context of the current leaf reporter.
+///
+/// @param d the diff node to consider.
+///
+/// @return true iff the diff @p d has a local change that is meant
+/// to be reported.
+bool
+leaf_reporter::diff_has_local_changes_to_be_reported(const diff *d) const
+{
+  if (d->has_local_changes_to_be_reported())
+    {
+      if (const class_or_union_diff *class_dif = is_class_or_union_diff(d))
+	{
+	  if (filtering::has_layout_change(class_dif))
+	    return true;
+	}
+      else
+	{
+	  if (const var_diff* var_dif = is_var_diff(d))
+	    {
+	      ir::change_kind k = var_dif->has_local_changes();
+	      if (k & ir::LOCAL_NON_TYPE_CHANGE_KIND)
+		return true;
+	      if (k & ir::LOCAL_TYPE_CHANGE_KIND)
+		{
+		  if (filtering::has_layout_change(var_dif->type_diff()))
+		    return true;
+		  return false;
+		}
+	      else
+		ABG_ASSERT_NOT_REACHED;
+	    }
+	  return true;
+	}
+    }
+  return false;
+}
+
+/// Sort leaf diff nodes and put the sorted resulted into the
+/// vector returned by diff_maps::get_sorted_leaf_diffs().
+///
+/// @param maps the maps of leaf diff nodes to sort.
+static void
+sort_leaf_diff_nodes(diff_maps& maps)
+{
+  sort_string_diff_ptr_map(maps.get_type_decl_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_enum_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_class_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_union_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_typedef_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_function_decl_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+
+  sort_string_diff_ptr_map(maps.get_var_decl_diff_map(),
+			   maps.get_sorted_leaf_diffs());
+}
+
+/// Given an instance of reporter type and a diff node, report the
+/// changes carried by said diff node, using the reporter.
+///
+/// @param r the reporter to use.
+///
+/// @param dif the diff node to report about.
+///
+/// @param out the output stream to report the changes to.
+///
+/// @param indent the string of indentation characters to use in the
+/// report.
+static void
+report_leaf_diff(const reporter_base& r, diff* dif,
+		 ostream &out, const string& indent)
+{
+  if (const var_diff *d = is_var_diff(dif))
+    if (is_data_member(d->first_var()))
+      return;
+
+  if (dif->reported_once())
+    return;
+
+  if (r.diff_to_be_reported(dif))
+    {
+      string n = dif->first_subject()->get_pretty_representation();
+
+      out << indent << "'" << n ;
+
+      report_loc_info(dif->first_subject(),
+		      *dif->context(), out);
+
+      out << "' changed:\n";
+
+      dif->get_canonical_diff()->report(out, indent + "  ");
+      out << "\n";
+    }
+}
 
 /// Report the changes carried by the diffs contained in an instance
 /// of @ref string_diff_ptr_map.
@@ -92,6 +198,34 @@ report_diffs(const reporter_base& r,
     }
 }
 
+/// Report about the changes carried by a leaf type diff node
+/// reachable from a given @ref corpus_diff node.
+///
+/// @param reporter the reporter to use.
+///
+/// @param cd the corpus diff node to consider
+///
+/// @param out the output stream to emit the report to.
+///
+/// @param indent the indentation string to use in the report.
+static void
+report_leaf_type_changes(const leaf_reporter& reporter,
+			 corpus_diff& cd,
+			 ostream& out, const string& indent)
+{
+  const_cast<leaf_reporter&>(reporter).categorize_redundant_diff_nodes(cd);
+
+  for (diff_ptrs_type::const_iterator i =
+	 cd.leaf_diffs().get_sorted_leaf_diffs().begin();
+       i != cd.leaf_diffs().get_sorted_leaf_diffs().end();
+       ++i)
+    {
+      diff *d = *i;
+      if (is_type_diff(d))
+	report_leaf_diff(reporter, d, out, indent);
+    }
+}
+
 /// Report the type changes carried by an instance of @ref diff_maps.
 ///
 /// @param maps the set of diffs to report.
@@ -128,9 +262,95 @@ report_type_changes_from_diff_maps(const leaf_reporter& reporter,
 
   // distinct diffs
   report_diffs(reporter, maps.get_distinct_diff_map(), out, indent);
+}
 
-  // function parameter diffs
-  report_diffs(reporter, maps.get_fn_parm_diff_map(), out, indent);
+/// Tests if the children of a diff node should be skipped during the
+/// diff graph walk which goal is to detect redundant diff nodes.
+///
+/// This function is called by the @ref redundancy_marking_visitor
+/// pass visitor while walking the diff graph to detect redundant diff
+/// nodes.
+///
+/// @param d the diff node to considerK
+///
+/// @return true if the caller should skip the children nodes of the
+/// diff node @p d, false otherwise.
+bool
+leaf_reporter::skip_children_during_redundancy_detection(const diff *d)
+{
+  // Children of a redundant node shouldn't be visited; they are all
+  // considered redundant if their parent is redundant.
+  if (d->get_category() & REDUNDANT_CATEGORY)
+    return true;
+
+  // We are in the leaf reporter.  In that context, if a data member
+  // diff node has pointer/reference type then its children node
+  // should not be visited.
+  if (const var_diff* var_dif = is_data_member_diff(d))
+    {
+      diff_sptr type_dif = var_dif->type_diff();
+      type_or_decl_base_sptr first_type = type_dif->first_subject();
+      if (is_reference_type(first_type)
+	  || is_pointer_type(first_type)
+	  || is_class_or_union_type(first_type))
+	return true;
+    }
+
+  return false;
+}
+
+/// Notifies the reporter that the children nodes of a given diff node
+/// were skipped during the redundancy detection pass.
+///
+/// @param d the diff node whose children got skipped.
+void
+leaf_reporter::notify_children_nodes_skiped_during_redundancy_detection
+(const diff *d)
+{
+  if (const var_diff* var_dif = is_data_member_diff(d))
+    {
+      diff_sptr type_dif = var_dif->type_diff();
+      type_or_decl_base_sptr first_type = type_dif->first_subject();
+      if (is_class_or_union_type(first_type))
+	{
+	  redundancy_marking_visitor::
+	    maybe_mark_diff_node_as_redundant(type_dif);
+	  d->context()->mark_diff_as_visited(type_dif);
+
+	  if (type_dif->get_category() & REDUNDANT_CATEGORY
+	      && has_local_type_change_only(var_dif))
+	    // The diff of the type of the variable diff is marked
+	    // redundant and the variable doesn't have any other local
+	    // change, then mark the variable diff as redundant as
+	    // well.
+	    const_cast<var_diff*>(var_dif)->add_to_category(REDUNDANT_CATEGORY);
+	}
+    }
+}
+
+/// Walk the graph of diff nodes related to a given corpus diff, to
+/// detect redundant nodes.
+///
+/// @param cd the corpus diff node to consider.
+void
+leaf_reporter::categorize_redundant_diff_nodes(corpus_diff& cd)
+{
+  if (cd.leaf_diffs().get_sorted_leaf_diffs().empty())
+    {
+      sort_leaf_diff_nodes(cd.leaf_diffs());
+      cd.context()->forget_visited_diffs();
+      for (diff_ptrs_type::const_iterator i =
+	     cd.leaf_diffs().get_sorted_leaf_diffs().begin();
+	   i != cd.leaf_diffs().get_sorted_leaf_diffs().end();
+	   ++i)
+	{
+	  // We don't want to include types reachable from functions
+	  // and variables into the count of leaf type nodes.
+	  if (is_function_decl_diff(*i) || is_var_diff(*i))
+	    cd.context()->forget_visited_diffs();
+	  categorize_redundancy(*i);
+	}
+    }
 }
 
 /// Report the changes carried by an instance of @ref diff_maps.
@@ -1229,8 +1449,7 @@ leaf_reporter::report(const corpus_diff& d,
     }
 
   // Now show the changed types.
-  const diff_maps& leaf_diffs = d.get_leaf_diffs();
-  report_type_changes_from_diff_maps(*this, leaf_diffs, out, indent);
+  report_leaf_type_changes(*this, const_cast<corpus_diff&>(d), out, indent);
 }
 } // end namespace comparison
 } // end namespace abigail

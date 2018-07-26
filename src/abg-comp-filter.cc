@@ -169,19 +169,40 @@ type_size_changed(const decl_base_sptr f, const decl_base_sptr s)
 ///
 /// @return true if @p diff carries a type size change.
 static bool
-has_type_size_change(const diff* diff)
+has_type_size_change(const diff& diff)
 {
-  if (!diff)
-    return false;
-
-  type_base_sptr f = is_type(diff->first_subject()),
-    s = is_type(diff->second_subject());
+  type_base_sptr f = is_type(diff.first_subject()),
+    s = is_type(diff.second_subject());
 
   if (!f || !s)
     return false;
 
   return type_size_changed(f, s);
 }
+
+/// Test if a given type diff node carries a type size change.
+///
+/// @param diff the diff tree node to test.
+///
+/// @return true if @p diff carries a type size change.
+static bool
+has_type_size_change(const diff_sptr& diff)
+{return has_type_size_change(*diff);}
+
+/// Test if a given type diff node carries a type size change.
+///
+/// @param diff the diff tree node to test.
+///
+/// @return true if @p diff carries a type size change.
+static bool
+has_type_size_change(const diff* diff)
+{
+  if (!diff)
+    return false;
+
+  return has_type_size_change(*diff);
+}
+
 /// Tests if the access specifiers for a member declaration changed.
 ///
 /// @param f the declaration for the first version of the member
@@ -824,6 +845,150 @@ has_class_decl_only_def_change(const diff *diff)
   return has_class_decl_only_def_change(f, s);
 }
 
+/// Tests if a given @ref var_diff carries an offset change.
+///
+/// @param d the @ref var_diff to consider.
+///
+/// @return true iff @p d carries an offset change.
+static bool
+has_offset_change(const var_diff& d)
+{
+  var_decl_sptr f = d.first_var(), s = d.second_var();
+  if (get_data_member_offset(f) != get_data_member_offset(s))
+    return true;
+  return false;
+}
+
+/// Tests if a given @ref var_diff carries an offset change.
+///
+/// @param d the @ref var_diff to consider.
+///
+/// @return true iff @p d carries an offset change.
+static bool
+has_offset_change(const var_diff_sptr& d)
+{return has_offset_change(*d);}
+
+
+/// Tests if a given diff node carries layout changes.
+///
+/// In a class or union diff change, a layout change is a change that
+/// involves either one of the following:
+///   - a data member insertation or removal
+///   - a size change
+///   - a member offset change
+///
+/// Note that for now, only instance of @ref class_or_union_diff diff
+/// nodes can carry layout changes.
+///
+/// @param d the diff node to consider.
+///
+/// @return true iff @p d carries layout changes.
+bool
+has_layout_change(const class_or_union_diff& d)
+{
+  // Detect if a data member got inserted or removed
+  if (!d.sorted_inserted_data_members().empty()
+      || !d.sorted_deleted_data_members().empty())
+    return true;
+
+  // Detect size change
+  if (has_type_size_change(d))
+    return true;
+
+  // Detect offset changes
+  for (var_diff_sptrs_type::const_iterator i =
+	 d.sorted_subtype_changed_data_members().begin();
+       i != d.sorted_subtype_changed_data_members().end();
+       ++i)
+    {
+      const var_diff_sptr vd = *i;
+      // If there is a data member whose offset/size changed or if its
+      // type name changed (e.g, int* to char*) then yes, we do have
+      // what we consider a layout change.  OK, granted int* to char*
+      // is not really a layout change, but let's consider it as such
+      // for now.  It's a change that is worth showing in the context
+      // of local changes of a class anyhow.
+      if (has_offset_change(vd)
+	  || has_basic_or_class_type_name_change(vd->type_diff().get(),
+						 true))
+	return true;
+    }
+
+  for (var_diff_sptrs_type::const_iterator i =
+	 d.sorted_changed_data_members().begin();
+       i != d.sorted_changed_data_members().end();
+       ++i)
+    {
+      const var_diff_sptr vd = *i;
+      // If there is a data member whose offset/size changed or if its
+      // type name changed (e.g, int* to char*) then yes, we do have
+      // what we consider a layout change.  OK, granted int* to char*
+      // is not really a layout change, but let's consider it as such
+      // for now.  It's a change that is worth showing in the context
+      // of local changes of a class anyhow.
+      if (has_offset_change(vd)
+	  || has_basic_or_class_type_name_change(vd->type_diff().get(),
+						 true))
+	return true;
+    }
+
+  // TODO: detect virtual member function offset changes
+
+  return false;
+}
+
+/// Tests if a given diff node carries layout changes.
+///
+/// In a class or union diff change, a layout change is a change that
+/// involves either one of the following:
+///   - a data member insertation or removal
+///   - a size change
+///   - a member offset change
+///
+/// Note that for now, only instance of @ref class_or_union_diff diff
+/// nodes can carry layout changes.
+///
+/// @param d the diff node to consider.
+///
+/// @return true iff @p d carries layout changes.
+bool
+has_layout_change(const class_or_union_diff *d)
+{
+  if (d)
+    return has_layout_change(*d);
+  return false;
+}
+
+/// Tests if a given diff node carries layout changes.
+///
+/// In a class or union diff change, a layout change is a change that
+/// involves either one of the following:
+///   - a data member insertation or removal
+///   - a size change
+///   - a member offset change
+///   - a type change of a member where the name of the type changed.
+///
+/// In a pointer type diff change a layout change is a change with
+/// modifies the name or the size of the type.
+///
+/// Note that for now, only instance of @ref class_or_union_diff or
+/// @ref pointer_diff nodes can carry layout changes.
+///
+/// @param d the diff node to consider.
+///
+/// @return true iff @p d carries layout changes.
+bool
+has_layout_change(const diff_sptr& d)
+{
+  if (has_type_size_change(d))
+    return true;
+  if (class_or_union_diff_sptr class_dif= is_class_or_union_diff(d))
+    return has_layout_change(class_dif.get());
+  if (const pointer_diff *ptr_diff = is_pointer_diff(d.get()))
+    return has_basic_or_class_type_name_change(ptr_diff, true);
+  return false;
+}
+
 /// Test if a diff node carries a basic type name change.
 ///
 /// @param d the diff node to consider.
@@ -859,11 +1024,20 @@ has_class_or_union_type_name_change(const diff *d)
 ///
 /// @param d the diff node to consider.
 ///
+/// @param look_through_decl_only_class if true, it means this
+/// function won't just look at basic or class types but will also
+/// look through pointer and reference types.
+///
 /// @return true iff the diff node carries a basic or class type name
 /// change.
 bool
-has_basic_or_class_type_name_change(const diff *d)
+has_basic_or_class_type_name_change(const diff *d,
+				    bool look_through_pointers)
 {
+  if (look_through_pointers)
+    if (is_pointer_diff(d) || is_qualified_type_diff(d))
+      d = peel_pointer_or_qualified_type(d);
+
   return (has_basic_type_name_change(d)
 	  || has_class_or_union_type_name_change(d));
 }

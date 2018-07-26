@@ -467,7 +467,8 @@ represent(const var_diff_sptr	&diff,
     }
   else if (diff_sptr d = diff->type_diff())
     {
-      if (local_only && d->has_local_changes())
+      if (local_only
+	  && ctxt->get_reporter()->diff_has_local_changes_to_be_reported(d.get()))
 	{
 	  std::ostringstream out_buffer;
 	    out_buffer

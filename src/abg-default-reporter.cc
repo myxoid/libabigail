@@ -35,6 +35,79 @@ namespace abigail
 namespace comparison
 {
 
+/// Tests if the children of a diff node should be skipped during the
+/// diff graph walk which goal is to detect redundant diff nodes.
+///
+/// This function is called by the @ref redundancy_marking_visitor
+/// pass visitor while walking the diff graph to detect redundant diff
+/// nodes.
+///
+/// @param d the diff node to considerK
+///
+/// @return true if the caller should skip the children nodes of the
+/// diff node @p d, false otherwise.
+bool
+default_reporter::skip_children_during_redundancy_detection(const diff *d)
+{
+  // Children of a redundant node shouldn't be visited; they are all
+  // considered redundant if their parent is redundant.
+  if (d->get_category() & REDUNDANT_CATEGORY)
+    return true;
+  return false;
+}
+
+/// Notifies the reporter that the children nodes of a given diff node
+/// were skipped during the redundancy detection pass.
+///
+/// @param d the diff node whose children got skipped.
+void
+default_reporter::notify_children_nodes_skiped_during_redundancy_detection
+(const diff *)
+{
+}
+
+/// Tests if a diff node has local changes that are meant to be
+/// reported, in the context of the current reporter.
+///
+/// @param d the diff node to consider.
+///
+/// @return true iff the diff @p d has a local change that is meant
+/// to be reported.
+bool
+default_reporter::diff_has_local_changes_to_be_reported(const diff *d) const
+{return d->has_local_changes_to_be_reported();}
+
+/// Walk the graph of diff nodes related to a given corpus diff, to
+/// detect redundant nodes.
+///
+/// @param cd the corpus diff node to consider.
+void
+default_reporter::categorize_redundant_diff_nodes(corpus_diff& cd)
+{
+  diff_sptr diff;
+
+  diff_context_sptr ctxt = cd.context();
+
+  ctxt->forget_visited_diffs();
+  for (function_decl_diff_sptrs_type::const_iterator i =
+	 cd.changed_functions_sorted().begin();
+       i!= cd.changed_functions_sorted().end();
+       ++i)
+    {
+      diff = *i;
+      categorize_redundancy(diff);
+    }
+
+  for (var_diff_sptrs_type::const_iterator i =
+	 cd.changed_variables_sorted().begin();
+       i!= cd.changed_variables_sorted().end();
+       ++i)
+    {
+      diff_sptr diff = *i;
+      categorize_redundancy(diff);
+    }
+}
+
 /// Ouputs a report of the differences between of the two type_decl
 /// involved in the @ref type_decl_diff.
 ///
@@ -1010,13 +1083,10 @@ default_reporter::report(const class_or_union_diff& d,
 	{
 	  report_mem_header(out, numdels, 0, del_kind,
 			    "data member", indent);
-	  vector<decl_base_sptr> sorted_dms;
-	  sort_data_members
-	    (d.class_or_union_diff::get_priv()->deleted_data_members_,
-	     sorted_dms);
 	  bool emitted = false;
-	  for (vector<decl_base_sptr>::const_iterator i = sorted_dms.begin();
-	       i != sorted_dms.end();
+	  for (vector<decl_base_sptr>::const_iterator i =
+		 d.sorted_deleted_data_members().begin();
+	       i != d.sorted_deleted_data_members().end();
 	       ++i)
 	    {
 	      var_decl_sptr data_mem =
@@ -1041,12 +1111,9 @@ default_reporter::report(const class_or_union_diff& d,
 	{
 	  report_mem_header(out, numins, 0, ins_kind,
 			    "data member", indent);
-	  vector<decl_base_sptr> sorted_dms;
-	  sort_data_members
-	    (d.class_or_union_diff::get_priv()->inserted_data_members_,
-	     sorted_dms);
-	  for (vector<decl_base_sptr>::const_iterator i = sorted_dms.begin();
-	       i != sorted_dms.end();
+	  for (vector<decl_base_sptr>::const_iterator i =
+		 d.sorted_inserted_data_members().begin();
+	       i != d.sorted_inserted_data_members().end();
 	       ++i)
 	    {
 	      var_decl_sptr data_mem =
@@ -1059,7 +1126,7 @@ default_reporter::report(const class_or_union_diff& d,
 
       // report change
       size_t numchanges =
-	d.class_or_union_diff::get_priv()->sorted_subtype_changed_dm_.size();
+	d.sorted_subtype_changed_data_members().size();
       size_t num_filtered =
 	d.class_or_union_diff::get_priv()->count_filtered_subtype_changed_dm();
       if (numchanges)
@@ -1067,8 +1134,8 @@ default_reporter::report(const class_or_union_diff& d,
 	  report_mem_header(out, numchanges, num_filtered,
 			    subtype_change_kind, "data member", indent);
 	  for (var_diff_sptrs_type::const_iterator it =
-		 d.class_or_union_diff::get_priv()->sorted_subtype_changed_dm_.begin();
-	       it != d.class_or_union_diff::get_priv()->sorted_subtype_changed_dm_.end();
+		 d.sorted_subtype_changed_data_members().begin();
+	       it != d.sorted_subtype_changed_data_members().end();
 	       ++it)
 	    {
 	      if ((*it)->to_be_reported())
@@ -1079,7 +1146,7 @@ default_reporter::report(const class_or_union_diff& d,
 	    }
 	}
 
-      numchanges = d.class_or_union_diff::get_priv()->sorted_changed_dm_.size();
+      numchanges = d.sorted_changed_data_members().size();
       num_filtered =
 	d.class_or_union_diff::get_priv()->count_filtered_changed_dm();
       if (numchanges)
@@ -1087,8 +1154,8 @@ default_reporter::report(const class_or_union_diff& d,
 	  report_mem_header(out, numchanges, num_filtered,
 			    change_kind, "data member", indent);
 	  for (var_diff_sptrs_type::const_iterator it =
-		 d.class_or_union_diff::get_priv()->sorted_changed_dm_.begin();
-	       it != d.class_or_union_diff::get_priv()->sorted_changed_dm_.end();
+		 d.sorted_changed_data_members().begin();
+	       it != d.sorted_changed_data_members().end();
 	       ++it)
 	    {
 	      if ((*it)->to_be_reported())

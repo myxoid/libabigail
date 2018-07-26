@@ -64,8 +64,6 @@ class reporter_base
 {
 public:
 
-  virtual bool diff_to_be_reported(const diff *d) const;
-
   virtual void
   report(const type_decl_diff& d, ostream& out,
 	 const string& indent = "") const = 0;
@@ -141,6 +139,47 @@ public:
   report(const corpus_diff& d, ostream& out,
 	 const string& indent = "") const = 0;
 
+/// Notifies the reporter that the children nodes of a given diff node
+/// were skipped during the redundancy detection pass.
+///
+/// @param d the diff node whose children got skipped.
+  virtual void categorize_redundant_diff_nodes(corpus_diff&) = 0;
+
+/// Tests if the children of a diff node should be skipped during the
+/// diff graph walk which goal is to detect redundant diff nodes.
+///
+/// This function is called by the @ref redundancy_marking_visitor
+/// pass visitor while walking the diff graph to detect redundant diff
+/// nodes.
+///
+/// @param d the diff node to considerK
+///
+/// @return true if the caller should skip the children nodes of the
+/// diff node @p d, false otherwise.
+  virtual bool skip_children_during_redundancy_detection(const diff *d) = 0;
+
+/// Notifies the reporter that the children nodes of a given diff node
+/// were skipped during the redundancy detection pass.
+///
+/// @param d the diff node whose children got skipped.
+  virtual void notify_children_nodes_skiped_during_redundancy_detection(const diff *) = 0;
+
+  /// Tests if a diff node has local changes that are meant to be
+  /// reported, in the context of the current reporter.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true iff the diff @p d has a local change that is meant
+  /// to be reported.
+  virtual bool diff_has_local_changes_to_be_reported(const diff *d) const = 0;
+
+  /// Test if a given diff node is meant to be reported in the context
+  /// of the current reporter.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true if @p d is meant to be reported.
+  virtual bool diff_to_be_reported(const diff *d) const;
 }; //end class reporter_base
 
 class default_reporter;
@@ -240,14 +279,27 @@ public:
   virtual void
   report(const corpus_diff& d, ostream& out,
 	 const string& indent = "") const;
+
+  virtual bool skip_children_during_redundancy_detection(const diff *d);
+
+  virtual void notify_children_nodes_skiped_during_redundancy_detection(const diff *);
+
+  /// Tests if a diff node has local changes that are meant to be
+  /// reported, in the context of the current reporter.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true iff the diff @p d has a local change that is meant
+  /// to be reported.
+virtual bool diff_has_local_changes_to_be_reported(const diff *) const;
+
+  virtual void categorize_redundant_diff_nodes(corpus_diff&);
 }; // end class default_reporter
 
 /// A reporter that only reports leaf changes
 class leaf_reporter : public default_reporter
 {
 public:
-
-  virtual bool diff_to_be_reported(const diff *d) const;
 
   void
   report_changes_from_diff_maps(const diff_maps&,
@@ -311,6 +363,25 @@ public:
   virtual void
   report(const corpus_diff& d, ostream& out,
 	 const string& indent = "") const;
+
+  virtual bool skip_children_during_redundancy_detection(const diff *d);
+
+  virtual void notify_children_nodes_skiped_during_redundancy_detection
+  (const diff *);
+
+  virtual bool diff_to_be_reported(const diff *d) const;
+
+  /// Tests if a diff node has local changes that are meant to be
+  /// reported, in the context of the current reporter.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true iff the diff @p d has a local change that is meant
+  /// to be reported.
+  virtual bool diff_has_local_changes_to_be_reported(const diff *) const;
+
+  virtual void categorize_redundant_diff_nodes(corpus_diff&);
+
 }; // end class leaf_reporter
 
 } // end namespace comparison

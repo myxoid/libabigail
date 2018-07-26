@@ -628,6 +628,16 @@ const class_or_union_diff*
 is_class_or_union_diff(const diff* d)
 {return dynamic_cast<const class_or_union_diff*>(d);}
 
+/// Test if a diff node is a @ref class_or_union_diff node.
+///
+/// @param d the diff node to consider.
+///
+/// @return a non-nil pointer to the @ref class_or_union_diff denoted
+/// by @p d iff @p d is a @ref class_or_union_diff.
+const class_or_union_diff_sptr
+is_class_or_union_diff(const diff_sptr& d)
+{return dynamic_pointer_cast<class_or_union_diff>(d);}
+
 /// Test if a diff node is a @ref class_or_union_diff between two
 /// anonymous classes or unions.
 ///
@@ -707,6 +717,27 @@ is_var_diff(const diff* diff)
   return d;
 }
 
+/// Test if a diff node carries a data member change.
+///
+/// @param dif the diff node to consider.
+///
+/// @return the var_diff* that @p dif converts to if it carries a data
+/// member change, nil otherwise.
+const var_diff*
+is_data_member_diff(const diff* dif)
+{
+  const var_diff *d = is_var_diff(dif);
+  if (!d)
+    return 0;
+
+  var_decl_sptr f = d->first_var(), s = d->second_var();
+
+  if (is_data_member(f) && is_data_member(s))
+    return d;
+
+  return 0;
+}
+
 /// Test if a diff node is about differences between functions.
 ///
 /// @param diff the diff node to test.
@@ -770,6 +801,18 @@ is_reference_or_pointer_diff(const diff* diff)
   diff = peel_typedef_diff(diff);
   return is_reference_diff(diff) || is_pointer_diff(diff);
 }
+
+/// Test if a diff node is either a reference diff node or a pointer
+/// diff node.  Note that this function also works on diffs of
+/// typedefs of reference or pointer.
+///
+/// @param diff the diff node to test.
+///
+/// @return true iff @p diff is either reference diff node or a
+/// pointer diff node.
+bool
+is_reference_or_pointer_diff(const diff_sptr &diff)
+{return is_reference_or_pointer_diff(diff.get());}
 
 /// Test if a diff node is a reference or pointer diff node to a
 /// change that is neither basic type change nor distinct type change.
@@ -882,7 +925,7 @@ is_child_node_of_base_diff(const diff* diff)
 ///
 /// @return true iff the current diff node has an ancestor node that
 /// has been filtered out.
-static bool
+bool
 diff_has_ancestor_filtered_out(const diff* d,
 			       unordered_map<size_t, bool>& ancestors)
 {
@@ -910,7 +953,7 @@ diff_has_ancestor_filtered_out(const diff* d,
 ///
 /// @return true iff the current diff node has an ancestor node that
 /// has been filtered out.
-static bool
+bool
 diff_has_ancestor_filtered_out(const diff* diff)
 {
   unordered_map<size_t, bool> ancestors_trace;
@@ -1302,6 +1345,17 @@ diff_context::mark_diff_as_visited(const diff* d)
    priv_->visited_diff_nodes_[canonical_ptr_value] = diff_ptr_value;
 }
 
+/// Mark a diff node as traversed by a traversing algorithm.
+///
+/// Actually, it's the @ref CanonicalDiff "canonical diff" of this
+/// node that is marked as traversed.
+///
+/// Subsequent invocations of diff_has_been_visited() on the diff node
+/// will yield true.
+void
+diff_context::mark_diff_as_visited(const diff_sptr& d)
+{return mark_diff_as_visited(d.get());}
+
 /// Unmark all the diff nodes that were marked as being traversed.
 void
 diff_context::forget_visited_diffs()
@@ -1501,18 +1555,6 @@ diff_context::show_leaf_changes_only(bool f)
   assert(priv_->reporter_ == 0);
 
   priv_->leaf_changes_only_ = f;
-  // So when we are showing only leaf changes, we want to show
-  // redundant changes because of this: Suppose several functions have
-  // their return type changed from void* to int*.  We want them all
-  // to be reported.  In that case the change is not redundant.  As
-  // far as user-defined type changes (like struct/class) they are
-  // already put inside a map which makes them be non-redundant, so we
-  // don't have to worry about that case.
-  //
-  // TODO: maybe that in this case we should avoid firing the
-  // redundancy analysis pass altogether.  That could help save a
-  // couple of CPU cycle here and there!
-  priv_->show_redundant_changes_ = f;
 }
 
 /// Get the flag that indicates if the diff using this context should
@@ -4639,10 +4681,15 @@ class_or_union_diff::ensure_lookup_tables_populated(void) const
 	  (i->second->second_var()->get_qualified_name());
       }
   }
+
   sort_string_data_member_diff_sptr_map(priv_->subtype_changed_dm_,
 					priv_->sorted_subtype_changed_dm_);
   sort_unsigned_data_member_diff_sptr_map(priv_->changed_dm_,
 					  priv_->sorted_changed_dm_);
+  sort_data_members(priv_->deleted_data_members_,
+		    priv_->sorted_deleted_data_members_);
+  sort_data_members(priv_->inserted_data_members_,
+		    priv_->sorted_inserted_data_members_);
 
   {
     edit_script& e = priv_->member_class_tmpls_changes_;
@@ -4863,6 +4910,34 @@ class_or_union_diff::member_class_tmpls_changes() const
 edit_script&
 class_or_union_diff::member_class_tmpls_changes()
 {return get_priv()->member_class_tmpls_changes_;}
+
+/// @return the sorted vector of deleted data members.
+const vector<decl_base_sptr>&
+class_or_union_diff::sorted_deleted_data_members() const
+{return get_priv()->sorted_deleted_data_members_;}
+
+/// @return the sorted vector of inserted data members.
+const vector<decl_base_sptr>&
+class_or_union_diff::sorted_inserted_data_members() const
+{return get_priv()->sorted_inserted_data_members_;}
+
+/// @return the sorted vector of data members which sub-type changed.
+const var_diff_sptrs_type&
+class_or_union_diff::sorted_subtype_changed_data_members() const
+{return get_priv()->sorted_subtype_changed_dm_;}
+
+/// Getter of the sorted set of changed data members that can be represented
+/// as a data member foo that got removed from offset N and a data
+/// member bar that got inserted at offset N.
+///
+/// IOW, this can be translated as data member foo that got changed
+/// into data member bar at offset N.
+///
+/// @return the sorted vector of data members that got changed into
+/// other data members at a given offset.
+const var_diff_sptrs_type&
+class_or_union_diff::sorted_changed_data_members() const
+{return get_priv()->sorted_changed_dm_;}
 
 /// Test if the current diff node carries a change.
 bool
@@ -7352,6 +7427,7 @@ struct diff_maps::priv
   string_diff_ptr_map distinct_diff_map_;
   string_diff_ptr_map fn_parm_diff_map_;
   diff_artifact_set_map_type impacted_artifacts_map_;
+  diff_ptrs_type sorted_leaf_diffs_;
 }; // end struct diff_maps::priv
 
 /// Default constructor of the @ref diff_maps type.
@@ -7470,6 +7546,24 @@ diff_maps::get_fn_parm_diff_map() const
 string_diff_ptr_map&
 diff_maps::get_fn_parm_diff_map()
 {return priv_->fn_parm_diff_map_;}
+
+/// Getter of the vector of sorted leaf diff nodes.  This is the one
+/// that is to be walked for redundancy detection and then for
+/// reporting.
+///
+/// @return the vector of sorted leaf diff nodes.
+const diff_ptrs_type&
+diff_maps::get_sorted_leaf_diffs() const
+{return priv_->sorted_leaf_diffs_;}
+
+/// Getter of the vector of sorted leaf diff nodes.  This is the one
+/// that is to be walked for redundancy detection and then for
+/// reporting.
+///
+/// @return the vector of sorted leaf diff nodes.
+diff_ptrs_type&
+diff_maps::get_sorted_leaf_diffs()
+{return priv_->sorted_leaf_diffs_;}
 
 /// Getter of the map that contains function type diffs.
 ///
@@ -9086,40 +9180,27 @@ void
 corpus_diff::priv::count_leaf_type_changes(size_t &num_changes,
 					   size_t &num_filtered)
 {
-  do_count_diff_map_changes(leaf_diffs_.get_type_decl_diff_map(),
-    num_changes, num_filtered);
   do_count_diff_map_changes(leaf_diffs_.get_enum_diff_map(),
     num_changes, num_filtered);
   do_count_diff_map_changes(leaf_diffs_.get_class_diff_map(),
     num_changes, num_filtered);
   do_count_diff_map_changes(leaf_diffs_.get_union_diff_map(),
     num_changes, num_filtered);
-  do_count_diff_map_changes(leaf_diffs_.get_typedef_diff_map(),
-    num_changes, num_filtered);
-  do_count_diff_map_changes(leaf_diffs_.get_array_diff_map(),
-    num_changes, num_filtered);
-  do_count_diff_map_changes(leaf_diffs_.get_distinct_diff_map(),
-    num_changes, num_filtered);
-  do_count_diff_map_changes(leaf_diffs_.get_fn_parm_diff_map(),
-			    num_changes, num_filtered);
 }
 
-/// Compute the diff stats.
+/// Compute the diff stats for a given corpus diff.
 ///
 /// To know the number of functions that got filtered out, this
 /// function applies the categorizing filters to the diff sub-trees of
 /// each function changes diff, prior to calculating the stats.
 ///
-/// @param num_removed the number of removed functions.
+/// @param stat out parameter. The diff stats to compute.
 ///
-/// @param num_added the number of added functions.
+/// @param cd the corpus diff to compute the diff stat for.
 ///
-/// @param num_changed the number of changed functions.
-///
-/// @param num_filtered_out the number of changed functions that are
-/// got filtered out from the report
 void
-corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
+corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat,
+							corpus_diff& cd)
 
 {
   stat.num_func_removed(deleted_fns_.size());
@@ -9158,7 +9239,7 @@ corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
       ctxt->maybe_apply_filters(diff);
     }
 
-  categorize_redundant_changed_sub_nodes();
+  ctxt->get_reporter()->categorize_redundant_diff_nodes(cd);
 
   // Walk the changed function diff nodes to count the number of
   // filtered-out functions and the number of functions with virtual
@@ -9515,6 +9596,8 @@ corpus_diff::priv::clear_redundancy_categorization()
 /// variables and functions) on the error output stream, then just do
 /// that.
 ///
+/// @param corpus the corpus diff node to dump.
+///
 /// This function is used for debugging purposes.
 void
 corpus_diff::priv::maybe_dump_diff_tree()
@@ -9777,6 +9860,20 @@ const string_elf_symbol_map&
 corpus_diff::added_unrefed_variable_symbols() const
 {return priv_->added_unrefed_var_syms_;}
 
+/// Getter of the leaf diff nodes.
+///
+/// @return the leaf diff nodes.
+const diff_maps&
+corpus_diff::leaf_diffs() const
+{return priv_->leaf_diffs_;}
+
+/// Getter of the leaf diff nodes.
+///
+/// @return the leaf diff nodes.
+diff_maps&
+corpus_diff::leaf_diffs()
+{return priv_->leaf_diffs_;}
+
 /// Getter of the diff context of this diff
 ///
 /// @return the diff context for this diff.
@@ -9933,7 +10030,7 @@ corpus_diff::apply_filters_and_suppressions_before_reporting()
   apply_suppressions(this);
   priv_->diff_stats_.reset(new diff_stats(context()));
   mark_leaf_diff_nodes();
-  priv_->apply_filters_and_compute_diff_stats(*priv_->diff_stats_);
+  priv_->apply_filters_and_compute_diff_stats(*priv_->diff_stats_, *this);
   return *priv_->diff_stats_;
 }
 
@@ -10937,223 +11034,6 @@ print_diff_tree(corpus_diff_sptr diff_tree,
 		std::ostream& o)
 {print_diff_tree(diff_tree.get(), o);}
 
-// <redundancy_marking_visitor>
-
-/// A tree visitor to categorize nodes with respect to the
-/// REDUNDANT_CATEGORY.  That is, detect if a node is redundant (is
-/// present on several spots of the tree) and mark such nodes
-/// appropriatly.  This visitor also takes care of propagating the
-/// REDUNDANT_CATEGORY of a given node to its parent nodes as
-/// appropriate.
-struct redundancy_marking_visitor : public diff_node_visitor
-{
-  bool skip_children_nodes_;
-
-  redundancy_marking_visitor()
-    : skip_children_nodes_()
-  {}
-
-  virtual void
-  visit_begin(diff* d)
-  {
-    if (d->to_be_reported())
-      {
-	// A diff node that carries a change and that has been already
-	// traversed elsewhere is considered redundant.  So let's mark
-	// it as such and let's not traverse it; that is, let's not
-	// visit its children.
-	if ((d->context()->diff_has_been_visited(d)
-	     || d->get_canonical_diff()->is_traversing())
-	    && d->has_changes())
-	  {
-	    // But if two diff nodes are redundant sibbling that carry
-	    // changes of base types, do not mark them as being
-	    // redundant.  This is to avoid marking nodes as redundant
-	    // in this case:
-	    //
-	    //     int foo(int a, int b);
-	    // compared with:
-	    //     float foo(float a, float b); (in C).
-	    //
-	    // In this case, we want to report all the occurences of
-	    // the int->float change because logically, they are at
-	    // the same level in the diff tree.
-
-	    bool redundant_with_sibling_node = false;
-	    const diff* p = d->parent_node();
-
-	    // If this is a child node of a fn_parm_diff, look through
-	    // the fn_parm_diff node to get the function diff node.
-	    if (p && dynamic_cast<const fn_parm_diff*>(p))
-	      p = p->parent_node();
-
-	    if (p)
-	      for (vector<diff*>::const_iterator s =
-		     p->children_nodes().begin();
-		   s != p->children_nodes().end();
-		   ++s)
-		{
-		  if (*s == d)
-		    continue;
-		  diff* sib = *s;
-		  // If this is a fn_parm_diff, look through the
-		  // fn_parm_diff node to get at the real type node.
-		  if (fn_parm_diff* f = dynamic_cast<fn_parm_diff*>(*s))
-		    sib = f->type_diff().get();
-		  if (sib == d)
-		    continue;
-		  if (sib->get_canonical_diff() == d->get_canonical_diff()
-		      // Sibbling diff nodes that carry base type
-		      // changes ar to be marked as redundant.
-		      && (is_base_diff(sib) || is_distinct_diff(sib)))
-		    {
-		      redundant_with_sibling_node = true;
-		      break;
-		    }
-		}
-	    if (!redundant_with_sibling_node
-		// Changes to basic types should never be considered
-		// redundant.  For instance, if a member of integer
-		// type is changed into a char type in both a struct A
-		// and a struct B, we want to see both changes.
-		&& !has_basic_type_change_only(d)
-		// The same goes for distinct type changes
-		&& !filtering::is_mostly_distinct_diff(d)
-		// Functions with similar *local* changes are never marked
-		// redundant because otherwise one could miss important
-		// similar local changes that are applied to different
-		// functions.
-		&& !is_function_type_diff_with_local_changes(d)
-		// Changes involving variadic parameters of functions
-		// should never be marked redundant because we want to see
-		// them all.
-		&& !is_diff_of_variadic_parameter(d)
-		&& !is_diff_of_variadic_parameter_type(d)
-		// If the canonical diff itself has been filtered out,
-		// then this one is not marked redundant, obviously.
-		&& !d->get_canonical_diff()->is_filtered_out()
-		&& !(diff_has_ancestor_filtered_out
-		     (d->context()->
-		      get_last_visited_diff_of_class_of_equivalence(d)))
-		// If the *same* diff node (not one that is merely
-		// equivalent to this one) has already been visited
-		// the do not mark it as beind redundant.  It's only
-		// the other nodes that are equivalent to this one
-		// that must be marked redundant.
-		&& d->context()->diff_has_been_visited(d) != d
-		// If the diff node is a function parameter and is not
-		// a reference/pointer (to a non basic or a non
-		// distinct type diff) then do not mark it as
-		// redundant.
-		//
-		// Children nodes of base class diff nodes are never
-		// redundant either, we want to see them all.
-		&& (is_reference_or_ptr_diff_to_non_basic_nor_distinct_types(d)
-		    || (!is_child_node_of_function_parm_diff(d)
-			&& !is_child_node_of_base_diff(d))))
-	      {
-		d->add_to_category(REDUNDANT_CATEGORY);
-		// As we said in preamble, as this node is marked as
-		// being redundant, let's not visit its children.
-		// This is not an optimization; it's needed for
-		// correctness.  In the case of a diff node involving
-		// a class type that refers to himself, visiting the
-		// children nodes might cause them to be wrongly
-		// marked as redundant.
-		set_visiting_kind(get_visiting_kind()
-				  | SKIP_CHILDREN_VISITING_KIND);
-		skip_children_nodes_ = true;
-	      }
-	  }
-      }
-    else
-      {
-	// If the node is not to be reported, do not look at it children.
-	set_visiting_kind(get_visiting_kind() | SKIP_CHILDREN_VISITING_KIND);
-	skip_children_nodes_ = true;
-      }
-
-    d->context()->mark_last_diff_visited_per_class_of_equivalence(d);
-  }
-
-  virtual void
-  visit_begin(corpus_diff*)
-  {
-  }
-
-  virtual void
-  visit_end(diff* d)
-  {
-    if (skip_children_nodes_)
-      // When visiting this node, we decided to skip its children
-      // node.  Now that we are done visiting the node, lets stop
-      // avoiding the children nodes visiting for the other tree
-      // nodes.
-      {
-	set_visiting_kind(get_visiting_kind() & (~SKIP_CHILDREN_VISITING_KIND));
-	skip_children_nodes_ = false;
-      }
-    else
-      {
-	// Propagate the redundancy categorization of the children nodes
-	// to this node.  But if this node has local changes, then it
-	// doesn't inherit redundancy from its children nodes.
-	if (!(d->get_category() & REDUNDANT_CATEGORY)
-	    && (!d->has_local_changes_to_be_reported()
-		// By default, pointer, reference and qualified types
-		// consider that a local changes to their underlying
-		// type is always a local change for themselves.
-		//
-		// This is as if those types don't have local changes
-		// in the same sense as other types.  So we always
-		// propagate redundancy to them, regardless of if they
-		// have local changes or not.
-		|| is_pointer_diff(d)
-		|| is_qualified_type_diff(d)))
-	  {
-	    bool has_non_redundant_child = false;
-	    bool has_non_empty_child = false;
-	    for (vector<diff*>::const_iterator i =
-		   d->children_nodes().begin();
-		 i != d->children_nodes().end();
-		 ++i)
-	      {
-		if ((*i)->has_changes())
-		  {
-		    has_non_empty_child = true;
-		    if ((*i)->to_be_reported()
-			&& ((*i)->get_category() & REDUNDANT_CATEGORY) == 0)
-		      has_non_redundant_child = true;
-		  }
-		if (has_non_redundant_child)
-		  break;
-	      }
-
-	    // A diff node for which at least a child node carries a
-	    // change, and for which all the children are redundant is
-	    // deemed redundant too, unless it has local changes.
-	    if (has_non_empty_child
-		&& !has_non_redundant_child)
-	      d->add_to_category(REDUNDANT_CATEGORY);
-	  }
-      }
-  }
-
-  virtual void
-  visit_end(corpus_diff*)
-  {
-  }
-
-  virtual bool
-  visit(diff*, bool)
-  {return true;}
-
-  virtual bool
-  visit(corpus_diff*, bool)
-  {
-    return true;
-  }
-};// end struct redundancy_marking_visitor
 
 /// A visitor of @ref diff nodes that clears the REDUNDANT_CATEGORY
 /// category out of the nodes.
@@ -11498,7 +11378,7 @@ is_diff_of_class_or_union_type(const diff *d)
 ///
 /// @return true iff @p has a change and that change is a local type
 /// change.
-static bool
+bool
 has_local_type_change_only(const diff *d)
 {
   if (enum change_kind k = d->has_local_changes())
@@ -11522,6 +11402,9 @@ has_local_type_change_only(const diff *d)
 bool
 has_basic_type_change_only(const diff *d)
 {
+  if (is_pointer_diff(d) || is_qualified_type_diff(d))
+    d = peel_pointer_or_qualified_type(d);
+
   if (is_diff_of_basic_type(d, true) && d->has_changes())
     return true;
   else if (const var_diff * v = dynamic_cast<const var_diff*>(d))

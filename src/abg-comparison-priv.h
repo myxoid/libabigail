@@ -485,8 +485,10 @@ struct class_or_union_diff::priv
   string_diff_sptr_map changed_member_types_;
   diff_sptrs_type sorted_changed_member_types_;
   string_decl_base_sptr_map deleted_data_members_;
+  vector<decl_base_sptr> sorted_deleted_data_members_;
   unsigned_decl_base_sptr_map deleted_dm_by_offset_;
   string_decl_base_sptr_map inserted_data_members_;
+  vector<decl_base_sptr> sorted_inserted_data_members_;
   unsigned_decl_base_sptr_map inserted_dm_by_offset_;
   // This map contains the data member which sub-type changed.
   string_var_diff_sptr_map subtype_changed_dm_;
@@ -1059,7 +1061,7 @@ struct corpus_diff::priv
 			       size_t &num_type_changes_filtered);
 
   void
-  apply_filters_and_compute_diff_stats(corpus_diff::diff_stats&);
+  apply_filters_and_compute_diff_stats(corpus_diff::diff_stats&, corpus_diff&);
 
   void
   emit_diff_stats(const diff_stats&	stats,
@@ -1074,7 +1076,7 @@ struct corpus_diff::priv
 
   void
   maybe_dump_diff_tree();
-}; // end corpus::priv
+}; // end corpus_diff::priv
 
 /// "Less than" functor to compare instances of @ref function_decl.
 struct function_comp
@@ -1272,6 +1274,309 @@ struct corpus_diff::diff_stats::priv
   ctxt()
   {return ctxt_.expired() ? diff_context_sptr() : diff_context_sptr(ctxt_);}
 }; // end class corpus_diff::diff_stats::priv
+
+bool
+is_reference_or_ptr_diff_to_non_basic_nor_distinct_types(const diff* diff);
+
+bool
+diff_has_ancestor_filtered_out(const diff* d,
+			       unordered_map<size_t, bool>& ancestors);
+
+bool
+diff_has_ancestor_filtered_out(const diff* diff);
+
+// <redundancy_marking_visitor>
+
+/// A tree visitor to categorize nodes with respect to the
+/// REDUNDANT_CATEGORY.  That is, detect if a node is redundant (is
+/// present on several spots of the tree) and mark such nodes
+/// appropriatly.  This visitor also takes care of propagating the
+/// REDUNDANT_CATEGORY of a given node to its parent nodes as
+/// appropriate.
+struct redundancy_marking_visitor : public diff_node_visitor
+{
+  bool skip_children_nodes_;
+
+  redundancy_marking_visitor()
+    : skip_children_nodes_()
+  {}
+
+  /// Try to mark the diff node as redundant if it matches the
+  /// criteria.  Basically, if we have seen a given node before while
+  /// topologically walking the graph of diff nodes, then that
+  /// *second* occurence of the node is elligible to be marked as
+  /// being redundant.  Then this function will go through a series of
+  /// checks to know if it's going to consider the diff node as being
+  /// redundant or not.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true if the diff node @p was marked as being redundant,
+  /// false otherwise.
+  static bool
+  maybe_mark_diff_node_as_redundant(const diff *d)
+  {
+    if (!d->to_be_reported())
+      return false;
+
+    // A diff node that carries a change and that has been already
+    // traversed elsewhere is considered redundant.  So let's mark
+    // it as such and let's not traverse it; that is, let's not
+    // visit its children.
+    if ((d->context()->diff_has_been_visited(d)
+	 || d->get_canonical_diff()->is_traversing())
+	&& d->has_changes())
+      {
+	// But if two diff nodes are redundant sibbling that carry
+	// changes of base types, do not mark them as being
+	// redundant.  This is to avoid marking nodes as redundant
+	// in this case:
+	//
+	//     int foo(int a, int b);
+	// compared with:
+	//     float foo(float a, float b); (in C).
+	//
+	// In this case, we want to report all the occurences of
+	// the int->float change because logically, they are at
+	// the same level in the diff tree.
+
+	bool redundant_with_sibling_node = false;
+	const diff* p = d->parent_node();
+
+	// If this is a child node of a fn_parm_diff, look through
+	// the fn_parm_diff node to get the function diff node.
+	if (p && dynamic_cast<const fn_parm_diff*>(p))
+	  p = p->parent_node();
+
+	if (p)
+	  for (vector<diff*>::const_iterator s =
+		 p->children_nodes().begin();
+	       s != p->children_nodes().end();
+	       ++s)
+	    {
+	      if (*s == d)
+		continue;
+	      diff* sib = *s;
+	      // If this is a fn_parm_diff, look through the
+	      // fn_parm_diff node to get at the real type node.
+	      if (fn_parm_diff* f = dynamic_cast<fn_parm_diff*>(*s))
+		sib = f->type_diff().get();
+	      if (sib == d)
+		continue;
+	      if (sib->get_canonical_diff() == d->get_canonical_diff()
+		  // Sibbling diff nodes that carry base type
+		  // changes ar to be marked as redundant.
+		  && (is_base_diff(sib) || is_distinct_diff(sib)))
+		{
+		  redundant_with_sibling_node = true;
+		  break;
+		}
+	    }
+	if (!redundant_with_sibling_node
+	    // Changes to basic types should never be considered
+	    // redundant.  For instance, if a member of integer
+	    // type is changed into a char type in both a struct A
+	    // and a struct B, we want to see both changes.
+	    && !has_basic_type_change_only(d)
+	    // The same goes for distinct type changes
+	    && !filtering::is_mostly_distinct_diff(d)
+	    // Functions with similar *local* changes are never marked
+	    // redundant because otherwise one could miss important
+	    // similar local changes that are applied to different
+	    // functions.
+	    && !is_function_type_diff_with_local_changes(d)
+	    // Changes involving variadic parameters of functions
+	    // should never be marked redundant because we want to see
+	    // them all.
+	    && !is_diff_of_variadic_parameter(d)
+	    && !is_diff_of_variadic_parameter_type(d)
+	    // If the canonical diff itself has been filtered out,
+	    // then this one is not marked redundant, obviously.
+	    && !d->get_canonical_diff()->is_filtered_out()
+	    && !(diff_has_ancestor_filtered_out
+		 (d->context()->
+		  get_last_visited_diff_of_class_of_equivalence(d)))
+	    // If the *same* diff node (not one that is merely
+	    // equivalent to this one) has already been visited
+	    // the do not mark it as beind redundant.  It's only
+	    // the other nodes that are equivalent to this one
+	    // that must be marked redundant.
+	    && d->context()->diff_has_been_visited(d) != d
+	    // If the diff node is a function parameter and is not
+	    // a reference/pointer (to a non basic or a non
+	    // distinct type diff) then do not mark it as
+	    // redundant.
+	    //
+	    // Children nodes of base class diff nodes are never
+	    // redundant either, we want to see them all.
+	    && (is_reference_or_ptr_diff_to_non_basic_nor_distinct_types(d)
+		|| (!is_child_node_of_function_parm_diff(d)
+		    && !is_child_node_of_base_diff(d))))
+	  {
+	    const_cast<diff*>(d)->add_to_category(REDUNDANT_CATEGORY);
+	    return true;
+	  }
+      }
+    return false;
+  }
+
+  /// Try to mark the diff node as redundant if it matches the
+  /// criteria.  Basically, if we have seen a given node before while
+  /// topologically walking the graph of diff nodes, then that
+  /// *second* occurence of the node is elligible to be marked as
+  /// being redundant.  Then this function will go through a series of
+  /// checks to know if it's going to consider the diff node as being
+  /// redundant or not.
+  ///
+  /// @param d the diff node to consider.
+  ///
+  /// @return true if the diff node @p was marked as being redundant,
+  /// false otherwise.
+  static bool
+  maybe_mark_diff_node_as_redundant(const diff_sptr &d)
+  {return maybe_mark_diff_node_as_redundant(d.get());}
+
+  /// This function is called on each diff node while the redundant
+  /// diff detection pass walks the graph of the diff nodes.  This
+  /// function is called when the pass starts visiting a diff node,
+  /// before it visits the children nodes.
+  ///
+  /// @param d the diff node being visited.
+  virtual void
+  visit_begin(diff* d)
+  {
+    if (d->to_be_reported())
+      {
+	maybe_mark_diff_node_as_redundant(d);
+	if (d->context()->get_reporter()->
+	    skip_children_during_redundancy_detection(d))
+	  {
+	    // Depending on if this node is marked as being redundant
+	    // or not we might or might visit its children.
+	    //
+	    // This is not an optimization; it's needed for
+	    // correctness.  In the case of a diff node involving a
+	    // class type that refers to himself, visiting the
+	    // children nodes might cause them to be wrongly marked as
+	    // redundant.
+	    set_visiting_kind(get_visiting_kind()
+			      | SKIP_CHILDREN_VISITING_KIND);
+	    skip_children_nodes_ = true;
+	    d->context()->get_reporter()->
+	      notify_children_nodes_skiped_during_redundancy_detection(d);
+	  }
+      }
+    else
+      {
+	// If the node is not to be reported, do not look at it children.
+	set_visiting_kind(get_visiting_kind() | SKIP_CHILDREN_VISITING_KIND);
+	skip_children_nodes_ = true;
+      }
+
+    d->context()->mark_last_diff_visited_per_class_of_equivalence(d);
+  }
+
+  virtual void
+  visit_begin(corpus_diff*)
+  {
+  }
+
+  /// This function is called by the redundant diff node detection
+  /// pass each time a diff node and its children *has* been visited.
+  ///
+  /// @param d the diff node that has just been visited.
+  virtual void
+  visit_end(diff* d)
+  {
+    if (skip_children_nodes_)
+      // When visiting this node, we decided to skip its children
+      // node.  Now that we are done visiting the node, lets stop
+      // avoiding the children nodes visiting for the other tree
+      // nodes.
+      {
+	set_visiting_kind(get_visiting_kind() & (~SKIP_CHILDREN_VISITING_KIND));
+	skip_children_nodes_ = false;
+      }
+
+    // Propagate the redundancy categorization of the children nodes
+    // to this node.  But if this node has local changes, then it
+    // doesn't inherit redundancy from its children nodes.
+    //
+    // Note that the meaning of a local change depends on the reporter
+    // being used.
+    if (!(d->get_category() & REDUNDANT_CATEGORY)
+	&& (!d->context()->get_reporter()->
+	    diff_has_local_changes_to_be_reported(d)
+	    // By default, pointer, reference and qualified types
+	    // consider that a local changes to their underlying
+	    // type is always a local change for themselves.
+	    //
+	    // This is as if those types don't have local changes
+	    // in the same sense as other types.  So we always
+	    // propagate redundancy to them, regardless of if they
+	    // have local changes or not.
+	    || is_pointer_diff(d)
+	    || is_qualified_type_diff(d)))
+      {
+	bool has_non_redundant_child = false;
+	bool has_redundant_child = false;
+	bool has_non_empty_child = false;
+	for (vector<diff*>::const_iterator i =
+	       d->children_nodes().begin();
+	     i != d->children_nodes().end();
+	     ++i)
+	  {
+	    diff *cur_child = *i;
+	    diff_category category = cur_child->get_category();
+
+	    if (category & REDUNDANT_CATEGORY)
+	      // There is at least a redundant child node, so we might
+	      // have some redundancy to propagate after all ....
+	      has_redundant_child = true;
+
+	    if (cur_child->has_changes())
+	      {
+		has_non_empty_child = true;
+		if (d->context()->get_reporter()->diff_to_be_reported(cur_child)
+		    && (category & REDUNDANT_CATEGORY) == 0)
+		  // There is at least one child node which has some
+		  // local change that is worth reported, so the whole
+		  // diff node cannot be considered as redundant ...
+		  has_non_redundant_child = true;
+	      }
+
+	    if (has_non_redundant_child)
+	      break;
+	  }
+
+	// A diff node whose children nodes are all redundant is
+	// deemed redundant too, unless it has local changes that are
+	// worth reportin.
+	if (has_non_empty_child
+	    && !has_non_redundant_child
+	    && has_redundant_child)
+	  d->add_to_category(REDUNDANT_CATEGORY);
+      }
+
+  }
+
+  virtual void
+  visit_end(corpus_diff*)
+  {
+  }
+
+  virtual bool
+  visit(diff*, bool)
+  {return true;}
+
+  virtual bool
+  visit(corpus_diff*, bool)
+  {
+    return true;
+  }
+};// end struct redundancy_marking_visitor
+
+// <redundancy_marking_visitor>
 
 void
 sort_enumerators(const string_enumerator_map& enumerators_map,
