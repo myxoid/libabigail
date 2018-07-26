@@ -893,7 +893,7 @@ is_mostly_distinct_diff(const diff *d)
       fn_parm_diff *pd = const_cast<fn_parm_diff*>(is_fn_parm_diff(d));
       if (pd)
 	td = const_cast<type_diff_base*>(is_type_diff(pd->type_diff().get()));
-      else
+      if (!td)
 	return false;
     }
 
