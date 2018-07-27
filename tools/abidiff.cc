@@ -210,7 +210,7 @@ display_usage(const string& prog_name, ostream& out)
     " by leaf changes\n"
     << " --dump-diff-tree  emit a debug dump of the internal diff tree to "
     "the error output stream\n"
-    <<  " --stats  show statistics about various internal stuff\n"
+    << " --stats  show statistics about various internal stuff\n"
     << " --verbose show verbose messages about internal stuff\n";
 }
 
