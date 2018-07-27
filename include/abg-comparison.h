@@ -2585,6 +2585,9 @@ public:
   visit(function_decl_diff*, bool);
 
   virtual bool
+  visit(function_type_diff*, bool);
+
+  virtual bool
   visit(type_decl_diff*, bool);
 
   virtual bool

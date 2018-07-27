@@ -10543,6 +10543,22 @@ diff_node_visitor::visit(function_decl_diff* dif, bool pre)
   return true;
 }
 
+/// Default visitor implementation for @ref function_type_diff kind of
+/// diff nodes.
+///
+/// @param dif the diff node to visit.
+///
+/// @param pre true if we are visiting this node prior to having
+/// visited its children nodes. Otherwise,it means we are visiting
+/// this node after having visited its children nodes.
+bool
+diff_node_visitor::visit(function_type_diff* dif, bool pre)
+{
+  diff* d = dif;
+  visit(d, pre);
+  return true;
+}
+
 /// Default visitor implementation.
 ///
 /// @return true
