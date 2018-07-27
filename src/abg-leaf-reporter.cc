@@ -353,6 +353,22 @@ leaf_reporter::categorize_redundant_diff_nodes(corpus_diff& cd)
     }
 }
 
+/// Walk the graph of diff nodes related to a given @ref corpus_diff
+/// and print a textual representation of the nodes.
+///
+/// @param cd the root @ref corpus_diff node to consider
+///
+/// @param out the output stream to emit the textual represenation to.
+void
+leaf_reporter::print_diff_tree(const corpus_diff * cd, std::ostream& out) const
+{
+  for (diff_ptrs_type::const_iterator i =
+	 cd->leaf_diffs().get_sorted_leaf_diffs().begin();
+       i != cd->leaf_diffs().get_sorted_leaf_diffs().end();
+       ++i)
+    comparison::print_diff_tree(*i, out);
+}
+
 /// Report the changes carried by an instance of @ref diff_maps.
 ///
 /// @param maps the set of diffs to report.
@@ -1450,6 +1466,8 @@ leaf_reporter::report(const corpus_diff& d,
 
   // Now show the changed types.
   report_leaf_type_changes(*this, const_cast<corpus_diff&>(d), out, indent);
+
+  d.priv_->maybe_dump_diff_tree(&d);
 }
 } // end namespace comparison
 } // end namespace abigail

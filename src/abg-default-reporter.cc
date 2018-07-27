@@ -108,6 +108,44 @@ default_reporter::categorize_redundant_diff_nodes(corpus_diff& cd)
     }
 }
 
+/// Walk the graph of diff nodes related to a given @ref corpus_diff
+/// and print a textual representation of the nodes.
+///
+/// @param cd the root @ref corpus_diff node to consider
+///
+/// @param out the output stream to emit the textual represenation to.
+void
+default_reporter::print_diff_tree(const corpus_diff * cd,
+				  std::ostream& out) const
+{
+  corpus_diff * const corpus = const_cast<corpus_diff* const>(cd);
+  if (!corpus->changed_functions_sorted().empty())
+    {
+      out << "changed functions diff tree: \n\n";
+      for (function_decl_diff_sptrs_type::const_iterator i =
+	     corpus->changed_functions_sorted().begin();
+	   i != corpus->changed_functions_sorted().end();
+	   ++i)
+	{
+	  diff_sptr d = *i;
+	  comparison::print_diff_tree(d, out);
+	}
+    }
+
+  if (!corpus->changed_variables_sorted().empty())
+    {
+      out << "\nchanged variables diff tree: \n\n";
+      for (var_diff_sptrs_type::const_iterator i =
+	     corpus->changed_variables_sorted().begin();
+	   i != corpus->changed_variables_sorted().end();
+	   ++i)
+	{
+	  diff_sptr d = *i;
+	  comparison::print_diff_tree(d, out);
+	}
+    }
+}
+
 /// Ouputs a report of the differences between of the two type_decl
 /// involved in the @ref type_decl_diff.
 ///
@@ -2294,7 +2332,7 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	out << '\n';
     }
 
-  d.priv_->maybe_dump_diff_tree();
+  d.priv_->maybe_dump_diff_tree(&d);
 }
 
 } // end namespace comparison

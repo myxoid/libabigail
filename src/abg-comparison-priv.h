@@ -1075,7 +1075,7 @@ struct corpus_diff::priv
   clear_redundancy_categorization();
 
   void
-  maybe_dump_diff_tree();
+  maybe_dump_diff_tree(const corpus_diff* corpus);
 }; // end corpus_diff::priv
 
 /// "Less than" functor to compare instances of @ref function_decl.
@@ -1274,6 +1274,104 @@ struct corpus_diff::diff_stats::priv
   ctxt()
   {return ctxt_.expired() ? diff_context_sptr() : diff_context_sptr(ctxt_);}
 }; // end class corpus_diff::diff_stats::priv
+
+// <diff tree printing stuff>
+
+/// A visitor to print (to an output stream) a pretty representation
+/// of a @ref diff sub-tree or of a complete @ref corpus_diff tree.
+struct diff_node_printer : public diff_node_visitor
+{
+  ostream& out_;
+  unsigned level_;
+
+  /// Emit a certain number of spaces to the output stream associated
+  /// to this diff_node_printer.
+  ///
+  /// @param level half of the numver of spaces to emit.
+  void
+  do_indent(unsigned level)
+  {
+    for (unsigned i = 0; i < level; ++i)
+      out_ << "  ";
+  }
+
+  diff_node_printer(ostream& out)
+    : diff_node_visitor(DO_NOT_MARK_VISITED_NODES_AS_VISITED),
+      out_(out),
+      level_(0)
+  {}
+
+  virtual void
+  visit_begin(diff*)
+  {
+    ++level_;
+  }
+
+  virtual void
+  visit_end(diff*)
+  {
+    --level_;
+  }
+
+  virtual void
+  visit_begin(corpus_diff*)
+  {
+    ++level_;
+  }
+
+  virtual void
+  visit_end(corpus_diff*)
+  {
+    --level_;
+  }
+
+  virtual bool
+  visit(diff* d, bool pre)
+  {
+    if (!pre)
+      // We are post-visiting the diff node D.  Which means, we have
+      // printed a pretty representation for it already.  So do
+      // nothing now.
+      return true;
+
+    do_indent(level_);
+    out_ << d->get_pretty_representation();
+    out_ << "\n";
+    do_indent(level_);
+    out_ << "{\n";
+    do_indent(level_ + 1);
+    out_ << "category: "<< d->get_category() << "\n";
+    do_indent(level_ + 1);
+    out_ << "@: " << std::hex << d << std::dec << "\n";
+    do_indent(level_ + 1);
+    out_ << "@-canonical: " << std::hex
+	 << d->get_canonical_diff()
+	 << std::dec << "\n";
+    do_indent(level_);
+    out_ << "}\n";
+
+    return true;
+  }
+
+  virtual bool
+  visit(corpus_diff* d, bool pre)
+  {
+    if (!pre)
+      // We are post-visiting the diff node D.  Which means, we have
+      // printed a pretty representation for it already.  So do
+      // nothing now.
+      return true;
+
+    // indent
+    for (unsigned i = 0; i < level_; ++i)
+      out_ << ' ';
+    out_ << d->get_pretty_representation();
+    out_ << '\n';
+    return true;
+  }
+}; // end struct diff_node_printer
+
+// </ diff tree printing stuff>
 
 bool
 is_reference_or_ptr_diff_to_non_basic_nor_distinct_types(const diff* diff);

@@ -1917,7 +1917,7 @@ void
 diff_context::do_dump_diff_tree(const corpus_diff_sptr d) const
 {
   if (error_output_stream())
-    print_diff_tree(d, *error_output_stream());
+    get_reporter()->print_diff_tree(d.get(), *error_output_stream());
 }
 // </diff_context stuff>
 
@@ -9600,7 +9600,7 @@ corpus_diff::priv::clear_redundancy_categorization()
 ///
 /// This function is used for debugging purposes.
 void
-corpus_diff::priv::maybe_dump_diff_tree()
+corpus_diff::priv::maybe_dump_diff_tree(const corpus_diff *corpus)
 {
   diff_context_sptr ctxt = get_context();
 
@@ -9608,31 +9608,13 @@ corpus_diff::priv::maybe_dump_diff_tree()
       || ctxt->error_output_stream() == 0)
     return;
 
-  if (!changed_fns_.empty())
-    {
-      *ctxt->error_output_stream() << "changed functions diff tree: \n\n";
-      for (function_decl_diff_sptrs_type::const_iterator i =
-	     changed_fns_.begin();
-	   i != changed_fns_.end();
-	   ++i)
-	{
-	  diff_sptr d = *i;
-	  print_diff_tree(d, *ctxt->error_output_stream());
-	}
-    }
+  *ctxt->error_output_stream()
+    << "===========diff tree trump is: ============\n";
 
-  if (!sorted_changed_vars_.empty())
-    {
-      *ctxt->error_output_stream() << "\nchanged variables diff tree: \n\n";
-      for (var_diff_sptrs_type::const_iterator i =
-	     sorted_changed_vars_.begin();
-	   i != sorted_changed_vars_.end();
-	   ++i)
-	{
-	  diff_sptr d = *i;
-	  print_diff_tree(d, *ctxt->error_output_stream());
-	}
-    }
+  ctxt->get_reporter()->print_diff_tree(corpus,
+					*ctxt->error_output_stream());
+  *ctxt->error_output_stream()
+    << "\n===========end of diff tree trump: ============\n";
 }
 
 /// Populate the vector of children node of the @ref corpus_diff type.
@@ -10874,104 +10856,6 @@ apply_suppressions(corpus_diff_sptr  diff_tree)
 
 // </diff tree category propagation>
 
-// <diff tree printing stuff>
-
-/// A visitor to print (to an output stream) a pretty representation
-/// of a @ref diff sub-tree or of a complete @ref corpus_diff tree.
-struct diff_node_printer : public diff_node_visitor
-{
-  ostream& out_;
-  unsigned level_;
-
-  /// Emit a certain number of spaces to the output stream associated
-  /// to this diff_node_printer.
-  ///
-  /// @param level half of the numver of spaces to emit.
-  void
-  do_indent(unsigned level)
-  {
-    for (unsigned i = 0; i < level; ++i)
-      out_ << "  ";
-  }
-
-  diff_node_printer(ostream& out)
-    : diff_node_visitor(DO_NOT_MARK_VISITED_NODES_AS_VISITED),
-      out_(out),
-      level_(0)
-  {}
-
-  virtual void
-  visit_begin(diff*)
-  {
-    ++level_;
-  }
-
-  virtual void
-  visit_end(diff*)
-  {
-    --level_;
-  }
-
-  virtual void
-  visit_begin(corpus_diff*)
-  {
-    ++level_;
-  }
-
-  virtual void
-  visit_end(corpus_diff*)
-  {
-    --level_;
-  }
-
-  virtual bool
-  visit(diff* d, bool pre)
-  {
-    if (!pre)
-      // We are post-visiting the diff node D.  Which means, we have
-      // printed a pretty representation for it already.  So do
-      // nothing now.
-      return true;
-
-    do_indent(level_);
-    out_ << d->get_pretty_representation();
-    out_ << "\n";
-    do_indent(level_);
-    out_ << "{\n";
-    do_indent(level_ + 1);
-    out_ << "category: "<< d->get_category() << "\n";
-    do_indent(level_ + 1);
-    out_ << "@: " << std::hex << d << std::dec << "\n";
-    do_indent(level_ + 1);
-    out_ << "@-canonical: " << std::hex
-	 << d->get_canonical_diff()
-	 << std::dec << "\n";
-    do_indent(level_);
-    out_ << "}\n";
-
-    return true;
-  }
-
-  virtual bool
-  visit(corpus_diff* d, bool pre)
-  {
-    if (!pre)
-      // We are post-visiting the diff node D.  Which means, we have
-      // printed a pretty representation for it already.  So do
-      // nothing now.
-      return true;
-
-    // indent
-    for (unsigned i = 0; i < level_; ++i)
-      out_ << ' ';
-    out_ << d->get_pretty_representation();
-    out_ << '\n';
-    return true;
-  }
-}; // end struct diff_printer_visitor
-
-// </ diff tree printing stuff>
-
 /// Emit a textual representation of a @ref diff sub-tree to an
 /// output stream.
 ///
@@ -11030,7 +10914,7 @@ print_diff_tree(diff_sptr diff_tree,
 /// @param out the output stream to emit the textual representation
 /// for @p diff_tree to.
 void
-print_diff_tree(corpus_diff_sptr diff_tree,
+print_diff_tree(const corpus_diff_sptr diff_tree,
 		std::ostream& o)
 {print_diff_tree(diff_tree.get(), o);}
 

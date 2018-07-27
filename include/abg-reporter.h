@@ -180,6 +180,9 @@ public:
   ///
   /// @return true if @p d is meant to be reported.
   virtual bool diff_to_be_reported(const diff *d) const;
+
+  virtual void print_diff_tree(const corpus_diff * diff_tree,
+			       std::ostream& out) const = 0;
 }; //end class reporter_base
 
 class default_reporter;
@@ -294,6 +297,9 @@ public:
 virtual bool diff_has_local_changes_to_be_reported(const diff *) const;
 
   virtual void categorize_redundant_diff_nodes(corpus_diff&);
+
+  virtual void print_diff_tree(const corpus_diff * diff_tree,
+			       std::ostream& out) const;
 }; // end class default_reporter
 
 /// A reporter that only reports leaf changes
@@ -382,6 +388,8 @@ public:
 
   virtual void categorize_redundant_diff_nodes(corpus_diff&);
 
+  virtual void print_diff_tree(const corpus_diff * diff_tree,
+			       std::ostream& out) const;
 }; // end class leaf_reporter
 
 } // end namespace comparison

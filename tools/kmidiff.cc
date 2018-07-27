@@ -73,6 +73,7 @@ struct options
   bool			verbose;
   bool			missing_operand;
   bool			leaf_changes_only;
+  bool			dump_diff_tree;
   bool			show_hexadecimal_values;
   bool			show_offsets_sizes_in_bits;
   bool			show_impacted_interfaces;
@@ -94,6 +95,7 @@ struct options
       verbose(),
       missing_operand(),
       leaf_changes_only(true),
+      dump_diff_tree(false),
       show_hexadecimal_values(true),
       show_offsets_sizes_in_bits(false),
       show_impacted_interfaces(false)
@@ -129,7 +131,9 @@ display_usage(const string& prog_name, ostream& out)
     << " --show-bytes  show size and offsets in bytes\n"
     << " --show-bits  show size and offsets in bits\n"
     << " --show-hex  show size and offset in hexadecimal\n"
-    << " --show-dec  show size and offset in decimal\n";
+    << " --show-dec  show size and offset in decimal\n"
+    << " --dump-diff-tree  emit a debug dump of the internal diff tree "
+    "to the error output stream\n";
 }
 
 /// Parse the command line of the program.
@@ -264,6 +268,8 @@ parse_command_line(int argc, char* argv[], options& opts)
       else if (!strcmp(argv[i], "--full-impact")
 	       || !strcmp(argv[i], "-f"))
 	opts.leaf_changes_only = false;
+      else if (!strcmp(argv[i], "--dump-diff-tree"))
+	opts.dump_diff_tree = true;
       else if (!strcmp(argv[i], "--show-bytes"))
 	opts.show_offsets_sizes_in_bits = false;
       else if (!strcmp(argv[i], "--show-bits"))
@@ -337,6 +343,8 @@ set_diff_context(diff_context_sptr ctxt, const options& opts)
 
   if (!opts.diff_time_supprs.empty())
     ctxt->add_suppressions(opts.diff_time_supprs);
+
+  ctxt->dump_diff_tree(opts.dump_diff_tree);
 }
 
 /// Print information about the kernel (and modules) binaries found
