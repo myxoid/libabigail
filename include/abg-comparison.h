@@ -133,7 +133,8 @@ typedef vector<base_diff_sptr> base_diff_sptrs_type;
 
 class class_diff;
 
-/// Convenience typedef for a shared pointer on a @ref class_diff type.
+/// Convenience typedef for a shared pointer on a @ref class_diff
+/// type.
 typedef shared_ptr<class_diff> class_diff_sptr;
 
 /// Convenience typedef for a shared pointer on a @ref

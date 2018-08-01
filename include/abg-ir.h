@@ -1441,9 +1441,9 @@ class scope_decl : public virtual decl_base
 public:
 
   /// Convenience typedef for a vector of @ref decl_base_sptr.
-  typedef std::vector<decl_base_sptr >	declarations;
+  typedef std::vector<decl_base_sptr>	declarations;
   /// Convenience typedef for a vector of @ref function_type_sptr.
-  typedef std::vector<function_type_sptr >	function_types;
+  typedef std::vector<function_type_sptr>	function_types;
   /// Convenience typedef for a vector of @ref scope_decl_sptr.
   typedef std::vector<scope_decl_sptr>	scopes;
   /// The type of the private data of @ref scope_decl.
