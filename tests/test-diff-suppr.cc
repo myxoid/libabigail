@@ -1748,6 +1748,26 @@ InOutSpec in_out_specs[] =
     "data/test-diff-suppr/test41-enumerator-changes-report-0.txt",
     "output/test-diff-suppr/test41-enumerator-changes-report-0.txt"
   },
+  {
+    "data/test-diff-suppr/test42-negative-suppr-type-v0.o",
+    "data/test-diff-suppr/test42-negative-suppr-type-v1.o",
+    "",
+    "",
+    "data/test-diff-suppr/test42-negative-suppr-type-suppr-1.txt",
+    "--no-default-suppression",
+    "data/test-diff-suppr/test42-negative-suppr-type-report-0.txt",
+    "output/test-diff-suppr/test42-negative-suppr-type-report-0.txt"
+  },
+  {
+    "data/test-diff-suppr/test42-negative-suppr-type-v0.o",
+    "data/test-diff-suppr/test42-negative-suppr-type-v1.o",
+    "",
+    "",
+    "data/test-diff-suppr/test42-negative-suppr-type-suppr-2.txt",
+    "--no-default-suppression",
+    "data/test-diff-suppr/test42-negative-suppr-type-report-1.txt",
+    "output/test-diff-suppr/test42-negative-suppr-type-report-1.txt"
+  },
   // This should be the last entry
   {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}
 };
