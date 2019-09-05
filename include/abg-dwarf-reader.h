@@ -62,6 +62,9 @@ enum status
   /// This status is for when the symbols of the ELF binaries could
   /// not be read.
   STATUS_NO_SYMBOLS_FOUND = 1 << 3,
+
+  /// This status is for when the ELF information could not be loaded.
+  STATUS_CANT_LOAD_ELF = 1 << 4
 };
 
 string
@@ -105,7 +108,8 @@ create_read_context(const std::string&	elf_path,
 		    const vector<char**>& debug_info_root_paths,
 		    ir::environment*	environment,
 		    bool		read_all_types = false,
-		    bool		linux_kernel_mode = false);
+		    bool		linux_kernel_mode = false,
+		    bool		load_debug_info = true);
 
 const string&
 read_context_get_path(const read_context&);
@@ -115,6 +119,7 @@ reset_read_context(read_context_sptr &ctxt,
 		   const std::string&	elf_path,
 		   const vector<char**>& debug_info_root_paths,
 		   ir::environment*	environment,
+		   bool		load_debug_info = true,
 		   bool		read_all_types = false,
 		   bool		linux_kernel_mode = false);
 

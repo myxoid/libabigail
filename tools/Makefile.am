@@ -3,7 +3,7 @@ h=$(abs_srcdir)
 if ENABLE_ZIP_ARCHIVE
   bin_PROGRAMS = abiar abidiff abilint abidw abicompat abipkgdiff kmidiff
 else
-  bin_PROGRAMS = abidiff abilint abidw abicompat abipkgdiff kmidiff
+  bin_PROGRAMS = abidiff abilint abidw abicompat abipkgdiff kmidiff cppabicheck
 endif
 
 if ENABLE_FEDABIPKGDIFF
@@ -53,6 +53,11 @@ kmidiff_SOURCES = kmidiff.cc
 kmidiffdir = $(bindir)
 kmidiff_LDADD = $(abs_top_builddir)/src/libabigail.la
 kmidiff_LDFLAGS = -pthread
+
+cppabicheck_SOURCES = cppabicheck.cc
+cppabicheckdir = $(bindir)
+cppabicheck_LDADD = $(abs_top_builddir)/src/libabigail.la
+cppabicheck_LDFLAGS = -pthread
 
 AM_CXXFLAGS = \
 $(VISIBILITY_FLAGS) -I$(abs_top_srcdir)/include \

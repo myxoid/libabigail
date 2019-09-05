@@ -2918,6 +2918,7 @@ public:
   struct options_type
   {
     environment*	env;
+    bool		load_debug_info;
     bool		load_in_linux_kernel_mode;
     bool		load_all_types;
     bool		ignore_symbol_table;
@@ -2926,6 +2927,7 @@ public:
 
     options_type()
       : env(),
+	load_debug_info(true),
 	load_in_linux_kernel_mode(),
 	load_all_types(),
 	ignore_symbol_table(),
@@ -3211,14 +3213,19 @@ public:
   /// @param linux_kernel_mode if set to true, then consider the special
   /// linux kernel symbol tables when determining if a symbol is
   /// exported or not.
+  ///
+  /// @param load_debug_info if set to true, then it means the DWARF
+  /// reader will load and analyze debug information as part of
+  /// analyzing the binary.
   read_context(const string&	elf_path,
 	       const vector<char**>& debug_info_root_paths,
 	       ir::environment* environment,
 	       bool		load_all_types,
-	       bool		linux_kernel_mode)
+	       bool		linux_kernel_mode,
+	       bool		load_debug_info)
   {
     initialize(elf_path, debug_info_root_paths, environment,
-	       load_all_types, linux_kernel_mode);
+	       load_all_types, linux_kernel_mode, load_debug_info);
   }
 
   /// Initializer of read_context.
@@ -3250,12 +3257,16 @@ public:
   /// @param linux_kernel_mode if set to true, then consider the
   /// special linux kernel symbol tables when determining if a symbol
   /// is exported or not.
+  ///
+  /// @param load_debug_info if set to true, then the DWARF reader
+  /// will load and analyze the debug info.
   void
   initialize(const string&	elf_path,
 	     const vector<char**>& debug_info_root_paths,
-	     ir::environment* environment,
+	     ir::environment*	environment,
+	     bool		linux_kernel_mode,
 	     bool		load_all_types,
-	     bool		linux_kernel_mode)
+	     bool		load_debug_info)
   {
     dwarf_version_ = 0;
     dwarf_ = 0;
@@ -3341,6 +3352,7 @@ public:
     memset(&offline_callbacks_, 0, sizeof(offline_callbacks_));
     create_default_dwfl(debug_info_root_paths);
     options_.env = environment;
+    options_.load_debug_info = load_debug_info;
     options_.load_in_linux_kernel_mode = linux_kernel_mode;
     options_.load_all_types = load_all_types;
     load_in_linux_kernel_mode(linux_kernel_mode);
@@ -3602,6 +3614,25 @@ public:
     return result;
   }
 
+  /// Load the ELF module from the binary.
+  ///
+  /// @return the ELF module, if found.
+  Dwfl_Module*
+  load_elf_module()
+  {
+    if (!dwfl_handle())
+      return 0;
+
+    elf_module_ =
+      dwfl_report_offline(dwfl_handle().get(),
+			  basename(const_cast<char*>(elf_path().c_str())),
+			  elf_path().c_str(),
+			  -1);
+    dwfl_report_end(dwfl_handle().get(), 0, 0);
+
+    return elf_module_;
+  }
+
   /// Load the debug info associated with an elf file that is at a
   /// given path.
   ///
@@ -3610,18 +3641,13 @@ public:
   Dwarf*
   load_debug_info()
   {
-    if (!dwfl_handle())
-      return 0;
-
     if (dwarf_)
       return dwarf_;
 
-    elf_module_ =
-      dwfl_report_offline(dwfl_handle().get(),
-			  basename(const_cast<char*>(elf_path().c_str())),
-			  elf_path().c_str(),
-			  -1);
-    dwfl_report_end(dwfl_handle().get(), 0, 0);
+    load_elf_module();
+
+    if (elf_module_ == 0)
+      return 0;
 
     Dwarf_Addr bias = 0;
     dwarf_ = dwfl_module_getdwarf(elf_module_, &bias);
@@ -16390,16 +16416,17 @@ add_var_symbols_to_map(address_set_type& syms,
     }
 }
 
-/// Read all @ref abigail::translation_unit possible from the debug info
-/// accessible through a DWARF Front End Library handle, and stuff
-/// them into a libabigail ABI Corpus.
+/// Read the ELF information (like symbol tables) and all @ref
+/// abigail::translation_unit possible from the debug info accessible
+/// through a DWARF Front End Library handle, and stuff them into a
+/// libabigail ABI Corpus.
 ///
 /// @param ctxt the read context.
 ///
-/// @return a pointer to the resulting corpus, or NULL if the corpus
-/// could not be constructed.
+/// @return a pointer to the resulting ABI corpus, or NULL if the
+/// corpus could not be constructed.
 static corpus_sptr
-read_debug_info_into_corpus(read_context& ctxt)
+read_elf_and_debug_info_into_corpus(read_context& ctxt)
 {
   ctxt.clear_per_corpus_data();
 
@@ -16466,7 +16493,7 @@ read_debug_info_into_corpus(read_context& ctxt)
       ctxt.current_corpus()->set_var_symbol_map(ctxt.var_syms_sptr());
     }
 
-  // Get out now if no debug info is found.
+  // Get out now if no debug info was read.
   if (!ctxt.dwarf())
     return ctxt.current_corpus();
 
@@ -17517,18 +17544,24 @@ status_to_diagnostic_string(status s)
 /// linux kernel symbol tables when determining if a symbol is
 /// exported or not.
 ///
+/// @param load_debug_info if set to true, load and analyze the debug
+/// info.  Otherwise, don't load it.
+///
 /// @return a smart pointer to the resulting dwarf_reader::read_context.
 read_context_sptr
 create_read_context(const std::string&		elf_path,
 		    const vector<char**>&	debug_info_root_paths,
 		    ir::environment*		environment,
 		    bool			load_all_types,
-		    bool			linux_kernel_mode)
+		    bool			linux_kernel_mode,
+		    bool			load_debug_info)
 {
   // Create a DWARF Front End Library handle to be used by functions
   // of that library.
   read_context_sptr result(new read_context(elf_path, debug_info_root_paths,
-					    environment, load_all_types,
+					    environment,
+					    load_debug_info,
+					    load_all_types,
 					    linux_kernel_mode));
   return result;
 }
@@ -17579,12 +17612,13 @@ reset_read_context(read_context_sptr	&ctxt,
 		   const std::string&	 elf_path,
 		   const vector<char**>& debug_info_root_path,
 		   ir::environment*	 environment,
+		   bool		 load_debug_info,
 		   bool		 read_all_types,
 		   bool		 linux_kernel_mode)
 {
   if (ctxt)
     ctxt->initialize(elf_path, debug_info_root_path, environment,
-		     read_all_types, linux_kernel_mode);
+		     load_debug_info, read_all_types, linux_kernel_mode);
 }
 
 /// Add suppressions specifications to the set of suppressions to be
@@ -17649,14 +17683,27 @@ read_corpus_from_elf(read_context& ctxt, status& status)
   status = STATUS_UNKNOWN;
 
   // Load debug info from the elf path.
-  if (!ctxt.load_debug_info())
-    status |= STATUS_DEBUG_INFO_NOT_FOUND;
+  if (ctxt.options().load_debug_info)
+    {
+      if (!ctxt.load_debug_info())
+	status |= STATUS_DEBUG_INFO_NOT_FOUND;
 
-  {
-    string alt_di_path;
-    if (refers_to_alt_debug_info(ctxt, alt_di_path) && !ctxt.alt_dwarf())
-      status |= STATUS_ALT_DEBUG_INFO_NOT_FOUND;
-  }
+      string alt_di_path;
+      if (refers_to_alt_debug_info(ctxt, alt_di_path) && !ctxt.alt_dwarf())
+	status |= STATUS_ALT_DEBUG_INFO_NOT_FOUND;
+    }
+  else
+    {
+      status |= STATUS_DEBUG_INFO_NOT_FOUND;
+      // We were instructed to only load the ELF information, not the
+      // debug information.
+      ctxt.load_elf_module();
+      if (!ctxt.elf_handle())
+	{
+	  status |= STATUS_CANT_LOAD_ELF;
+	  return corpus_sptr();
+	}
+    }
 
   if (!get_ignore_symbol_table(ctxt))
     {
@@ -17666,18 +17713,20 @@ read_corpus_from_elf(read_context& ctxt, status& status)
 	status |= STATUS_NO_SYMBOLS_FOUND;
     }
 
-  if (// If no elf symbol was found ...
-      status & STATUS_NO_SYMBOLS_FOUND
-      // ... or if debug info was found but not the required alternate
-      // debug info ...
-      || ((status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
-	  && !(status & STATUS_DEBUG_INFO_NOT_FOUND)))
+  if (// Suppose we were instructed to analyze the debug info, but ...
+      ctxt.options().load_debug_info
+         // ... if no elf symbol was found ...
+      && ((status & STATUS_NO_SYMBOLS_FOUND)
+	  // ... or if debug info was found but not the required
+	  // alternate debug info ...
+	  || ((status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
+	      && !(status & STATUS_DEBUG_INFO_NOT_FOUND))))
     // ... then we cannot handle the binary.
     return corpus_sptr();
 
   // Read the variable and function descriptions from the debug info
   // we have, through the dwfl handle.
-  corpus_sptr corp = read_debug_info_into_corpus(ctxt);
+  corpus_sptr corp = read_elf_and_debug_info_into_corpus(ctxt);
 
   status |= STATUS_OK;
 
