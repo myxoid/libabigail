@@ -4516,12 +4516,16 @@ std::ostream& out = ctxt.get_ostream();
 
   out << ">\n";
 
-  // Write the list of corpora
-  for (corpus_group::corpora_type::const_iterator c =
-	 group->get_corpora().begin();
-       c != group->get_corpora().end();
-       ++c)
-    write_corpus(ctxt, *c, get_indent_to_level(ctxt, indent, 1), true);
+  // remember and write the main corpus
+  const corpus_sptr& main_corpus = group->get_main_corpus();
+  write_corpus(ctxt, main_corpus, get_indent_to_level(ctxt, indent, 1), true);
+
+  // Write the remaining list of corpora
+  for (corpus_group::corpora_type::const_iterator c
+       = group->get_corpora().begin();
+       c != group->get_corpora().end(); ++c)
+    if (*c != main_corpus)
+      write_corpus(ctxt, *c, get_indent_to_level(ctxt, indent, 1), true);
 
   do_indent_to_level(ctxt, indent, 0);
   out << "</abi-corpus-group>\n";
