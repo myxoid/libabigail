@@ -855,7 +855,18 @@ corpus::set_architecture_name(const string& arch)
 bool
 corpus::is_empty() const
 {
-  return (priv_->members.empty()
+  bool members_empty = true;
+  for (translation_units::const_iterator i = priv_->members.begin(),
+					 e = priv_->members.end();
+       i != e; ++i)
+    {
+      if (!(*i)->is_empty())
+	{
+	  members_empty = false;
+	  break;
+	}
+    }
+  return (members_empty
 	  && priv_->fun_symbol_map
 	  && priv_->fun_symbol_map->empty()
 	  && priv_->var_symbol_map
