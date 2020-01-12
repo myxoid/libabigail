@@ -17164,13 +17164,10 @@ read_debug_info_into_corpus(read_context& ctxt)
 {
   ctxt.clear_per_corpus_data();
 
-  if (!ctxt.current_corpus())
-    {
-      corpus_sptr corp (new corpus(ctxt.env(), ctxt.elf_path()));
-      ctxt.current_corpus(corp);
-      if (!ctxt.env())
-	ctxt.env(corp->get_environment());
-    }
+  corpus_sptr corp(new corpus(ctxt.env(), ctxt.elf_path()));
+  ctxt.current_corpus(corp);
+  if (!ctxt.env())
+    ctxt.env(corp->get_environment());
 
   // First set some mundane properties of the corpus gathered from
   // ELF.
