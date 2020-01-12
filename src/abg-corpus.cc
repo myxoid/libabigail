@@ -20,6 +20,7 @@
 
 /// @file
 
+#include "abg-fwd.h"
 #include "config.h"
 #include <cstdio>
 #include <cstring>
@@ -560,7 +561,10 @@ corpus::add(const translation_unit_sptr tu)
 
   ABG_ASSERT(tu->get_environment() == get_environment());
 
-  priv_->members.push_back(tu);
+  const std::pair<translation_units::const_iterator, bool>& result
+      = priv_->members.insert(tu);
+  ABG_ASSERT(result.second);
+
   if (!tu->get_absolute_path().empty())
     {
       // Update the path -> translation_unit map.
