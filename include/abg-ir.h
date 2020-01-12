@@ -33,6 +33,7 @@
 #include <assert.h>
 #include <stdint.h>
 #include <cstdlib>
+#include <set>
 #include "abg-cxx-compat.h"
 #include "abg-fwd.h"
 #include "abg-hash.h"
@@ -706,6 +707,20 @@ public:
   synthesize_type_from_translation_unit(const type_base_sptr& type,
 					translation_unit& tu);
 };//end class translation_unit
+
+struct SharedTranslationUnitComparator
+{
+  bool
+  operator()(const translation_unit_sptr& lhs,
+	     const translation_unit_sptr& rhs) const
+  {
+    return lhs->get_absolute_path() < rhs->get_absolute_path();
+  }
+};
+
+/// Convenience typedef for a vector of @ref translation_unit_sptr.
+typedef std::set<translation_unit_sptr, SharedTranslationUnitComparator>
+    translation_units;
 
 string
 translation_unit_language_to_string(translation_unit::language);
