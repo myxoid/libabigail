@@ -2388,9 +2388,6 @@
       <parameter type-id='e1aef6a4'/>
       <return type-id='3cc8ee4c'/>
     </function-type>
-    <function-type size-in-bits='64' id='ee076206'>
-      <return type-id='48b5725f'/>
-    </function-type>
     <function-type size-in-bits='64' id='f97dce0b'>
       <parameter type-id='700d1892'/>
       <return type-id='48b5725f'/>
@@ -2402,6 +2399,9 @@
     </function-type>
     <function-type size-in-bits='64' id='d473d82d'>
       <parameter type-id='e1aef6a4'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='ee076206'>
       <return type-id='48b5725f'/>
     </function-type>
   </abi-instr>

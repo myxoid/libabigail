@@ -3992,11 +3992,6 @@
       <!-- typedef dbus_bool_t -->
       <return type-id='3cc8ee4c'/>
     </function-type>
-    <!-- void () -->
-    <function-type size-in-bits='64' id='ee076206'>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
     <!-- void (DBusCondVar*) -->
     <function-type size-in-bits='64' id='f97dce0b'>
       <!-- parameter of type 'DBusCondVar*' -->
@@ -4017,6 +4012,11 @@
     <function-type size-in-bits='64' id='d473d82d'>
       <!-- parameter of type 'DBusMutex*' -->
       <parameter type-id='e1aef6a4'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void () -->
+    <function-type size-in-bits='64' id='ee076206'>
       <!-- void -->
       <return type-id='48b5725f'/>
     </function-type>

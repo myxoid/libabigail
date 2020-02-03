@@ -14507,6 +14507,28 @@ read_debug_info_into_corpus(read_context& ctxt)
 	t.start();
       }
     // And now walk all the DIEs again to build the libabigail IR.
+    // Sort the compilation units to improve determinism of output.
+    struct dwarf_cu_info {
+      int compare(const dwarf_cu_info& other) const {
+	int comp_dir_diff = comp_dir.compare(other.comp_dir);
+	if (comp_dir_diff)
+	  return comp_dir_diff;
+	int name_diff = name.compare(other.name);
+	if (name_diff)
+	  return name_diff;
+	return index - other.index;
+      }
+      bool operator<(const dwarf_cu_info& other) const {
+	return compare(other) < 0;
+      }
+      string comp_dir;
+      string name;
+      int index;
+      Dwarf_Half dwarf_version;
+      Dwarf_Die unit;
+      uint8_t address_size;
+    };
+    std::vector<dwarf_cu_info> cus;
     Dwarf_Half dwarf_version = 0;
     for (Dwarf_Off offset = 0, next_offset = 0;
 	 (dwarf_next_unit(ctxt.dwarf(), offset, &next_offset, &header_size,
@@ -14520,14 +14542,29 @@ read_debug_info_into_corpus(read_context& ctxt)
 	    || dwarf_tag(&unit) != DW_TAG_compile_unit)
 	  continue;
 
-	ctxt.dwarf_version(dwarf_version);
-
 	address_size *= 8;
+
+	dwarf_cu_info info = {
+	  die_string_attribute(&unit, DW_AT_comp_dir),
+	  die_string_attribute(&unit, DW_AT_name),
+	  static_cast<int>(cus.size()),
+	  dwarf_version,
+	  unit,
+	  address_size
+	};
+	cus.push_back(info);
+      }
+
+    std::sort(cus.begin(), cus.end());
+    for (std::vector<dwarf_cu_info>::iterator it = cus.begin(); it != cus.end(); ++it)
+      {
+	dwarf_cu_info& info = *it;
+	ctxt.dwarf_version(info.dwarf_version);
 
 	// Build a translation_unit IR node from cu; note that cu must
 	// be a DW_TAG_compile_unit die.
 	translation_unit_sptr ir_node =
-	  build_translation_unit_and_add_to_ir(ctxt, &unit, address_size);
+	  build_translation_unit_and_add_to_ir(ctxt, &info.unit, info.address_size);
 	ABG_ASSERT(ir_node);
       }
     if (ctxt.do_log())

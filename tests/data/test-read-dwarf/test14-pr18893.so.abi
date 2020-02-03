@@ -74,6 +74,14 @@
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='1280' id='2ce43ee1'>
       <subrange length='40' type-id='7359adad' id='8f80b239'/>
     </array-type-def>
+    <type-decl name='float' size-in-bits='32' id='a6c45d85'/>
+    <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
+    <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
+    <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
+    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
+    <typedef-decl name='GLenum' type-id='f0981eeb' filepath='../../../include/GL/gl.h' line='149' column='1' id='055aa60e'/>
+    <typedef-decl name='GLfloat' type-id='a6c45d85' filepath='../../../include/GL/gl.h' line='160' column='1' id='46496ee3'/>
+    <typedef-decl name='_GLUfuncptr' type-id='953b12f8' filepath='../../../include/GL/glu.h' line='287' column='1' id='9fac4a53'/>
     <class-decl name='curveEvalMachine' size-in-bits='6592' is-struct='yes' visibility='default' filepath='libnurbs/interface/glcurveval.h' line='55' column='1' id='39487693'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='uprime' type-id='234bc418' visibility='default' filepath='libnurbs/interface/glcurveval.h' line='56' column='1'/>
@@ -174,8 +182,13 @@
     <qualified-type-def type-id='46496ee3' const='yes' id='9d5e4f33'/>
     <pointer-type-def type-id='9d5e4f33' size-in-bits='64' id='d476845b'/>
     <pointer-type-def type-id='a7431a56' size-in-bits='64' id='8278cb23'/>
+    <pointer-type-def type-id='ee076206' size-in-bits='64' id='953b12f8'/>
     <pointer-type-def type-id='6485bd28' size-in-bits='64' id='318ea842'/>
     <pointer-type-def type-id='f267cc92' size-in-bits='64' id='5a82918c'/>
+    <pointer-type-def type-id='4ba07ef3' size-in-bits='64' id='30135957'/>
+    <pointer-type-def type-id='2b48a6c7' size-in-bits='64' id='5f8a287b'/>
+    <pointer-type-def type-id='c5c76c9c' size-in-bits='64' id='b7f9d8e6'/>
+    <pointer-type-def type-id='48b5725f' size-in-bits='64' id='eaa32e2f'/>
     <class-decl name='CurveMap' is-struct='yes' visibility='default' is-declaration-only='yes' id='6abc0132'/>
     <class-decl name='OpenGLCurveEvaluator' visibility='default' filepath='libnurbs/interface/glcurveval.h' line='66' column='1' is-declaration-only='yes' id='8d4b0ae2'>
       <base-class access='public' layout-offset-in-bits='0' type-id='22b18ed5'/>
@@ -604,8 +617,28 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='48b5725f'/>
     </function-type>
+    <type-decl name='void' id='48b5725f'/>
+    <function-type size-in-bits='64' id='ee076206'>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='4ba07ef3'>
+      <parameter type-id='055aa60e'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='2b48a6c7'>
+      <parameter type-id='055aa60e'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='c5c76c9c'>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='libnurbs/interface/glinterface.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+    <type-decl name='unsigned char' size-in-bits='8' id='002ac4a6'/>
+    <typedef-decl name='GLboolean' type-id='002ac4a6' filepath='../../../include/GL/gl.h' line='150' column='1' id='e482d915'/>
+    <typedef-decl name='GLint' type-id='95e97e5e' filepath='../../../include/GL/gl.h' line='155' column='1' id='82e13008'/>
     <class-decl name='GLUnurbs' size-in-bits='1149440' is-struct='yes' visibility='default' filepath='libnurbs/interface/glrenderer.h' line='49' column='1' id='e83497bd'>
       <base-class access='public' layout-offset-in-bits='0' type-id='5c7cffcb'/>
       <data-member access='public' layout-offset-in-bits='47616'>
@@ -763,7 +796,10 @@
       </member-function>
     </class-decl>
     <pointer-type-def type-id='e83497bd' size-in-bits='64' id='129fea6d'/>
+    <pointer-type-def type-id='46496ee3' size-in-bits='64' id='5d68ba5a'/>
     <pointer-type-def type-id='98206f26' size-in-bits='64' id='a8b7100c'/>
+    <qualified-type-def type-id='82e13008' const='yes' id='9173a858'/>
+    <pointer-type-def type-id='9173a858' size-in-bits='64' id='6b122b76'/>
     <pointer-type-def type-id='a6c45d85' size-in-bits='64' id='361f7a7d'/>
     <function-decl name='gluNewNurbsRenderer' mangled-name='gluNewNurbsRenderer' filepath='libnurbs/interface/glinterface.cc' line='66' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluNewNurbsRenderer'>
       <return type-id='129fea6d'/>
@@ -2712,6 +2748,7 @@
     <array-type-def dimensions='1' type-id='26a90f95' size-in-bits='2048' id='2e646d82'>
       <subrange length='32' type-id='7359adad' id='ae5bde82'/>
     </array-type-def>
+    <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
     <typedef-decl name='size_t' type-id='7359adad' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h' line='211' column='1' id='b59d7dce'/>
     <typedef-decl name='Arc_ptr' type-id='70a74e83' filepath='libnurbs/internals/arc.h' line='50' column='1' id='c118b035'/>
     <enum-decl name='arc_side' filepath='libnurbs/internals/arc.h' line='52' column='1' id='45273cc6'>
@@ -3101,6 +3138,33 @@
       <subrange length='24' type-id='7359adad' id='fdd3342b'/>
       <subrange length='24' type-id='7359adad' id='fdd3342b'/>
     </array-type-def>
+    <array-type-def dimensions='1' type-id='95989dcf' size-in-bits='1600' id='092da536'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='bd54fe1a' size-in-bits='512' id='5d4efd44'>
+      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='7359adad' size-in-bits='1024' id='d2baa450'>
+      <subrange length='16' type-id='7359adad' id='848d0938'/>
+    </array-type-def>
+    <typedef-decl name='__jmp_buf' type-id='5d4efd44' filepath='/usr/include/bits/setjmp.h' line='32' column='1' id='379a1ab7'/>
+    <class-decl name='__sigset_t' size-in-bits='1024' is-struct='yes' visibility='default' filepath='/usr/include/bits/sigset.h' line='30' column='1' id='2616147f'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <var-decl name='__val' type-id='d2baa450' visibility='default' filepath='/usr/include/bits/sigset.h' line='31' column='1'/>
+      </data-member>
+    </class-decl>
+    <class-decl name='__jmp_buf_tag' size-in-bits='1600' is-struct='yes' visibility='default' filepath='/usr/include/setjmp.h' line='36' column='1' id='95989dcf'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <var-decl name='__jmpbuf' type-id='379a1ab7' visibility='default' filepath='/usr/include/setjmp.h' line='41' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='512'>
+        <var-decl name='__mask_was_saved' type-id='95e97e5e' visibility='default' filepath='/usr/include/setjmp.h' line='42' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='576'>
+        <var-decl name='__saved_mask' type-id='2616147f' visibility='default' filepath='/usr/include/setjmp.h' line='43' column='1'/>
+      </data-member>
+    </class-decl>
+    <typedef-decl name='jmp_buf' type-id='092da536' filepath='/usr/include/setjmp.h' line='49' column='1' id='a3997015'/>
     <class-decl name='ArcTessellator' size-in-bits='128' visibility='default' filepath='libnurbs/internals/arctess.h' line='47' column='1' id='96a897b1'>
       <data-member access='private' static='yes'>
         <var-decl name='gl_Bernstein' type-id='1e6e1d59' mangled-name='_ZN14ArcTessellator12gl_BernsteinE' visibility='default' filepath='libnurbs/internals/arctess.h' line='60' column='1'/>
@@ -5672,6 +5736,7 @@
     <pointer-type-def type-id='48e5d3e9' size-in-bits='64' id='c79084e1'/>
     <pointer-type-def type-id='0aec50eb' size-in-bits='64' id='46568fdb'/>
     <pointer-type-def type-id='9147a9c5' size-in-bits='64' id='5ab658c5'/>
+    <pointer-type-def type-id='eaa32e2f' size-in-bits='64' id='63e171df'/>
   </abi-instr>
   <abi-instr address-size='64' path='libnurbs/internals/curve.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='2412cf51' size-in-bits='640' id='cebeb113'>
@@ -9011,29 +9076,19 @@
     <array-type-def dimensions='1' type-id='aa631dda' size-in-bits='192' id='cc65a194'>
       <subrange length='3' type-id='7359adad' id='56f209d2'/>
     </array-type-def>
-    <array-type-def dimensions='1' type-id='95989dcf' size-in-bits='1600' id='092da536'>
+    <array-type-def dimensions='1' type-id='95989dd0' size-in-bits='1600' id='092da537'>
       <subrange length='1' type-id='7359adad' id='52f813b4'/>
     </array-type-def>
-    <type-decl name='float' size-in-bits='32' id='a6c45d85'/>
-    <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
-    <array-type-def dimensions='1' type-id='bd54fe1a' size-in-bits='512' id='5d4efd44'>
-      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
-    </array-type-def>
-    <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
-    <array-type-def dimensions='1' type-id='7359adad' size-in-bits='1024' id='d2baa450'>
-      <subrange length='16' type-id='7359adad' id='848d0938'/>
-    </array-type-def>
-    <typedef-decl name='GLfloat' type-id='a6c45d85' filepath='../../../include/GL/gl.h' line='160' column='1' id='46496ee3'/>
+    <type-decl name='double' size-in-bits='64' id='a0eb0f08'/>
+    <typedef-decl name='GLdouble' type-id='a0eb0f08' filepath='../../../include/GL/gl.h' line='162' column='1' id='aa631dda'/>
     <typedef-decl name='GLUtesselator' type-id='d304340d' filepath='../../../include/GL/glu.h' line='276' column='1' id='d3eb229a'/>
-    <typedef-decl name='__jmp_buf' type-id='5d4efd44' filepath='/usr/include/bits/setjmp.h' line='32' column='1' id='379a1ab7'/>
-    <class-decl name='__sigset_t' size-in-bits='1024' is-struct='yes' naming-typedef-id='b9c97942' visibility='default' filepath='/usr/include/bits/sigset.h' line='30' column='1' id='2616147f'>
+    <class-decl name='__sigset_t' size-in-bits='1024' is-struct='yes' naming-typedef-id='b9c97942' visibility='default' filepath='/usr/include/bits/sigset.h' line='30' column='1' id='26161480'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__val' type-id='d2baa450' visibility='default' filepath='/usr/include/bits/sigset.h' line='31' column='1'/>
       </data-member>
     </class-decl>
-    <typedef-decl name='__sigset_t' type-id='2616147f' filepath='/usr/include/bits/sigset.h' line='32' column='1' id='b9c97942'/>
-    <class-decl name='__jmp_buf_tag' size-in-bits='1600' is-struct='yes' visibility='default' filepath='/usr/include/setjmp.h' line='36' column='1' id='95989dcf'>
+    <typedef-decl name='__sigset_t' type-id='26161480' filepath='/usr/include/bits/sigset.h' line='32' column='1' id='b9c97942'/>
+    <class-decl name='__jmp_buf_tag' size-in-bits='1600' is-struct='yes' visibility='default' filepath='/usr/include/setjmp.h' line='36' column='1' id='95989dd0'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__jmpbuf' type-id='379a1ab7' visibility='default' filepath='/usr/include/setjmp.h' line='41' column='1'/>
       </data-member>
@@ -9044,7 +9099,7 @@
         <var-decl name='__saved_mask' type-id='b9c97942' visibility='default' filepath='/usr/include/setjmp.h' line='43' column='1'/>
       </data-member>
     </class-decl>
-    <typedef-decl name='jmp_buf' type-id='092da536' filepath='/usr/include/setjmp.h' line='49' column='1' id='a3997015'/>
+    <typedef-decl name='jmp_buf' type-id='092da537' filepath='/usr/include/setjmp.h' line='49' column='1' id='a3997016'/>
     <typedef-decl name='DictListKey' type-id='eaa32e2f' filepath='libtess/dict.h' line='60' column='1' id='8ecbf023'/>
     <typedef-decl name='DictList' type-id='72b053bd' filepath='libtess/dict.h' line='61' column='1' id='3b643f64'/>
     <typedef-decl name='DictListNode' type-id='f7e928e5' filepath='libtess/dict.h' line='62' column='1' id='af543aa0'/>
@@ -9364,7 +9419,7 @@
         <var-decl name='callCombineData' type-id='909f1995' visibility='default' filepath='libtess/tess.h' line='117' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='27712'>
-        <var-decl name='env' type-id='a3997015' visibility='default' filepath='libtess/tess.h' line='121' column='1'/>
+        <var-decl name='env' type-id='a3997016' visibility='default' filepath='libtess/tess.h' line='121' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='29312'>
         <var-decl name='polygonData' type-id='eaa32e2f' visibility='default' filepath='libtess/tess.h' line='123' column='1'/>
@@ -9378,7 +9433,7 @@
     <pointer-type-def type-id='d27f00bf' size-in-bits='64' id='153fc266'/>
     <pointer-type-def type-id='d3eb229a' size-in-bits='64' id='dea5847d'/>
     <pointer-type-def type-id='efa1e244' size-in-bits='64' id='1904a43b'/>
-    <pointer-type-def type-id='46496ee3' size-in-bits='64' id='5d68ba5a'/>
+    <pointer-type-def type-id='aa631dda' size-in-bits='64' id='e6c0d62b'/>
     <pointer-type-def type-id='c635c76e' size-in-bits='64' id='8b919b91'/>
     <pointer-type-def type-id='8b919b91' size-in-bits='64' id='71382761'/>
     <pointer-type-def type-id='3a01b766' size-in-bits='64' id='5c8b0b1f'/>
@@ -9393,11 +9448,7 @@
     <pointer-type-def type-id='c14b3ac1' size-in-bits='64' id='909f1995'/>
     <pointer-type-def type-id='6b81d05a' size-in-bits='64' id='3658840c'/>
     <pointer-type-def type-id='ff116884' size-in-bits='64' id='bdc2ed7e'/>
-    <pointer-type-def type-id='4ba07ef3' size-in-bits='64' id='30135957'/>
-    <pointer-type-def type-id='2b48a6c7' size-in-bits='64' id='5f8a287b'/>
-    <pointer-type-def type-id='c5c76c9c' size-in-bits='64' id='b7f9d8e6'/>
     <pointer-type-def type-id='c039af2e' size-in-bits='64' id='debb4ee8'/>
-    <pointer-type-def type-id='eaa32e2f' size-in-bits='64' id='63e171df'/>
     <function-decl name='gluNewTess' mangled-name='gluNewTess' filepath='libtess/tess.c' line='92' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluNewTess'>
       <return type-id='dea5847d'/>
     </function-decl>
@@ -9510,32 +9561,13 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='48b5725f'/>
     </function-type>
-    <function-type size-in-bits='64' id='4ba07ef3'>
-      <parameter type-id='055aa60e'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='2b48a6c7'>
-      <parameter type-id='055aa60e'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='c5c76c9c'>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <function-type size-in-bits='64' id='c039af2e'>
       <parameter type-id='eaa32e2f'/>
       <parameter type-id='eaa32e2f'/>
       <return type-id='48b5725f'/>
     </function-type>
-    <function-type size-in-bits='64' id='ee076206'>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/error.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <type-decl name='unsigned char' size-in-bits='8' id='002ac4a6'/>
-    <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
-    <typedef-decl name='GLenum' type-id='f0981eeb' filepath='../../../include/GL/gl.h' line='149' column='1' id='055aa60e'/>
     <typedef-decl name='GLubyte' type-id='002ac4a6' filepath='../../../include/GL/gl.h' line='156' column='1' id='cac0d15c'/>
     <qualified-type-def type-id='cac0d15c' const='yes' id='f2fb1dac'/>
     <pointer-type-def type-id='f2fb1dac' size-in-bits='64' id='074f79f2'/>
@@ -9545,10 +9577,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/mipmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
-    <typedef-decl name='GLint' type-id='95e97e5e' filepath='../../../include/GL/gl.h' line='155' column='1' id='82e13008'/>
     <typedef-decl name='GLsizei' type-id='95e97e5e' filepath='../../../include/GL/gl.h' line='159' column='1' id='d9108c75'/>
-    <pointer-type-def type-id='48b5725f' size-in-bits='64' id='eaa32e2f'/>
     <function-decl name='gluScaleImage' mangled-name='gluScaleImage' filepath='libutil/mipmap.c' line='3498' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluScaleImage'>
       <parameter type-id='055aa60e' name='format' filepath='libutil/mipmap.c' line='3498' column='1'/>
       <parameter type-id='d9108c75' name='widthin' filepath='libutil/mipmap.c' line='3498' column='1'/>
@@ -9630,18 +9659,12 @@
       <parameter type-id='eaa32e2f' name='data' filepath='libutil/mipmap.c' line='8484' column='1'/>
       <return type-id='82e13008'/>
     </function-decl>
-    <type-decl name='void' id='48b5725f'/>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/project.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <type-decl name='double' size-in-bits='64' id='a0eb0f08'/>
-    <typedef-decl name='GLdouble' type-id='a0eb0f08' filepath='../../../include/GL/gl.h' line='162' column='1' id='aa631dda'/>
     <typedef-decl name='GLclampd' type-id='a0eb0f08' filepath='../../../include/GL/gl.h' line='163' column='1' id='d60dcace'/>
-    <pointer-type-def type-id='aa631dda' size-in-bits='64' id='e6c0d62b'/>
     <pointer-type-def type-id='82e13008' size-in-bits='64' id='e115857f'/>
     <qualified-type-def type-id='aa631dda' const='yes' id='7e601e0a'/>
     <pointer-type-def type-id='7e601e0a' size-in-bits='64' id='114f6c60'/>
-    <qualified-type-def type-id='82e13008' const='yes' id='9173a858'/>
-    <pointer-type-def type-id='9173a858' size-in-bits='64' id='6b122b76'/>
     <function-decl name='gluOrtho2D' mangled-name='gluOrtho2D' filepath='libutil/project.c' line='57' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluOrtho2D'>
       <parameter type-id='aa631dda' name='left' filepath='libutil/project.c' line='57' column='1'/>
       <parameter type-id='aa631dda' name='right' filepath='libutil/project.c' line='57' column='1'/>
@@ -9718,9 +9741,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/quad.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <typedef-decl name='GLboolean' type-id='002ac4a6' filepath='../../../include/GL/gl.h' line='150' column='1' id='e482d915'/>
     <typedef-decl name='GLUquadric' type-id='57c251b8' filepath='../../../include/GL/glu.h' line='275' column='1' id='aeec8875'/>
-    <typedef-decl name='_GLUfuncptr' type-id='953b12f8' filepath='../../../include/GL/glu.h' line='287' column='1' id='9fac4a53'/>
     <class-decl name='GLUquadric' size-in-bits='192' is-struct='yes' visibility='default' filepath='libutil/quad.c' line='45' column='1' id='57c251b8'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='normals' type-id='82e13008' visibility='default' filepath='libutil/quad.c' line='46' column='1'/>
@@ -9739,7 +9760,6 @@
       </data-member>
     </class-decl>
     <pointer-type-def type-id='aeec8875' size-in-bits='64' id='d518e84e'/>
-    <pointer-type-def type-id='ee076206' size-in-bits='64' id='953b12f8'/>
     <pointer-type-def type-id='1ce01d2d' size-in-bits='64' id='b526dc99'/>
     <function-decl name='gluNewQuadric' mangled-name='gluNewQuadric' filepath='libutil/quad.c' line='54' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluNewQuadric'>
       <return type-id='d518e84e'/>

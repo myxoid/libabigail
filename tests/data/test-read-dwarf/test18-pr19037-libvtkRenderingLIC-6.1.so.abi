@@ -452,7 +452,6 @@
   </elf-variable-symbols>
   <abi-instr address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkImageDataLIC2D.cxx' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC' language='LANG_C_plus_plus'>
     <type-decl name='bool' size-in-bits='8' id='c894953d'/>
-    <type-decl name='char' size-in-bits='8' id='a84c031d'/>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='8' id='89feb1ec'>
       <subrange length='1' type-id='7359adad' id='52f813b4'/>
     </array-type-def>
@@ -1431,8 +1430,6 @@
     <pointer-type-def type-id='550a18e9' size-in-bits='64' id='a1e4faf9'/>
     <qualified-type-def type-id='33f57a65' const='yes' id='21fd6035'/>
     <pointer-type-def type-id='21fd6035' size-in-bits='64' id='a0de50cd'/>
-    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
-    <pointer-type-def type-id='9b45d938' size-in-bits='64' id='80f4b756'/>
     <pointer-type-def type-id='80f4b756' size-in-bits='64' id='7d3cd834'/>
     <qualified-type-def type-id='e322b6ef' const='yes' id='59d28eff'/>
     <pointer-type-def type-id='59d28eff' size-in-bits='64' id='3b76d94f'/>
@@ -10187,6 +10184,9 @@
     </class-decl>
   </abi-instr>
   <abi-instr address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC/vtkLineIntegralConvolution2D_AAH.cxx' language='LANG_C_plus_plus'>
+    <type-decl name='char' size-in-bits='8' id='a84c031d'/>
+    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
+    <pointer-type-def type-id='9b45d938' size-in-bits='64' id='80f4b756'/>
     <var-decl name='vtkLineIntegralConvolution2D_AAH' type-id='80f4b756' mangled-name='vtkLineIntegralConvolution2D_AAH' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC/vtkLineIntegralConvolution2D_AAH.cxx' line='9' column='1' elf-symbol-id='vtkLineIntegralConvolution2D_AAH'/>
   </abi-instr>
   <abi-instr address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC/vtkLineIntegralConvolution2D_AAV.cxx' language='LANG_C_plus_plus'>
