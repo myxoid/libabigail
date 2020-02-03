@@ -6466,9 +6466,11 @@
       <return type-id='fab7f087'/>
     </function-type>
   </abi-instr>
-  <abi-instr address-size='64' path='hb-font.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='hb-fallback-shape.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <!-- hb_font_t* const -->
     <qualified-type-def type-id='022d8174' const='yes' id='3467303f'/>
+  </abi-instr>
+  <abi-instr address-size='64' path='hb-font.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <!-- int* -->
     <pointer-type-def type-id='95e97e5e' size-in-bits='64' id='7292109c'/>
     <!-- hb_font_funcs_t* hb_font_funcs_create() -->
@@ -9563,6 +9565,11 @@
       <!-- <anonymous range>[2] -->
       <subrange length='2' type-id='7359adad' id='52efc4ef'/>
     </array-type-def>
+    <!-- elt_t[2048] -->
+    <array-type-def dimensions='1' type-id='e2069b86' size-in-bits='65536' id='e653ad5f'>
+      <!-- <anonymous range>[2048] -->
+      <subrange length='2048' type-id='7359adad' id='e5323efb'/>
+    </array-type-def>
     <!-- hb_tag_t[2] -->
     <array-type-def dimensions='1' type-id='863e9b4e' size-in-bits='64' id='697cc2c1'>
       <!-- <anonymous range>[2] -->
@@ -10103,6 +10110,51 @@
     </class-decl>
     <!-- typedef hb_set_digest_combiner_t<hb_set_digest_lowest_bits_t<long unsigned int, 4u>, hb_set_digest_combiner_t<hb_set_digest_lowest_bits_t<long unsigned int, 0u>, hb_set_digest_lowest_bits_t<long unsigned int, 9u> > > hb_set_digest_t -->
     <typedef-decl name='hb_set_digest_t' type-id='2a9964e0' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='135' column='1' id='6b027525'/>
+    <!-- struct hb_set_t -->
+    <class-decl name='hb_set_t' size-in-bits='66496' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='147' column='1' id='f522b3d3'>
+      <member-type access='public'>
+        <!-- typedef uint32_t hb_set_t::elt_t -->
+        <typedef-decl name='elt_t' type-id='8f92235e' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='320' column='1' id='e2069b86'/>
+      </member-type>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <!-- hb_object_header_t hb_set_t::header -->
+        <var-decl name='header' type-id='825dc3de' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='148' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='896'>
+        <!-- bool hb_set_t::in_error -->
+        <var-decl name='in_error' type-id='c894953d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='150' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_t::MAX_G -->
+        <var-decl name='MAX_G' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='321' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_t::SHIFT -->
+        <var-decl name='SHIFT' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='322' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_t::BITS -->
+        <var-decl name='BITS' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='323' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_t::MASK -->
+        <var-decl name='MASK' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='324' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_t::ELTS -->
+        <var-decl name='ELTS' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='325' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const hb_codepoint_t hb_set_t::INVALID -->
+        <var-decl name='INVALID' type-id='8eccec7b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='326' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='928'>
+        <!-- hb_set_t::elt_t hb_set_t::elts[2048] -->
+        <var-decl name='elts' type-id='e653ad5f' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='332' column='1'/>
+      </data-member>
+    </class-decl>
+    <!-- typedef hb_set_t hb_set_t -->
+    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
     <!-- GPOSProxy* -->
     <pointer-type-def type-id='62be5a74' size-in-bits='64' id='2b9a2442'/>
     <!-- GSUBProxy* -->
@@ -12371,6 +12423,12 @@
     <qualified-type-def type-id='6b027525' const='yes' id='cdfe33d5'/>
     <!-- const hb_set_digest_t* -->
     <pointer-type-def type-id='cdfe33d5' size-in-bits='64' id='462bda6d'/>
+    <!-- const hb_set_t -->
+    <qualified-type-def type-id='f522b3d3' const='yes' id='0d959bae'/>
+    <!-- const hb_set_t* -->
+    <pointer-type-def type-id='0d959bae' size-in-bits='64' id='e683d0cc'/>
+    <!-- const hb_set_t* const -->
+    <qualified-type-def type-id='e683d0cc' const='yes' id='5b4928f7'/>
     <!-- const hb_tag_t& -->
     <reference-type-def kind='lvalue' type-id='fd26009e' size-in-bits='64' id='3ad321a8'/>
     <!-- const hb_tag_t* -->
@@ -12429,6 +12487,14 @@
     <qualified-type-def type-id='19dbf96c' const='yes' id='fa646597'/>
     <!-- hb_set_digest_t* -->
     <pointer-type-def type-id='6b027525' size-in-bits='64' id='93d3877c'/>
+    <!-- hb_set_t* -->
+    <pointer-type-def type-id='f522b3d3' size-in-bits='64' id='13aa8303'/>
+    <!-- hb_set_t* const -->
+    <qualified-type-def type-id='13aa8303' const='yes' id='f2c4f918'/>
+    <!-- hb_set_t::elt_t& -->
+    <reference-type-def kind='lvalue' type-id='e2069b86' size-in-bits='64' id='cc13e42d'/>
+    <!-- hb_tag_t* -->
+    <pointer-type-def type-id='863e9b4e' size-in-bits='64' id='cd5addd3'/>
     <!-- typedef OT::hb_apply_context_t::return_t (OT::hb_apply_context_t*, unsigned int)* -->
     <pointer-type-def type-id='9e8e1bf6' size-in-bits='64' id='a5382af8'/>
     <!-- typedef OT::hb_closure_context_t::return_t (OT::hb_closure_context_t*, unsigned int)* -->
@@ -19510,8 +19576,6 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='hb-ot-tag.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
-    <!-- hb_tag_t* -->
-    <pointer-type-def type-id='863e9b4e' size-in-bits='64' id='cd5addd3'/>
     <!-- void hb_ot_tags_from_script(hb_script_t, hb_tag_t*, hb_tag_t*) -->
     <function-decl name='hb_ot_tags_from_script' mangled-name='hb_ot_tags_from_script' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-tag.cc' line='130' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='hb_ot_tags_from_script'>
       <!-- parameter of type 'enum hb_script_t' -->
@@ -19546,68 +19610,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='hb-set.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
-    <!-- elt_t[2048] -->
-    <array-type-def dimensions='1' type-id='e2069b86' size-in-bits='65536' id='e653ad5f'>
-      <!-- <anonymous range>[2048] -->
-      <subrange length='2048' type-id='7359adad' id='e5323efb'/>
-    </array-type-def>
-    <!-- struct hb_set_t -->
-    <class-decl name='hb_set_t' size-in-bits='66496' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='147' column='1' id='f522b3d3'>
-      <member-type access='public'>
-        <!-- typedef uint32_t hb_set_t::elt_t -->
-        <typedef-decl name='elt_t' type-id='8f92235e' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='320' column='1' id='e2069b86'/>
-      </member-type>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- hb_object_header_t hb_set_t::header -->
-        <var-decl name='header' type-id='825dc3de' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='148' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='896'>
-        <!-- bool hb_set_t::in_error -->
-        <var-decl name='in_error' type-id='c894953d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='150' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_t::MAX_G -->
-        <var-decl name='MAX_G' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='321' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_t::SHIFT -->
-        <var-decl name='SHIFT' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='322' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_t::BITS -->
-        <var-decl name='BITS' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='323' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_t::MASK -->
-        <var-decl name='MASK' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='324' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_t::ELTS -->
-        <var-decl name='ELTS' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='325' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const hb_codepoint_t hb_set_t::INVALID -->
-        <var-decl name='INVALID' type-id='8eccec7b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='326' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='928'>
-        <!-- hb_set_t::elt_t hb_set_t::elts[2048] -->
-        <var-decl name='elts' type-id='e653ad5f' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='332' column='1'/>
-      </data-member>
-    </class-decl>
-    <!-- typedef hb_set_t hb_set_t -->
-    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
-    <!-- const hb_set_t -->
-    <qualified-type-def type-id='f522b3d3' const='yes' id='0d959bae'/>
-    <!-- const hb_set_t* -->
-    <pointer-type-def type-id='0d959bae' size-in-bits='64' id='e683d0cc'/>
-    <!-- const hb_set_t* const -->
-    <qualified-type-def type-id='e683d0cc' const='yes' id='5b4928f7'/>
-    <!-- hb_set_t* -->
-    <pointer-type-def type-id='f522b3d3' size-in-bits='64' id='13aa8303'/>
-    <!-- hb_set_t* const -->
-    <qualified-type-def type-id='13aa8303' const='yes' id='f2c4f918'/>
-    <!-- hb_set_t::elt_t& -->
-    <reference-type-def kind='lvalue' type-id='e2069b86' size-in-bits='64' id='cc13e42d'/>
     <!-- hb_set_t* hb_set_create() -->
     <function-decl name='hb_set_create' mangled-name='hb_set_create' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.cc' line='41' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='hb_set_create'>
       <!-- hb_set_t* -->
@@ -19830,6 +19832,10 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='hb-shape-plan.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
+    <!-- const char* const -->
+    <qualified-type-def type-id='80f4b756' const='yes' id='b99c00c9'/>
+    <!-- const char* const* -->
+    <pointer-type-def type-id='b99c00c9' size-in-bits='64' id='13956559'/>
     <!-- hb_shape_plan_t* hb_shape_plan_create(hb_face_t*, const hb_segment_properties_t*, const hb_feature_t*, unsigned int, const char* const*) -->
     <function-decl name='hb_shape_plan_create' mangled-name='hb_shape_plan_create' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-shape-plan.cc' line='112' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='hb_shape_plan_create'>
       <!-- parameter of type 'hb_face_t*' -->
@@ -19927,10 +19933,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='hb-shape.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
-    <!-- const char* const -->
-    <qualified-type-def type-id='80f4b756' const='yes' id='b99c00c9'/>
-    <!-- const char* const* -->
-    <pointer-type-def type-id='b99c00c9' size-in-bits='64' id='13956559'/>
     <!-- hb_bool_t hb_feature_from_string(const char*, int, hb_feature_t*) -->
     <function-decl name='hb_feature_from_string' mangled-name='hb_feature_from_string' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-shape.cc' line='212' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='hb_feature_from_string'>
       <!-- parameter of type 'const char*' -->

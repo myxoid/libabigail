@@ -6,12 +6,12 @@
 
     [C] 'function SECStatus CERT_AddOCSPAcceptableResponses(CERTOCSPRequest*, SECOidTag, ...)' at ocsp.c:2199:1 has some indirect sub-type changes:
       parameter 2 of type 'typedef SECOidTag' has sub-type changes:
-        underlying type 'enum __anonymous_enum__1' at secoidt.h:34:1 changed:
+        underlying type 'enum __anonymous_enum__' at secoidt.h:34:1 changed:
           type size hasn't changed
           1 enumerator insertion:
-            '__anonymous_enum__1::SEC_OID_TLS_ECDHE_PSK' value '347'
+            '__anonymous_enum__::SEC_OID_TLS_ECDHE_PSK' value '347'
           1 enumerator change:
-            '__anonymous_enum__1::SEC_OID_TOTAL' from value '347' to '348' at secoidt.h:34:1
+            '__anonymous_enum__::SEC_OID_TOTAL' from value '347' to '348' at secoidt.h:34:1
 
 ================ end of changes of 'libnss3.so'===============
 
@@ -27,12 +27,12 @@
 
     [C] 'function SSLKEAType NSS_FindCertKEAType(CERTCertificate*)' at sslcert.c:939:1 has some indirect sub-type changes:
       return type changed:
-        underlying type 'enum __anonymous_enum__' at sslt.h:38:1 changed:
+        underlying type 'enum __anonymous_enum__2' at sslt.h:38:1 changed:
           type size hasn't changed
           1 enumerator insertion:
             '__anonymous_enum__1::ssl_kea_ecdh_psk' value '5'
           1 enumerator change:
-            '__anonymous_enum__::ssl_kea_size' from value '5' to '6' at sslt.h:40:1
+            '__anonymous_enum__2::ssl_kea_size' from value '5' to '6' at sslt.h:40:1
 
     [C] 'function SECStatus SSL_GetCipherSuiteInfo(PRUint16, SSLCipherSuiteInfo*, PRUintn)' at sslinfo.c:294:1 has some indirect sub-type changes:
       parameter 2 of type 'SSLCipherSuiteInfo*' has sub-type changes:
@@ -43,10 +43,10 @@
               'SSLAuthType authType', at offset 736 (in bits) at sslt.h:250:1
             1 data member changes (1 filtered):
               type of 'SSLAuthType authAlgorithm' changed:
-                underlying type 'enum __anonymous_enum__' at sslt.h:87:1 changed:
+                underlying type 'enum __anonymous_enum__1' at sslt.h:87:1 changed:
                   type size hasn't changed
                   1 enumerator deletion:
-                    '__anonymous_enum__::ssl_auth_rsa' value '1'
+                    '__anonymous_enum__1::ssl_auth_rsa' value '1'
                   7 enumerator insertions:
                     '__anonymous_enum__::ssl_auth_rsa_decrypt' value '1'
                     '__anonymous_enum__::ssl_auth_ecdh_rsa' value '5'
