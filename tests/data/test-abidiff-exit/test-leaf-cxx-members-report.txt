@@ -20,7 +20,7 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
       type name changed from 'int' to 'long int'
       type size changed from 32 to 64 (in bits)
 
-'struct ops at test-leaf-cxx-members-v0.cc:2:1' changed:
+'struct ops at test-leaf-cxx-members-v0.cc:2:1' changed (important):
   type size changed from 128 to 192 (in bits)
   1 member function deletion:
     'method virtual int ops::deleted_fn()' at test-leaf-cxx-members-v0.cc:6:1, virtual at voffset 1/1    {_ZN3ops10deleted_fnEv}

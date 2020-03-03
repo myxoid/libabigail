@@ -19,7 +19,7 @@ Leaf changes summary: 10 artifacts changed (10 filtered out)
     [A] 'function void spice_server_set_playback_rate(SpicePlaybackInstance*, uint32_t)'    {spice_server_set_playback_rate@@SPICE_SERVER_0.12.5}
     [A] 'function void spice_server_set_record_rate(SpiceRecordInstance*, uint32_t)'    {spice_server_set_record_rate@@SPICE_SERVER_0.12.5}
 
-  'enum __anonymous_enum__2 at spice.h:471:1' changed:
+  'enum __anonymous_enum__2 at spice.h:471:1' changed (important):
     type name changed from '__anonymous_enum__2' to 'SpiceImageCompression'
     type size hasn't changed
     7 enumerator deletions:
