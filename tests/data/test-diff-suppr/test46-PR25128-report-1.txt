@@ -7,7 +7,7 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
 
   [A] 'function void arch_set_max_freq_scale(cpumask*, unsigned long int)'
 
-'struct root_domain at sched.h:732:1' changed:
+'struct root_domain at sched.h:732:1' changed (important):
   type size changed from 14592 to 14720 (in bits)
   there are data member changes:
     type 'unsigned long int' of 'root_domain::max_cpu_capacity' changed:

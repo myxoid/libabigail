@@ -34,7 +34,7 @@ Removed/Changed/Added variables summary: 1 Removed, 1 Changed, 1 Added variable
       type name changed from 'int' to 'long int'
       type size changed from 32 to 64 (in bits)
 
-'struct changed' changed:
+'struct changed' changed (important):
   type size changed from 32 to 64 (in bits)
   there are data member changes:
     type 'int' of 'changed::foo' changed:
