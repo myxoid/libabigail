@@ -22602,13 +22602,20 @@ types_have_similar_structure(const type_base_sptr& first,
 ///
 /// @return true iff @p first and @p second have similar structures.
 bool
-types_have_similar_structure(const type_base* first, const type_base* second)
+types_have_similar_structure_internal(const type_base* first, const type_base* second)
 {
   if (!!first != !!second)
     return false;
 
   if (!first)
     return false;
+
+  // This is broken.
+
+  // It should be OK to peel typedefs at any point, not just at the top.
+
+  // It is not OK to peel a pointer on one side and a reference on the other, for
+  // example.
 
   if (is_typedef(first) || is_qualified_type(first))
     first = peel_qualified_or_typedef_type(first);
@@ -22743,6 +22750,14 @@ types_have_similar_structure(const type_base* first, const type_base* second)
       const function_type* ty2 = is_function_type(second);
       if (!ty2)
 	return false;
+      if (was_indirect_type)
+        {
+          std::cerr << "would have considered "
+                    << first->get_cached_pretty_representation()
+                    << " similar to "
+                    << second->get_cached_pretty_representation()
+                    << std::endl;
+        }
 
       if (!types_have_similar_structure(ty1->get_return_type(),
 					ty2->get_return_type()))
@@ -22769,6 +22784,46 @@ types_have_similar_structure(const type_base* first, const type_base* second)
 
   return false;
 }
+
+struct indent {
+  indent(string& p) : prefix(p) {
+    prefix += ' ';
+  }
+  ~indent() {
+    prefix.resize(prefix.size()-1);
+  }
+  string& prefix;
+};
+
+bool
+types_have_similar_structure(const type_base* first, const type_base* second)
+{
+  static string prefix;
+
+  std::cerr << prefix << "similar("
+            << first->get_cached_pretty_representation()
+            << ", "
+            << second->get_cached_pretty_representation()
+            << ") = ..." << std::endl;
+
+  bool result;
+  {
+    indent foo(prefix);
+    result = types_have_similar_structure_internal(first, second);
+  }
+
+  std::cerr << prefix << "similar("
+            << first->get_cached_pretty_representation()
+            << ", "
+            << second->get_cached_pretty_representation()
+            << ") = " << result << std::endl
+            << "text comparison = "
+            << (first->get_cached_pretty_representation() == second->get_cached_pretty_representation())
+            << std::endl;
+
+  return result;
+}
+
 
 /// Look for a data member of a given class, struct or union type and
 /// return it.
