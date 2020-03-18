@@ -49,6 +49,8 @@ ABG_END_EXPORT_DECLARATIONS
 #include "abg-comp-filter.h"
 #include "abg-ir-priv.h"
 
+#define SIMILAR 0
+
 namespace
 {
 /// This internal type is a tree walker that walks the sub-tree of a
@@ -22580,8 +22582,9 @@ function_decl_is_less_than(const function_decl &f, const function_decl &s)
 /// @return true iff @p first and @p second have similar structures.
 bool
 types_have_similar_structure(const type_base_sptr& first,
-			     const type_base_sptr& second)
-{return types_have_similar_structure(first.get(), second.get());}
+			     const type_base_sptr& second,
+                             bool ignore_size)
+{return types_have_similar_structure(first.get(), second.get(), ignore_size);}
 
 /// Test if two types have similar structures, even though they are
 /// (or can be) different.
@@ -22602,7 +22605,7 @@ types_have_similar_structure(const type_base_sptr& first,
 ///
 /// @return true iff @p first and @p second have similar structures.
 bool
-types_have_similar_structure_internal(const type_base* first, const type_base* second)
+    types_have_similar_structure_internal(const type_base* first, const type_base* second, bool ignore_size,string indent)
 {
   if (!!first != !!second)
     return false;
@@ -22617,26 +22620,64 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
   // It is not OK to peel a pointer on one side and a reference on the other, for
   // example.
 
-  if (is_typedef(first) || is_qualified_type(first))
-    first = peel_qualified_or_typedef_type(first);
+  first = peel_typedef_type(first);
+  second = peel_typedef_type(second);
 
-  if (is_typedef(second) || is_qualified_type(second))
-    second = peel_qualified_or_typedef_type(second);
+  SIMILAR && std::cout << indent << "qualified?" << std::endl;
+  if (const qualified_type_def* ty1 = is_qualified_type(first))
+    {
+      const qualified_type_def* ty2 = is_qualified_type(second);
+      if (ty2 == 0)
+        return false;
+      if (ty1->get_cv_quals() != ty2->get_cv_quals())
+        return false;
+      return types_have_similar_structure(ty1->get_underlying_type(),
+                                          ty2->get_underlying_type(),
+                                          ignore_size);
+    }
+  SIMILAR && std::cout << indent << "not qualified!" << std::endl;
+
+  SIMILAR && std::cout << indent << "pointer?" << std::endl;
+  if (const pointer_type_def* ty1 = is_pointer_type(first))
+    {
+      const pointer_type_def* ty2 = is_pointer_type(second);
+      if (ty2 == 0)
+        return false;
+      return types_have_similar_structure(ty1->get_pointed_to_type(),
+                                          ty2->get_pointed_to_type(),
+                                          true);
+    }
+  SIMILAR && std::cout << indent << "not pointer!" << std::endl;
+
+  SIMILAR && std::cout << indent << "reference?" << std::endl;
+  if (const reference_type_def* ty1 = is_reference_type(first))
+    {
+      const reference_type_def* ty2 = is_reference_type(second);
+      if (ty2 == 0)
+        return false;
+      return types_have_similar_structure(ty1->get_pointed_to_type(),
+                                          ty2->get_pointed_to_type(),
+                                          true);
+    }
+  SIMILAR && std::cout << indent << "not reference!" << std::endl;
 
   bool was_indirect_type = (is_pointer_type(first)
 			    || is_pointer_type(second)
 			    || is_reference_type(first)
 			    || is_reference_type(second));
-
+  was_indirect_type = false;
   if (was_indirect_type)
     {
       first = peel_typedef_pointer_or_reference_type(first);
       second = peel_typedef_pointer_or_reference_type(second);
     }
 
+  SIMILAR && std::cout << indent << "typeids different?" << std::endl;
   if (typeid(*first) != typeid(*second))
     return false;
+  SIMILAR && std::cout << indent << "typeids same!" << std::endl;
 
+  SIMILAR && std::cout << indent << "declaration?" << std::endl;
   if (const type_decl* ty1 = is_type_decl(first))
     {
       const type_decl* ty2 = is_type_decl(second);
@@ -22647,9 +22688,12 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 	if (ty1->get_size_in_bits() != ty2->get_size_in_bits())
 	  return false;
 
-      return ty1->get_name() == ty2->get_name();
+      return ty1->get_name() == ty2->get_name()
+          && (ignore_size || ty1->get_size_in_bits() == ty2->get_size_in_bits());
     }
+  SIMILAR && std::cout << indent << "not declaration!" << std::endl;
 
+  SIMILAR && std::cout << indent << "enum?" << std::endl;
   if (const enum_type_decl* ty1 = is_enum_type(first))
     {
       const enum_type_decl* ty2 = is_enum_type(second);
@@ -22660,19 +22704,33 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 	if (ty1->get_size_in_bits() != ty2->get_size_in_bits())
 	  return false;
 
-      return (get_name(ty1->get_underlying_type())
-	      == get_name(ty2->get_underlying_type()));
+      return get_name(ty1->get_underlying_type()) == get_name(ty2->get_underlying_type())
+          && (ignore_size || ty1->get_size_in_bits() == ty2->get_size_in_bits());
+;
     }
+  SIMILAR && std::cout << indent << "not enum!" << std::endl;
 
+  SIMILAR && std::cout << indent << "class?" << std::endl;
   if (const class_decl* ty1 = is_class_type(first))
     {
       const class_decl* ty2 = is_class_type(second);
       if (ty2 == 0)
 	return false;
 
+      bool anon1 = ty1->get_is_anonymous();
+      bool anon2 = ty2->get_is_anonymous();
+      SIMILAR && std::cout << indent << " anon1=" << anon1 << " anon2=" << anon2 << std::endl;
+
+      if (anon1 != anon2)
+        return false;
+      return (anon1 || ty1->get_name() == ty2->get_name())
+          && (ignore_size || ty1->get_size_in_bits() == ty2->get_size_in_bits());
+
+#if 0
       if (!ty1->get_is_anonymous() && !ty2->get_is_anonymous()
 	  && ty1->get_name() != ty2->get_name())
 	return false;
+#endif
 
       if (!was_indirect_type)
 	{
@@ -22698,12 +22756,23 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 
       return true;
     }
+  SIMILAR && std::cout << indent << "not class!" << std::endl;
 
+  SIMILAR && std::cout << indent << "union?" << std::endl;
   if (const union_decl* ty1 = is_union_type(first))
     {
       const union_decl* ty2 = is_union_type(second);
       if (ty2 == 0)
 	return false;
+
+      bool anon1 = ty1->get_is_anonymous();
+      bool anon2 = ty2->get_is_anonymous();
+      SIMILAR && std::cout << indent << " anon1=" << anon1 << " anon2=" << anon2 << std::endl;
+
+      if (anon1 != anon2)
+        return false;
+      return (anon1 || ty1->get_name() == ty2->get_name())
+          && (ignore_size || ty1->get_size_in_bits() == ty2->get_size_in_bits());
 
       if (!ty1->get_is_anonymous() && !ty2->get_is_anonymous()
 	  && ty1->get_name() != ty2->get_name())
@@ -22714,10 +22783,19 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 
       return true;
     }
+  SIMILAR && std::cout << indent << "not union!" << std::endl;
 
+  SIMILAR && std::cout << indent << "array?" << std::endl;
   if (const array_type_def* ty1 = is_array_type(first))
     {
       const array_type_def* ty2 = is_array_type(second);
+
+      return (ignore_size
+              || (ty1->get_size_in_bits() == ty2->get_size_in_bits()
+                  && ty1->get_dimension_count() == ty2->get_dimension_count()))
+          && types_have_similar_structure(ty1->get_element_type(),
+                                          ty2->get_element_type(),
+                                          ignore_size);
 
       if (!was_indirect_type)
 	if (ty1->get_size_in_bits() != ty2->get_size_in_bits()
@@ -22728,7 +22806,9 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 
       return true;
     }
+  SIMILAR && std::cout << indent << "not array!" << std::endl;
 
+  SIMILAR && std::cout << indent << "array subrange?" << std::endl;
   if (const array_type_def::subrange_type *ty1 = is_subrange_type(first))
     {
       const array_type_def::subrange_type *ty2 = is_subrange_type(second);
@@ -22739,12 +22819,15 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 	  || ty1->get_lower_bound() != ty2->get_lower_bound()
 	  || ty1->get_language() != ty2->get_language()
 	  || !types_have_similar_structure(ty1->get_underlying_type(),
-					  ty2->get_underlying_type()))
+                                           ty2->get_underlying_type(),
+                                           ignore_size))
 	return false;
 
       return true;
     }
+  SIMILAR && std::cout << indent << "not array subrange!" << std::endl;
 
+  SIMILAR && std::cout << indent << "function?" << std::endl;
   if (const function_type* ty1 = is_function_type(first))
     {
       const function_type* ty2 = is_function_type(second);
@@ -22760,7 +22843,8 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
         }
 
       if (!types_have_similar_structure(ty1->get_return_type(),
-					ty2->get_return_type()))
+					ty2->get_return_type(),
+                                        true))
 	return false;
 
       if (ty1->get_parameters().size() != ty2->get_parameters().size())
@@ -22773,11 +22857,13 @@ types_have_similar_structure_internal(const type_base* first, const type_base* s
 	    && j != ty2->get_parameters().end());
 	   ++i, ++j)
 	if (!types_have_similar_structure((*i)->get_type(),
-					  (*j)->get_type()))
+					  (*j)->get_type(),
+                                          true))
 	  return false;
 
       return true;
     }
+  SIMILAR && std::cout << indent << "not function!" << std::endl;
 
   // All kinds of type should have been handled at this point.
   ABG_ASSERT_NOT_REACHED;
@@ -22796,31 +22882,34 @@ struct indent {
 };
 
 bool
-types_have_similar_structure(const type_base* first, const type_base* second)
+    types_have_similar_structure(const type_base* first, const type_base* second, bool ignore_size)
 {
   static string prefix;
 
-  std::cerr << prefix << "similar("
-            << first->get_cached_pretty_representation()
-            << ", "
-            << second->get_cached_pretty_representation()
-            << ") = ..." << std::endl;
+  SIMILAR && std::cout << prefix << "similar("
+                       << first->get_cached_pretty_representation()
+                       << ", "
+                       << second->get_cached_pretty_representation()
+                       << ", ignore_size=" << ignore_size
+                       << ") = ..." << std::endl;
 
   bool result;
   {
     indent foo(prefix);
-    result = types_have_similar_structure_internal(first, second);
+    result = types_have_similar_structure_internal(first, second, ignore_size, prefix);
   }
 
-  std::cerr << prefix << "similar("
-            << first->get_cached_pretty_representation()
-            << ", "
-            << second->get_cached_pretty_representation()
-            << ") = " << result << std::endl
-            << "text comparison = "
-            << (first->get_cached_pretty_representation() == second->get_cached_pretty_representation())
-            << std::endl;
+  SIMILAR && std::cout << prefix << "similar("
+                       << first->get_cached_pretty_representation()
+                       << ", "
+                       << second->get_cached_pretty_representation()
+                       << ", ignore_size=" << ignore_size
+                       << ") = " << result << std::endl
+                       << prefix << "and text comparison = "
+                       << (first->get_cached_pretty_representation() == second->get_cached_pretty_representation())
+                       << std::endl;
 
+  //return first->get_cached_pretty_representation() == second->get_cached_pretty_representation();
   return result;
 }
 

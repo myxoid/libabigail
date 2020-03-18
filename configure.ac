@@ -617,8 +617,8 @@ DEPS_LIBS="$XML_LIBS $LIBZIP_LIBS $ELF_LIBS $DW_LIBS"
 AC_SUBST(DEPS_LIBS)
 
 if test x$ABIGAIL_DEVEL != x; then
-   CFLAGS="-g -Wall -Wextra -Werror"
-   CXXFLAGS="-g -Wall -Wextra -Werror"
+   CFLAGS="-O0 -g -Wall -Wextra -Werror"
+   CXXFLAGS="-O0 -g -Wall -Wextra -Werror"
 fi
 
 if test x$ENABLE_ASAN = xyes; then
@@ -914,6 +914,8 @@ AC_MSG_NOTICE([
     Source code location                           : ${srcdir}
     C Compiler                                     : ${CC}
     C++ Compiler		                   : ${CXX}
+    C Flags                                        : ${CFLAGS}
+    C++ Flags                                      : ${CXXFLAGS}
     GCC visibility attribute supported             : ${SUPPORTS_GCC_VISIBILITY_ATTRIBUTE}
     Python					   : ${PYTHON}
 

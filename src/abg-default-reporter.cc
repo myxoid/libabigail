@@ -421,7 +421,8 @@ default_reporter::report_local_reference_type_changes(const reference_diff& d,
 	    << "'\n";
     }
   else if (!types_have_similar_structure(f->get_pointed_to_type().get(),
-					 s->get_pointed_to_type().get()))
+					 s->get_pointed_to_type().get(),
+                                         true))
     out << indent
 	<< "reference type changed from: '"
 	<< f_repr << "' to: '" << s_repr << "'\n";

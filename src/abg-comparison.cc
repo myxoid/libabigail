@@ -33,6 +33,8 @@
 #include "abg-comparison-priv.h"
 #include "abg-reporter-priv.h"
 
+#define SIMILAR 0
+
 namespace abigail
 {
 
@@ -10676,19 +10678,19 @@ struct leaf_diff_node_marker_visitor : public diff_node_visitor
   visit_begin(diff *d)
   {
     string n = get_pretty_representation(d->first_subject(), /*internal=*/true);
-    std::cerr << "diff of '" << n << "' "
-              << " has_local_changes=" << d->has_local_changes()
-              << " has_basic_or_class_type_name_change=" << filtering::has_basic_or_class_type_name_change(d)
-              << " is_distinct_diff=" << is_distinct_diff(d)
-              << " is_pointer_diff=" << is_pointer_diff(d)
-              << " is_reference_diff=" << is_reference_diff(d)
-              << " is_qualified_type_diff=" << is_qualified_type_diff(d)
-              << " is_array_diff=" << is_array_diff(d)
-              << " is_fn_parm_diff=" << is_fn_parm_diff(d)
-              << " is_anonymous_class_or_union_diff=" << is_anonymous_class_or_union_diff(d)
-              << " has_class_decl_only_def_change=" << filtering::has_class_decl_only_def_change(d)
-              << " is_decl_only_class_with_size_change=" << filtering::is_decl_only_class_with_size_change(d)
-              << std::endl;
+    SIMILAR && std::cerr << "diff of '" << n << "' "
+                         << " has_local_changes=" << d->has_local_changes()
+                         << " has_basic_or_class_type_name_change=" << filtering::has_basic_or_class_type_name_change(d)
+                         << " is_distinct_diff=" << is_distinct_diff(d)
+                         << " is_pointer_diff=" << is_pointer_diff(d)
+                         << " is_reference_diff=" << is_reference_diff(d)
+                         << " is_qualified_type_diff=" << is_qualified_type_diff(d)
+                         << " is_array_diff=" << is_array_diff(d)
+                         << " is_fn_parm_diff=" << is_fn_parm_diff(d)
+                         << " is_anonymous_class_or_union_diff=" << is_anonymous_class_or_union_diff(d)
+                         << " has_class_decl_only_def_change=" << filtering::has_class_decl_only_def_change(d)
+                         << " is_decl_only_class_with_size_change=" << filtering::is_decl_only_class_with_size_change(d)
+                         << std::endl;
     if (d->has_local_changes()
 	// A leaf basic (or class/union) type name change makes no
 	// sense when showing just leaf changes.  It only makes sense
