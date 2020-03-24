@@ -9714,8 +9714,10 @@ corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
        i != changed_fns_.end();
        ++i)
     {
+      //std::cerr << "change_fn " << (*i)->get_pretty_representation() << std::endl;
       if ((*i)->is_filtered_out())
 	{
+	  //std::cerr << "filtered out" << std::endl;
 	  stat.num_changed_func_filtered_out
 	    (stat.num_changed_func_filtered_out() + 1);
 
@@ -9725,14 +9727,18 @@ corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
 	}
       else
 	{
+	  //std::cerr << "not filtered out" << std::endl;
 	  if ((*i)->get_category() & VIRTUAL_MEMBER_CHANGE_CATEGORY)
 	    stat.num_func_with_virtual_offset_changes
 	      (stat.num_func_with_virtual_offset_changes() + 1);
 	}
 
       if ((*i)->has_local_changes())
-	stat.num_leaf_func_changes
-	  (stat.num_leaf_func_changes() + 1);
+	{
+	  //std::cerr << "has local_changes" << std::endl;
+	  stat.num_leaf_func_changes
+	    (stat.num_leaf_func_changes() + 1);
+	}
     }
 
   // Walk the changed variables diff nodes to count the number of
@@ -9750,9 +9756,13 @@ corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
 	    stat.num_leaf_var_changes_filtered_out
 	      (stat.num_leaf_var_changes_filtered_out() + 1);
 	}
+      //std::cerr << "checking: " << (*i)->get_pretty_representation() << std::endl;
       if ((*i)->has_local_changes())
-	stat.num_leaf_var_changes
-	  (stat.num_leaf_var_changes() + 1);
+	{
+	  //std::cerr << "got one: " << (*i)->get_pretty_representation() << std::endl;
+	  stat.num_leaf_var_changes
+	    (stat.num_leaf_var_changes() + 1);
+	}
     }
 
   stat.num_func_syms_added(added_unrefed_fn_syms_.size());

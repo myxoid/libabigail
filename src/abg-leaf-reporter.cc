@@ -269,6 +269,7 @@ leaf_reporter::report(const function_type_diff& d,
 
   if (diff_to_be_reported(d.priv_->return_type_diff_.get()))
     {
+      // XXX perhaps not working for test-leaf1
       out << indent << "return type changed:\n";
       d.priv_->return_type_diff_->report(out, indent + "  ");
     }
@@ -643,6 +644,7 @@ leaf_reporter::report(const class_or_union_diff& d,
 		 sorted_changed_dm_.end();
 	       ++it)
 	    {
+	      //std::cerr << "mem: " << (*it)->get_pretty_representation() << std::endl;
 	      if (diff_to_be_reported((*it).get()))
 		{
 		  represent(*it, ctxt, out, indent + "  ",
@@ -669,6 +671,7 @@ leaf_reporter::report(const class_or_union_diff& d,
 	       it != d.class_or_union_diff::get_priv()->sorted_subtype_changed_dm_.end();
 	       ++it)
 	    {
+	      //std::cerr << "mem: " << (*it)->get_pretty_representation() << std::endl;
 	      if (diff_to_be_reported((*it).get()))
 		{
 		  represent(*it, ctxt, out, indent + "  ",

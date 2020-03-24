@@ -17092,6 +17092,8 @@ equals(const function_decl& l, const function_decl& r, change_kind* k)
 {
   bool result = true;
 
+  //std::cerr << "comparing " << l.get_pretty_representation() << " " << r.get_pretty_representation() << (k ? " detail" : " quick") << std::endl;
+
   // Compare function types
   const type_base* t0 = l.get_naked_type(), *t1 = r.get_naked_type();
   if (t0 == t1 || *t0 == *t1)
@@ -17099,6 +17101,7 @@ equals(const function_decl& l, const function_decl& r, change_kind* k)
       // properties of the functions.
   else
     {
+      //std::cerr << "types differ" << std::endl;
       result = false;
       if (k)
 	{
@@ -22614,10 +22617,54 @@ types_have_similar_structure(const type_base_sptr& first,
 /// @param indirect_type whether to do an indirect comparison
 ///
 /// @return true iff @p first and @p second have similar structures.
+
+// types are equal - we don't get called (1 exception?)
+//
+// types are not equal - we get called to see if there is a local type
+// change but we do this by potentially traversing the entire type,
+// again
+
+#define LOG(x)	\
+if (0) {	\
+  auto fp = first->get_pretty_representation();	\
+  auto sp = second->get_pretty_representation();	\
+  std::cout << std::string(depth, ' ') << "sim(" << fp << ", " << sp << ", indirect_type=" << indirect_type << "): " << x << std::endl; \
+}
+
+static int depth = 0;
+
+struct hold {
+  int saved;
+  hold() : saved(depth) { ++depth; }
+  ~hold() { depth = saved; }
+};
+
+bool
+types_have_similar_structure_internal(const type_base* first,
+				      const type_base* second,
+				      bool indirect_type);
+
 bool
 types_have_similar_structure(const type_base* first,
 			     const type_base* second,
 			     bool indirect_type)
+{
+  string f = first->get_pretty_representation();
+  string s = second->get_pretty_representation();
+  LOG(" = ...");
+  bool res;
+  {
+    hold hh;
+    res = types_have_similar_structure_internal(first, second, indirect_type);
+  }
+  LOG(" = " << res);
+  return res;
+}
+
+bool
+types_have_similar_structure_internal(const type_base* first,
+				      const type_base* second,
+				      bool indirect_type)
 {
   if (!!first != !!second)
     return false;
@@ -22625,9 +22672,14 @@ types_have_similar_structure(const type_base* first,
   if (!first)
     return false;
 
+  LOG("start");
+  LOG("indirect=" << indirect_type);
+
   // Treat typedefs purely as type aliases and ignore CV-qualifiers.
   first = peel_qualified_or_typedef_type(first);
   second = peel_qualified_or_typedef_type(second);
+
+  LOG("peeled CV and typedefs");
 
   // Eliminate all but N of the N^2 comparison cases. This also guarantees the
   // various ty2 below cannot be null.
@@ -22638,6 +22690,7 @@ types_have_similar_structure(const type_base* first,
   if (const pointer_type_def* ty1 = is_pointer_type(first))
     {
       const pointer_type_def* ty2 = is_pointer_type(second);
+      LOG("peeling pointers");
       return types_have_similar_structure(ty1->get_pointed_to_type(),
 					  ty2->get_pointed_to_type(),
 					  true);
@@ -22649,6 +22702,7 @@ types_have_similar_structure(const type_base* first,
       const reference_type_def* ty2 = is_reference_type(second);
       if (ty1->is_lvalue() != ty2->is_lvalue())
 	return false;
+      LOG("peeling references");
       return types_have_similar_structure(ty1->get_pointed_to_type(),
 					  ty2->get_pointed_to_type(),
 					  true);
@@ -22656,8 +22710,10 @@ types_have_similar_structure(const type_base* first,
 
   if (const type_decl* ty1 = is_type_decl(first))
     {
+      LOG("type decls");
       const type_decl* ty2 = is_type_decl(second);
-      if (!indirect_type)
+      LOG("type_decl details: " << ty1->get_name() << " " << ty1->get_size_in_bits() << " " << ty2->get_name() << " " << ty2->get_size_in_bits());
+      if (!indirect_type) // YYY
 	if (ty1->get_size_in_bits() != ty2->get_size_in_bits())
 	  return false;
 
@@ -22666,8 +22722,10 @@ types_have_similar_structure(const type_base* first,
 
   if (const enum_type_decl* ty1 = is_enum_type(first))
     {
+      LOG("enum type decls");
       const enum_type_decl* ty2 = is_enum_type(second);
-      if (!indirect_type)
+      LOG("enum_type_decl details: " << get_name(ty1->get_underlying_type()) << " " << ty1->get_size_in_bits() << " " << get_name(ty2->get_underlying_type()) << " " << ty2->get_size_in_bits());
+      if (!indirect_type) // YYY
 	if (ty1->get_size_in_bits() != ty2->get_size_in_bits())
 	  return false;
 
@@ -22677,12 +22735,17 @@ types_have_similar_structure(const type_base* first,
 
   if (const class_decl* ty1 = is_class_type(first))
     {
+      LOG("class decls");
       const class_decl* ty2 = is_class_type(second);
+      LOG("class_decl details: " << ty1->get_name() << " " << ty1->get_size_in_bits() << " " << ty2->get_name() << " " << ty2->get_size_in_bits());
+      // The normal case is 2 named or 2 anon structs.
+      // The abnormal mixed case should probably return false.
+      // If named types differ in name, not similar. This could also be argued but there's no point if the
       if (!ty1->get_is_anonymous() && !ty2->get_is_anonymous()
 	  && ty1->get_name() != ty2->get_name())
 	return false;
 
-      if (!indirect_type)
+      if (!indirect_type) // YYY
 	{
 	  if ((ty1->get_size_in_bits() != ty2->get_size_in_bits())
 	      || (ty1->get_non_static_data_members().size()
@@ -22700,7 +22763,7 @@ types_have_similar_structure(const type_base* first,
 	      var_decl_sptr dm2 = *j;
 	      if (!types_have_similar_structure(dm1->get_type().get(),
 						dm2->get_type().get(),
-						indirect_type))
+						indirect_type)) // XXX
 		return false;
 	    }
 	}
@@ -22710,12 +22773,14 @@ types_have_similar_structure(const type_base* first,
 
   if (const union_decl* ty1 = is_union_type(first))
     {
+      LOG("union decls");
       const union_decl* ty2 = is_union_type(second);
+      LOG("union_decl details: " << ty1->get_name() << " " << ty1->get_size_in_bits() << " " << ty2->get_name() << " " << ty2->get_size_in_bits());
       if (!ty1->get_is_anonymous() && !ty2->get_is_anonymous()
 	  && ty1->get_name() != ty2->get_name())
 	return false;
 
-      if (!indirect_type)
+      if (!indirect_type) // YYY
 	return ty1->get_size_in_bits() == ty2->get_size_in_bits();
 
       return true;
@@ -22723,13 +22788,14 @@ types_have_similar_structure(const type_base* first,
 
   if (const array_type_def* ty1 = is_array_type(first))
     {
+      LOG("array type defs");
       const array_type_def* ty2 = is_array_type(second);
       // TODO: Handle uint32_t[10] vs uint64_t[5] better.
       if (ty1->get_size_in_bits() != ty2->get_size_in_bits()
 	  || ty1->get_dimension_count() != ty2->get_dimension_count()
 	  || !types_have_similar_structure(ty1->get_element_type(),
 					   ty2->get_element_type(),
-					   indirect_type))
+					   indirect_type)) // XXX
 	return false;
 
       return true;
@@ -22737,13 +22803,14 @@ types_have_similar_structure(const type_base* first,
 
   if (const array_type_def::subrange_type *ty1 = is_subrange_type(first))
     {
+      LOG("subrange types");
       const array_type_def::subrange_type *ty2 = is_subrange_type(second);
       if (ty1->get_upper_bound() != ty2->get_upper_bound()
 	  || ty1->get_lower_bound() != ty2->get_lower_bound()
 	  || ty1->get_language() != ty2->get_language()
 	  || !types_have_similar_structure(ty1->get_underlying_type(),
 					   ty2->get_underlying_type(),
-					   indirect_type))
+					   indirect_type)) // XXX
 	return false;
 
       return true;
@@ -22751,10 +22818,11 @@ types_have_similar_structure(const type_base* first,
 
   if (const function_type* ty1 = is_function_type(first))
     {
+      LOG("function types");
       const function_type* ty2 = is_function_type(second);
       if (!types_have_similar_structure(ty1->get_return_type(),
 					ty2->get_return_type(),
-					indirect_type))
+					indirect_type)) // XXX
 	return false;
 
       if (ty1->get_parameters().size() != ty2->get_parameters().size())
@@ -22768,7 +22836,7 @@ types_have_similar_structure(const type_base* first,
 	   ++i, ++j)
 	if (!types_have_similar_structure((*i)->get_type(),
 					  (*j)->get_type(),
-					  indirect_type))
+					  indirect_type)) // XXX
 	  return false;
 
       return true;
