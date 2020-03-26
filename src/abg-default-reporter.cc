@@ -1721,14 +1721,14 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	<< d.second_corpus()->get_architecture_name() << "'\n\n";
 
   /// Report removed/added/changed functions.
-  if (ctxt->show_deleted_fns())
+  size_t num_deleted_fns = s.net_num_func_removed();
+  if (ctxt->show_deleted_fns() && num_deleted_fns)
     {
-      if (s.net_num_func_removed() == 1)
+      if (num_deleted_fns == 1)
 	out << indent << "1 Removed function:\n\n";
-      else if (s.net_num_func_removed() > 1)
-	out << indent << s.net_num_func_removed() << " Removed functions:\n\n";
+      else if (num_deleted_fns > 1)
+	out << indent << num_deleted_fns << " Removed functions:\n\n";
 
-      bool emitted = false;
       vector<function_decl*>sorted_deleted_fns;
       sort_string_function_ptr_map(d.priv_->deleted_fns_, sorted_deleted_fns);
       for (vector<function_decl*>::const_iterator i =
@@ -1761,20 +1761,17 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 		  << c->get_pretty_representation()
 		  << "\n";
 	    }
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
-  if (ctxt->show_added_fns())
+  size_t num_added_fns = s.net_num_func_added();
+  if (ctxt->show_added_fns() && num_added_fns)
     {
-      if (s.net_num_func_added() == 1)
+      if (num_added_fns == 1)
 	out << indent << "1 Added function:\n\n";
-      else if (s.net_num_func_added() > 1)
-	out << indent << s.net_num_func_added()
-	    << " Added functions:\n\n";
-      bool emitted = false;
+      else if (num_added_fns > 1)
+	out << indent << num_added_fns << " Added functions:\n\n";
       vector<function_decl*> sorted_added_fns;
       sort_string_function_ptr_map(d.priv_->added_fns_, sorted_added_fns);
       for (vector<function_decl*>::const_iterator i = sorted_added_fns.begin();
@@ -1810,19 +1807,17 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 		  << c->get_pretty_representation()
 		  << "\n";
 	    }
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
-  if (ctxt->show_changed_fns())
+  size_t num_changed_fns = s.num_func_changed() - s.num_changed_func_filtered_out();
+  if (ctxt->show_changed_fns() && num_changed_fns)
     {
-      size_t num_changed = s.num_func_changed() - s.num_changed_func_filtered_out();
-      if (num_changed == 1)
+      if (num_changed_fns == 1)
 	out << indent << "1 function with some indirect sub-type change:\n\n";
-      else if (num_changed > 1)
-	out << indent << num_changed
+      else if (num_changed_fns > 1)
+	out << indent << num_changed_fns
 	    << " functions with some indirect sub-type change:\n\n";
 
       vector<function_decl_diff_sptr> sorted_changed_fns;
@@ -1897,15 +1892,15 @@ default_reporter::report(const corpus_diff& d, ostream& out,
     }
 
   // Report removed/added/changed variables.
-  if (ctxt->show_deleted_vars())
+  size_t num_deleted_vars = s.net_num_vars_removed();
+  if (ctxt->show_deleted_vars() && num_deleted_vars)
     {
-      if (s.net_num_vars_removed() == 1)
+      if (num_deleted_vars == 1)
 	out << indent << "1 Removed variable:\n\n";
-      else if (s.net_num_vars_removed() > 1)
-	out << indent << s.net_num_vars_removed()
+      else if (num_deleted_vars > 1)
+	out << indent << num_deleted_vars
 	    << " Removed variables:\n\n";
       string n;
-      bool emitted = false;
       vector<var_decl*> sorted_deleted_vars;
       sort_string_var_ptr_map(d.priv_->deleted_vars_, sorted_deleted_vars);
       for (vector<var_decl*>::const_iterator i =
@@ -1932,21 +1927,19 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	      out << "}";
 	    }
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	  out << "\n";
+      out << "\n";
     }
 
-  if (ctxt->show_added_vars())
+  size_t num_added_vars = s.net_num_vars_added();
+  if (ctxt->show_added_vars() && num_added_vars)
     {
-      if (s.net_num_vars_added() == 1)
+      if (num_added_vars == 1)
 	out << indent << "1 Added variable:\n\n";
-      else if (s.net_num_vars_added() > 1)
-	out << indent << s.net_num_vars_added()
+      else if (num_added_vars > 1)
+	out << indent << num_added_vars
 	    << " Added variables:\n\n";
       string n;
-      bool emitted = false;
       vector<var_decl*> sorted_added_vars;
       sort_string_var_ptr_map(d.priv_->added_vars_, sorted_added_vars);
       for (vector<var_decl*>::const_iterator i =
@@ -1971,23 +1964,19 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	      out << "}";
 	    }
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
-  if (ctxt->show_changed_vars())
+  size_t num_changed_vars = s.num_vars_changed() - s.num_changed_vars_filtered_out();
+  if (ctxt->show_changed_vars() && num_changed_vars)
     {
-      size_t num_changed =
-	s.num_vars_changed() - s.num_changed_vars_filtered_out();
-      if (num_changed == 1)
+      if (num_changed_vars == 1)
 	out << indent << "1 Changed variable:\n\n";
-      else if (num_changed > 1)
-	out << indent << num_changed
+      else if (num_changed_vars > 1)
+	out << indent << num_changed_vars
 	    << " Changed variables:\n\n";
       string n1, n2;
-
       for (var_diff_sptrs_type::const_iterator i =
 	     d.priv_->sorted_changed_vars_.begin();
 	   i != d.priv_->sorted_changed_vars_.end();
@@ -2017,18 +2006,18 @@ default_reporter::report(const corpus_diff& d, ostream& out,
     }
 
   // Report removed function symbols not referenced by any debug info.
+  size_t num_removed_fn_syms = s.net_num_removed_func_syms();
   if (ctxt->show_symbols_unreferenced_by_debug_info()
-      && d.priv_->deleted_unrefed_fn_syms_.size())
+      && num_removed_fn_syms)
     {
-      if (s.net_num_removed_func_syms() == 1)
+      if (num_removed_fn_syms == 1)
 	out << indent
 	    << "1 Removed function symbol not referenced by debug info:\n\n";
-      else if (s.net_num_removed_func_syms() > 0)
+      else if (num_removed_fn_syms > 0)
 	out << indent
-	    << s.net_num_removed_func_syms()
+	    << num_removed_fn_syms
 	    << " Removed function symbols not referenced by debug info:\n\n";
 
-      bool emitted = false;
       vector<elf_symbol_sptr> sorted_deleted_unrefed_fn_syms;
       sort_string_elf_symbol_map(d.priv_->deleted_unrefed_fn_syms_,
 				 sorted_deleted_unrefed_fn_syms);
@@ -2046,26 +2035,24 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	  show_linkage_name_and_aliases(out, "", **i,
 					d.first_corpus()->get_fun_symbol_map());
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
   // Report added function symbols not referenced by any debug info.
+  size_t num_added_fn_syms = s.net_num_added_func_syms();
   if (ctxt->show_symbols_unreferenced_by_debug_info()
       && ctxt->show_added_symbols_unreferenced_by_debug_info()
-      && d.priv_->added_unrefed_fn_syms_.size())
+      && num_added_fn_syms)
     {
-      if (s.net_num_added_func_syms() == 1)
+      if (num_added_fn_syms == 1)
 	out << indent
 	    << "1 Added function symbol not referenced by debug info:\n\n";
-      else if (s.net_num_added_func_syms() > 0)
+      else if (num_added_fn_syms > 0)
 	out << indent
-	    << s.net_num_added_func_syms()
+	    << num_added_fn_syms
 	    << " Added function symbols not referenced by debug info:\n\n";
 
-      bool emitted = false;
       vector<elf_symbol_sptr> sorted_added_unrefed_fn_syms;
       sort_string_elf_symbol_map(d.priv_->added_unrefed_fn_syms_,
 				 sorted_added_unrefed_fn_syms);
@@ -2083,25 +2070,23 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 					**i,
 					d.second_corpus()->get_fun_symbol_map());
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
   // Report removed variable symbols not referenced by any debug info.
+  size_t num_removed_var_syms = s.net_num_removed_var_syms();
   if (ctxt->show_symbols_unreferenced_by_debug_info()
-      && d.priv_->deleted_unrefed_var_syms_.size())
+      && num_removed_var_syms)
     {
-      if (s.net_num_removed_var_syms() == 1)
+      if (num_removed_var_syms == 1)
 	out << indent
 	    << "1 Removed variable symbol not referenced by debug info:\n\n";
-      else if (s.net_num_removed_var_syms() > 0)
+      else if (num_removed_var_syms > 0)
 	out << indent
-	    << s.net_num_removed_var_syms()
+	    << num_removed_var_syms
 	    << " Removed variable symbols not referenced by debug info:\n\n";
 
-      bool emitted = false;
       vector<elf_symbol_sptr> sorted_deleted_unrefed_var_syms;
       sort_string_elf_symbol_map(d.priv_->deleted_unrefed_var_syms_,
 				 sorted_deleted_unrefed_var_syms);
@@ -2121,26 +2106,24 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	     d.first_corpus()->get_fun_symbol_map());
 
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
   // Report added variable symbols not referenced by any debug info.
+  size_t num_added_var_syms = s.net_num_added_var_syms();
   if (ctxt->show_symbols_unreferenced_by_debug_info()
       && ctxt->show_added_symbols_unreferenced_by_debug_info()
-      && d.priv_->added_unrefed_var_syms_.size())
+      && num_added_var_syms)
     {
-      if (s.net_num_added_var_syms() == 1)
+      if (num_added_var_syms == 1)
 	out << indent
 	    << "1 Added variable symbol not referenced by debug info:\n\n";
-      else if (s.net_num_added_var_syms() > 0)
+      else if (num_added_var_syms > 0)
 	out << indent
-	    << s.net_num_added_var_syms()
+	    << num_added_var_syms
 	    << " Added variable symbols not referenced by debug info:\n\n";
 
-      bool emitted = false;
       vector<elf_symbol_sptr> sorted_added_unrefed_var_syms;
       sort_string_elf_symbol_map(d.priv_->added_unrefed_var_syms_,
 				 sorted_added_unrefed_var_syms);
@@ -2157,10 +2140,8 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 	  show_linkage_name_and_aliases(out, "", **i,
 					d.second_corpus()->get_fun_symbol_map());
 	  out << "\n";
-	  emitted = true;
 	}
-      if (emitted)
-	out << "\n";
+      out << "\n";
     }
 
   // Report added/removed/changed types not reacheable from public
