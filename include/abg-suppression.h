@@ -765,6 +765,145 @@ variable_suppression::change_kind
 operator|(variable_suppression::change_kind l,
 	  variable_suppression::change_kind r);
 
+class member_suppression;
+
+/// A convenience typedef for a shared pointer to @ref
+/// member_suppression.
+typedef shared_ptr<member_suppression> member_suppression_sptr;
+
+/// A convenience typedef for a vector of @ref
+/// member_suppression_sptr.
+typedef vector<member_suppression_sptr> member_suppressions_type;
+
+/// The abstraction of a member suppression specification.
+///
+/// It specifies under which condition reports about a @ref var_diff
+/// diff node should be dropped on the floor for the purpose of
+/// reporting.
+class member_suppression : public suppression_base
+{
+public:
+
+  /// The kind of change the current member suppression should apply
+  /// to.
+  enum change_kind
+  {
+    UNDEFINED_CHANGE_KIND,
+    /// A change in a sub-type of the member.
+    MEMBER_SUBTYPE_CHANGE_KIND = 1,
+    /// The member was added to the second second subject of the
+    /// diff.
+    ADDED_MEMBER_CHANGE_KIND = 1 << 1,
+    /// The member was deleted from the second subject of the diff.
+    DELETED_MEMBER_CHANGE_KIND = 1 << 2,
+    /// This represents all the changes possibly described by this
+    /// enum.  It's a logical 'OR' of all the change enumerators
+    /// above.
+    ALL_CHANGE_KIND = (MEMBER_SUBTYPE_CHANGE_KIND
+		       | ADDED_MEMBER_CHANGE_KIND
+		       | DELETED_MEMBER_CHANGE_KIND)
+  };
+
+private:
+  struct priv;
+  typedef shared_ptr<priv> priv_sptr;
+
+public:
+
+  priv_sptr priv_;
+
+  member_suppression(const string& label = "",
+		     const string& name = "",
+		     const string& name_regex_str = "",
+		     const string& class_name = "",
+		     const string& class_name_regex_str = "",
+		     const string& type_name = "",
+		     const string& type_name_regex_str = "");
+
+  virtual ~member_suppression();
+
+  static change_kind
+  parse_change_kind(const string&);
+
+  change_kind
+  get_change_kind() const;
+
+  void
+  set_change_kind(change_kind k);
+
+  const string&
+  get_name() const;
+
+  void
+  set_name(const string&);
+
+  const string&
+  get_name_regex_str() const;
+
+  void
+  set_name_regex_str(const string&);
+
+  const string&
+  get_name_not_regex_str() const;
+
+  void
+  set_name_not_regex_str(const string&);
+
+  const string&
+  get_class_name() const;
+
+  void
+  set_class_name(const string&);
+
+  const string&
+  get_class_name_regex_str() const;
+
+  void
+  set_class_name_regex_str(const string&);
+
+  const string&
+  get_class_name_not_regex_str() const;
+
+  void
+  set_class_name_not_regex_str(const string&);
+
+  const string&
+  get_type_name() const;
+
+  void
+  set_type_name(const string&);
+
+  const string&
+  get_type_name_regex_str() const;
+
+  void
+  set_type_name_regex_str(const string&);
+
+  bool
+  suppresses_diff(const diff* d) const;
+
+  bool
+  suppresses_member(const var_decl* var,
+		    change_kind k,
+		    const diff_context_sptr cxt) const;
+
+  bool
+  suppresses_member(const var_decl_sptr var,
+		    change_kind k,
+		    const diff_context_sptr cxt) const;
+}; // end class member_suppression
+
+member_suppression_sptr
+is_member_suppression(const suppression_sptr);
+
+member_suppression::change_kind
+operator&(member_suppression::change_kind l,
+	  member_suppression::change_kind r);
+
+member_suppression::change_kind
+operator|(member_suppression::change_kind l,
+	  member_suppression::change_kind r);
+
 class file_suppression;
 
 /// A convenience typedef for a shared_ptr to @ref file_suppression

@@ -341,6 +341,9 @@ read_function_suppression(const ini::config::section& section);
 static variable_suppression_sptr
 read_variable_suppression(const ini::config::section& section);
 
+static member_suppression_sptr
+read_member_suppression(const ini::config::section& section);
+
 static file_suppression_sptr
 read_file_suppression(const ini::config::section& section);
 
@@ -366,6 +369,7 @@ read_suppressions(const ini::config& config,
     if ((s = read_type_suppression(**i))
 	|| (s = read_function_suppression(**i))
 	|| (s = read_variable_suppression(**i))
+	|| (s = read_member_suppression(**i))
 	|| (s = read_file_suppression(**i)))
       suppressions.push_back(s);
 
@@ -3010,7 +3014,7 @@ suppression_matches_function_sym_name(const suppr::function_suppression& s,
 ///
 /// @param var_name the name of the variable to consider.
 ///
-/// @return true if the variable is matches by the suppression
+/// @return true if the variable is matched by the suppression
 /// specification.
 bool
 suppression_matches_variable_name(const suppr::variable_suppression& s,
@@ -3044,7 +3048,7 @@ suppression_matches_variable_name(const suppr::variable_suppression& s,
 ///
 /// @param var_linkage_name the name of the variable to consider.
 ///
-/// @return true if the variable is matches by the suppression
+/// @return true if the variable is matched by the suppression
 /// specification.
 bool
 suppression_matches_variable_sym_name(const suppr::variable_suppression& s,
@@ -3068,6 +3072,63 @@ suppression_matches_variable_sym_name(const suppr::variable_suppression& s,
       if (s.priv_->symbol_name_ != var_linkage_name)
 	return false;
     }
+
+  return true;
+}
+
+/// Test if a member suppression matches a member denoted by its own and
+/// class' name.
+///
+/// @param s the member suppression to consider.
+///
+/// @param member_name the name of the member to consider.
+///
+/// @param class_name the name of the class to consider.
+///
+/// @return true if the member is matched by the suppression
+/// specification.
+bool
+suppression_matches_member_name(const suppr::variable_suppression& s,
+				const string& member_name,
+				const string& class_name)
+{
+  if (sptr_utils::regex_t_sptr regexp = s.priv_->get_name_regex())
+    {
+      if (regexec(regexp.get(), member_name.c_str(), 0, NULL, 0) != 0)
+	return false;
+    }
+  else if (sptr_utils::regex_t_sptr regexp = s.priv_->get_name_not_regex())
+    {
+      if (regexec(regexp.get(), member_name.c_str(), 0, NULL, 0) == 0)
+	return false;
+    }
+  else if (s.priv_->name_.empty())
+    return false;
+  else // if (!s.priv_->name_.empty())
+    {
+      if (s.priv_->name_ != member_name)
+	return false;
+    }
+
+#if 0
+  if (sptr_utils::regex_t_sptr regexp = s.priv_->get_class_regex())
+    {
+      if (regexec(regexp.get(), class_name.c_str(), 0, NULL, 0) != 0)
+	return false;
+    }
+  else if (sptr_utils::regex_t_sptr regexp = s.priv_->get_class_not_regex())
+    {
+      if (regexec(regexp.get(), class_name.c_str(), 0, NULL, 0) == 0)
+	return false;
+    }
+  else if (s.priv_->class_name_.empty())
+    return false;
+  else // if (!s.priv_->class_name_.empty())
+    {
+      if (s.priv_->class_name_ != class_name)
+	return false;
+    }
+#endif
 
   return true;
 }
@@ -4240,6 +4301,663 @@ read_variable_suppression(const ini::config::section& section)
 }
 
 // </variable_suppression stuff>
+
+// <member_suppression stuff>
+
+/// Constructor for the @ref member_suppression type.
+///
+/// @param label an informative text string that the evalution code
+/// might use to designate this member suppression specification in
+/// error messages.  This parameter might be empty, in which case it's
+/// ignored at evaluation time.
+///
+/// @param name the name of the member the user wants the current
+/// specification to designate.  This parameter might be empty, in
+/// which case it's ignored at evaluation time.
+///
+/// @param name_regex_str if @p name is empty, this parameter is a
+/// regular expression for a family of names of members the user
+/// wants the current specification to designate.  If @p name is not
+/// empty, then this parameter is ignored at evaluation time.  This
+/// parameter might be empty, in which case it's ignored at evaluation
+/// time.
+///
+/// @param class_name the name of the class of the member the user
+/// wants the current specification to designate.  This parameter
+/// might be empty, in which case it's ignored at evaluation time.
+///
+/// @param class_name_str if @p class_name is empty, this parameter
+/// is a regular expression for a family of names of classes of
+/// members the user wants the current specification to designate.
+/// If @p class_name is not empty, then this parameter is ignored at
+/// evaluation time.  This parameter might be empty, in which case
+/// it's ignored at evaluation time.
+///
+/// @param type_name the name of the type of the member the user
+/// wants the current specification to designate.  This parameter
+/// might be empty, in which case it's ignored at evaluation time.
+///
+/// @param type_name_regex_str if @p type_name is empty, then this
+/// parameter is a regular expression for a family of type names of
+/// members the user wants the current specification to designate.
+/// If @p type_name is not empty, then this parameter is ignored at
+/// evluation time.  This parameter might be empty, in which case it's
+/// ignored at evaluation time.
+member_suppression::member_suppression(const string& label,
+				       const string& name,
+				       const string& name_regex_str,
+				       const string& class_name,
+				       const string& class_name_regex_str,
+				       const string& type_name,
+				       const string& type_name_regex_str)
+  : suppression_base(label),
+    priv_(new priv(name, name_regex_str,
+		   class_name, class_name_regex_str,
+		   type_name, type_name_regex_str))
+{}
+
+/// Virtual destructor for the @erf member_suppression type.
+/// member_suppression type.
+member_suppression::~member_suppression()
+{}
+
+/// Parses a string containing the content of the "change-kind"
+/// property and returns the an instance of @ref
+/// member_suppression::change_kind as a result.
+///
+/// @param s the string to parse.
+///
+/// @return the resulting @ref member_suppression::change_kind.
+member_suppression::change_kind
+member_suppression::parse_change_kind(const string& s)
+{
+  if (s == "member-subtype-change")
+    return MEMBER_SUBTYPE_CHANGE_KIND;
+  else if (s == "added-member")
+    return ADDED_MEMBER_CHANGE_KIND;
+  else if (s == "deleted-member")
+    return DELETED_MEMBER_CHANGE_KIND;
+  else if (s == "all")
+    return ALL_CHANGE_KIND;
+  else
+    return UNDEFINED_CHANGE_KIND;
+}
+
+/// Getter of the "change_king" property.
+///
+/// @return the value of the "change_kind" property.
+member_suppression::change_kind
+member_suppression::get_change_kind() const
+{return priv_->change_kind_;}
+
+/// Setter of the "change_kind" property.
+///
+/// @param k the new value of of the change_kind.
+void
+member_suppression::set_change_kind(change_kind k)
+{priv_->change_kind_ = k;}
+
+/// Getter for the name of the member the user wants the current
+/// specification to designate.  This property might be empty, in
+/// which case it's ignored at evaluation time.
+///
+/// @return the name of the member.
+const string&
+member_suppression::get_name() const
+{return priv_->name_;}
+
+/// Setter for the name of the member the user wants the current
+/// specification to designate.  This property might be empty, in
+/// which case it's ignored at evaluation time.
+///
+/// @param n the new name of the member to set.
+void
+member_suppression::set_name(const string& n)
+{priv_->name_ = n;}
+
+/// Getter for the regular expression for a family of names of
+/// members the user wants the current specification to designate.
+/// If the member name as returned by
+/// member_suppression::get_name() is not empty, then this property
+/// is ignored at evaluation time.  This property might be empty, in
+/// which case it's ignored at evaluation time.
+///
+/// @return the regular expression for the member name.
+const string&
+member_suppression::get_name_regex_str() const
+{return priv_->name_regex_str_;}
+
+/// Setter for the regular expression for a family of names of
+/// members the user wants the current specification to designate.
+/// If the member name as returned by
+/// member_suppression::get_name() is not empty, then this property
+/// is ignored at evaluation time.  This property might be empty, in
+/// which case it's ignored at evaluation time.
+///
+/// @param r the new regular expression for the member name.
+void
+member_suppression::set_name_regex_str(const string& r)
+{priv_->name_regex_str_ = r;}
+
+/// Getter for the "name_not_regexp" property of the specification.
+///
+/// @return the value of the "name_not_regexp" property.
+const string&
+member_suppression::get_name_not_regex_str() const
+{return priv_->name_not_regex_str_;}
+
+/// Setter for the "name_not_regexp" property of the specification.
+///
+/// @param r the new value of the "name_not_regexp" property.
+void
+member_suppression::set_name_not_regex_str(const string& r)
+{priv_->name_not_regex_str_ = r;}
+
+/// Getter for the name of the class of the member the user wants
+/// the current specification to designate.
+///
+/// This property might be empty, in which case it is ignored at
+/// evaluation time.
+///
+/// @return the name of the class of the member.
+const string&
+member_suppression::get_class_name() const
+{return priv_->class_name_;}
+
+/// Setter for the name of the class of the member the user wants
+/// the current specification to designate.
+///
+/// This property might be empty, in which case it is ignored at
+/// evaluation time.
+///
+/// @param n the new name of the class of the member.
+void
+member_suppression::set_class_name(const string& n)
+{priv_->class_name_ = n;}
+
+/// Getter of the regular expression for a family of class names of
+/// the members this specification is about to designate.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.  Otherwise, it is taken in account iff the
+/// property returned by member_suppression::get_class_name() is
+/// empty.
+///
+/// @return the regular expression for a class name of the member.
+const string&
+member_suppression::get_class_name_regex_str() const
+{return priv_->class_name_regex_str_;}
+
+/// Setter of the regular expression for a family of class names of
+/// the members this specification is about to designate.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.  Otherwise, it is taken in account iff the
+/// property returned by member_suppression::get_class_name() is
+/// empty.
+///
+/// @param r the regular expression for a class name of the member.
+void
+member_suppression::set_class_name_regex_str(const string& r)
+{priv_->class_name_regex_str_ = r;}
+
+/// Getter for a regular expression for a family of names of classes
+/// of members the user wants this specification to designate.
+///
+/// If a class name is matched by this regular expression, then the
+/// suppression specification will *NOT* suppress the class.
+///
+/// If the class name as returned by
+/// member_suppression::get_class_name() is not empty, then this
+/// property is ignored at specification evaluation time.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.
+///
+/// @return the regular expression string for a family of names of
+/// classes that is to be *NOT* suppressed by this suppression specification.
+const string&
+member_suppression::get_class_name_not_regex_str() const
+{return priv_->class_name_not_regex_str_;}
+
+/// Setter for a regular expression for a family of names of classes
+/// of members the user wants this specification to designate.
+///
+/// If a class name is matched by this regular expression, then the
+/// suppression specification will *NOT* suppress the class.
+///
+/// If the class name as returned by
+/// member_suppression::get_class_name() is not empty, then this
+/// property is ignored at specification evaluation time.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.
+///
+/// @param the new regular expression string for a family of names of
+/// classes that is to be *NOT* suppressed by this suppression
+/// specification.
+void
+member_suppression::set_class_name_not_regex_str(const string& r)
+{priv_->class_name_not_regex_str_ = r;}
+
+/// Getter for the name of the type of the member the user wants the
+/// current specification to designate.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.
+///
+/// @return the name of the member type.
+const string&
+member_suppression::get_type_name() const
+{return priv_->type_name_;}
+
+/// Setter for the name of the type of the member the user wants the
+/// current specification to designate.
+///
+/// This property might be empty, in which case it's ignored at
+/// evaluation time.
+///
+/// @param n the new name of the member type.
+void
+member_suppression::set_type_name(const string& n)
+{priv_->type_name_ = n;}
+
+/// Getter for the regular expression for a family of type names of
+/// members the user wants the current specification to designate.
+///
+/// If the type name as returned by
+/// member_suppression::get_type_name() is not empty, then this
+/// property is ignored at evaluation time.  This property might be
+/// empty, in which case it's ignored at evaluation time.
+///
+/// @return the regular expression of the member type name.
+const string&
+member_suppression::get_type_name_regex_str() const
+{return priv_->type_name_regex_str_;}
+
+/// Setter for the regular expression for a family of type names of
+/// members the user wants the current specification to designate.
+///
+/// If the type name as returned by
+/// member_suppression::get_type_name() is not empty, then this
+/// property is ignored at evaluation time.  This property might be
+/// empty, in which case it's ignored at evaluation time.
+///
+/// @param r the regular expression of the member type name.
+void
+member_suppression::set_type_name_regex_str(const string& r)
+{priv_->type_name_regex_str_ = r;}
+
+/// Evaluate this suppression specification on a given diff node and
+/// say if the diff node should be suppressed or not.
+///
+/// @param diff the diff node to evaluate this suppression
+/// specification against.
+///
+/// @return true if @p diff should be suppressed.
+bool
+member_suppression::suppresses_diff(const diff* diff) const
+{
+  const var_diff* d = is_var_diff(diff);
+  if (!d)
+    return false;
+
+  var_decl_sptr fv = is_var_decl(is_decl(d->first_subject())),
+    sv = is_var_decl(is_decl(d->second_subject()));
+
+  ABG_ASSERT(fv && sv);
+
+  return (suppresses_member(fv,
+			    MEMBER_SUBTYPE_CHANGE_KIND,
+			    diff->context())
+	  || suppresses_member(sv,
+			       MEMBER_SUBTYPE_CHANGE_KIND,
+			       diff->context()));
+}
+
+/// Evaluate the current member suppression specification on a given
+/// @ref var_decl and say if a report about a change involving this
+/// @ref var_decl should be suppressed or not.
+///
+/// @param var the @ref var_decl to evaluate this suppression
+/// specification against.
+///
+/// @param k the kind of member change @p var is supposed to have.
+///
+/// @param ctxt the context of the current diff.
+///
+/// @return true iff a report about a change involving the member @p
+/// var should be suppressed.
+bool
+member_suppression::suppresses_member(const var_decl* var,
+				      change_kind k,
+				      const diff_context_sptr ctxt) const
+{
+  if (!(get_change_kind() & k))
+    return false;
+
+  // Check if the name and soname of the binaries match
+  if (ctxt)
+    {
+      // Check if the name of the binaries match the current
+      // suppr spec
+      if (!names_of_binaries_match(*this, *ctxt))
+	if (has_file_name_related_property())
+	  return false;
+
+      // Check if the soname of the binaries match the current suppr
+      // spec
+      if (!sonames_of_binaries_match(*this, *ctxt))
+	if (has_soname_related_property())
+	  return false;
+    }
+
+  string var_name = var->get_qualified_name();
+
+  // Check for "name" property match.
+  if (!get_name().empty())
+    {
+      if (get_name() != var_name)
+	return false;
+    }
+  else
+    {
+      // If the "name" property is empty, then consider checking for the
+      // "name_regex" and "name_not_regex" properties match
+      if (get_name().empty())
+	{
+	  const sptr_utils::regex_t_sptr name_regex = priv_->get_name_regex();
+	  if (name_regex
+	      && (regexec(name_regex.get(), var_name.c_str(),
+			  0, NULL, 0) != 0))
+	    return false;
+
+	  const sptr_utils::regex_t_sptr name_not_regex =
+	    priv_->get_name_not_regex();
+	  if (name_not_regex
+	      && (regexec(name_not_regex.get(), var_name.c_str(),
+			  0, NULL, 0) == 0))
+	    return false;
+	}
+    }
+
+#if 0
+  // Check for the class_name, class_name_regex and
+  // class_name_not_regex property match.
+  string mem_class_name = var->get_class() ? var->get_class()->get_name() : "";
+  if (!get_class_name().empty())
+    {
+      if (get_class_name() != mem_class_name)
+	return false;
+    }
+  else
+    {
+      const sptr_utils::regex_t_sptr class_name_regex =
+	priv_->get_class_name_regex();
+      if (class_name_regex
+	  && (regexec(class_name_regex.get(), mem_class_name.c_str(),
+		      0, NULL, 0) != 0))
+	return false;
+
+      const sptr_utils::regex_t_sptr class_name_not_regex =
+	priv_->get_class_name_not_regex();
+      if (class_name_not_regex
+	  && (regexec(class_name_not_regex.get(), mem_class_name.c_str(),
+		      0, NULL, 0) == 0))
+	return false;
+    }
+#endif
+
+  // Check for the "type_name" and type_name_regex properties match.
+  string mem_type_name =
+    get_type_declaration(var->get_type())->get_qualified_name();
+
+  if (!get_type_name().empty())
+    {
+      if (get_type_name() != mem_type_name)
+	return false;
+    }
+  else
+    {
+      if (get_type_name().empty())
+	{
+	  const sptr_utils::regex_t_sptr type_name_regex =
+	    priv_->get_type_name_regex();
+	  if (type_name_regex
+	      && (regexec(type_name_regex.get(), mem_type_name.c_str(),
+			  0, NULL, 0) != 0))
+	    return false;
+	}
+    }
+
+  return true;
+}
+
+/// Evaluate the current member suppression specification on a given
+/// @ref var_decl and say if a report about a change involving this
+/// @ref var_decl should be suppressed or not.
+///
+/// @param var the @ref var_decl to evaluate this suppression
+/// specification against.
+///
+/// @param k the kind of member change @p var is supposed to have.
+///
+/// @param ctxt the context of the current diff.
+///
+/// @return true iff a report about a change involving the member @p
+/// var should be suppressed.
+bool
+member_suppression::suppresses_member(const var_decl_sptr var,
+				      change_kind k,
+				      const diff_context_sptr ctxt) const
+{return suppresses_member(var.get(), k, ctxt);}
+
+/// Test if an instance of @ref suppression is an instance of @ref
+/// member_suppression.
+///
+/// @param suppr the instance of @ref suppression to test for.
+///
+/// @return if @p suppr is an instance of @ref member_suppression, then
+/// return the sub-object of the @p suppr of type @ref
+/// member_suppression, otherwise return a nil pointer.
+member_suppression_sptr
+is_member_suppression(const suppression_sptr s)
+{return dynamic_pointer_cast<member_suppression>(s);}
+
+/// The bitwise 'and' operator for the enum @ref
+/// member_suppression::change_kind.
+///
+/// @param l the first operand of the 'and' operator.
+///
+/// @param r the second operand of the 'and' operator.
+///
+/// @return the result of 'and' operation on @p l and @p r.
+member_suppression::change_kind
+operator&(member_suppression::change_kind l,
+	  member_suppression::change_kind r)
+{
+  return static_cast<member_suppression::change_kind>
+    (static_cast<unsigned>(l) & static_cast<unsigned>(r));
+}
+
+/// The bitwise 'or' operator for the enum @ref
+/// member_suppression::change_kind.
+///
+/// @param l the first operand of the 'or' operator.
+///
+/// @param r the second operand of the 'or' operator.
+///
+/// @return the result of 'or' operation on @p l and @p r.
+member_suppression::change_kind
+operator|(member_suppression::change_kind l,
+	  member_suppression::change_kind r)
+{
+    return static_cast<member_suppression::change_kind>
+    (static_cast<unsigned>(l) | static_cast<unsigned>(r));
+}
+
+/// Parse member suppression specification, build a resulting @ref
+/// member_suppression type and return a shared pointer to that
+/// object.
+///
+/// @return a shared pointer to the newly built @ref
+/// member_suppression.  If the member suppression specification
+/// could not be parsed then a nil shared pointer is returned.
+static member_suppression_sptr
+read_member_suppression(const ini::config::section& section)
+{
+  member_suppression_sptr result;
+
+  if (section.get_name() != "suppress_member")
+    return result;
+
+  ini::simple_property_sptr drop_artifact =
+    is_simple_property(section.find_property("drop_artifact"));
+  if (!drop_artifact)
+    drop_artifact = is_simple_property(section.find_property("drop"));
+
+  string drop_artifact_str = drop_artifact
+    ? drop_artifact->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr change_kind_prop =
+    is_simple_property(section.find_property("change_kind"));
+  string change_kind_str = change_kind_prop
+    ? change_kind_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr label_prop =
+    is_simple_property(section.find_property("label"));
+  string label_str = (label_prop
+		      ? label_prop->get_value()->as_string()
+		      : "");
+
+  ini::simple_property_sptr file_name_regex_prop =
+    is_simple_property(section.find_property("file_name_regexp"));
+  string file_name_regex_str =
+    file_name_regex_prop ? file_name_regex_prop->get_value()->as_string() : "";
+
+ ini::simple_property_sptr file_name_not_regex_prop =
+    is_simple_property(section.find_property("file_name_not_regexp"));
+  string file_name_not_regex_str =
+    file_name_not_regex_prop
+    ? file_name_not_regex_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr soname_regex_prop =
+    is_simple_property(section.find_property("soname_regexp"));
+  string soname_regex_str =
+    soname_regex_prop ? soname_regex_prop->get_value()->as_string() : "";
+
+  ini::simple_property_sptr soname_not_regex_prop =
+    is_simple_property(section.find_property("soname_not_regexp"));
+  string soname_not_regex_str =
+    soname_not_regex_prop
+    ? soname_not_regex_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr name_prop =
+    is_simple_property(section.find_property("name"));
+  string name_str = (name_prop
+		     ? name_prop->get_value()->as_string()
+		     : "");
+
+  ini::simple_property_sptr name_regex_prop =
+    is_simple_property(section.find_property("name_regexp"));
+  string name_regex_str = (name_regex_prop
+			   ? name_regex_prop->get_value()->as_string()
+			   : "");
+
+  ini::simple_property_sptr name_not_regex_prop =
+    is_simple_property(section.find_property("name_not_regexp"));
+  string name_not_regex_str = name_not_regex_prop
+    ? name_not_regex_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr class_name_prop =
+    is_simple_property(section.find_property("class_name"));
+  string class_name = (class_name_prop
+		       ? class_name_prop->get_value()->as_string()
+		       : "");
+
+  ini::simple_property_sptr class_name_regex_prop =
+    is_simple_property(section.find_property("class_name_regexp"));
+  string class_name_regex_str = class_name_regex_prop
+    ? class_name_regex_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr class_name_not_regex_prop =
+    is_simple_property(section.find_property("class_name_not_regexp"));
+  string class_name_not_regex_str = class_name_not_regex_prop
+    ? class_name_not_regex_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr type_name_prop =
+    is_simple_property(section.find_property("type_name"));
+  string type_name_str = type_name_prop
+    ? type_name_prop->get_value()->as_string()
+    : "";
+
+  ini::simple_property_sptr type_name_regex_prop =
+    is_simple_property(section.find_property("type_name_regexp"));
+  string type_name_regex_str = type_name_regex_prop
+    ? type_name_regex_prop->get_value()->as_string()
+     : "";
+
+  if (label_str.empty()
+      && name_str.empty()
+      && name_regex_str.empty()
+      && name_not_regex_str.empty()
+      && file_name_regex_str.empty()
+      && file_name_not_regex_str.empty()
+      && soname_regex_str.empty()
+      && soname_not_regex_str.empty()
+      && class_name.empty()
+      && class_name_regex_str.empty()
+      && class_name_not_regex_str.empty()
+      && type_name_str.empty()
+      && type_name_regex_str.empty())
+    return result;
+
+  result.reset(new member_suppression(label_str, name_str, name_regex_str,
+				      class_name, class_name_regex_str,
+				      type_name_str, type_name_regex_str));
+
+  if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
+      && (!name_str.empty()
+	  || !name_regex_str.empty()
+	  || !name_not_regex_str.empty()
+	  || !class_name.empty()
+	  || !class_name_regex_str.empty()
+	  || !class_name_not_regex_str.empty()))
+    result->set_drops_artifact_from_ir(true);
+
+  if (!name_not_regex_str.empty())
+    result->set_name_not_regex_str(name_not_regex_str);
+
+  if (!class_name_not_regex_str.empty())
+    result->set_class_name_not_regex_str(class_name_not_regex_str);
+
+  if (result && !change_kind_str.empty())
+    result->set_change_kind
+      (member_suppression::parse_change_kind(change_kind_str));
+
+  if (!file_name_regex_str.empty())
+    result->set_file_name_regex_str(file_name_regex_str);
+
+  if (!file_name_not_regex_str.empty())
+    result->set_file_name_not_regex_str(file_name_not_regex_str);
+
+  if (!soname_regex_str.empty())
+    result->set_soname_regex_str(soname_regex_str);
+
+  if (!soname_not_regex_str.empty())
+    result->set_soname_not_regex_str(soname_not_regex_str);
+
+  return result;
+}
+
+// </member_suppression stuff>
 
 // <file_suppression stuff>
 

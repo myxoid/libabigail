@@ -5741,6 +5741,29 @@ public:
     return suppr::suppression_matches_variable_sym_name(s, var_linkage_name);
   }
 
+  /// Test whether if a given member suppression specification
+  /// matches a member denoted by its own and class' names.
+  ///
+  /// @param s the member suppression specification to consider.
+  ///
+  /// @param member_name the name of the member to consider.
+  ///
+  /// @param class_name the name of the class to consider.
+  ///
+  /// @return true iff the suppression specification @p s matches the
+  /// member whose name is @p member_name and class name is @p
+  /// class_name.
+  bool
+  suppression_matches_member_name(const suppr::member_suppression& s,
+				  const string& member_name,
+				  const string& class_name) const
+  {
+    if (!suppression_can_match(s))
+      return false;
+
+    return suppr::suppression_matches_member_name(s, member_name, class_name);
+  }
+
   /// Test if a given type suppression specification matches a type
   /// designated by its name and location.
   ///

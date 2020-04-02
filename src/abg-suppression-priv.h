@@ -404,10 +404,14 @@ bool
 suppression_matches_variable_name(const suppr::variable_suppression& s,
 				  const string& var_name);
 
-
 bool
 suppression_matches_variable_sym_name(const suppr::variable_suppression& s,
 				      const string& var_linkage_name);
+
+bool
+suppression_matches_member_name(const suppr::member_suppression& s,
+				const string& member_name,
+				const string& class_name);
 
 /// Test if a given function denoted by its name and linkage name is
 /// suppressed by any of the suppression specifications associated to
@@ -631,6 +635,182 @@ variable_is_suppressed(const ReadContextType&	ctxt,
 }
 
 // </variable_suppression stuff>
+
+// <member_suppression stuff>
+/// The type of the private data of the @ref member_suppression
+/// type.
+struct member_suppression::priv
+{
+  friend class member_suppression;
+
+  change_kind				change_kind_;
+  string				name_;
+  string				name_regex_str_;
+  mutable sptr_utils::regex_t_sptr	name_regex_;
+  string				name_not_regex_str_;
+  mutable sptr_utils::regex_t_sptr	name_not_regex_;
+  string				class_name_;
+  string				class_name_regex_str_;
+  mutable sptr_utils::regex_t_sptr	class_name_regex_;
+  string				class_name_not_regex_str_;
+  mutable sptr_utils::regex_t_sptr	class_name_not_regex_;
+  string				type_name_;
+  string				type_name_regex_str_;
+  mutable sptr_utils::regex_t_sptr	type_name_regex_;
+
+  priv(const string& name,
+       const string& name_regex_str,
+       const string& class_name,
+       const string& class_name_regex_str,
+       const string& type_name,
+       const string& type_name_regex_str)
+    : change_kind_(ALL_CHANGE_KIND),
+      name_(name),
+      name_regex_str_(name_regex_str),
+      class_name_(class_name),
+      class_name_regex_str_(class_name_regex_str),
+      type_name_(type_name),
+      type_name_regex_str_(type_name_regex_str)
+  {}
+
+  /// Getter for a pointer to a regular expression object built from
+  /// the regular expression string
+  /// member_suppression::priv::name_regex_str_.
+  ///
+  /// If that string is empty, then an empty regular expression object
+  /// pointer is returned.
+  ///
+  /// @return a pointer to the regular expression object of
+  /// member_suppression::priv::name_regex_str_.
+  const sptr_utils::regex_t_sptr
+  get_name_regex() const
+  {
+    if (!name_regex_ && !name_regex_str_.empty())
+      {
+	sptr_utils::regex_t_sptr r = sptr_utils::build_sptr<regex_t>();
+	if (regcomp(r.get(),
+		    name_regex_str_.c_str(),
+		    REG_EXTENDED) == 0)
+	  name_regex_ = r;
+      }
+    return name_regex_;
+  }
+
+  /// Getter for a pointer to a regular expression object built from
+  /// the regular expression string
+  /// member_suppression::priv::name_not_regex_str_.
+  ///
+  /// If that string is empty, then an empty regular expression object
+  /// pointer is returned.
+  ///
+  /// @return a pointer to the regular expression object of
+  /// member_suppression::priv::name_not_regex_str_..
+  const sptr_utils::regex_t_sptr
+  get_name_not_regex() const
+  {
+    if (!name_not_regex_ && !name_not_regex_str_.empty())
+      {
+	sptr_utils::regex_t_sptr r = sptr_utils::build_sptr<regex_t>();
+	if (regcomp(r.get(),
+		    name_not_regex_str_.c_str(),
+		    REG_EXTENDED) == 0)
+	  name_not_regex_ = r;
+      }
+    return name_not_regex_;
+  }
+
+  /// Getter for a pointer to a regular expression object built from
+  /// the regular expression string
+  /// member_suppression::priv::class_name_regex_str_.
+  ///
+  /// If that string is empty, then an empty regular expression object
+  /// pointer is returned.
+  ///
+  /// @return a pointer to the regular expression object of
+  /// member_suppression::priv::class_name_regex_str_.
+  const sptr_utils::regex_t_sptr
+  get_class_name_regex() const
+  {
+    if (!class_name_regex_ && !class_name_regex_str_.empty())
+      {
+	sptr_utils::regex_t_sptr r = sptr_utils::build_sptr<regex_t>();
+	if (regcomp(r.get(),
+		    class_name_regex_str_.c_str(),
+		    REG_EXTENDED) == 0)
+	  class_name_regex_ = r;
+      }
+    return class_name_regex_;
+  }
+
+  /// Getter for a pointer to a regular expression object built from
+  /// the regular expression string
+  /// member_suppression::priv::class_name_not_regex_str_.
+  ///
+  /// If that string is empty, then an empty regular expression object
+  /// pointer is returned.
+  ///
+  /// @return a pointer to the regular expression object of
+  /// member_suppression::priv::class_name_not_regex_str_.
+  const sptr_utils::regex_t_sptr
+  get_class_name_not_regex() const
+  {
+    if (!class_name_not_regex_ && !class_name_not_regex_str_.empty())
+      {
+	sptr_utils::regex_t_sptr r = sptr_utils::build_sptr<regex_t>();
+	if (regcomp(r.get(), class_name_not_regex_str_.c_str(),
+		    REG_EXTENDED == 0) == 0)
+	  class_name_not_regex_ = r;
+      }
+    return class_name_not_regex_;
+  }
+
+  /// Getter for a pointer to a regular expression object built from
+  /// the regular expression string
+  /// member_suppression::priv::type_name_regex_str_.
+  ///
+  /// If that string is empty, then an empty regular expression object
+  /// pointer is returned.
+  ///
+  /// @return a pointer to the regular expression object of
+  /// member_suppression::priv::type_name_regex_str_.
+  const sptr_utils::regex_t_sptr
+  get_type_name_regex() const
+  {
+    if (!type_name_regex_ && !type_name_regex_str_.empty())
+      {
+	sptr_utils::regex_t_sptr r = sptr_utils::build_sptr<regex_t>();
+	if (regcomp(r.get(),
+		    type_name_regex_str_.c_str(),
+		    REG_EXTENDED) == 0)
+	  type_name_regex_ = r;
+      }
+    return type_name_regex_;
+  }
+};// end class member_supppression::priv
+
+template <typename ReadContextType>
+bool
+member_is_suppressed(const ReadContextType&	ctxt,
+		     const string&		member_name,
+		     const string&		class_name,
+		     bool			require_drop_property = false)
+{
+  for (suppr::suppressions_type::const_iterator i =
+	 ctxt.get_suppressions().begin();
+       i != ctxt.get_suppressions().end();
+       ++i)
+    if (suppr::member_suppression_sptr suppr = is_member_suppression(*i))
+      {
+	if (require_drop_property && !(*i)->get_drops_artifact_from_ir())
+	  continue;
+	if (ctxt.suppression_matches_member_name(*suppr, member_name,
+						 class_name))
+	  return true;
+      }
+  return false;
+}
+
+// </member_suppression stuff>
 
 // <type_suppression stuff>
 /// The private data for @ref type_suppression.
