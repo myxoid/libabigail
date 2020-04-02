@@ -582,6 +582,7 @@ represent(const var_diff_sptr	&diff,
 	      out << ", as reported earlier\n";
 	    else
 	      {
+		maybe_indirectly(*d, out);
 		out << ":\n";
 		d->report(out, indent + "  ");
 	      }

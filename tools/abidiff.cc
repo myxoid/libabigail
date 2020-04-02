@@ -238,7 +238,7 @@ display_usage(const string& prog_name, ostream& out)
     << " --no-redundant  do not display redundant changes "
     "(this is the default)\n"
     << " --flag-indirect  label class/union diffs as indirect when all members "
-    << "have the same names and type names (leaf mode only)\n"
+    << "have the same names and type names\n"
     << " --impacted-interfaces  display interfaces impacted by leaf changes\n"
     << " --dump-diff-tree  emit a debug dump of the internal diff tree to "
     "the error output stream\n"

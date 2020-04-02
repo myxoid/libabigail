@@ -300,7 +300,9 @@ default_reporter::report(const typedef_diff& d,
 	      << "underlying type '"
 	      << dif->first_subject()->get_pretty_representation() << "'";
 	  report_loc_info(dif->first_subject(), *d.context(), out);
-	  out << " changed:\n";
+	  out << " changed";
+	  maybe_indirectly(*dif, out);
+	  out << ":\n";
 	  dif->report(out, indent + "  ");
 	}
       else
@@ -319,7 +321,9 @@ default_reporter::report(const typedef_diff& d,
 		  << "underlying type '"
 		  << dif->first_subject()->get_pretty_representation() << "'";
 	      report_loc_info(dif->first_subject(), *d.context(), out);
-	      out << " changed:\n";
+	      out << " changed";
+              maybe_indirectly(*dif, out);
+              out << ":\n";
 	      if (c & REDUNDANT_CATEGORY)
 		dif->set_category(c & ~REDUNDANT_CATEGORY);
 	      dif->report(out, indent + "  ");
@@ -395,6 +399,7 @@ default_reporter::report(const qualified_type_diff& d, ostream& out,
   string fltname = dif->first_subject()->get_pretty_representation();
   out << indent << "in unqualified underlying type '" << fltname << "'";
   report_loc_info(dif->second_subject(), *d.context(), out);
+  maybe_indirectly(*dif, out);
   out << ":\n";
   dif->report(out, indent + "  ");
 }
@@ -424,6 +429,7 @@ default_reporter::report(const pointer_diff& d, ostream& out,
       out << indent
 	  << "in pointed to type '" << repr << "'";
       report_loc_info(dif->second_subject(), *d.context(), out);
+      maybe_indirectly(*dif, out);
       out << ":\n";
       dif->report(out, indent + "  ");
     }
@@ -502,6 +508,7 @@ default_reporter::report(const reference_diff& d, ostream& out,
 	    << "in referenced type '"
 	    << dif->first_subject()->get_pretty_representation() << "'";
 	report_loc_info(dif->second_subject(), *d.context(), out);
+	maybe_indirectly(*dif, out);
 	out << ":\n";
 	dif->report(out, indent + "  ");
       }
@@ -692,7 +699,9 @@ default_reporter::report(const array_diff& d, ostream& out,
       string fn = ir::get_pretty_representation(is_type(dif->first_subject()));
       // report array element type changes
       out << indent << "array element type '"
-	  << fn << "' changed:\n";
+	  << fn << "' changed";
+      maybe_indirectly(*dif, out);
+      out << ":\n";
       dif->report(out, indent + "  ");
     }
 
@@ -1332,16 +1341,18 @@ default_reporter::report(const class_diff& d, ostream& out,
 	       it != d.get_priv()->sorted_changed_bases_.end();
 	       ++it)
 	    {
-	      base_diff_sptr diff = *it;
-	      if (!diff || !diff->to_be_reported())
+	      base_diff_sptr dif = *it;
+	      if (!dif->to_be_reported())
 		continue;
 
-	      class_decl::base_spec_sptr o = diff->first_base();
+	      class_decl::base_spec_sptr o = dif->first_base();
 	      out << indent << "  '"
 		  << o->get_base_class()->get_pretty_representation() << "'";
 	      report_loc_info(o->get_base_class(), *d.context(), out);
-	      out << " changed:\n";
-	      diff->report(out, indent + "    ");
+	      out << " changed:";
+	      maybe_indirectly(*dif, out);
+	      out << "\n";
+	      dif->report(out, indent + "    ");
 	    }
 	}
 
@@ -1669,7 +1680,9 @@ default_reporter::report(const var_diff& d, ostream& out,
       if (dif->to_be_reported())
 	{
 	  RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER2(dif, "type");
-	  out << indent << "type of variable changed:\n";
+	  out << indent << "type of variable changed:";
+	  maybe_indirectly(*dif, out);
+	  out << "\n";
 	  dif->report(out, indent + "  ");
 	}
     }
