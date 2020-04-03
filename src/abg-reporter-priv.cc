@@ -551,13 +551,14 @@ represent(const var_diff_sptr	&diff,
 	      out << indent << "and ";
 	      begin_with_and = false;
 	    }
-	  else if (!emitted)
-	    out << indent;
-	  else
+	  else if (emitted)
 	    out << ", ";
+	  else
+	    out << indent;
+	  emitted = true;
+
 	  out << "name of '" << o_name << "' changed to '" << n_name << "'";
 	  report_loc_info(n, *ctxt, out);
-	  emitted = true;
 	}
     }
 
@@ -569,15 +570,16 @@ represent(const var_diff_sptr	&diff,
 	  out << indent << "and ";
 	  begin_with_and = false;
 	}
-      else if (!emitted)
-	out << indent << "'" << o_pretty_representation << "' ";
-      else
+      else if (emitted)
 	out << ", ";
+      else
+	out << indent << "'" << o_pretty_representation << "' ";
+      emitted = true;
+
       if (get_data_member_is_laid_out(o))
 	out << "is no more laid out";
       else
 	out << "now becomes laid out";
-      emitted = true;
     }
   if (show_size_offset_changes)
     {
@@ -588,19 +590,19 @@ represent(const var_diff_sptr	&diff,
 	      out << indent << "and ";
 	      begin_with_and = false;
 	    }
-	  else if (!emitted)
+	  else if (emitted)
+	    out << ", ";
+	  else
 	    {
 	      out << indent;
 	      if (is_strict_anonymous_data_member_change)
 		out << "anonymous data member ";
 	      out << "'" << o_pretty_representation << "' ";
 	    }
-	  else
-	    out << ", ";
+	  emitted = true;
 
 	  show_numerical_change("offset", o_offset, n_offset, *ctxt, out);
 	  maybe_show_relative_offset_change(diff, *ctxt, out);
-	  emitted = true;
 	}
 
       if (!size_reported && o_size != n_size)
@@ -610,19 +612,19 @@ represent(const var_diff_sptr	&diff,
 	      out << indent << "and ";
 	      begin_with_and = false;
 	    }
-	  else if (!emitted)
+	  else if (emitted)
+	    out << ", ";
+	  else
 	    {
 	      out << indent;
 	      if (is_strict_anonymous_data_member_change)
 		out << "anonymous data member ";
 	      out << "'" << o_pretty_representation << "' ";
 	    }
-	  else
-	    out << ", ";
+	  emitted = true;
 
 	  show_numerical_change("size", o_size, n_size, *ctxt, out);
 	  maybe_show_relative_size_change(diff, *ctxt, out);
-	  emitted = true;
 	}
     }
   if (o->get_binding() != n->get_binding())
@@ -632,13 +634,14 @@ represent(const var_diff_sptr	&diff,
 	  out << indent << "and ";
 	  begin_with_and = false;
 	}
-      else if (!emitted)
-	out << indent << "'" << o_pretty_representation << "' ";
-      else
+      else if (emitted)
 	out << ", ";
+      else
+	out << indent << "'" << o_pretty_representation << "' ";
+      emitted = true;
+
       out << "elf binding changed from " << o->get_binding()
 	  << " to " << n->get_binding();
-      emitted = true;
     }
   if (o->get_visibility() != n->get_visibility())
     {
@@ -647,13 +650,14 @@ represent(const var_diff_sptr	&diff,
 	  out << indent << "and ";
 	  begin_with_and = false;
 	}
-      else if (!emitted)
-	out << indent << "'" << o_pretty_representation << "' ";
-      else
+      else if (emitted)
 	out << ", ";
+      else
+	out << indent << "'" << o_pretty_representation << "' ";
+      emitted = true;
+
       out << "visibility changed from " << o->get_visibility()
 	  << " to " << n->get_visibility();
-      emitted = true;
     }
   if ((ctxt->get_allowed_category() & ACCESS_CHANGE_CATEGORY)
       && (get_member_access_specifier(o)
@@ -664,16 +668,16 @@ represent(const var_diff_sptr	&diff,
 	  out << indent << "and ";
 	  begin_with_and = false;
 	}
-      else if (!emitted)
-	out << indent << "'" << o_pretty_representation << "' ";
-      else
+      else if (emitted)
 	out << ", ";
+      else
+	out << indent << "'" << o_pretty_representation << "' ";
+      emitted = true;
 
       out << "access changed from '"
 	  << get_member_access_specifier(o)
 	  << "' to '"
 	  << get_member_access_specifier(n) << "'";
-      emitted = true;
     }
   if (get_member_is_static(o)
       != get_member_is_static(n))
@@ -683,33 +687,33 @@ represent(const var_diff_sptr	&diff,
 	  out << indent << "and ";
 	  begin_with_and = false;
 	}
-      else if (!emitted)
-	out << indent << "'" << o_pretty_representation << "' ";
-      else
+      else if (emitted)
 	out << ", ";
+      else
+	out << indent << "'" << o_pretty_representation << "' ";
+      emitted = true;
 
       if (get_member_is_static(o))
 	out << "is no more static";
       else
 	out << "now becomes static";
-      emitted = true;
     }
 
   if (begin_with_and)
-    // do nothing as begin_with_and implies emitted
-    ;
-  else if (!emitted)
-    // We appear to have fallen off the edge of the map.
-    out << indent << "'" << o_pretty_representation
-	<< "' has *some* difference - please report as a bug";
+    {
+      // We've reported a diff, with a final new line.
+    }
+  else if (emitted)
+    {
+      // We've reported a diff, without a final new line.
+      out << "\n";
+    }
   else
     {
-      ;// do nothing
+      // We appear to have fallen off the edge of the map.
+      out << indent << "'" << o_pretty_representation
+	  << "' has *some* difference - please report as a bug\n";
     }
-  emitted = true;
-
-  if (!begin_with_and)
-    out << "\n";
 }
 
 /// Report the size and alignment changes of a type.
