@@ -71,6 +71,12 @@ operator<<(std::ostream& os, const escape& esc);
 std::string
 generate_from_strings(const std::vector<std::string>& strs);
 
+regex_t_sptr
+compile(const std::string& str);
+
+bool
+match(const regex_t_sptr& r, const std::string& str);
+
 }// end namespace regex
 
 /// Specialization of sptr_utils::build_sptr for regex_t.
