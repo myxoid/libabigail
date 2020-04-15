@@ -25,7 +25,6 @@
 #ifndef __ABG_SPTR_UTILS_H__
 #define __ABG_SPTR_UTILS_H__
 
-#include <libxml/xmlreader.h>
 #include <regex.h>
 
 #include "abg-cxx-compat.h"
@@ -63,21 +62,6 @@ build_sptr(T* p);
 template<class T>
 shared_ptr<T>
 build_sptr();
-
-/// A convenience typedef for a shared pointer of xmlTextReader.
-typedef shared_ptr<xmlTextReader> reader_sptr;
-
-/// Specialization of sptr_utils::build_sptr for xmlTextReader
-template<>
-reader_sptr
-build_sptr<xmlTextReader>(xmlTextReader *p);
-
-/// A convenience typedef for a shared pointer of xmlChar.
-typedef shared_ptr<xmlChar> xml_char_sptr;
-
-/// Specialization of build_str for xmlChar.
-template<>
-xml_char_sptr build_sptr<xmlChar>(xmlChar *p);
 
 /// A deleter for shared pointers that ... doesn't delete the object
 /// managed by the shared pointer.
