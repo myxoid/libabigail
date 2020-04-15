@@ -23,6 +23,8 @@
 /// Some specialization for shared pointer utility templates.
 ///
 
+#include <sstream>
+
 #include "abg-regex.h"
 #include "abg-sptr-utils.h"
 
@@ -51,5 +53,33 @@ template<>
 regex::regex_t_sptr
 sptr_utils::build_sptr<regex_t>()
 {return sptr_utils::build_sptr(new regex_t);}
+
+namespace regex
+{
+
+/// Generate a regex pattern equivalent to testing set membership.
+///
+/// A string will match the resulting pattern regex, if and only if it
+/// was present in the vector.
+///
+/// @param strs a vector of strings
+///
+/// @return a regex pattern
+std::string
+generate_from_strings(const std::vector<std::string>& strs)
+{
+  if (strs.empty())
+    // This cute-looking regex does not match any string.
+    return "^_^";
+  std::ostringstream os;
+  std::vector<std::string>::const_iterator i = strs.begin();
+  os << "^(" << *i++;
+  while (i != strs.end())
+    os << "|" << *i++;
+  os << ")$";
+  return os.str();
+}
+
+}//end namespace regex
 
 }//end namespace abigail
