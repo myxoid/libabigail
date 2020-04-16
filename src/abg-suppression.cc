@@ -77,17 +77,17 @@ suppression_base::suppression_base(const string& label)
 /// @param a label for the suppression.  This represents just a
 /// comment.
 ///
-/// @param file_name_regex_str the regular expression that denotes the
+/// @param file_name_regex the regular expression that denotes the
 /// file name to match.
 ///
-/// @param file_name_not_regex_str the regular expression that denotes
+/// @param file_name_not_regex the regular expression that denotes
 /// the file name to *NOT* match.
 suppression_base::suppression_base(const string& label,
-				   const string& file_name_regex_str,
-				   const string& file_name_not_regex_str)
+				   const regex_t_sptr& file_name_regex,
+				   const regex_t_sptr& file_name_not_regex)
   : priv_(new priv(label,
-		   file_name_regex_str,
-		   file_name_not_regex_str))
+		   file_name_regex,
+		   file_name_not_regex))
 {
 }
 
@@ -149,52 +149,50 @@ suppression_base::set_label(const string& label)
 /// Setter for the "file_name_regex" property of the current instance
 /// of @ref suppression_base.
 ///
-/// The "file_name_regex" property is a regular expression string that
+/// The "file_name_regex" property is a regular expression that
 /// designates the file name that contains the ABI artifact this
 /// suppression should apply to.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression.
 void
-suppression_base::set_file_name_regex_str(const string& regexp)
-{priv_->file_name_regex_str_ = regexp;}
+suppression_base::set_file_name_regex(const regex_t_sptr& regexp)
+{priv_->file_name_regex_ = regexp;}
 
 /// Getter for the "file_name_regex" property of the current instance
 /// of @ref suppression_base.
 ///
-/// The "file_name_regex" property is a regular expression string that
+/// The "file_name_regex" property is a regular expression that
 /// designates the file name that contains the ABI artifacts this
 /// suppression should apply to.
 ///
-/// @return the regular expression string.
-const string&
-suppression_base::get_file_name_regex_str() const
-{return priv_->file_name_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+suppression_base::get_file_name_regex() const
+{return priv_->file_name_regex_;}
 
 /// Setter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
 /// The current suppression specification should apply to ABI
 /// artifacts of a file which name does *NOT* match the regular
-/// expression string designated by the "file_name_not_regex"
-/// property.
+/// expression designated by the "file_name_not_regex" property.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression.
 void
-suppression_base::set_file_name_not_regex_str(const string& regexp)
-{priv_->file_name_not_regex_str_ = regexp;}
+suppression_base::set_file_name_not_regex(const regex_t_sptr& regexp)
+{priv_->file_name_not_regex_ = regexp;}
 
 /// Getter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
 /// The current suppression specification should apply to ABI
 /// artifacts of a file which name does *NOT* match the regular
-/// expression string designated by the "file_name_not_regex"
-/// property.
+/// expression designated by the "file_name_not_regex" property.
 ///
-/// @return the regular expression string.
-const string&
-suppression_base::get_file_name_not_regex_str() const
-{return priv_->file_name_not_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+suppression_base::get_file_name_not_regex() const
+{return priv_->file_name_not_regex_;}
 
 /// Test if the current suppression has a property related to file
 /// name.
@@ -204,59 +202,56 @@ suppression_base::get_file_name_not_regex_str() const
 bool
 suppression_base::has_file_name_related_property() const
 {
-  return (!(get_file_name_regex_str().empty()
-	    && get_file_name_not_regex_str().empty()));
+  return get_file_name_regex() || get_file_name_not_regex();
 }
 
-/// Setter of the "soname_regex_str property of the current instance
+/// Setter of the "soname_regex" property of the current instance
 /// of @ref suppression_base.
 ///
-/// The "soname_regex_str" is a regular expression string that
-/// designates the soname of the shared library that contains the ABI
-/// artifacts this suppression should apply to.
+/// The "soname_regex" is a regular expression that designates the
+/// soname of the shared library that contains the ABI artifacts this
+/// suppression should apply to.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression.
 void
-suppression_base::set_soname_regex_str(const string& regexp)
-{priv_->soname_regex_str_ = regexp;}
+suppression_base::set_soname_regex(const regex_t_sptr& regexp)
+{priv_->soname_regex_ = regexp;}
 
-/// Getter of the "soname_regex_str property of the current instance
+/// Getter of the "soname_regex" property of the current instance
 /// of @ref suppression_base.
 ///
-/// The "soname_regex_str" is a regular expression string that
-/// designates the soname of the shared library that contains the ABI
-/// artifacts this suppression should apply to.
+/// The "soname_regex" is a regular expression that designates the
+/// soname of the shared library that contains the ABI artifacts this
+/// suppression should apply to.
 ///
-/// @return the regular expression string.
-const string&
-suppression_base::get_soname_regex_str() const
-{return priv_->soname_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+suppression_base::get_soname_regex() const
+{return priv_->soname_regex_;}
 
-/// Setter of the "soname_not_regex_str property of the current
+/// Setter of the "soname_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
 /// The current suppression specification should apply to ABI
 /// artifacts of a shared library which SONAME does *NOT* match the
-/// regular expression string designated by the "soname_not_regex"
-/// property.
+/// regular expression designated by the "soname_not_regex" property.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression.
 void
-suppression_base::set_soname_not_regex_str(const string& regexp)
-{priv_->soname_not_regex_str_ = regexp;}
+suppression_base::set_soname_not_regex(const regex_t_sptr& regexp)
+{priv_->soname_not_regex_ = regexp;}
 
-/// Getter of the "soname_not_regex_str property of the current
+/// Getter of the "soname_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
 /// The current suppression specification should apply to ABI
 /// artifacts of a shared library which SONAME does *NOT* match the
-/// regular expression string designated by the "soname_not_regex"
-/// property.
+/// regular expression designated by the "soname_not_regex" property.
 ///
-/// @return the regular expression string.
-const string&
-suppression_base::get_soname_not_regex_str() const
-{return priv_->soname_not_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+suppression_base::get_soname_not_regex() const
+{return priv_->soname_not_regex_;}
 
 /// Test if the current suppression has a property related to SONAMEs.
 ///
@@ -265,8 +260,7 @@ suppression_base::get_soname_not_regex_str() const
 bool
 suppression_base::has_soname_related_property() const
 {
-  return (!(get_soname_regex_str().empty()
-	    && get_soname_not_regex_str().empty()));
+  return get_soname_regex() || get_soname_not_regex();
 }
 
 /// Check if the SONAMEs of the two binaries being compared match the
@@ -408,8 +402,8 @@ read_suppressions(const string& file_path,
 /// form comment explaining what the suppression is about.
 ///
 /// @param type_name_regexp the regular expression describing the
-/// types about which diff reports should be suppressed.  If it's an
-/// empty string, the parameter is ignored.
+/// types about which diff reports should be suppressed.  If it's a
+/// null shared pointer, the parameter is ignored.
 ///
 /// @param type_name the name of the type about which diff reports
 /// should be suppressed.  If it's an empty string, the parameter is
@@ -419,7 +413,7 @@ read_suppressions(const string& file_path,
 /// should not necessarily be populated.  It usually is either one or
 /// the other that the user wants.
 type_suppression::type_suppression(const string& label,
-				   const string& type_name_regexp,
+				   const regex_t_sptr& type_name_regexp,
 				   const string& type_name)
   : suppression_base(label),
     priv_(new priv(type_name_regexp,
@@ -439,43 +433,43 @@ type_suppression::~type_suppression()
 /// This sets a regular expression that specifies the family of types
 /// about which diff reports should be suppressed.
 ///
-/// @param name_regex_str the new regular expression to set.
+/// @param name_regex the new regular expression to set.
 void
-type_suppression::set_type_name_regex_str(const string& name_regex_str)
-{priv_->type_name_regex_str_ = name_regex_str;}
+type_suppression::set_type_name_regex(const regex_t_sptr& name_regex)
+{priv_->type_name_regex_ = name_regex;}
 
 /// Getter for the "type_name_regex" property of the type suppression
 /// specification.
 ///
-/// This returns a regular expression string that specifies the family
+/// This returns a regular expression that specifies the family
 /// of types about which diff reports should be suppressed.
 ///
-/// @return the regular expression string.
-const string&
-type_suppression::get_type_name_regex_str() const
-{return priv_->type_name_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+type_suppression::get_type_name_regex() const
+{return priv_->type_name_regex_;}
 
-/// Setter for the "type_name_not_regex_str" property of the type
+/// Setter for the "type_name_not_regex" property of the type
 /// suppression specification.
 ///
-/// This returns a regular expression string that specifies the family
+/// This sets a regular expression that specifies the family
 /// of types that should be kept after suppression.
 ///
 /// @param r the new regexp string.
 void
-type_suppression::set_type_name_not_regex_str(const string& r)
-{priv_->set_type_name_not_regex_str(r);}
+type_suppression::set_type_name_not_regex(const regex_t_sptr& r)
+{priv_->set_type_name_not_regex(r);}
 
-/// Getter for the "type_name_not_regex_str" property of the type
+/// Getter for the "type_name_not_regex" property of the type
 /// suppression specification.
 ///
-/// This returns a regular expression string that specifies the family
+/// This returns a regular expression that specifies the family
 /// of types that should be kept after suppression.
 ///
 /// @return the new regexp string.
-const string&
-type_suppression::get_type_name_not_regex_str() const
-{return priv_->get_type_name_not_regex_str();}
+const regex_t_sptr&
+type_suppression::get_type_name_not_regex() const
+{return priv_->type_name_not_regex_;}
 
 /// Setter for the name of the type about which diff reports should be
 /// suppressed.
@@ -622,21 +616,21 @@ type_suppression::set_source_locations_to_keep
 (const unordered_set<string>& l)
 {priv_->source_locations_to_keep_ = l;}
 
-/// Getter of the regular expression string that designates the source
+/// Getter of the regular expression that designates the source
 /// location paths of types that should not be suppressed.
 ///
-/// @return the regular expression string.
-const string&
-type_suppression::get_source_location_to_keep_regex_str() const
-{return priv_->source_location_to_keep_regex_str_;}
+/// @return the regular expression.
+const regex_t_sptr&
+type_suppression::get_source_location_to_keep_regex() const
+{return priv_->source_location_to_keep_regex_;}
 
-/// Setter of the regular expression string that designates the source
+/// Setter of the regular expression that designates the source
 /// location paths of types that should not be suppressed.
 ///
 /// @param r the new regular expression.
 void
-type_suppression::set_source_location_to_keep_regex_str(const string& r)
-{priv_->source_location_to_keep_regex_str_ = r;}
+type_suppression::set_source_location_to_keep_regex(const regex_t_sptr& r)
+{priv_->source_location_to_keep_regex_ = r;}
 
 /// Getter of the vector of the changed enumerators that are supposed
 /// to be suppressed.  Note that this will be "valid" only if the type
@@ -1631,39 +1625,43 @@ read_type_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
-  string file_name_regex_str =
-    file_name_regex_prop ? file_name_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr file_name_regex;
+  if (file_name_regex_prop)
+    file_name_regex =
+      regex::compile(file_name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr file_name_not_regex_prop =
     is_simple_property(section.find_property("file_name_not_regexp"));
-  string file_name_not_regex_str =
-    file_name_not_regex_prop
-    ? file_name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr file_name_not_regex;
+  if (file_name_not_regex_prop)
+    file_name_not_regex =
+      regex::compile(file_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_regex_prop =
     is_simple_property(section.find_property("soname_regexp"));
-  string soname_regex_str =
-    soname_regex_prop ? soname_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr soname_regex;
+  if (soname_regex_prop)
+    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_not_regex_prop =
     is_simple_property(section.find_property("soname_not_regexp"));
-  string soname_not_regex_str =
-    soname_not_regex_prop
-    ? soname_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr soname_not_regex;
+  if (soname_not_regex_prop)
+    soname_not_regex =
+      regex::compile(soname_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_regex_prop =
     is_simple_property(section.find_property("name_regexp"));
-  string name_regex_str = name_regex_prop
-    ? name_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr name_regex;
+  if (name_regex_prop)
+    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_not_regex_prop =
     is_simple_property(section.find_property("name_not_regexp"));
-  string name_not_regex_str = name_not_regex_prop
-    ? name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr name_not_regex;
+  if (name_not_regex_prop)
+    name_not_regex =
+      regex::compile(name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_prop =
     is_simple_property(section.find_property("name"));
@@ -1695,9 +1693,10 @@ read_type_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr srcloc_not_regexp_prop =
     is_simple_property(section.find_property("source_location_not_regexp"));
-  string srcloc_not_regexp_str;
+  regex_t_sptr srcloc_not_regex;
   if (srcloc_not_regexp_prop)
-    srcloc_not_regexp_str = srcloc_not_regexp_prop->get_value()->as_string();
+    srcloc_not_regex =
+      regex::compile(srcloc_not_regexp_prop->get_value()->as_string());
 
   bool consider_type_kind = false;
   type_suppression::type_kind type_kind = type_suppression::UNKNOWN_TYPE_KIND;
@@ -1904,7 +1903,7 @@ read_type_suppression(const ini::config::section& section)
 	changed_enumerator_names.push_back(p->get_value()->as_string());
     }
 
-  result.reset(new type_suppression(label_str, name_regex_str, name_str));
+  result.reset(new type_suppression(label_str, name_regex, name_str));
 
   if (consider_type_kind)
     {
@@ -1921,31 +1920,31 @@ read_type_suppression(const ini::config::section& section)
   if (consider_data_member_insertion)
     result->set_data_member_insertion_ranges(insert_ranges);
 
-  if (!name_not_regex_str.empty())
-    result->set_type_name_not_regex_str(name_not_regex_str);
+  if (name_not_regex)
+    result->set_type_name_not_regex(name_not_regex);
 
-  if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+  if (file_name_regex)
+    result->set_file_name_regex(file_name_regex);
 
-  if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+  if (file_name_not_regex)
+    result->set_file_name_not_regex(file_name_not_regex);
 
-  if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+  if (soname_regex)
+    result->set_soname_regex(soname_regex);
 
-  if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+  if (soname_not_regex)
+    result->set_soname_not_regex(soname_not_regex);
 
   if (!srcloc_not_in.empty())
     result->set_source_locations_to_keep(srcloc_not_in);
 
-  if (!srcloc_not_regexp_str.empty())
-    result->set_source_location_to_keep_regex_str(srcloc_not_regexp_str);
+  if (srcloc_not_regex)
+    result->set_source_location_to_keep_regex(srcloc_not_regex);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
-      && ((!name_regex_str.empty()
+      && ((name_regex
 	   || !name_str.empty()
-	   || !srcloc_not_regexp_str.empty()
+	   || srcloc_not_regex
 	   || !srcloc_not_in.empty())))
     result->set_drops_artifact_from_ir(true);
 
@@ -1971,7 +1970,7 @@ read_type_suppression(const ini::config::section& section)
 /// account only if the parameter @p tn is empty.
 function_suppression::parameter_spec::parameter_spec(size_t i,
 						     const string& tn,
-						     const string& tn_regex)
+						     const regex_t_sptr& tn_regex)
   : priv_(new priv(i, tn, tn_regex))
 {}
 
@@ -2016,9 +2015,9 @@ function_suppression::parameter_spec::set_parameter_type_name(const string& tn)
 /// empty.
 ///
 /// @return the regular expression or the parameter type name.
-const string&
-function_suppression::parameter_spec::get_parameter_type_name_regex_str() const
-{return priv_->type_name_regex_str_;}
+const regex_t_sptr&
+function_suppression::parameter_spec::get_parameter_type_name_regex() const
+{return priv_->type_name_regex_;}
 
 /// Setter for the regular expression that defines a set of type names
 /// for the parameter designated by this specification.
@@ -2028,12 +2027,12 @@ function_suppression::parameter_spec::get_parameter_type_name_regex_str() const
 /// function_suppression::parameter_spec::get_parameter_type_name() is
 /// empty.
 ///
-/// @param type_name_regex_str the new type name regular expression to
+/// @param type_name_regex the new type name regular expression to
 /// set.
 void
-function_suppression::parameter_spec::set_parameter_type_name_regex_str
-(const string& type_name_regex_str)
-{priv_->type_name_regex_str_ = type_name_regex_str;}
+function_suppression::parameter_spec::set_parameter_type_name_regex
+(const regex_t_sptr& type_name_regex)
+{priv_->type_name_regex_ = type_name_regex;}
 
 /// Default constructor for the @ref function_suppression type.
 ///
@@ -2101,14 +2100,14 @@ function_suppression::function_suppression()
 /// case it's ignored at evaluation time.
 function_suppression::function_suppression(const string&		label,
 					   const string&		name,
-					   const string&		nr,
+					   const regex_t_sptr&		nr,
 					   const string&		ret_tn,
-					   const string&		ret_tr,
+					   const regex_t_sptr&		ret_tr,
 					   parameter_specs_type&	ps,
 					   const string&		sym_n,
-					   const string&		sym_nr,
+					   const regex_t_sptr&		sym_nr,
 					   const string&		sym_v,
-					   const string&		sym_vr)
+					   const regex_t_sptr&		sym_vr)
   : suppression_base(label),
     priv_(new priv(name, nr, ret_tn, ret_tr, ps,
 		   sym_n, sym_nr, sym_v, sym_vr))
@@ -2176,9 +2175,9 @@ function_suppression::set_name(const string& n)
 ///
 /// @return the regular expression for the possible names of the
 /// function(s).
-const string&
-function_suppression::get_name_regex_str() const
-{return priv_->name_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_name_regex() const
+{return priv_->name_regex_;}
 
 /// Setter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate.
@@ -2186,8 +2185,8 @@ function_suppression::get_name_regex_str() const
 /// @param r the new the regular expression for the possible names of
 /// the function(s).
 void
-function_suppression::set_name_regex_str(const string& r)
-{priv_->name_regex_str_ = r;}
+function_suppression::set_name_regex(const regex_t_sptr& r)
+{priv_->name_regex_ = r;}
 
 /// Getter for a regular expression of a family of names of functions
 /// the user wants the current specification to designate the negation
@@ -2195,9 +2194,9 @@ function_suppression::set_name_regex_str(const string& r)
 ///
 /// @return the regular expression for the possible names of the
 /// function(s).
-const string&
-function_suppression::get_name_not_regex_str() const
-{return priv_->name_not_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_name_not_regex() const
+{return priv_->name_not_regex_;}
 
 /// Setter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate the negation
@@ -2206,8 +2205,8 @@ function_suppression::get_name_not_regex_str() const
 /// @param r the new the regular expression for the possible names of
 /// the function(s).
 void
-function_suppression::set_name_not_regex_str(const string& r)
-{priv_->name_not_regex_str_ = r;}
+function_suppression::set_name_not_regex(const regex_t_sptr& r)
+{priv_->name_not_regex_ = r;}
 
 /// Getter for the name of the return type of the function the user
 /// wants this specification to designate.  This property might be
@@ -2239,9 +2238,9 @@ function_suppression::set_return_type_name(const string& tr)
 ///
 /// @return the regular expression for the possible names of the
 /// return types of the function(s).
-const string&
-function_suppression::get_return_type_regex_str() const
-{return priv_->return_type_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_return_type_regex() const
+{return priv_->return_type_regex_;}
 
 /// Setter for a regular expression for a family of return type names
 /// for functions the user wants the current specification to
@@ -2256,8 +2255,8 @@ function_suppression::get_return_type_regex_str() const
 /// @param r the new regular expression for the possible names of the
 /// return types of the function(s) to set.
 void
-function_suppression::set_return_type_regex_str(const string& r)
-{priv_->return_type_regex_str_ = r;}
+function_suppression::set_return_type_regex(const regex_t_sptr& r)
+{priv_->return_type_regex_ = r;}
 
 /// Getter for a vector of parameter specifications to specify
 /// properties of the parameters of the functions the user wants this
@@ -2325,9 +2324,9 @@ function_suppression::set_symbol_name(const string& n)
 ///
 /// @return the regular expression for a family of names of symbols of
 /// functions to designate.
-const string&
-function_suppression::get_symbol_name_regex_str() const
-{return priv_->symbol_name_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_symbol_name_regex() const
+{return priv_->symbol_name_regex_;}
 
 /// Setter for a regular expression for a family of names of symbols
 /// of functions the user wants this specification to designate.
@@ -2342,8 +2341,8 @@ function_suppression::get_symbol_name_regex_str() const
 /// @param r the new regular expression for a family of names of
 /// symbols of functions to set.
 void
-function_suppression::set_symbol_name_regex_str(const string& r)
-{priv_->symbol_name_regex_str_ = r;}
+function_suppression::set_symbol_name_regex(const regex_t_sptr& r)
+{priv_->symbol_name_regex_ = r;}
 
 /// Getter for a regular expression for a family of names of symbols
 /// of functions the user wants this specification to designate.
@@ -2358,11 +2357,11 @@ function_suppression::set_symbol_name_regex_str(const string& r)
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @return the regular expression string for a family of names of
+/// @return the regular expression for a family of names of
 /// symbols that is to be *NOT* suppressed by this suppression specification.
-const string&
-function_suppression::get_symbol_name_not_regex_str() const
-{return priv_->symbol_name_not_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_symbol_name_not_regex() const
+{return priv_->symbol_name_not_regex_;}
 
 /// Setter for a regular expression for a family of names of symbols
 /// of functions the user wants this specification to designate.
@@ -2377,12 +2376,12 @@ function_suppression::get_symbol_name_not_regex_str() const
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @param the new regular expression string for a family of names of
+/// @param the new regular expression for a family of names of
 /// symbols that is to be *NOT* suppressed by this suppression
 /// specification.
 void
-function_suppression::set_symbol_name_not_regex_str(const string& r)
-{priv_->symbol_name_not_regex_str_ = r;}
+function_suppression::set_symbol_name_not_regex(const regex_t_sptr& r)
+{priv_->symbol_name_not_regex_ = r;}
 
 /// Getter for the name of the version of the symbol of the function
 /// the user wants this specification to designate.
@@ -2417,9 +2416,9 @@ function_suppression::set_symbol_version(const string& v)
 ///
 /// @return the regular expression for the versions of symbols of
 /// functions to designate.
-const string&
-function_suppression::get_symbol_version_regex_str() const
-{return priv_->symbol_version_regex_str_;}
+const regex_t_sptr&
+function_suppression::get_symbol_version_regex() const
+{return priv_->symbol_version_regex_;}
 
 /// Setter for a regular expression for a family of versions of
 /// symbols of functions the user wants the current specification to
@@ -2433,8 +2432,8 @@ function_suppression::get_symbol_version_regex_str() const
 /// @param the new regular expression for the versions of symbols of
 /// functions to designate.
 void
-function_suppression::set_symbol_version_regex_str(const string& r)
-{priv_->symbol_version_regex_str_ = r;}
+function_suppression::set_symbol_version_regex(const regex_t_sptr& r)
+{priv_->symbol_version_regex_ = r;}
 
 /// Getter for the "allow_other_aliases" property of the function
 /// suppression specification.
@@ -2837,7 +2836,7 @@ function_suppression::suppresses_function_symbol(const elf_symbol* sym,
       if (sym_name != get_symbol_name())
 	return false;
     }
-  else if (!get_symbol_name_regex_str().empty())
+  else if (get_symbol_name_regex())
     {
       const regex_t_sptr symbol_name_regex = priv_->get_symbol_name_regex();
       if (symbol_name_regex && !regex::match(symbol_name_regex, sym_name))
@@ -2852,7 +2851,7 @@ function_suppression::suppresses_function_symbol(const elf_symbol* sym,
       if (sym_version != get_symbol_version())
 	return false;
     }
-  else if (!get_symbol_version_regex_str().empty())
+  else if (get_symbol_version_regex())
     {
       const regex_t_sptr symbol_version_regex =
 	priv_->get_symbol_version_regex();
@@ -3158,10 +3157,10 @@ read_parameter_spec_from_string(const string& str)
 
   if (!index_str.empty() || !type_name.empty())
     {
-      std::string type_name_regex;
+      regex_t_sptr type_name_regex;
       if (is_regex)
 	{
-	  type_name_regex = type_name;
+	  type_name_regex = regex::compile(type_name);
 	  type_name.clear();
 	}
       function_suppression::parameter_spec* p =
@@ -3234,27 +3233,30 @@ read_function_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
-  string file_name_regex_str =
-    file_name_regex_prop ? file_name_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr file_name_regex;
+  if (file_name_regex_prop)
+    file_name_regex =
+      regex::compile(file_name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr file_name_not_regex_prop =
     is_simple_property(section.find_property("file_name_not_regexp"));
-  string file_name_not_regex_str =
-    file_name_not_regex_prop
-    ? file_name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr file_name_not_regex;
+  if (file_name_not_regex_prop)
+    file_name_not_regex =
+      regex::compile(file_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_regex_prop =
     is_simple_property(section.find_property("soname_regexp"));
-  string soname_regex_str =
-    soname_regex_prop ? soname_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr soname_regex;
+  if (soname_regex_prop)
+    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_not_regex_prop =
     is_simple_property(section.find_property("soname_not_regexp"));
-  string soname_not_regex_str =
-    soname_not_regex_prop
-    ? soname_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr soname_not_regex;
+  if (soname_not_regex_prop)
+    soname_not_regex =
+      regex::compile(soname_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_prop =
     is_simple_property(section.find_property("name"));
@@ -3264,15 +3266,16 @@ read_function_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr name_regex_prop =
     is_simple_property(section.find_property("name_regexp"));
-  string name_regex_str = name_regex_prop
-    ? name_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr name_regex;
+  if (name_regex_prop)
+    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_not_regex_prop =
     is_simple_property(section.find_property("name_not_regexp"));
-  string name_not_regex_str = name_not_regex_prop
-    ? name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr name_not_regex;
+  if (name_not_regex_prop)
+    name_not_regex =
+      regex::compile(name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr return_type_name_prop =
     is_simple_property(section.find_property("return_type_name"));
@@ -3282,9 +3285,10 @@ read_function_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr return_type_regex_prop =
     is_simple_property(section.find_property("return_type_regexp"));
-  string return_type_regex_str = return_type_regex_prop
-    ? return_type_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr return_type_regex;
+  if (return_type_regex_prop)
+    return_type_regex =
+      regex::compile(return_type_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_name_prop =
     is_simple_property(section.find_property("symbol_name"));
@@ -3294,15 +3298,17 @@ read_function_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr sym_name_regex_prop =
     is_simple_property(section.find_property("symbol_name_regexp"));
-  string sym_name_regex_str = sym_name_regex_prop
-    ? sym_name_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr sym_name_regex;
+  if (sym_name_regex_prop)
+    sym_name_regex =
+      regex::compile(sym_name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_name_not_regex_prop =
     is_simple_property(section.find_property("symbol_name_not_regexp"));
-  string sym_name_not_regex_str = sym_name_not_regex_prop
-    ? sym_name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr sym_name_not_regex;
+  if (sym_name_not_regex_prop)
+    sym_name_not_regex =
+      regex::compile(sym_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_ver_prop =
     is_simple_property(section.find_property("symbol_version"));
@@ -3312,9 +3318,10 @@ read_function_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr sym_ver_regex_prop =
     is_simple_property(section.find_property("symbol_version_regexp"));
-  string sym_ver_regex_str = sym_ver_regex_prop
-    ? sym_ver_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr sym_ver_regex;
+  if (sym_ver_regex_prop)
+    sym_ver_regex =
+      regex::compile(sym_ver_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr allow_other_aliases_prop =
     is_simple_property(section.find_property("allow_other_aliases"));
@@ -3339,22 +3346,22 @@ read_function_suppression(const ini::config::section& section)
 
   result.reset(new function_suppression(label_str,
 					name,
-					name_regex_str,
+					name_regex,
 					return_type_name,
-					return_type_regex_str,
+					return_type_regex,
 					parms,
 					sym_name,
-					sym_name_regex_str,
+					sym_name_regex,
 					sym_version,
-					sym_ver_regex_str));
+					sym_ver_regex));
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name.empty()
-	  || !name_regex_str.empty()
-	  || !name_not_regex_str.empty()
+	  || name_regex
+	  || name_not_regex
 	  || !sym_name.empty()
-	  || !sym_name_regex_str.empty()
-	  || !sym_name_not_regex_str.empty()))
+	  || sym_name_regex
+	  || sym_name_not_regex))
     result->set_drops_artifact_from_ir(true);
 
   if (!change_kind_str.empty())
@@ -3365,23 +3372,23 @@ read_function_suppression(const ini::config::section& section)
     result->set_allow_other_aliases(allow_other_aliases == "yes"
 				    || allow_other_aliases == "true");
 
-  if (!name_not_regex_str.empty())
-    result->set_name_not_regex_str(name_not_regex_str);
+  if (name_not_regex)
+    result->set_name_not_regex(name_not_regex);
 
-  if (!sym_name_not_regex_str.empty())
-    result->set_symbol_name_not_regex_str(sym_name_not_regex_str);
+  if (sym_name_not_regex)
+    result->set_symbol_name_not_regex(sym_name_not_regex);
 
-  if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+  if (file_name_regex)
+    result->set_file_name_regex(file_name_regex);
 
-  if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+  if (file_name_not_regex)
+    result->set_file_name_not_regex(file_name_not_regex);
 
-  if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+  if (soname_regex)
+    result->set_soname_regex(soname_regex);
 
-  if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+  if (soname_not_regex)
+    result->set_soname_not_regex(soname_not_regex);
 
   return result;
 }
@@ -3401,7 +3408,7 @@ read_function_suppression(const ini::config::section& section)
 /// specification to designate.  This parameter might be empty, in
 /// which case it's ignored at evaluation time.
 ///
-/// @param name_regex_str if @p name is empty, this parameter is a
+/// @param name_regex if @p name is empty, this parameter is a
 /// regular expression for a family of names of variables the user
 /// wants the current specification to designate.  If @p name is not
 /// empty, then this parameter is ignored at evaluation time.  This
@@ -3435,7 +3442,7 @@ read_function_suppression(const ini::config::section& section)
 /// wants the current specification to designate.  This parameter
 /// might be empty, in which case it's ignored at evaluation time.
 ///
-/// @param type_name_regex_str if @p type_name is empty, then this
+/// @param type_name_regex if @p type_name is empty, then this
 /// parameter is a regular expression for a family of type names of
 /// variables the user wants the current specification to designate.
 /// If @p type_name is not empty, then this parameter is ignored at
@@ -3443,18 +3450,18 @@ read_function_suppression(const ini::config::section& section)
 /// ignored at evaluation time.
 variable_suppression::variable_suppression(const string& label,
 					   const string& name,
-					   const string& name_regex_str,
+					   const regex_t_sptr& name_regex,
 					   const string& symbol_name,
-					   const string& symbol_name_regex_str,
+					   const regex_t_sptr& symbol_name_regex,
 					   const string& symbol_version,
-					   const string& symbol_version_regex,
+					   const regex_t_sptr& symbol_version_regex,
 					   const string& type_name,
-					   const string& type_name_regex_str)
+					   const regex_t_sptr& type_name_regex)
   : suppression_base(label),
-    priv_(new priv(name, name_regex_str,
-		   symbol_name, symbol_name_regex_str,
+    priv_(new priv(name, name_regex,
+		   symbol_name, symbol_name_regex,
 		   symbol_version, symbol_version_regex,
-		   type_name, type_name_regex_str))
+		   type_name, type_name_regex))
 {}
 
 /// Virtual destructor for the @erf variable_suppression type.
@@ -3524,9 +3531,9 @@ variable_suppression::set_name(const string& n)
 /// which case it's ignored at evaluation time.
 ///
 /// @return the regular expression for the variable name.
-const string&
-variable_suppression::get_name_regex_str() const
-{return priv_->name_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_name_regex() const
+{return priv_->name_regex_;}
 
 /// Setter for the regular expression for a family of names of
 /// variables the user wants the current specification to designate.
@@ -3537,22 +3544,22 @@ variable_suppression::get_name_regex_str() const
 ///
 /// @param r the new regular expression for the variable name.
 void
-variable_suppression::set_name_regex_str(const string& r)
-{priv_->name_regex_str_ = r;}
+variable_suppression::set_name_regex(const regex_t_sptr& r)
+{priv_->name_regex_ = r;}
 
 /// Getter for the "name_not_regexp" property of the specification.
 ///
 /// @return the value of the "name_not_regexp" property.
-const string&
-variable_suppression::get_name_not_regex_str() const
-{return priv_->name_not_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_name_not_regex() const
+{return priv_->name_not_regex_;}
 
 /// Setter for the "name_not_regexp" property of the specification.
 ///
 /// @param r the new value of the "name_not_regexp" property.
 void
-variable_suppression::set_name_not_regex_str(const string& r)
-{priv_->name_not_regex_str_ = r;}
+variable_suppression::set_name_not_regex(const regex_t_sptr& r)
+{priv_->name_not_regex_ = r;}
 
 /// Getter for the name of the symbol of the variable the user wants
 /// the current specification to designate.
@@ -3585,9 +3592,9 @@ variable_suppression::set_symbol_name(const string& n)
 /// empty.
 ///
 /// @return the regular expression for a symbol name of the variable.
-const string&
-variable_suppression::get_symbol_name_regex_str() const
-{return priv_->symbol_name_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_symbol_name_regex() const
+{return priv_->symbol_name_regex_;}
 
 /// Setter of the regular expression for a family of symbol names of
 /// the variables this specification is about to designate.
@@ -3599,8 +3606,8 @@ variable_suppression::get_symbol_name_regex_str() const
 ///
 /// @param r the regular expression for a symbol name of the variable.
 void
-variable_suppression::set_symbol_name_regex_str(const string& r)
-{priv_->symbol_name_regex_str_ = r;}
+variable_suppression::set_symbol_name_regex(const regex_t_sptr& r)
+{priv_->symbol_name_regex_ = r;}
 
 /// Getter for a regular expression for a family of names of symbols
 /// of variables the user wants this specification to designate.
@@ -3615,11 +3622,11 @@ variable_suppression::set_symbol_name_regex_str(const string& r)
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @return the regular expression string for a family of names of
+/// @return the regular expression for a family of names of
 /// symbols that is to be *NOT* suppressed by this suppression specification.
-const string&
-variable_suppression::get_symbol_name_not_regex_str() const
-{return priv_->symbol_name_not_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_symbol_name_not_regex() const
+{return priv_->symbol_name_not_regex_;}
 
 /// Setter for a regular expression for a family of names of symbols
 /// of variables the user wants this specification to designate.
@@ -3634,12 +3641,12 @@ variable_suppression::get_symbol_name_not_regex_str() const
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @param the new regular expression string for a family of names of
+/// @param the new regular expression for a family of names of
 /// symbols that is to be *NOT* suppressed by this suppression
 /// specification.
 void
-variable_suppression::set_symbol_name_not_regex_str(const string& r)
-{priv_->symbol_name_not_regex_str_ = r;}
+variable_suppression::set_symbol_name_not_regex(const regex_t_sptr& r)
+{priv_->symbol_name_not_regex_ = r;}
 
 /// Getter for the version of the symbol of the variable the user
 /// wants the current specification to designate.  This property might
@@ -3667,9 +3674,9 @@ variable_suppression::set_symbol_version(const string& v)
 ///
 /// @return the regular expression of the symbol version of the
 /// variable.
-const string&
-variable_suppression::get_symbol_version_regex_str() const
-{return priv_->symbol_version_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_symbol_version_regex() const
+{return priv_->symbol_version_regex_;}
 
 /// Setter of the regular expression for a family of versions of
 /// symbol for the variables the user wants the current specification
@@ -3680,8 +3687,8 @@ variable_suppression::get_symbol_version_regex_str() const
 /// @param v the new regular expression of the symbol version of the
 /// variable.
 void
-variable_suppression::set_symbol_version_regex_str(const string& r)
-{priv_->symbol_version_regex_str_ = r;}
+variable_suppression::set_symbol_version_regex(const regex_t_sptr& r)
+{priv_->symbol_version_regex_ = r;}
 
 /// Getter for the name of the type of the variable the user wants the
 /// current specification to designate.
@@ -3714,9 +3721,9 @@ variable_suppression::set_type_name(const string& n)
 /// empty, in which case it's ignored at evaluation time.
 ///
 /// @return the regular expression of the variable type name.
-const string&
-variable_suppression::get_type_name_regex_str() const
-{return priv_->type_name_regex_str_;}
+const regex_t_sptr&
+variable_suppression::get_type_name_regex() const
+{return priv_->type_name_regex_;}
 
 /// Setter for the regular expression for a family of type names of
 /// variables the user wants the current specification to designate.
@@ -3728,8 +3735,8 @@ variable_suppression::get_type_name_regex_str() const
 ///
 /// @param r the regular expression of the variable type name.
 void
-variable_suppression::set_type_name_regex_str(const string& r)
-{priv_->type_name_regex_str_ = r;}
+variable_suppression::set_type_name_regex(const regex_t_sptr& r)
+{priv_->type_name_regex_ = r;}
 
 /// Evaluate this suppression specification on a given diff node and
 /// say if the diff node should be suppressed or not.
@@ -3958,7 +3965,7 @@ variable_suppression::suppresses_variable_symbol(const elf_symbol* sym,
       if (get_symbol_name() != sym_name)
 	return false;
     }
-  else if (!get_symbol_name_regex_str().empty())
+  else if (get_symbol_name_regex())
     {
       const regex_t_sptr sym_name_regex = priv_->get_symbol_name_regex();
       if (sym_name_regex && !regex::match(sym_name_regex, sym_name))
@@ -3973,7 +3980,7 @@ variable_suppression::suppresses_variable_symbol(const elf_symbol* sym,
       if (get_symbol_version() != sym_version)
 	return false;
     }
-  else if (!get_symbol_version_regex_str().empty())
+  else if (get_symbol_version_regex())
     {
       const regex_t_sptr symbol_version_regex =
 	priv_->get_symbol_version_regex();
@@ -4113,27 +4120,30 @@ read_variable_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
-  string file_name_regex_str =
-    file_name_regex_prop ? file_name_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr file_name_regex;
+  if (file_name_regex_prop)
+    file_name_regex =
+      regex::compile(file_name_regex_prop->get_value()->as_string());
 
  ini::simple_property_sptr file_name_not_regex_prop =
-    is_simple_property(section.find_property("file_name_not_regexp"));
-  string file_name_not_regex_str =
-    file_name_not_regex_prop
-    ? file_name_not_regex_prop->get_value()->as_string()
-    : "";
+  is_simple_property(section.find_property("file_name_not_regexp"));
+ regex_t_sptr file_name_not_regex;
+ if (file_name_not_regex_prop)
+   file_name_not_regex =
+     regex::compile(file_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_regex_prop =
     is_simple_property(section.find_property("soname_regexp"));
-  string soname_regex_str =
-    soname_regex_prop ? soname_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr soname_regex;
+  if (soname_regex_prop)
+    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_not_regex_prop =
     is_simple_property(section.find_property("soname_not_regexp"));
-  string soname_not_regex_str =
-    soname_not_regex_prop
-    ? soname_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr soname_not_regex;
+  if (soname_not_regex_prop)
+    soname_not_regex =
+      regex::compile(soname_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_prop =
     is_simple_property(section.find_property("name"));
@@ -4143,15 +4153,16 @@ read_variable_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr name_regex_prop =
     is_simple_property(section.find_property("name_regexp"));
-  string name_regex_str = (name_regex_prop
-			   ? name_regex_prop->get_value()->as_string()
-			   : "");
+  regex_t_sptr name_regex;
+  if (name_regex_prop)
+    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr name_not_regex_prop =
     is_simple_property(section.find_property("name_not_regexp"));
-  string name_not_regex_str = name_not_regex_prop
-    ? name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr name_not_regex;
+  if (name_not_regex_prop)
+    name_not_regex =
+      regex::compile(name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_name_prop =
     is_simple_property(section.find_property("symbol_name"));
@@ -4161,15 +4172,17 @@ read_variable_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr sym_name_regex_prop =
     is_simple_property(section.find_property("symbol_name_regexp"));
-  string symbol_name_regex_str = sym_name_regex_prop
-    ? sym_name_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr symbol_name_regex;
+  if (sym_name_regex_prop)
+    symbol_name_regex =
+      regex::compile(sym_name_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_name_not_regex_prop =
     is_simple_property(section.find_property("symbol_name_not_regexp"));
-  string symbol_name_not_regex_str = sym_name_not_regex_prop
-    ? sym_name_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr symbol_name_not_regex;
+  if (sym_name_not_regex_prop)
+    symbol_name_not_regex =
+      regex::compile(sym_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr sym_version_prop =
     is_simple_property(section.find_property("symbol_version"));
@@ -4179,9 +4192,10 @@ read_variable_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr sym_version_regex_prop =
     is_simple_property(section.find_property("symbol_version_regexp"));
-  string symbol_version_regex_str = sym_version_regex_prop
-    ? sym_version_regex_prop->get_value()->as_string()
-     : "";
+  regex_t_sptr symbol_version_regex;
+  if (sym_version_regex_prop)
+    symbol_version_regex =
+      regex::compile(sym_version_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr type_name_prop =
     is_simple_property(section.find_property("type_name"));
@@ -4191,50 +4205,51 @@ read_variable_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr type_name_regex_prop =
     is_simple_property(section.find_property("type_name_regexp"));
-  string type_name_regex_str = type_name_regex_prop
-    ? type_name_regex_prop->get_value()->as_string()
-     : "";
+  regex_t_sptr type_name_regex;
+  if (type_name_regex_prop)
+    type_name_regex =
+      regex::compile(type_name_regex_prop->get_value()->as_string());
 
   result.reset(new variable_suppression(label_str,
 					name_str,
-					name_regex_str,
+					name_regex,
 					symbol_name,
-					symbol_name_regex_str,
+					symbol_name_regex,
 					symbol_version,
-					symbol_version_regex_str,
+					symbol_version_regex,
 					type_name_str,
-					type_name_regex_str));
+					type_name_regex));
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name_str.empty()
-	  || !name_regex_str.empty()
-	  || !name_not_regex_str.empty()
+	  || name_regex
+	  || name_not_regex
 	  || !symbol_name.empty()
-	  || !symbol_name_regex_str.empty()
-	  || !symbol_name_not_regex_str.empty()))
+	  || symbol_name_regex
+	  || symbol_name_not_regex))
     result->set_drops_artifact_from_ir(true);
 
-  if (!name_not_regex_str.empty())
-    result->set_name_not_regex_str(name_not_regex_str);
+  if (name_not_regex)
+    result->set_name_not_regex(name_not_regex);
 
-  if (!symbol_name_not_regex_str.empty())
-    result->set_symbol_name_not_regex_str(symbol_name_not_regex_str);
+  if (symbol_name_not_regex)
+    result->set_symbol_name_not_regex(symbol_name_not_regex);
 
   if (!change_kind_str.empty())
     result->set_change_kind
       (variable_suppression::parse_change_kind(change_kind_str));
 
-  if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+  if (file_name_regex)
+    result->set_file_name_regex(file_name_regex);
 
-  if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+  if (file_name_not_regex)
+    result->set_file_name_not_regex(file_name_not_regex);
 
-  if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+  if (soname_regex)
+    result->set_soname_regex(soname_regex);
 
-  if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+  if (soname_not_regex)
+    result->set_soname_not_regex(soname_not_regex);
 
   return result;
 }
@@ -4247,21 +4262,21 @@ read_variable_suppression(const ini::config::section& section)
 ///
 /// @param label the label of the suppression directive.
 ///
-/// @param fname_regex_str the regular expression string that
+/// @param fname_regex the regular expression that
 /// designates the file name that instances of @ref file_suppression
 /// should match.
 ///
-/// @param fname_not_regex_str the regular expression string that
+/// @param fname_not_regex the regular expression that
 /// designates the file name that instances of @ref file_suppression
 /// shoult *NOT* match.  In other words, this file_suppression should
 /// be activated if its file name does not match the regular
-/// expression @p fname_not_regex_str.
+/// expression @p fname_not_regex.
 file_suppression::file_suppression(const string& label,
-				   const string& fname_regex_str,
-				   const string& fname_not_regex_str)
+				   const regex_t_sptr& fname_regex,
+				   const regex_t_sptr& fname_not_regex)
   : suppression_base(label,
-		     fname_regex_str,
-		     fname_not_regex_str)
+		     fname_regex,
+		     fname_not_regex)
 {}
 
 /// Test if instances of this @ref file_suppression suppresses a
@@ -4352,41 +4367,44 @@ read_file_suppression(const ini::config::section& section)
 
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
-  string file_name_regex_str =
-    file_name_regex_prop ? file_name_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr file_name_regex;
+  if (file_name_regex_prop)
+    file_name_regex =
+      regex::compile(file_name_regex_prop->get_value()->as_string());
 
  ini::simple_property_sptr file_name_not_regex_prop =
     is_simple_property(section.find_property("file_name_not_regexp"));
-  string file_name_not_regex_str =
-    file_name_not_regex_prop
-    ? file_name_not_regex_prop->get_value()->as_string()
-    : "";
+ regex_t_sptr file_name_not_regex;
+ if (file_name_not_regex_prop)
+   file_name_not_regex =
+     regex::compile(file_name_not_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_regex_prop =
     is_simple_property(section.find_property("soname_regexp"));
-  string soname_regex_str =
-    soname_regex_prop ? soname_regex_prop->get_value()->as_string() : "";
+  regex_t_sptr soname_regex;
+  if (soname_regex_prop)
+    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
 
   ini::simple_property_sptr soname_not_regex_prop =
     is_simple_property(section.find_property("soname_not_regexp"));
-  string soname_not_regex_str =
-    soname_not_regex_prop
-    ? soname_not_regex_prop->get_value()->as_string()
-    : "";
+  regex_t_sptr soname_not_regex;
+  if (soname_not_regex_prop)
+    soname_not_regex =
+      regex::compile(soname_not_regex_prop->get_value()->as_string());
 
   result.reset(new file_suppression(label_str,
-				    file_name_regex_str,
-				    file_name_not_regex_str));
+				    file_name_regex,
+				    file_name_not_regex));
 
-  if (!soname_regex_str.empty())
+  if (soname_regex)
     {
-      result->set_soname_regex_str(soname_regex_str);
+      result->set_soname_regex(soname_regex);
       result->set_drops_artifact_from_ir(true);
     }
 
-  if (!soname_not_regex_str.empty())
+  if (soname_not_regex)
     {
-      result->set_soname_not_regex_str(soname_not_regex_str);
+      result->set_soname_not_regex(soname_not_regex);
       result->set_drops_artifact_from_ir(true);
     }
 
