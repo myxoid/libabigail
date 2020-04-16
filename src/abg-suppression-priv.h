@@ -32,14 +32,10 @@ class suppression_base::priv
   bool					is_artificial_;
   bool					drops_artifact_;
   string				label_;
-  string				file_name_regex_str_;
-  mutable regex::regex_t_sptr		file_name_regex_;
-  string				file_name_not_regex_str_;
-  mutable regex::regex_t_sptr		file_name_not_regex_;
-  string				soname_regex_str_;
-  mutable regex::regex_t_sptr		soname_regex_;
-  string				soname_not_regex_str_;
-  mutable regex::regex_t_sptr		soname_not_regex_;
+  regex::regex_t_sptr			file_name_regex_;
+  regex::regex_t_sptr			file_name_not_regex_;
+  regex::regex_t_sptr			soname_regex_;
+  regex::regex_t_sptr			soname_not_regex_;
 
 public:
   priv()
@@ -54,78 +50,46 @@ public:
   {}
 
   priv(const string& label,
-       const string& file_name_regex_str,
-       const string& file_name_not_regex_str)
+       const regex::regex_t_sptr& file_name_regex,
+       const regex::regex_t_sptr& file_name_not_regex)
     : is_artificial_(),
       drops_artifact_(),
       label_(label),
-      file_name_regex_str_(file_name_regex_str),
-      file_name_not_regex_str_(file_name_not_regex_str)
+      file_name_regex_(file_name_regex),
+      file_name_not_regex_(file_name_not_regex)
   {}
 
   friend class suppression_base;
 
-  /// Get the regular expression object associated to the 'file_name_regex'
-  /// property of @ref suppression_base.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'file_name_regex' property of @ref suppression_base is
-  /// empty then this method returns nil.
+  /// Get the regular expression object associated to the
+  /// 'file_name_regex' property of @ref suppression_base.
   const regex::regex_t_sptr&
   get_file_name_regex() const
   {
-    if (!file_name_regex_ && !file_name_regex_str_.empty())
-      file_name_regex_ = regex::compile(file_name_regex_str_);
     return file_name_regex_;
   }
 
   /// Get the regular expression object associated to the
   /// 'file_name_not_regex' property of @ref suppression_base.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'file_name_not_regex' property of @ref suppression_base
-  /// is empty then this method returns nil.
   const regex::regex_t_sptr&
   get_file_name_not_regex() const
   {
-    if (!file_name_not_regex_ && !file_name_not_regex_str_.empty())
-      file_name_not_regex_ = regex::compile(file_name_not_regex_str_);
     return file_name_not_regex_;
   }
 
-  /// Get the regular expression object associated to the
-  /// 'soname_regex' property of @ref suppression_base.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'soname_regex' property of @ref suppression_base is empty
-  /// then this method returns nil.
+  /// Get the regular expression object associated to the 'soname_regex'
+  /// property of @ref suppression_base.
   const regex::regex_t_sptr&
   get_soname_regex() const
   {
-    if (!soname_regex_ && !soname_regex_str_.empty())
-      soname_regex_ = regex::compile(soname_regex_str_);
     return soname_regex_;
   }
 
   /// Get the regular expression object associated to the
   /// 'soname_not_regex' property of @ref suppression_base.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'soname_not_regex' property of @ref suppression_base is
-  /// empty then this method returns nil.
   const regex::regex_t_sptr&
   get_soname_not_regex() const
   {
-    if (!soname_not_regex_ && !soname_not_regex_str_.empty())
-      soname_not_regex_ = regex::compile(soname_not_regex_str_);
     return soname_not_regex_;
   }
 
@@ -210,8 +174,7 @@ class function_suppression::parameter_spec::priv
 
   size_t				index_;
   string				type_name_;
-  string				type_name_regex_str_;
-  mutable regex::regex_t_sptr		type_name_regex_;
+  regex::regex_t_sptr			type_name_regex_;
 
   priv()
     : index_()
@@ -221,15 +184,16 @@ class function_suppression::parameter_spec::priv
     : index_(i), type_name_(tn)
   {}
 
-  priv(size_t i, const string& tn, const string& tn_regex)
-    : index_(i), type_name_(tn), type_name_regex_str_(tn_regex)
+  priv(size_t i, const string& tn, const regex::regex_t_sptr& tn_regex)
+    : index_(i), type_name_(tn), type_name_regex_(tn_regex)
   {}
 
+  /// Get the regular expression object associated to the
+  /// 'type_name_regex' property of @ref
+  /// function_suppression::parameter_spec.
   const regex::regex_t_sptr
   get_type_name_regex() const
   {
-    if (!type_name_regex_ && !type_name_regex_str_.empty())
-      type_name_regex_ = regex::compile(type_name_regex_str_);
     return type_name_regex_;
   }
 }; // end class function_suppression::parameter_spec::priv
@@ -243,22 +207,16 @@ struct function_suppression::priv
 
   change_kind				change_kind_;
   string				name_;
-  string				name_regex_str_;
-  mutable regex::regex_t_sptr		name_regex_;
-  string				name_not_regex_str_;
-  mutable regex::regex_t_sptr		name_not_regex_;
+  regex::regex_t_sptr			name_regex_;
+  regex::regex_t_sptr			name_not_regex_;
   string				return_type_name_;
-  string				return_type_regex_str_;
-  mutable regex::regex_t_sptr		return_type_regex_;
+  regex::regex_t_sptr			return_type_regex_;
   parameter_specs_type			parm_specs_;
   string				symbol_name_;
-  string				symbol_name_regex_str_;
-  mutable regex::regex_t_sptr		symbol_name_regex_;
-  string				symbol_name_not_regex_str_;
-  mutable regex::regex_t_sptr		symbol_name_not_regex_;
+  regex::regex_t_sptr			symbol_name_regex_;
+  regex::regex_t_sptr			symbol_name_not_regex_;
   string				symbol_version_;
-  string				symbol_version_regex_str_;
-  mutable regex::regex_t_sptr		symbol_version_regex_;
+  regex::regex_t_sptr			symbol_version_regex_;
   bool					allow_other_aliases_;
 
   priv():
@@ -267,127 +225,72 @@ struct function_suppression::priv
   {}
 
   priv(const string&			name,
-       const string&			name_regex_str,
+       const regex::regex_t_sptr&	name_regex,
        const string&			return_type_name,
-       const string&			return_type_regex_str,
+       const regex::regex_t_sptr&	return_type_regex,
        const parameter_specs_type&	parm_specs,
        const string&			symbol_name,
-       const string&			symbol_name_regex_str,
+       const regex::regex_t_sptr&	symbol_name_regex,
        const string&			symbol_version,
-       const string&			symbol_version_regex_str)
+       const regex::regex_t_sptr&	symbol_version_regex)
     : change_kind_(ALL_CHANGE_KIND),
       name_(name),
-      name_regex_str_(name_regex_str),
+      name_regex_(name_regex),
       return_type_name_(return_type_name),
-      return_type_regex_str_(return_type_regex_str),
+      return_type_regex_(return_type_regex),
       parm_specs_(parm_specs),
       symbol_name_(symbol_name),
-      symbol_name_regex_str_(symbol_name_regex_str),
+      symbol_name_regex_(symbol_name_regex),
       symbol_version_(symbol_version),
-      symbol_version_regex_str_(symbol_version_regex_str),
+      symbol_version_regex_(symbol_version_regex),
       allow_other_aliases_(true)
   {}
 
-
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::name_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::name_regex_str_..
+  /// Get the regular expression object associated to the 'name_regex'
+  /// property of @ref function_suppression.
   const regex::regex_t_sptr
   get_name_regex() const
   {
-    if (!name_regex_ && !name_regex_str_.empty())
-      name_regex_ = regex::compile(name_regex_str_);
     return name_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::name_not_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::name_not_regex_str_..
+  /// Get the regular expression object associated to the
+  /// 'name_not_regex' property of @ref function_suppression.
   const regex::regex_t_sptr
   get_name_not_regex() const
   {
-    if (!name_not_regex_ && !name_not_regex_str_.empty())
-      name_not_regex_ = regex::compile(name_not_regex_str_);
     return name_not_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::return_type_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::return_type_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'return_type_regex' property of @ref function_suppression.
   const regex::regex_t_sptr
   get_return_type_regex() const
   {
-    if (!return_type_regex_ && !return_type_regex_str_.empty())
-      return_type_regex_ = regex::compile(return_type_regex_str_);
     return return_type_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::symbol_name_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::symbol_name_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_name_regex' property of @ref function_suppression.
   const regex::regex_t_sptr
   get_symbol_name_regex() const
   {
-    if (!symbol_name_regex_ && !symbol_name_regex_str_.empty())
-      symbol_name_regex_ = regex::compile(symbol_name_regex_str_);
     return symbol_name_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::symbol_name_not_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::symbol_name_not_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_name_not_regex' property of @ref function_suppression.
   const regex::regex_t_sptr
   get_symbol_name_not_regex() const
   {
-    if (!symbol_name_not_regex_ && !symbol_name_not_regex_str_.empty())
-      symbol_name_not_regex_ = regex::compile(symbol_name_not_regex_str_);
     return symbol_name_not_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// function_suppression::priv::symbol_version_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// function_suppression::priv::symbol_version_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_version_regex' property of @ref function_suppression.
   const regex::regex_t_sptr
   get_symbol_version_regex() const
   {
-    if (!symbol_version_regex_ && !symbol_version_regex_str_.empty())
-      symbol_version_regex_ = regex::compile(symbol_version_regex_str_);
     return symbol_version_regex_;
   }
 }; // end class function_suppression::priv
@@ -466,140 +369,80 @@ struct variable_suppression::priv
 
   change_kind				change_kind_;
   string				name_;
-  string				name_regex_str_;
-  mutable regex::regex_t_sptr		name_regex_;
-  string				name_not_regex_str_;
-  mutable regex::regex_t_sptr		name_not_regex_;
+  regex::regex_t_sptr			name_regex_;
+  regex::regex_t_sptr			name_not_regex_;
   string				symbol_name_;
-  string				symbol_name_regex_str_;
-  mutable regex::regex_t_sptr		symbol_name_regex_;
-  string				symbol_name_not_regex_str_;
-  mutable regex::regex_t_sptr		symbol_name_not_regex_;
+  regex::regex_t_sptr			symbol_name_regex_;
+  regex::regex_t_sptr			symbol_name_not_regex_;
   string				symbol_version_;
-  string				symbol_version_regex_str_;
-  mutable regex::regex_t_sptr		symbol_version_regex_;
+  regex::regex_t_sptr			symbol_version_regex_;
   string				type_name_;
-  string				type_name_regex_str_;
-  mutable regex::regex_t_sptr		type_name_regex_;
+  regex::regex_t_sptr			type_name_regex_;
 
   priv(const string& name,
-       const string& name_regex_str,
+       const regex::regex_t_sptr& name_regex,
        const string& symbol_name,
-       const string& symbol_name_regex_str,
+       const regex::regex_t_sptr& symbol_name_regex,
        const string& symbol_version,
-       const string& symbol_version_regex_str,
+       const regex::regex_t_sptr& symbol_version_regex,
        const string& type_name,
-       const string& type_name_regex_str)
+       const regex::regex_t_sptr& type_name_regex)
     : change_kind_(ALL_CHANGE_KIND),
       name_(name),
-      name_regex_str_(name_regex_str),
+      name_regex_(name_regex),
       symbol_name_(symbol_name),
-      symbol_name_regex_str_(symbol_name_regex_str),
+      symbol_name_regex_(symbol_name_regex),
       symbol_version_(symbol_version),
-      symbol_version_regex_str_(symbol_version_regex_str),
+      symbol_version_regex_(symbol_version_regex),
       type_name_(type_name),
-      type_name_regex_str_(type_name_regex_str)
+      type_name_regex_(type_name_regex)
   {}
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::name_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::name_regex_str_.
+  /// Get the regular expression object associated to the 'name_regex'
+  /// property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_name_regex() const
   {
-    if (!name_regex_ && !name_regex_str_.empty())
-      name_regex_ = regex::compile(name_regex_str_);
     return name_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::name_not_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::name_not_regex_str_..
+  /// Get the regular expression object associated to the
+  /// 'name_not_regex' property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_name_not_regex() const
   {
-    if (!name_not_regex_ && !name_not_regex_str_.empty())
-      name_not_regex_ = regex::compile(name_not_regex_str_);
     return name_not_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::symbol_name_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::symbol_name_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_name_regex' property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_symbol_name_regex() const
   {
-    if (!symbol_name_regex_ && !symbol_name_regex_str_.empty())
-      symbol_name_regex_ = regex::compile(symbol_name_regex_str_);
     return symbol_name_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::symbol_name_not_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::symbol_name_not_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_name_not_regex' property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_symbol_name_not_regex() const
   {
-    if (!symbol_name_not_regex_ && !symbol_name_not_regex_str_.empty())
-      symbol_name_not_regex_ = regex::compile(symbol_name_not_regex_str_);
     return symbol_name_not_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::symbol_version_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::symbol_version_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'symbol_version_regex' property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_symbol_version_regex()  const
   {
-    if (!symbol_version_regex_ && !symbol_version_regex_str_.empty())
-      symbol_version_regex_ = regex::compile(symbol_version_regex_str_);
     return symbol_version_regex_;
   }
 
-  /// Getter for a pointer to a regular expression object built from
-  /// the regular expression string
-  /// variable_suppression::priv::type_name_regex_str_.
-  ///
-  /// If that string is empty, then an empty regular expression object
-  /// pointer is returned.
-  ///
-  /// @return a pointer to the regular expression object of
-  /// variable_suppression::priv::type_name_regex_str_.
+  /// Get the regular expression object associated to the
+  /// 'type_name_regex' property of @ref variable_suppression.
   const regex::regex_t_sptr
   get_type_name_regex() const
   {
-    if (!type_name_regex_ && !type_name_regex_str_.empty())
-      type_name_regex_ = regex::compile(type_name_regex_str_);
     return type_name_regex_;
   }
 };// end class variable_supppression::priv
@@ -636,31 +479,28 @@ variable_is_suppressed(const ReadContextType&	ctxt,
 /// The private data for @ref type_suppression.
 class type_suppression::priv
 {
-  string				type_name_regex_str_;
-  mutable regex::regex_t_sptr		type_name_regex_;
+  regex::regex_t_sptr			type_name_regex_;
   string				type_name_;
-  string				type_name_not_regex_str_;
-  mutable regex::regex_t_sptr		type_name_not_regex_;
+  regex::regex_t_sptr			type_name_not_regex_;
   bool					consider_type_kind_;
   type_suppression::type_kind		type_kind_;
   bool					consider_reach_kind_;
   type_suppression::reach_kind		reach_kind_;
   type_suppression::insertion_ranges	insertion_ranges_;
   unordered_set<string>			source_locations_to_keep_;
-  string				source_location_to_keep_regex_str_;
-  mutable regex::regex_t_sptr		source_location_to_keep_regex_;
+  regex::regex_t_sptr			source_location_to_keep_regex_;
   mutable vector<string>		changed_enumerator_names_;
 
   priv();
 
 public:
-  priv(const string&			type_name_regexp,
+  priv(const regex::regex_t_sptr&	type_name_regexp,
        const string&			type_name,
        bool				consider_type_kind,
        type_suppression::type_kind	type_kind,
        bool				consider_reach_kind,
        type_suppression::reach_kind	reach_kind)
-    : type_name_regex_str_(type_name_regexp),
+    : type_name_regex_(type_name_regexp),
       type_name_(type_name),
       consider_type_kind_(consider_type_kind),
       type_kind_(type_kind),
@@ -668,19 +508,11 @@ public:
       reach_kind_(reach_kind)
   {}
 
-  /// Get the regular expression object associated to the 'type_name_regex'
-  /// property of @ref type_suppression.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'type_name_regex' property of @ref type_suppression is
-  /// empty then this method returns nil.
+  /// Get the regular expression object associated to the
+  /// 'type_name_regex' property of @ref type_suppression.
   const regex::regex_t_sptr
   get_type_name_regex() const
   {
-    if (!type_name_regex_ && !type_name_regex_str_.empty())
-      type_name_regex_ = regex::compile(type_name_regex_str_);
     return type_name_regex_;
   }
 
@@ -693,17 +525,9 @@ public:
 
   /// Get the regular expression object associated to the
   /// 'type_name_not_regex' property of @ref type_suppression.
-  ///
-  /// If the regular expression object is not created, this method
-  /// creates it and returns it.
-  ///
-  /// If the 'type_name_not_regex' property of @ref type_suppression is
-  /// empty then this method returns nil.
   const regex::regex_t_sptr
   get_type_name_not_regex() const
   {
-    if (!type_name_not_regex_ && !type_name_not_regex_str_.empty())
-      type_name_not_regex_ = regex::compile(type_name_not_regex_str_);
     return type_name_not_regex_;
   }
 
@@ -714,34 +538,11 @@ public:
   set_type_name_not_regex(regex::regex_t_sptr r)
   {type_name_not_regex_ = r;}
 
-  /// Getter for the string that denotes the 'type_name_not_regex'
-  /// property.
-  ///
-  /// @return the value of the string value of the
-  /// 'type_name_not_regex' property.
-  const string&
-  get_type_name_not_regex_str() const
-  {return type_name_not_regex_str_;}
-
-  /// Setter for the string that denotes the 'type_name_not_regex'
-  /// property.
-  ///
-  /// @return the value of the string value of the
-  /// 'type_name_not_regex' property.
-  void
-  set_type_name_not_regex_str(const string regex_str)
-  {type_name_not_regex_str_ = regex_str;}
-
-  /// Getter for the source_location_to_keep_regex object.
-  ///
-  /// This function builds the regex if it's not yet built.
+  /// Get the regular expression object associated to the
+  /// 'source_location_to_keep_regex' property of @ref type_suppression.
   const regex::regex_t_sptr
   get_source_location_to_keep_regex() const
   {
-    if (!source_location_to_keep_regex_
-	&& !source_location_to_keep_regex_str_.empty())
-      source_location_to_keep_regex_ =
-	  regex::compile(source_location_to_keep_regex_str_);
     return source_location_to_keep_regex_;
   }
 
