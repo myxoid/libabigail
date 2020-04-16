@@ -40,6 +40,30 @@ using regex::regex_t_sptr;
 
 // <parsing stuff>
 
+// property parsing
+
+/// Read a string from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output string to assign to.
+///
+/// @return whether parsing was successful.
+static bool
+read(const ini::property_sptr& prop, std::string& result)
+{
+  ini::simple_property_sptr simple = is_simple_property(prop);
+  if (!simple)
+    {
+      // TODO: maybe emit property is not a simple string message
+      return false;
+    }
+  result = simple->get_value()->as_string();
+  return true;
+}
+
 // section parsing
 
 /// Check if a section has at least one of the given properties.
@@ -1613,19 +1637,6 @@ read_type_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr drop_artifact =
-    is_simple_property(section.find_property("drop_artifact"));
-  if (!drop_artifact)
-    drop_artifact = is_simple_property(section.find_property("drop"));
-
-  string drop_artifact_str = drop_artifact
-    ? drop_artifact->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr label =
-    is_simple_property(section.find_property("label"));
-  string label_str = label ? label->get_value()->as_string() : "";
-
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
   string file_name_regex_str =
@@ -1662,12 +1673,6 @@ read_type_suppression(const ini::config::section& section,
     ? name_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr name_prop =
-    is_simple_property(section.find_property("name"));
-  string name_str = name_prop
-    ? name_prop->get_value()->as_string()
-    : "";
-
   ini::property_sptr srcloc_not_in_prop =
     section.find_property("source_location_not_in");
   unordered_set<string> srcloc_not_in;
@@ -1695,26 +1700,6 @@ read_type_suppression(const ini::config::section& section,
   string srcloc_not_regexp_str;
   if (srcloc_not_regexp_prop)
     srcloc_not_regexp_str = srcloc_not_regexp_prop->get_value()->as_string();
-
-  bool consider_type_kind = false;
-  type_suppression::type_kind type_kind = type_suppression::UNKNOWN_TYPE_KIND;
-  if (ini::simple_property_sptr type_kind_prop =
-      is_simple_property(section.find_property("type_kind")))
-    {
-      consider_type_kind = true;
-      type_kind =
-	read_type_kind_string(type_kind_prop->get_value()->as_string());
-    }
-
-  bool consider_reach_kind = false;
-  type_suppression::reach_kind reach_kind = type_suppression::DIRECT_REACH_KIND;
-  if (ini::simple_property_sptr reach_kind_prop =
-      is_simple_property(section.find_property("accessed_through")))
-    {
-      consider_reach_kind = true;
-      reach_kind =
-	read_suppression_reach_kind(reach_kind_prop->get_value()->as_string());
-    }
 
   // Support has_data_member_inserted_at
   vector<type_suppression::insertion_range_sptr> insert_ranges;
@@ -1902,20 +1887,43 @@ read_type_suppression(const ini::config::section& section,
     }
 
   type_suppression result;
-  result.set_label(label_str);
-  result.set_type_name_regex_str(name_regex_str);
-  result.set_type_name(name_str);
 
-  if (consider_type_kind)
+  if (ini::property_sptr prop = section.find_property("label"))
     {
-      result.set_consider_type_kind(true);
-      result.set_type_kind(type_kind);
+      std::string str;
+      if (read(prop, str))
+	result.set_label(str);
     }
 
-  if (consider_reach_kind)
+  result.set_type_name_regex_str(name_regex_str);
+
+  if (ini::property_sptr prop = section.find_property("name"))
     {
-      result.set_consider_reach_kind(true);
-      result.set_reach_kind(reach_kind);
+      std::string str;
+      if (read(prop, str))
+	result.set_type_name(str);
+    }
+
+  if (ini::property_sptr prop = section.find_property("type_kind"))
+    {
+      std::string str;
+      if (read(prop, str))
+	{
+	  type_suppression::type_kind kind = read_type_kind_string(str);
+	  result.set_consider_type_kind(true);
+	  result.set_type_kind(kind);
+	}
+    }
+
+  if (ini::property_sptr prop = section.find_property("accessed_through"))
+    {
+      std::string str;
+      if (read(prop, str))
+	{
+	  type_suppression::reach_kind kind = read_suppression_reach_kind(str);
+	  result.set_consider_reach_kind(true);
+	  result.set_reach_kind(kind);
+	}
     }
 
   if (consider_data_member_insertion)
@@ -1942,12 +1950,20 @@ read_type_suppression(const ini::config::section& section,
   if (!srcloc_not_regexp_str.empty())
     result.set_source_location_to_keep_regex_str(srcloc_not_regexp_str);
 
-  if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
-      && ((!name_regex_str.empty()
-	   || !name_str.empty()
-	   || !srcloc_not_regexp_str.empty()
-	   || !srcloc_not_in.empty())))
-    result.set_drops_artifact_from_ir(true);
+  ini::property_sptr drop_prop = section.find_property("drop_artifact");
+  if (!drop_prop)
+    drop_prop = section.find_property("drop");
+  if (drop_prop)
+    {
+      std::string str;
+      if (read(drop_prop, str))
+	if ((str == "yes" || str == "true")
+	     && (!result.get_type_name_regex_str().empty()
+		|| !result.get_type_name().empty()
+		|| !result.get_source_location_to_keep_regex_str().empty()
+		|| !result.get_source_locations_to_keep().empty()))
+	  result.set_drops_artifact_from_ir(true);
+    }
 
   if (result.get_type_kind() == type_suppression::ENUM_TYPE_KIND
       && !changed_enumerator_names.empty())
@@ -3149,27 +3165,6 @@ read_function_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr drop_artifact =
-    is_simple_property(section.find_property("drop_artifact"));
-  if (!drop_artifact)
-    drop_artifact = is_simple_property(section.find_property("drop"));
-
-  string drop_artifact_str = drop_artifact
-    ? drop_artifact->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr change_kind_prop =
-    is_simple_property(section.find_property("change_kind"));
-  string change_kind_str = change_kind_prop
-    ? change_kind_prop->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr label_prop =
-    is_simple_property(section.find_property("label"));
-  string label_str = label_prop
-    ? label_prop->get_value()->as_string()
-    : "";
-
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
   string file_name_regex_str =
@@ -3194,12 +3189,6 @@ read_function_suppression(const ini::config::section& section,
     ? soname_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr name_prop =
-    is_simple_property(section.find_property("name"));
-  string name = name_prop
-    ? name_prop->get_value()->as_string()
-    : "";
-
   ini::simple_property_sptr name_regex_prop =
     is_simple_property(section.find_property("name_regexp"));
   string name_regex_str = name_regex_prop
@@ -3212,22 +3201,10 @@ read_function_suppression(const ini::config::section& section,
     ? name_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr return_type_name_prop =
-    is_simple_property(section.find_property("return_type_name"));
-  string return_type_name = return_type_name_prop
-    ? return_type_name_prop->get_value()->as_string()
-    : "";
-
   ini::simple_property_sptr return_type_regex_prop =
     is_simple_property(section.find_property("return_type_regexp"));
   string return_type_regex_str = return_type_regex_prop
     ? return_type_regex_prop->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr sym_name_prop =
-    is_simple_property(section.find_property("symbol_name"));
-  string sym_name = sym_name_prop
-    ? sym_name_prop->get_value()->as_string()
     : "";
 
   ini::simple_property_sptr sym_name_regex_prop =
@@ -3242,22 +3219,10 @@ read_function_suppression(const ini::config::section& section,
     ? sym_name_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr sym_ver_prop =
-    is_simple_property(section.find_property("symbol_version"));
-  string sym_version = sym_ver_prop
-    ? sym_ver_prop->get_value()->as_string()
-    : "";
-
   ini::simple_property_sptr sym_ver_regex_prop =
     is_simple_property(section.find_property("symbol_version_regexp"));
   string sym_ver_regex_str = sym_ver_regex_prop
     ? sym_ver_regex_prop->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr allow_other_aliases_prop =
-    is_simple_property(section.find_property("allow_other_aliases"));
-  string allow_other_aliases = allow_other_aliases_prop
-    ? allow_other_aliases_prop->get_value()->as_string()
     : "";
 
   function_suppression::parameter_spec_sptr parm;
@@ -3276,33 +3241,67 @@ read_function_suppression(const ini::config::section& section,
       }
 
   function_suppression result;
-  result.set_label(label_str);
-  result.set_name(name);
+
+  if (ini::property_sptr prop = section.find_property("label"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_label(str);
+    }
+
+  if (ini::property_sptr prop = section.find_property("name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_name(str);
+    }
+
   result.set_name_regex_str(name_regex_str);
-  result.set_return_type_name(return_type_name);
+
+  if (ini::property_sptr prop = section.find_property("return_type_name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_return_type_name(str);
+    }
+
   result.set_return_type_regex_str(return_type_regex_str);
+
   result.set_parameter_specs(parms);
-  result.set_symbol_name(sym_name);
+
+  if (ini::property_sptr prop = section.find_property("symbol_name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_symbol_name(str);
+    }
+
   result.set_symbol_name_regex_str(sym_name_regex_str);
-  result.set_symbol_version(sym_version);
+
+  if (ini::property_sptr prop = section.find_property("symbol_version"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_symbol_version(str);
+    }
+
   result.set_symbol_version_regex_str(sym_ver_regex_str);
 
-  if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
-      && (!name.empty()
-	  || !name_regex_str.empty()
-	  || !name_not_regex_str.empty()
-	  || !sym_name.empty()
-	  || !sym_name_regex_str.empty()
-	  || !sym_name_not_regex_str.empty()))
-    result.set_drops_artifact_from_ir(true);
+  if (ini::property_sptr prop = section.find_property("change_kind"))
+    {
+      std::string str;
+      if (read(prop, str))
+	if (!str.empty())
+	  result.set_change_kind(function_suppression::parse_change_kind(str));
+    }
 
-  if (!change_kind_str.empty())
-    result.set_change_kind
-      (function_suppression::parse_change_kind(change_kind_str));
-
-  if (!allow_other_aliases.empty())
-    result.set_allow_other_aliases(allow_other_aliases == "yes"
-				   || allow_other_aliases == "true");
+  if (ini::property_sptr prop = section.find_property("allow_other_aliases"))
+    {
+      std::string str;
+      if (read(prop, str))
+	if (!str.empty())
+	  result.set_allow_other_aliases(str == "yes" || str == "true");
+    }
 
   if (!name_not_regex_str.empty())
     result.set_name_not_regex_str(name_not_regex_str);
@@ -3321,6 +3320,23 @@ read_function_suppression(const ini::config::section& section,
 
   if (!soname_not_regex_str.empty())
     result.set_soname_not_regex_str(soname_not_regex_str);
+
+  ini::property_sptr drop_prop = section.find_property("drop_artifact");
+  if (!drop_prop)
+    drop_prop = section.find_property("drop");
+  if (drop_prop)
+    {
+      std::string str;
+      if (read(drop_prop, str))
+	if ((str == "yes" || str == "true")
+	    && (!result.get_name().empty()
+		|| !result.get_name_regex_str().empty()
+		|| !result.get_name_not_regex_str().empty()
+		|| !result.get_symbol_name().empty()
+		|| !result.get_symbol_name_regex_str().empty()
+		|| !result.get_symbol_name_not_regex_str().empty()))
+	  result.set_drops_artifact_from_ir(true);
+    }
 
   suppr.reset(new function_suppression(result));
   return true;
@@ -3978,27 +3994,6 @@ read_variable_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr drop_artifact =
-    is_simple_property(section.find_property("drop_artifact"));
-  if (!drop_artifact)
-    drop_artifact = is_simple_property(section.find_property("drop"));
-
-  string drop_artifact_str = drop_artifact
-    ? drop_artifact->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr change_kind_prop =
-    is_simple_property(section.find_property("change_kind"));
-  string change_kind_str = change_kind_prop
-    ? change_kind_prop->get_value()->as_string()
-    : "";
-
-  ini::simple_property_sptr label_prop =
-    is_simple_property(section.find_property("label"));
-  string label_str = (label_prop
-		      ? label_prop->get_value()->as_string()
-		      : "");
-
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
   string file_name_regex_str =
@@ -4023,12 +4018,6 @@ read_variable_suppression(const ini::config::section& section,
     ? soname_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr name_prop =
-    is_simple_property(section.find_property("name"));
-  string name_str = (name_prop
-		     ? name_prop->get_value()->as_string()
-		     : "");
-
   ini::simple_property_sptr name_regex_prop =
     is_simple_property(section.find_property("name_regexp"));
   string name_regex_str = (name_regex_prop
@@ -4040,12 +4029,6 @@ read_variable_suppression(const ini::config::section& section,
   string name_not_regex_str = name_not_regex_prop
     ? name_not_regex_prop->get_value()->as_string()
     : "";
-
-  ini::simple_property_sptr sym_name_prop =
-    is_simple_property(section.find_property("symbol_name"));
-  string symbol_name = (sym_name_prop
-			? sym_name_prop->get_value()->as_string()
-			: "");
 
   ini::simple_property_sptr sym_name_regex_prop =
     is_simple_property(section.find_property("symbol_name_regexp"));
@@ -4059,23 +4042,11 @@ read_variable_suppression(const ini::config::section& section,
     ? sym_name_not_regex_prop->get_value()->as_string()
     : "";
 
-  ini::simple_property_sptr sym_version_prop =
-    is_simple_property(section.find_property("symbol_version"));
-  string symbol_version = sym_version_prop
-    ? sym_version_prop->get_value()->as_string()
-    : "";
-
   ini::simple_property_sptr sym_version_regex_prop =
     is_simple_property(section.find_property("symbol_version_regexp"));
   string symbol_version_regex_str = sym_version_regex_prop
     ? sym_version_regex_prop->get_value()->as_string()
      : "";
-
-  ini::simple_property_sptr type_name_prop =
-    is_simple_property(section.find_property("type_name"));
-  string type_name_str = type_name_prop
-    ? type_name_prop->get_value()->as_string()
-    : "";
 
   ini::simple_property_sptr type_name_regex_prop =
     is_simple_property(section.find_property("type_name_regexp"));
@@ -4084,24 +4055,49 @@ read_variable_suppression(const ini::config::section& section,
      : "";
 
   variable_suppression result;
-  result.set_label(label_str);
-  result.set_name(name_str);
-  result.set_name_regex_str(name_regex_str);
-  result.set_symbol_name(symbol_name);
-  result.set_symbol_name_regex_str(symbol_name_regex_str);
-  result.set_symbol_version(symbol_version);
-  result.set_symbol_version_regex_str(symbol_version_regex_str);
-  result.set_type_name(type_name_str);
-  result.set_type_name_regex_str(type_name_regex_str);
 
-  if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
-      && (!name_str.empty()
-	  || !name_regex_str.empty()
-	  || !name_not_regex_str.empty()
-	  || !symbol_name.empty()
-	  || !symbol_name_regex_str.empty()
-	  || !symbol_name_not_regex_str.empty()))
-    result.set_drops_artifact_from_ir(true);
+  if (ini::property_sptr prop = section.find_property("label"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_label(str);
+    }
+
+  if (ini::property_sptr prop = section.find_property("name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_name(str);
+    }
+
+  result.set_name_regex_str(name_regex_str);
+
+  if (ini::property_sptr prop = section.find_property("symbol_name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_symbol_name(str);
+    }
+
+  result.set_symbol_name_regex_str(symbol_name_regex_str);
+
+  if (ini::property_sptr prop = section.find_property("symbol_version"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_symbol_version(str);
+    }
+
+  result.set_symbol_version_regex_str(symbol_version_regex_str);
+
+  if (ini::property_sptr prop = section.find_property("type_name"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_type_name(str);
+    }
+
+  result.set_type_name_regex_str(type_name_regex_str);
 
   if (!name_not_regex_str.empty())
     result.set_name_not_regex_str(name_not_regex_str);
@@ -4109,9 +4105,13 @@ read_variable_suppression(const ini::config::section& section,
   if (!symbol_name_not_regex_str.empty())
     result.set_symbol_name_not_regex_str(symbol_name_not_regex_str);
 
-  if (!change_kind_str.empty())
-    result.set_change_kind
-      (variable_suppression::parse_change_kind(change_kind_str));
+  if (ini::property_sptr prop = section.find_property("change_kind"))
+    {
+      std::string str;
+      if (read(prop, str))
+	if (!str.empty())
+	  result.set_change_kind(variable_suppression::parse_change_kind(str));
+    }
 
   if (!file_name_regex_str.empty())
     result.set_file_name_regex_str(file_name_regex_str);
@@ -4124,6 +4124,23 @@ read_variable_suppression(const ini::config::section& section,
 
   if (!soname_not_regex_str.empty())
     result.set_soname_not_regex_str(soname_not_regex_str);
+
+  ini::property_sptr drop_prop = section.find_property("drop_artifact");
+  if (!drop_prop)
+    drop_prop = section.find_property("drop");
+  if (drop_prop)
+    {
+      std::string str;
+      if (read(drop_prop, str))
+	if ((str == "yes" || str == "true")
+	    && (!result.get_name().empty()
+		|| !name_regex_str.empty()
+		|| !name_not_regex_str.empty()
+		|| !result.get_symbol_name().empty()
+		|| !symbol_name_regex_str.empty()
+		|| !symbol_name_not_regex_str.empty()))
+	  result.set_drops_artifact_from_ir(true);
+    }
 
   suppr.reset(new variable_suppression(result));
   return true;
@@ -4214,12 +4231,6 @@ read_file_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr label_prop =
-    is_simple_property(section.find_property("label"));
-  string label_str = (label_prop
-		      ? label_prop->get_value()->as_string()
-		      : "");
-
   ini::simple_property_sptr file_name_regex_prop =
     is_simple_property(section.find_property("file_name_regexp"));
   string file_name_regex_str =
@@ -4245,7 +4256,14 @@ read_file_suppression(const ini::config::section& section,
     : "";
 
   file_suppression result;
-  result.set_label(label_str);
+
+  if (ini::property_sptr prop = section.find_property("label"))
+    {
+      std::string str;
+      if (read(prop, str))
+	result.set_label(str);
+    }
+
   result.set_file_name_regex_str(file_name_regex_str);
   result.set_file_name_not_regex_str(file_name_not_regex_str);
 
