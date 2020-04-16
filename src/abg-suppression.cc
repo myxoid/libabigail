@@ -403,7 +403,8 @@ read(const ini::property_sptr& prop, std::string& result)
   ini::simple_property_sptr simple = is_simple_property(prop);
   if (!simple)
     {
-      // TODO: maybe emit property is not a simple string message
+      std::cerr << "error: property is not a simple string: '"
+		<< prop->get_name() << "'\n";
       return false;
     }
   result = simple->get_value()->as_string();
