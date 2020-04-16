@@ -26,6 +26,7 @@
 #include "abg-cxx-compat.h"
 #include "abg-ini.h"
 #include "abg-comparison.h"
+#include "abg-regex.h"
 
 namespace abigail
 {
@@ -64,8 +65,8 @@ public:
   suppression_base(const string& label);
 
   suppression_base(const string& label,
-		   const string& file_name_regex_str,
-		   const string& file_name_not_regex_str);
+		   const regex::regex_t_sptr& file_name_regex,
+		   const regex::regex_t_sptr& file_name_not_regex);
 
   bool
   get_drops_artifact_from_ir() const;
@@ -86,31 +87,31 @@ public:
   set_label(const string&);
 
   void
-  set_file_name_regex_str(const string& regexp);
+  set_file_name_regex(const regex::regex_t_sptr& regexp);
 
-  const string&
-  get_file_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_file_name_regex() const;
 
   void
-  set_file_name_not_regex_str(const string& regexp);
+  set_file_name_not_regex(const regex::regex_t_sptr& regexp);
 
-  const string&
-  get_file_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_file_name_not_regex() const;
 
   bool
   has_file_name_related_property() const;
 
   void
-  set_soname_regex_str(const string& regexp);
+  set_soname_regex(const regex::regex_t_sptr& regexp);
 
-  const string&
-  get_soname_regex_str() const;
+  const regex::regex_t_sptr&
+  get_soname_regex() const;
 
   void
-  set_soname_not_regex_str(const string& regexp);
+  set_soname_not_regex(const regex::regex_t_sptr& regexp);
 
-  const string&
-  get_soname_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_soname_not_regex() const;
 
   bool
   has_soname_related_property() const;
@@ -204,22 +205,22 @@ public:
   typedef vector<insertion_range_sptr> insertion_ranges;
 
   type_suppression(const string& label,
-		   const string& type_name_regexp,
+		   const regex::regex_t_sptr& type_name_regexp,
 		   const string& type_name);
 
   virtual ~type_suppression();
 
   void
-  set_type_name_regex_str(const string& name_regex_str);
+  set_type_name_regex(const regex::regex_t_sptr& name_regex);
 
-  const string&
-  get_type_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_type_name_regex() const;
 
   void
-  set_type_name_not_regex_str(const string& name_regex_str);
+  set_type_name_not_regex(const regex::regex_t_sptr& name_regex);
 
-  const string&
-  get_type_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_type_name_not_regex() const;
 
   void
   set_type_name(const string& name);
@@ -269,11 +270,11 @@ public:
   void
   set_source_locations_to_keep(const unordered_set<string>&);
 
-  const string&
-  get_source_location_to_keep_regex_str() const;
+  const regex::regex_t_sptr&
+  get_source_location_to_keep_regex() const;
 
   void
-  set_source_location_to_keep_regex_str(const string&);
+  set_source_location_to_keep_regex(const regex::regex_t_sptr&);
 
   const vector<string>&
   get_changed_enumerator_names() const;
@@ -460,16 +461,16 @@ public:
 
   function_suppression();
 
-  function_suppression(const string&		label,
-		       const string&		name,
-		       const string&		name_regex,
-		       const string&		return_type_name,
-		       const string&		return_type_regex,
-		       parameter_specs_type&	parm_specs,
-		       const string&		symbol_name,
-		       const string&		symbol_name_regex,
-		       const string&		symbol_version,
-		       const string&		symbol_version_regex_str);
+  function_suppression(const string&			label,
+		       const string&			name,
+		       const regex::regex_t_sptr&	name_regex,
+		       const string&			return_type_name,
+		       const regex::regex_t_sptr&	return_type_regex,
+		       parameter_specs_type&		parm_specs,
+		       const string&			symbol_name,
+		       const regex::regex_t_sptr&	symbol_name_regex,
+		       const string&			symbol_version,
+		       const regex::regex_t_sptr&	symbol_version_regex);
 
   virtual ~function_suppression();
 
@@ -488,17 +489,17 @@ public:
   void
   set_name(const string&);
 
-  const string&
-  get_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_name_regex() const;
 
   void
-  set_name_regex_str(const string&);
+  set_name_regex(const regex::regex_t_sptr&);
 
-  const string&
-  get_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_name_not_regex() const;
 
   void
-  set_name_not_regex_str(const string&);
+  set_name_not_regex(const regex::regex_t_sptr&);
 
   const string&
   get_return_type_name() const;
@@ -506,11 +507,11 @@ public:
   void
   set_return_type_name(const string&);
 
-  const string&
-  get_return_type_regex_str() const;
+  const regex::regex_t_sptr&
+  get_return_type_regex() const;
 
   void
-  set_return_type_regex_str(const string& r);
+  set_return_type_regex(const regex::regex_t_sptr& r);
 
   const parameter_specs_type&
   get_parameter_specs() const;
@@ -527,17 +528,17 @@ public:
   void
   set_symbol_name(const string& n);
 
-  const string&
-  get_symbol_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_name_regex() const;
 
   void
-  set_symbol_name_regex_str(const string&);
+  set_symbol_name_regex(const regex::regex_t_sptr&);
 
-  const string&
-  get_symbol_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_name_not_regex() const;
 
   void
-  set_symbol_name_not_regex_str(const string&);
+  set_symbol_name_not_regex(const regex::regex_t_sptr&);
 
   const string&
   get_symbol_version() const;
@@ -545,11 +546,11 @@ public:
   void
   set_symbol_version(const string&);
 
-  const string&
-  get_symbol_version_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_version_regex() const;
 
   void
-  set_symbol_version_regex_str(const string&);
+  set_symbol_version_regex(const regex::regex_t_sptr&);
 
   bool
   get_allow_other_aliases() const;
@@ -609,7 +610,7 @@ class function_suppression::parameter_spec
 public:
   parameter_spec(size_t index,
 		 const string& type_name,
-		 const string& type_name_regex);
+		 const regex::regex_t_sptr& type_name_regex);
 
   size_t
   get_index() const;
@@ -623,11 +624,11 @@ public:
   void
   set_parameter_type_name(const string&);
 
-  const string&
-  get_parameter_type_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_parameter_type_name_regex() const;
 
   void
-  set_parameter_type_name_regex_str(const string&);
+  set_parameter_type_name_regex(const regex::regex_t_sptr&);
 };// end class function_suppression::parameter_spec
 
 class variable_suppression;
@@ -679,13 +680,17 @@ public:
 
   variable_suppression(const string& label = "",
 		       const string& name = "",
-		       const string& name_regex_str = "",
+		       const regex::regex_t_sptr& name_regex =
+			 regex::regex_t_sptr(),
 		       const string& symbol_name = "",
-		       const string& symbol_name_regex_str = "",
+		       const regex::regex_t_sptr& symbol_name_regex =
+			 regex::regex_t_sptr(),
 		       const string& symbol_version = "",
-		       const string& symbol_version_regex_str = "",
+		       const regex::regex_t_sptr& symbol_version_regex =
+			 regex::regex_t_sptr(),
 		       const string& type_name = "",
-		       const string& type_name_regex_str = "");
+		       const regex::regex_t_sptr& type_name_regex =
+			 regex::regex_t_sptr());
 
   virtual ~variable_suppression();
 
@@ -704,17 +709,17 @@ public:
   void
   set_name(const string&);
 
-  const string&
-  get_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_name_regex() const;
 
   void
-  set_name_regex_str(const string&);
+  set_name_regex(const regex::regex_t_sptr&);
 
-  const string&
-  get_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_name_not_regex() const;
 
   void
-  set_name_not_regex_str(const string&);
+  set_name_not_regex(const regex::regex_t_sptr&);
 
   const string&
   get_symbol_name() const;
@@ -722,17 +727,17 @@ public:
   void
   set_symbol_name(const string&);
 
-  const string&
-  get_symbol_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_name_regex() const;
 
   void
-  set_symbol_name_regex_str(const string&);
+  set_symbol_name_regex(const regex::regex_t_sptr&);
 
-  const string&
-  get_symbol_name_not_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_name_not_regex() const;
 
   void
-  set_symbol_name_not_regex_str(const string&);
+  set_symbol_name_not_regex(const regex::regex_t_sptr&);
 
   const string&
   get_symbol_version() const;
@@ -740,11 +745,11 @@ public:
   void
   set_symbol_version(const string&);
 
-  const string&
-  get_symbol_version_regex_str() const;
+  const regex::regex_t_sptr&
+  get_symbol_version_regex() const;
 
   void
-  set_symbol_version_regex_str(const string&);
+  set_symbol_version_regex(const regex::regex_t_sptr&);
 
   const string&
   get_type_name() const;
@@ -752,11 +757,11 @@ public:
   void
   set_type_name(const string&);
 
-  const string&
-  get_type_name_regex_str() const;
+  const regex::regex_t_sptr&
+  get_type_name_regex() const;
 
   void
-  set_type_name_regex_str(const string&);
+  set_type_name_regex(const regex::regex_t_sptr&);
 
   bool
   suppresses_diff(const diff* d) const;
@@ -816,8 +821,8 @@ class file_suppression: public suppression_base
 public:
 
   file_suppression(const string& label,
-		   const string& file_name_regex,
-		   const string& file_name_not_regex);
+		   const regex::regex_t_sptr& file_name_regex,
+		   const regex::regex_t_sptr& file_name_not_regex);
 
   virtual bool
   suppresses_diff(const diff* diff) const;

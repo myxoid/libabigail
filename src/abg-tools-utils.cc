@@ -1810,13 +1810,15 @@ handle_file_entry(const string& file_path,
 {
   if (!suppr)
     {
-      suppr.reset(new type_suppression(get_private_types_suppr_spec_label(),
-				       /*type_name_regexp=*/"",
-				       /*type_name=*/""));
+      suppr.reset(
+	new type_suppression(get_private_types_suppr_spec_label(),
+			     /*type_name_regexp=*/regex::regex_t_sptr(),
+			     /*type_name=*/""));
 
       // Types that are defined in system headers are usually
       // OK to be considered as public types.
-      suppr->set_source_location_to_keep_regex_str("^/usr/include/");
+      regex::regex_t_sptr headers_regex = regex::compile("^/usr/include/");
+      suppr->set_source_location_to_keep_regex(headers_regex);
       suppr->set_is_artificial(true);
     }
 
@@ -2004,7 +2006,8 @@ gen_suppr_spec_from_kernel_abi_whitelists
 
       // Build a regular expression representing the union of all
       // the function and variable names expressed in the white list.
-      const std::string regex = regex::generate_from_strings(whitelisted_names);
+      regex::regex_t_sptr regex =
+	regex::compile(regex::generate_from_strings(whitelisted_names));
 
       // Build a suppression specification which *keeps* functions
       // whose ELF symbols match the regular expression contained
@@ -2013,7 +2016,7 @@ gen_suppr_spec_from_kernel_abi_whitelists
       // match this regexp.
       function_suppression_sptr fn_suppr(new function_suppression);
       fn_suppr->set_label("whitelist");
-      fn_suppr->set_symbol_name_not_regex_str(regex);
+      fn_suppr->set_symbol_name_not_regex(regex);
       fn_suppr->set_drops_artifact_from_ir(true);
       result.push_back(fn_suppr);
 
@@ -2024,7 +2027,7 @@ gen_suppr_spec_from_kernel_abi_whitelists
       // match this regexp.
       variable_suppression_sptr var_suppr(new variable_suppression);
       var_suppr->set_label("whitelist");
-      var_suppr->set_symbol_name_not_regex_str(regex);
+      var_suppr->set_symbol_name_not_regex(regex);
       var_suppr->set_drops_artifact_from_ir(true);
       result.push_back(var_suppr);
     }
