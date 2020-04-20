@@ -1808,6 +1808,7 @@ read_config(const string& path)
 /// @param prop the property which value to serialize.
 ///
 /// @return the string that represents the value of @p prop.
+// TODO: missing escaping
 static string
 write_property_value(const property_sptr& prop)
 {
@@ -1820,7 +1821,7 @@ write_property_value(const property_sptr& prop)
   else if (list_property_sptr list_prop = is_list_property(prop))
     result = list_prop->get_value()->as_string();
   else if (tuple_property_sptr tuple_prop = is_tuple_property(prop))
-      result = tuple_prop->get_value()->as_string();
+    result = tuple_prop->get_value()->as_string();
   else
     // This new kind of property is not yet supported!
     abort();
@@ -1841,7 +1842,7 @@ write_property(const property_sptr& prop,
   out << prop->get_name();
   string value = write_property_value(prop);
   if (!value.empty())
-    out << " = " << write_property_value(prop);
+    out << " = " << value;
   return out.good();
 }
 
