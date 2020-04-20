@@ -1841,19 +1841,6 @@ read_type_suppression(const ini::config::section& section)
 	changed_enumerator_names.push_back(p->get_value()->as_string());
     }
 
-  if (file_name_regex_str.empty()
-      && file_name_not_regex_str.empty()
-      && soname_regex_str.empty()
-      && soname_not_regex_str.empty()
-      && (!name_regex_prop || name_regex_prop->get_value()->as_string().empty())
-      && (!name_not_regex_prop
-	  || name_not_regex_prop->get_value()->as_string().empty())
-      && (!name_prop || name_prop->get_value()->as_string().empty())
-      && !consider_type_kind
-      && srcloc_not_regexp_str.empty()
-      && srcloc_not_in.empty())
-    return result;
-
   result.reset(new type_suppression(label_str, name_regex_str, name_str));
 
   if (consider_type_kind)
@@ -3289,32 +3276,16 @@ read_function_suppression(const ini::config::section& section)
 	  parms.push_back(parm);
       }
 
-  if (!label_str.empty()
-      || !name.empty()
-      || !name_regex_str.empty()
-      || !name_not_regex_str.empty()
-      || !file_name_regex_str.empty()
-      || !file_name_not_regex_str.empty()
-      || !soname_regex_str.empty()
-      || !soname_not_regex_str.empty()
-      || !return_type_name.empty()
-      || !return_type_regex_str.empty()
-      || !sym_name.empty()
-      || !sym_name_regex_str.empty()
-      || !sym_name_not_regex_str.empty()
-      || !sym_version.empty()
-      || !sym_ver_regex_str.empty()
-      || !parms.empty())
-
-    result.reset(new function_suppression(label_str, name,
-					  name_regex_str,
-					  return_type_name,
-					  return_type_regex_str,
-					  parms,
-					  sym_name,
-					  sym_name_regex_str,
-					  sym_version,
-					  sym_ver_regex_str));
+  result.reset(new function_suppression(label_str,
+					name,
+					name_regex_str,
+					return_type_name,
+					return_type_regex_str,
+					parms,
+					sym_name,
+					sym_name_regex_str,
+					sym_version,
+					sym_ver_regex_str));
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name.empty()
@@ -3325,11 +3296,11 @@ read_function_suppression(const ini::config::section& section)
 	  || !sym_name_not_regex_str.empty()))
     result->set_drops_artifact_from_ir(true);
 
-  if (result && !change_kind_str.empty())
+  if (!change_kind_str.empty())
     result->set_change_kind
       (function_suppression::parse_change_kind(change_kind_str));
 
-  if (result && !allow_other_aliases.empty())
+  if (!allow_other_aliases.empty())
     result->set_allow_other_aliases(allow_other_aliases == "yes"
 				    || allow_other_aliases == "true");
 
@@ -4158,27 +4129,15 @@ read_variable_suppression(const ini::config::section& section)
     ? type_name_regex_prop->get_value()->as_string()
      : "";
 
-  if (label_str.empty()
-      && name_str.empty()
-      && name_regex_str.empty()
-      && name_not_regex_str.empty()
-      && file_name_regex_str.empty()
-      && file_name_not_regex_str.empty()
-      && soname_regex_str.empty()
-      && soname_not_regex_str.empty()
-      && symbol_name.empty()
-      && symbol_name_regex_str.empty()
-      && symbol_name_not_regex_str.empty()
-      && symbol_version.empty()
-      && symbol_version_regex_str.empty()
-      && type_name_str.empty()
-      && type_name_regex_str.empty())
-    return result;
-
-  result.reset(new variable_suppression(label_str, name_str, name_regex_str,
-					symbol_name, symbol_name_regex_str,
-					symbol_version, symbol_version_regex_str,
-					type_name_str, type_name_regex_str));
+  result.reset(new variable_suppression(label_str,
+					name_str,
+					name_regex_str,
+					symbol_name,
+					symbol_name_regex_str,
+					symbol_version,
+					symbol_version_regex_str,
+					type_name_str,
+					type_name_regex_str));
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name_str.empty()
@@ -4195,7 +4154,7 @@ read_variable_suppression(const ini::config::section& section)
   if (!symbol_name_not_regex_str.empty())
     result->set_symbol_name_not_regex_str(symbol_name_not_regex_str);
 
-  if (result && !change_kind_str.empty())
+  if (!change_kind_str.empty())
     result->set_change_kind
       (variable_suppression::parse_change_kind(change_kind_str));
 
@@ -4337,12 +4296,6 @@ read_file_suppression(const ini::config::section& section)
     soname_not_regex_prop
     ? soname_not_regex_prop->get_value()->as_string()
     : "";
-
-  if (file_name_regex_str.empty()
-      && file_name_not_regex_str.empty()
-      && soname_regex_str.empty()
-      && soname_not_regex_str.empty())
-    return result;
 
   result.reset(new file_suppression(label_str,
 				    file_name_regex_str,
