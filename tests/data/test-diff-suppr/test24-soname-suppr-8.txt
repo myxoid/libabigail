@@ -1,2 +1,2 @@
 [suppress_type]
-  file_name_regexp = (^|/)libtest24-soname.*\\.so
+  file_name_regexp = /libtest24-soname.*\\.so

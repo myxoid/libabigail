@@ -1,4 +1,3 @@
 [suppress_file]
   label = Libabigail can't handle libgfortran.so (https://sourceware.org/bugzilla/show_bug.cgi?id=23492)
-  file_name_regexp = libgfortran\.so.*
-
+  file_name_regexp = /libgfortran\\.so
