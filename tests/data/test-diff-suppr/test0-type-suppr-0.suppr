@@ -1,2 +1,2 @@
 [suppress_type]
-  name_regexp = .*Private$
+  name_regexp = Private$
