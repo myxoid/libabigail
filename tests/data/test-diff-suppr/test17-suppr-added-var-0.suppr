@@ -1,2 +1,2 @@
 [suppress_variable]
-  name_regexp = .*var.$
+  name_regexp = var.$

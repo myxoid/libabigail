@@ -1,2 +1,2 @@
 [suppress_function]
-  symbol_name_regexp = _Z.*
+  symbol_name_regexp = ^_Z
