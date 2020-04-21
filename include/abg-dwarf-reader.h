@@ -178,6 +178,10 @@ set_drop_undefined_syms(read_context& ctxt,
 			bool f);
 
 void
+set_merge_translation_units(read_context& ctxt,
+			    bool f);
+
+void
 set_do_log(read_context& ctxt, bool f);
 
 void

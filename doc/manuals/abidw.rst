@@ -167,6 +167,13 @@ Options
     representation build by Libabigail to represent the ABI and will
     not end up in the abi XML file.
 
+  * ``--merge-translation-units``
+
+    With this option translation units for the same language (and
+    address size) will be merged together as if the functions,
+    variables and types were all defined together.  Note that this
+    also drops the compilation paths used.
+
   * ``--no-linux-kernel-mode``
 
     Without this option, if abipkgiff detects that the binaries it is

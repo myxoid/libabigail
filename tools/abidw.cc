@@ -107,6 +107,7 @@ struct options
   bool			do_log;
   bool			drop_private_types;
   bool			drop_undefined_syms;
+  bool			merge_translation_units;
   type_id_style_kind	type_id_style;
 #ifdef WITH_DEBUG_SELF_COMPARISON
   string		type_id_file_path;
@@ -137,6 +138,7 @@ struct options
       do_log(),
       drop_private_types(false),
       drop_undefined_syms(false),
+      merge_translation_units(false),
       type_id_style(SEQUENCE_TYPE_ID_STYLE)
   {}
 
@@ -171,6 +173,7 @@ display_usage(const string& prog_name, ostream& out)
     << "  --short-locs  only print filenames rather than paths\n"
     << "  --drop-private-types  drop private types from representation\n"
     << "  --drop-undefined-syms  drop undefined symbols from representation\n"
+    << "  --merge-translation-units  merge translation units for same language\n"
     << "  --no-comp-dir-path  do not show compilation path information\n"
     << "  --no-elf-needed  do not show the DT_NEEDED information\n"
     << "  --no-write-default-sizes  do not emit pointer size when it equals"
@@ -338,6 +341,8 @@ parse_command_line(int argc, char* argv[], options& opts)
 	opts.drop_private_types = true;
       else if (!strcmp(argv[i], "--drop-undefined-syms"))
 	opts.drop_undefined_syms = true;
+      else if (!strcmp(argv[i], "--merge-translation-units"))
+	opts.merge_translation_units = true;
       else if (!strcmp(argv[i], "--no-linux-kernel-mode"))
 	opts.linux_kernel_mode = false;
       else if (!strcmp(argv[i], "--abidiff"))
@@ -855,6 +860,7 @@ main(int argc, char* argv[])
 						opts.linux_kernel_mode);
       read_context& ctxt = *c;
       set_drop_undefined_syms(ctxt, opts.drop_undefined_syms);
+      set_merge_translation_units(ctxt, opts.merge_translation_units);
       set_show_stats(ctxt, opts.show_stats);
       set_suppressions(ctxt, opts);
       abigail::dwarf_reader::set_do_log(ctxt, opts.do_log);
