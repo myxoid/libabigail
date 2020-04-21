@@ -2140,6 +2140,7 @@ public:
   corpus::exported_decls_builder* exported_decls_builder_;
   options_type			options_;
   bool				drop_undefined_syms_;
+  bool				merge_translation_units_;
   read_context();
 
 private:
@@ -2283,6 +2284,7 @@ public:
     options_.load_in_linux_kernel_mode = linux_kernel_mode;
     options_.load_all_types = load_all_types;
     drop_undefined_syms_ = false;
+    merge_translation_units_ = false;
     load_in_linux_kernel_mode(linux_kernel_mode);
   }
 
@@ -2369,6 +2371,22 @@ public:
   void
   drop_undefined_syms(bool f)
   {drop_undefined_syms_ = f;}
+
+  /// Setter for the flag that tells us if we are merging translation
+  /// units.
+  ///
+  /// @param f the new value of the flag.
+  void
+  merge_translation_units(bool f)
+  {merge_translation_units_ = f;}
+
+  /// Getter for the flag that tells us if we are merging translation
+  /// units.
+  ///
+  /// @return true iff we are merging translation units.
+  bool
+  merge_translation_units() const
+  {return merge_translation_units_;}
 
   /// Getter of the suppression specifications to be used during
   /// ELF/DWARF parsing.
@@ -6114,6 +6132,17 @@ set_show_stats(read_context& ctxt, bool f)
 void
 set_drop_undefined_syms(read_context& ctxt, bool f)
 {ctxt.drop_undefined_syms(f);}
+
+/// Setter of the "merge_translation_units" flag.
+///
+/// This flag tells if we should merge translation units.
+///
+/// @param ctxt the read context to consider for this flag.
+///
+/// @param f the value of the flag.
+void
+set_merge_translation_units(read_context& ctxt, bool f)
+{ctxt.merge_translation_units(f);}
 
 /// Setter of the "do_log" flag.
 ///
@@ -10838,29 +10867,53 @@ build_translation_unit_and_add_to_ir(read_context&	ctxt,
   string path = die_string_attribute(die, DW_AT_name);
   string compilation_dir = die_string_attribute(die, DW_AT_comp_dir);
 
-  // See if the same translation unit exits already in the current
-  // corpus.  Sometimes, the same translation unit can be present
-  // several times in the same debug info.  The content of the
-  // different instances of the translation unit are different.  So to
-  // represent that, we are going to re-use the same translation
-  // unit.  That is, it's going to be the union of all the translation
-  // units of the same path.
-  {
-    const string& abs_path =
-      compilation_dir.empty() ? path : compilation_dir + "/" + path;
-    result = ctxt.current_corpus()->find_translation_unit(abs_path);
-  }
+  uint64_t lang = 0;
+  die_unsigned_constant_attribute(die, DW_AT_language, lang);
+  translation_unit::language language = dwarf_language_to_tu_language(lang);
+
+  corpus_sptr corp = ctxt.current_corpus();
+
+  if (ctxt.merge_translation_units())
+    {
+      // See if there is already a translation for the address_size
+      // and language. If so, just reuse that one.
+      for (translation_units::const_iterator tu =
+	     corp->get_translation_units().begin();
+	   tu != corp->get_translation_units().end();
+	   ++tu)
+	{
+	  if ((*tu)->get_address_size() == address_size
+	      && (*tu)->get_language() == language)
+	    {
+	      result = (*tu);
+	      break;
+	    }
+	}
+    }
+  else
+    {
+      // See if the same translation unit exits already in the current
+      // corpus.  Sometimes, the same translation unit can be present
+      // several times in the same debug info.  The content of the
+      // different instances of the translation unit are different.  So to
+      // represent that, we are going to re-use the same translation
+      // unit.  That is, it's going to be the union of all the translation
+      // units of the same path.
+      const string& abs_path =
+          compilation_dir.empty() ? path : compilation_dir + "/" + path;
+      result = corp->find_translation_unit(abs_path);
+    }
 
   if (!result)
     {
       result.reset(new translation_unit(ctxt.env(),
-					path,
+					(ctxt.merge_translation_units()
+					 ? "" : path),
 					address_size));
-      result->set_compilation_dir_path(compilation_dir);
+      if (!ctxt.merge_translation_units())
+	result->set_compilation_dir_path(compilation_dir);
       ctxt.current_corpus()->add(result);
-      uint64_t l = 0;
-      die_unsigned_constant_attribute(die, DW_AT_language, l);
-      result->set_language(dwarf_language_to_tu_language(l));
+      result->set_language(language);
     }
 
   ctxt.cur_transl_unit(result);
