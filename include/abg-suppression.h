@@ -41,17 +41,10 @@ class suppression_base
   class priv;
   typedef shared_ptr<priv> priv_sptr;
 
-  // Forbid default constructor
-  suppression_base();
-
 public:
   priv_sptr priv_;
 
-  suppression_base(const string& label);
-
-  suppression_base(const string& label,
-		   const string& file_name_regex_str,
-		   const string& file_name_not_regex_str);
+  suppression_base();
 
   bool
   get_drops_artifact_from_ir() const;
@@ -141,9 +134,6 @@ class type_suppression : public suppression_base
   class priv;
   typedef shared_ptr<priv> priv_sptr;
 
-  // Forbid this;
-  type_suppression();
-
 public:
 
   priv_sptr priv_;
@@ -189,9 +179,7 @@ public:
   /// A convenience typedef for a vector of @ref insertion_range_sptr.
   typedef vector<insertion_range_sptr> insertion_ranges;
 
-  type_suppression(const string& label,
-		   const string& type_name_regexp,
-		   const string& type_name);
+  type_suppression();
 
   virtual ~type_suppression();
 
@@ -446,17 +434,6 @@ public:
 
   function_suppression();
 
-  function_suppression(const string&		label,
-		       const string&		name,
-		       const string&		name_regex,
-		       const string&		return_type_name,
-		       const string&		return_type_regex,
-		       parameter_specs_type&	parm_specs,
-		       const string&		symbol_name,
-		       const string&		symbol_name_regex,
-		       const string&		symbol_version,
-		       const string&		symbol_version_regex_str);
-
   virtual ~function_suppression();
 
   static change_kind
@@ -663,15 +640,7 @@ public:
 
   priv_sptr priv_;
 
-  variable_suppression(const string& label = "",
-		       const string& name = "",
-		       const string& name_regex_str = "",
-		       const string& symbol_name = "",
-		       const string& symbol_name_regex_str = "",
-		       const string& symbol_version = "",
-		       const string& symbol_version_regex_str = "",
-		       const string& type_name = "",
-		       const string& type_name_regex_str = "");
+  variable_suppression();
 
   virtual ~variable_suppression();
 
@@ -796,14 +765,9 @@ class file_suppression: public suppression_base
 
   priv_sptr priv_;
 
-  // Forbid this
-  file_suppression();
-
 public:
 
-  file_suppression(const string& label,
-		   const string& file_name_regex,
-		   const string& file_name_not_regex);
+  file_suppression();
 
   virtual bool
   suppresses_diff(const diff* diff) const;
