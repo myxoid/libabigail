@@ -221,23 +221,8 @@ struct variable_suppression::priv
   string				type_name_;
   regex::regex_t_sptr			type_name_regex_;
 
-  priv(const string& name,
-       const regex::regex_t_sptr& name_regex,
-       const string& symbol_name,
-       const regex::regex_t_sptr& symbol_name_regex,
-       const string& symbol_version,
-       const regex::regex_t_sptr& symbol_version_regex,
-       const string& type_name,
-       const regex::regex_t_sptr& type_name_regex)
-    : change_kind_(ALL_CHANGE_KIND),
-      name_(name),
-      name_regex_(name_regex),
-      symbol_name_(symbol_name),
-      symbol_name_regex_(symbol_name_regex),
-      symbol_version_(symbol_version),
-      symbol_version_regex_(symbol_version_regex),
-      type_name_(type_name),
-      type_name_regex_(type_name_regex)
+  priv()
+    : change_kind_(ALL_CHANGE_KIND)
   {}
 };// end class variable_supppression::priv
 
@@ -285,9 +270,14 @@ class type_suppression::priv
   regex::regex_t_sptr			source_location_to_keep_regex_;
   mutable vector<string>		changed_enumerator_names_;
 
-  priv();
-
 public:
+  priv()
+    : consider_type_kind_(false),
+      type_kind_(CLASS_TYPE_KIND),
+      consider_reach_kind_(false),
+      reach_kind_(DIRECT_REACH_KIND)
+  {}
+
   priv(const regex::regex_t_sptr&	type_name_regexp,
        const string&			type_name,
        bool				consider_type_kind,
