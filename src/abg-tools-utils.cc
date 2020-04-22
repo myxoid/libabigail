@@ -1818,6 +1818,7 @@ handle_file_entry(const string& file_path,
       // Types that are defined in system headers are usually
       // OK to be considered as public types.
       regex::regex_t_sptr headers_regex = regex::compile("^/usr/include/");
+      ABG_ASSERT(headers_regex);
       suppr->set_source_location_to_keep_regex(headers_regex);
       suppr->set_is_artificial(true);
     }
@@ -2008,6 +2009,7 @@ gen_suppr_spec_from_kernel_abi_whitelists
       // the function and variable names expressed in the white list.
       regex::regex_t_sptr regex =
 	regex::compile(regex::generate_from_strings(whitelisted_names));
+      ABG_ASSERT(regex);
 
       // Build a suppression specification which *keeps* functions
       // whose ELF symbols match the regular expression contained
