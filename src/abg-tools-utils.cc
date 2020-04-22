@@ -1784,11 +1784,8 @@ handle_file_entry(const string& file_path,
 {
   if (!suppr)
     {
-      suppr.reset(
-	new type_suppression(get_private_types_suppr_spec_label(),
-			     /*type_name_regexp=*/regex::regex_t_sptr(),
-			     /*type_name=*/""));
-
+      suppr.reset(new type_suppression());
+      suppr->set_label(get_private_types_suppr_spec_label());
       // Types that are defined in system headers are usually
       // OK to be considered as public types.
       regex::regex_t_sptr headers_regex = regex::compile("^/usr/include/");

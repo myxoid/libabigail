@@ -64,32 +64,10 @@ check_sufficient_props(const char *const * names, size_t count,
 
 // <suppression_base stuff>
 
-/// Constructor for @ref suppression_base
-///
-/// @param a label for the suppression.  This represents just a
-/// comment.
-suppression_base::suppression_base(const string& label)
-  : priv_(new priv(label))
+/// Default constructor for @ref suppression_base
+suppression_base::suppression_base()
+  : priv_(new priv())
 {}
-
-/// Constructor for @ref suppression_base
-///
-/// @param a label for the suppression.  This represents just a
-/// comment.
-///
-/// @param file_name_regex the regular expression that denotes the
-/// file name to match.
-///
-/// @param file_name_not_regex the regular expression that denotes
-/// the file name to *NOT* match.
-suppression_base::suppression_base(const string& label,
-				   const regex_t_sptr& file_name_regex,
-				   const regex_t_sptr& file_name_not_regex)
-  : priv_(new priv(label,
-		   file_name_regex,
-		   file_name_not_regex))
-{
-}
 
 /// Tests if the current suppression specification is to avoid adding
 /// the matched ABI artifact to the internal representation or not.
@@ -505,32 +483,9 @@ read_suppressions(const string& file_path,
 
 // <type_suppression stuff>
 
-/// Constructor for @ref type_suppression.
-///
-/// @param label the label of the suppression.  This is just a free
-/// form comment explaining what the suppression is about.
-///
-/// @param type_name_regexp the regular expression describing the
-/// types about which diff reports should be suppressed.  If it's a
-/// null shared pointer, the parameter is ignored.
-///
-/// @param type_name the name of the type about which diff reports
-/// should be suppressed.  If it's an empty string, the parameter is
-/// ignored.
-///
-/// Note that parameter @p type_name_regexp and @p type_name_regexp
-/// should not necessarily be populated.  It usually is either one or
-/// the other that the user wants.
-type_suppression::type_suppression(const string& label,
-				   const regex_t_sptr& type_name_regexp,
-				   const string& type_name)
-  : suppression_base(label),
-    priv_(new priv(type_name_regexp,
-		   type_name,
-		   /*consider_type_kind=*/false,
-		   /*type_kind=*/CLASS_TYPE_KIND,
-		   /*consider_reach_kind=*/false,
-		   /*reach_kind=*/DIRECT_REACH_KIND))
+/// Default constructor for @ref type_suppression.
+type_suppression::type_suppression()
+  : suppression_base(), priv_(new priv)
 {}
 
 type_suppression::~type_suppression()
@@ -2008,7 +1963,10 @@ read_type_suppression(const ini::config::section& section,
 	changed_enumerator_names.push_back(p->get_value()->as_string());
     }
 
-  type_suppression result(label_str, name_regex, name_str);
+  type_suppression result;
+  result.set_label(label_str);
+  result.set_type_name_regex(name_regex);
+  result.set_type_name(name_str);
 
   if (consider_type_kind)
     {
@@ -2146,77 +2104,7 @@ function_suppression::parameter_spec::set_parameter_type_name_regex
 /// specified by using the various accessors of the @ref
 /// function_suppression type.
 function_suppression::function_suppression()
-  :  suppression_base(/*label=*/""), priv_(new priv)
-{}
-
-/// Constructor for the @ref function_suppression type.
-///
-/// @param label an informative text string that the evalution code
-/// might use to designate this function suppression specification in
-/// error messages.  This parameter might be empty, in which case it's
-/// ignored at evaluation time.
-///
-/// @param the name of the function the user wants the current
-/// specification to designate.  This parameter might be empty, in
-/// which case it's ignored at evaluation time.
-///
-/// @param nr if @p name is empty this parameter is a regular
-/// expression for a family of names of functions the user wants the
-/// current specification to designate.  If @p name is not empty, this
-/// parameter is ignored at specification evaluation time.  This
-/// parameter might be empty, in which case it's ignored at evaluation
-/// time.
-///
-/// @param ret_tn the name of the return type of the function the user
-/// wants this specification to designate.  This parameter might be
-/// empty, in which case it's ignored at evaluation time.
-///
-/// @param ret_tr if @p ret_tn is empty, then this is a regular
-/// expression for a family of return type names for functions the
-/// user wants the current specification to designate.  If @p ret_tn
-/// is not empty, then this parameter is ignored at specification
-/// evaluation time.  This parameter might be empty, in which case
-/// it's ignored at evaluation time.
-///
-/// @param ps a vector of parameter specifications to specify
-/// properties of the parameters of the functions the user wants this
-/// specification to designate.  This parameter might be empty, in
-/// which case it's ignored at evaluation time.
-///
-/// @param sym_n the name of symbol of the function the user wants
-/// this specification to designate.  This parameter might be empty,
-/// in which case it's ignored at evaluation time.
-///
-/// @param sym_nr if the parameter @p sym_n is empty, then this
-/// parameter is a regular expression for a family of names of symbols
-/// of functions the user wants this specification to designate.  If
-/// the parameter @p sym_n is not empty, then this parameter is
-/// ignored at specification evaluation time.  This parameter might be
-/// empty, in which case it's ignored at evaluation time.
-///
-/// @param sym_v the name of the version of the symbol of the function
-/// the user wants this specification to designate.  This parameter
-/// might be empty, in which case it's ignored at evaluation time.
-///
-/// @param sym_vr if the parameter @p sym_v is empty, then this
-/// parameter is a regular expression for a family of versions of
-/// symbols of functions the user wants the current specification to
-/// designate.  If the parameter @p sym_v is non empty, then this
-/// parameter is ignored.  This parameter might be empty, in which
-/// case it's ignored at evaluation time.
-function_suppression::function_suppression(const string&		label,
-					   const string&		name,
-					   const regex_t_sptr&		nr,
-					   const string&		ret_tn,
-					   const regex_t_sptr&		ret_tr,
-					   parameter_specs_type&	ps,
-					   const string&		sym_n,
-					   const regex_t_sptr&		sym_nr,
-					   const string&		sym_v,
-					   const regex_t_sptr&		sym_vr)
-  : suppression_base(label),
-    priv_(new priv(name, nr, ret_tn, ret_tr, ps,
-		   sym_n, sym_nr, sym_v, sym_vr))
+  : suppression_base(), priv_(new priv)
 {}
 
 function_suppression::~function_suppression()
@@ -3437,16 +3325,17 @@ read_function_suppression(const ini::config::section& section,
 	  parms.push_back(parm);
       }
 
-  function_suppression result(label_str,
-			      name,
-			      name_regex,
-			      return_type_name,
-			      return_type_regex,
-			      parms,
-			      sym_name,
-			      sym_name_regex,
-			      sym_version,
-			      sym_ver_regex);
+  function_suppression result;
+  result.set_label(label_str);
+  result.set_name(name);
+  result.set_name_regex(name_regex);
+  result.set_return_type_name(return_type_name);
+  result.set_return_type_regex(return_type_regex);
+  result.set_parameter_specs(parms);
+  result.set_symbol_name(sym_name);
+  result.set_symbol_name_regex(sym_name_regex);
+  result.set_symbol_version(sym_version);
+  result.set_symbol_version_regex(sym_ver_regex);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name.empty()
@@ -3491,71 +3380,13 @@ read_function_suppression(const ini::config::section& section,
 
 // <variable_suppression stuff>
 
-/// Constructor for the @ref variable_suppression type.
+/// Default constructor for the @ref variable_suppression type.
 ///
-/// @param label an informative text string that the evalution code
-/// might use to designate this variable suppression specification in
-/// error messages.  This parameter might be empty, in which case it's
-/// ignored at evaluation time.
-///
-/// @param name the name of the variable the user wants the current
-/// specification to designate.  This parameter might be empty, in
-/// which case it's ignored at evaluation time.
-///
-/// @param name_regex if @p name is empty, this parameter is a
-/// regular expression for a family of names of variables the user
-/// wants the current specification to designate.  If @p name is not
-/// empty, then this parameter is ignored at evaluation time.  This
-/// parameter might be empty, in which case it's ignored at evaluation
-/// time.
-///
-/// @param symbol_name the name of the symbol of the variable the user
-/// wants the current specification to designate.  This parameter
-/// might be empty, in which case it's ignored at evaluation time.
-///
-/// @param symbol_name_str if @p symbol_name is empty, this parameter
-/// is a regular expression for a family of names of symbols of
-/// variables the user wants the current specification to designate.
-/// If @p symbol_name is not empty, then this parameter is ignored at
-/// evaluation time.  This parameter might be empty, in which case
-/// it's ignored at evaluation time.
-///
-/// @param symbol_version the version of the symbol of the variable
-/// the user wants the current specification to designate.  This
-/// parameter might be empty, in which case it's ignored at evaluation
-/// time.
-///
-/// @param symbol_version_regex if @p symbol_version is empty, then
-/// this parameter is a regular expression for a family of versions of
-/// symbol for the variables the user wants the current specification
-/// to designate.  If @p symbol_version is not empty, then this
-/// parameter is ignored at evaluation time.  This parameter might be
-/// empty, in which case it's ignored at evaluation time.
-///
-/// @param type_name the name of the type of the variable the user
-/// wants the current specification to designate.  This parameter
-/// might be empty, in which case it's ignored at evaluation time.
-///
-/// @param type_name_regex if @p type_name is empty, then this
-/// parameter is a regular expression for a family of type names of
-/// variables the user wants the current specification to designate.
-/// If @p type_name is not empty, then this parameter is ignored at
-/// evluation time.  This parameter might be empty, in which case it's
-/// ignored at evaluation time.
-variable_suppression::variable_suppression(const string& label,
-					   const string& name,
-					   const regex_t_sptr& name_regex,
-					   const string& symbol_name,
-					   const regex_t_sptr& symbol_name_regex,
-					   const string& symbol_version,
-					   const regex_t_sptr& symbol_version_regex,
-					   const string& type_name,
-					   const regex_t_sptr& type_name_regex)
-  : suppression_base(label),
-    priv_(new priv(name, name_regex,
-		   symbol_name, symbol_name_regex,
-		   symbol_version, symbol_version_regex,
-		   type_name, type_name_regex))
+/// It defines no suppression for now.  Suppressions have to be
+/// specified by using the various accessors of the @ref
+/// variable_suppression type.
+variable_suppression::variable_suppression()
+  : suppression_base(), priv_(new priv)
 {}
 
 /// Virtual destructor for the @erf variable_suppression type.
@@ -4292,15 +4123,16 @@ read_variable_suppression(const ini::config::section& section,
     type_name_regex =
       regex::compile(type_name_regex_prop->get_value()->as_string());
 
-  variable_suppression result(label_str,
-			      name_str,
-			      name_regex,
-			      symbol_name,
-			      symbol_name_regex,
-			      symbol_version,
-			      symbol_version_regex,
-			      type_name_str,
-			      type_name_regex);
+  variable_suppression result;
+  result.set_label(label_str);
+  result.set_name(name_str);
+  result.set_name_regex(name_regex);
+  result.set_symbol_name(symbol_name);
+  result.set_symbol_name_regex(symbol_name_regex);
+  result.set_symbol_version(symbol_version);
+  result.set_symbol_version_regex(symbol_version_regex);
+  result.set_type_name(type_name_str);
+  result.set_type_name_regex(type_name_regex);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name_str.empty()
@@ -4341,25 +4173,8 @@ read_variable_suppression(const ini::config::section& section,
 
 // <file_suppression stuff>
 
-/// Constructor for the the @ref file_suppression type.
-///
-/// @param label the label of the suppression directive.
-///
-/// @param fname_regex the regular expression that
-/// designates the file name that instances of @ref file_suppression
-/// should match.
-///
-/// @param fname_not_regex the regular expression that
-/// designates the file name that instances of @ref file_suppression
-/// shoult *NOT* match.  In other words, this file_suppression should
-/// be activated if its file name does not match the regular
-/// expression @p fname_not_regex.
-file_suppression::file_suppression(const string& label,
-				   const regex_t_sptr& fname_regex,
-				   const regex_t_sptr& fname_not_regex)
-  : suppression_base(label,
-		     fname_regex,
-		     fname_not_regex)
+/// Default constructor for the the @ref file_suppression type.
+file_suppression::file_suppression()
 {}
 
 /// Test if instances of this @ref file_suppression suppresses a
@@ -4472,7 +4287,10 @@ read_file_suppression(const ini::config::section& section,
     soname_not_regex =
       regex::compile(soname_not_regex_prop->get_value()->as_string());
 
-  file_suppression result(label_str, file_name_regex, file_name_not_regex);
+  file_suppression result;
+  result.set_label(label_str);
+  result.set_file_name_regex(file_name_regex);
+  result.set_file_name_not_regex(file_name_not_regex);
 
   if (soname_regex)
     {
