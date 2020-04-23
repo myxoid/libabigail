@@ -19,6 +19,7 @@
 #include "abg-tools-utils.h"
 #include "abg-reader.h"
 #include "abg-dwarf-reader.h"
+#include "abg-regex.h"
 #ifdef WITH_CTF
 #include "abg-ctf-reader.h"
 #endif
@@ -41,6 +42,8 @@ using abigail::comparison::corpus_diff_sptr;
 using abigail::comparison::compute_diff;
 using abigail::comparison::get_default_harmless_categories_bitmap;
 using abigail::comparison::get_default_harmful_categories_bitmap;
+using abigail::regex::compile;
+using abigail::regex::regex_t_sptr;
 using abigail::suppr::suppression_sptr;
 using abigail::suppr::suppressions_type;
 using abigail::suppr::read_suppressions;
@@ -60,15 +63,16 @@ struct options
   bool display_usage;
   bool display_version;
   bool missing_operand;
+  string		bad_operand;
   string		wrong_option;
   string		file1;
   string		file2;
   vector<string>	suppression_paths;
   vector<string>	kernel_abi_whitelist_paths;
-  vector<string>	drop_fn_regex_patterns;
-  vector<string>	drop_var_regex_patterns;
-  vector<string>	keep_fn_regex_patterns;
-  vector<string>	keep_var_regex_patterns;
+  vector<regex_t_sptr>	drop_fn_regexes;
+  vector<regex_t_sptr>	drop_var_regexes;
+  vector<regex_t_sptr>	keep_fn_regexes;
+  vector<regex_t_sptr>	keep_var_regexes;
   vector<string>	headers_dirs1;
   vector<string>        header_files1;
   vector<string>	headers_dirs2;
@@ -519,8 +523,15 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.drop_fn_regex_patterns.push_back(argv[j]);
-	  opts.drop_var_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.drop_fn_regexes.push_back(r);
+	  opts.drop_var_regexes.push_back(r);
 	  ++i;
 	}
       else if (!strcmp(argv[i], "--drop-fn"))
@@ -532,7 +543,14 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.drop_fn_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.drop_fn_regexes.push_back(r);
 	  ++i;
 	}
       else if (!strcmp(argv[i], "--drop-var"))
@@ -544,7 +562,14 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.drop_var_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.drop_var_regexes.push_back(r);
 	  ++i;
 	}
       else if (!strcmp(argv[i], "--keep"))
@@ -556,8 +581,15 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.keep_fn_regex_patterns.push_back(argv[j]);
-	  opts.keep_var_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.keep_fn_regexes.push_back(r);
+	  opts.keep_var_regexes.push_back(r);
 	  ++i;
 	}
       else if (!strcmp(argv[i], "--keep-fn"))
@@ -569,7 +601,14 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.keep_fn_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.keep_fn_regexes.push_back(r);
 	}
       else if (!strcmp(argv[i], "--keep-var"))
 	{
@@ -580,7 +619,14 @@ parse_command_line(int argc, char* argv[], options& opts)
 	      opts.wrong_option = argv[i];
 	      return true;
 	    }
-	  opts.keep_var_regex_patterns.push_back(argv[j]);
+	  regex_t_sptr r = compile(argv[j]);
+	  if (!r)
+	    {
+	      opts.bad_operand = "bad regex";
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	  opts.keep_var_regexes.push_back(r);
 	}
       else if (!strcmp(argv[i], "--harmless"))
 	opts.show_harmless_changes = true;
@@ -720,7 +766,7 @@ set_diff_context_from_opts(diff_context_sptr ctxt,
   // redundancy analysis pass altogether.  That could help save a
   // couple of CPU cycle here and there!
   ctxt->show_redundant_changes(opts.show_redundant_changes
-                               || opts.leaf_changes_only);
+			       || opts.leaf_changes_only);
   ctxt->show_symbols_unreferenced_by_debug_info
     (opts.show_symbols_not_referenced_by_debug_info);
   ctxt->show_added_symbols_unreferenced_by_debug_info
@@ -862,42 +908,19 @@ set_native_xml_reader_options(abigail::xml_reader::read_context& ctxt,
 						      opts.show_all_types);
 }
 
-/// Set the regex patterns describing the functions to drop from the
-/// symbol table of a given corpus.
+/// Set the regexes describing the functions to drop from the symbol
+/// table of a given corpus.
 ///
-/// @param opts the options to the regex patterns from.
+/// @param opts the options to the regexes from.
 ///
-/// @param c the corpus to set the regex patterns into.
+/// @param c the corpus to set the regexes into.
 static void
-set_corpus_keep_drop_regex_patterns(options& opts, corpus_sptr c)
+set_corpus_keep_drop_regexes(options& opts, corpus_sptr c)
 {
-  if (!opts.drop_fn_regex_patterns.empty())
-    {
-      vector<string>& v = opts.drop_fn_regex_patterns;
-      vector<string>& p = c->get_regex_patterns_of_fns_to_suppress();
-      p.assign(v.begin(), v.end());
-    }
-
-  if (!opts.keep_fn_regex_patterns.empty())
-    {
-      vector<string>& v = opts.keep_fn_regex_patterns;
-      vector<string>& p = c->get_regex_patterns_of_fns_to_keep();
-      p.assign(v.begin(), v.end());
-    }
-
-  if (!opts.drop_var_regex_patterns.empty())
-    {
-      vector<string>& v = opts.drop_var_regex_patterns;
-      vector<string>& p = c->get_regex_patterns_of_vars_to_suppress();
-      p.assign(v.begin(), v.end());
-    }
-
- if (!opts.keep_var_regex_patterns.empty())
-    {
-      vector<string>& v = opts.keep_var_regex_patterns;
-      vector<string>& p = c->get_regex_patterns_of_vars_to_keep();
-      p.assign(v.begin(), v.end());
-    }
+  c->get_regexes_of_fns_to_suppress() = opts.drop_fn_regexes;
+  c->get_regexes_of_fns_to_keep() = opts.keep_fn_regexes;
+  c->get_regexes_of_vars_to_suppress() = opts.drop_var_regexes;
+  c->get_regexes_of_vars_to_keep() = opts.keep_var_regexes;
 }
 
 /// This function sets diff context options that are specific to
@@ -1090,6 +1113,15 @@ main(int argc, char* argv[])
       emit_prefix(argv[0], cerr)
 	<< "missing operand to option: " << opts.wrong_option <<"\n"
 	<< "try the --help option for more information\n";
+      return (abigail::tools_utils::ABIDIFF_USAGE_ERROR
+	      | abigail::tools_utils::ABIDIFF_ERROR);
+    }
+
+  if (!opts.bad_operand.empty())
+    {
+      emit_prefix(argv[0], cerr)
+	<< "bad operand to option: " << opts.wrong_option <<"\n"
+	<< opts.bad_operand << "\n";
       return (abigail::tools_utils::ABIDIFF_USAGE_ERROR
 	      | abigail::tools_utils::ABIDIFF_ERROR);
     }
@@ -1383,8 +1415,8 @@ main(int argc, char* argv[])
 	      return abigail::tools_utils::ABIDIFF_ERROR;
 	    }
 
-	  set_corpus_keep_drop_regex_patterns(opts, c1);
-	  set_corpus_keep_drop_regex_patterns(opts, c2);
+	  set_corpus_keep_drop_regexes(opts, c1);
+	  set_corpus_keep_drop_regexes(opts, c2);
 
 	  corpus_diff_sptr diff = compute_diff(c1, c2, ctxt);
 

@@ -9,6 +9,7 @@
 #define __ABG_CORPUS_H__
 
 #include <abg-ir.h>
+#include <abg-regex.h>
 
 namespace abigail
 {
@@ -32,6 +33,9 @@ public:
 
   ///Convenience typedef for std::vector<abigail::ir::var_decl*>
   typedef vector<var_decl*> variables;
+
+  /// Convenience typedef for std::vector<abigail::regex::regex_t_sptr>.
+  typedef vector<regex::regex_t_sptr> regex_t_sptrs_type;
 
   class exported_decls_builder;
 
@@ -234,23 +238,23 @@ public:
   virtual const elf_symbols&
   get_unreferenced_variable_symbols() const;
 
-  vector<string>&
-  get_regex_patterns_of_fns_to_suppress();
+  regex_t_sptrs_type&
+  get_regexes_of_fns_to_suppress();
 
-  const vector<string>&
-  get_regex_patterns_of_fns_to_suppress() const;
+  const regex_t_sptrs_type&
+  get_regexes_of_fns_to_suppress() const;
 
-  vector<string>&
-  get_regex_patterns_of_vars_to_suppress();
+  regex_t_sptrs_type&
+  get_regexes_of_vars_to_suppress();
 
-  const vector<string>&
-  get_regex_patterns_of_vars_to_suppress() const;
+  const regex_t_sptrs_type&
+  get_regexes_of_vars_to_suppress() const;
 
-  vector<string>&
-  get_regex_patterns_of_fns_to_keep();
+  regex_t_sptrs_type&
+  get_regexes_of_fns_to_keep();
 
-  const vector<string>&
-  get_regex_patterns_of_fns_to_keep() const;
+  const regex_t_sptrs_type&
+  get_regexes_of_fns_to_keep() const;
 
   vector<string>&
   get_sym_ids_of_fns_to_keep();
@@ -258,11 +262,11 @@ public:
   const vector<string>&
   get_sym_ids_of_fns_to_keep() const;
 
-  vector<string>&
-  get_regex_patterns_of_vars_to_keep();
+  regex_t_sptrs_type&
+  get_regexes_of_vars_to_keep();
 
-  const vector<string>&
-  get_regex_patterns_of_vars_to_keep() const;
+  const regex_t_sptrs_type&
+  get_regexes_of_vars_to_keep() const;
 
   vector<string>&
   get_sym_ids_of_vars_to_keep();
@@ -311,10 +315,10 @@ public:
 
   exported_decls_builder(functions& fns,
 			 variables& vars,
-			 strings_type& fns_suppress_regexps,
-			 strings_type& vars_suppress_regexps,
-			 strings_type& fns_keep_regexps,
-			 strings_type& vars_keep_regexps,
+			 regex_t_sptrs_type fns_suppress_regexps,
+			 regex_t_sptrs_type vars_suppress_regexps,
+			 regex_t_sptrs_type fns_keep_regexps,
+			 regex_t_sptrs_type vars_keep_regexps,
 			 strings_type& sym_id_of_fns_to_keep,
 			 strings_type& sym_id_of_vars_to_keep);
 

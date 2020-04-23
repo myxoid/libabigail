@@ -14,6 +14,8 @@
 #ifndef __ABG_CORPUS_PRIV_H__
 #define __ABG_CORPUS_PRIV_H__
 
+#include <iostream>
+
 #include "abg-internal.h"
 #include "abg-ir.h"
 #include "abg-regex.h"
@@ -29,11 +31,6 @@ namespace sptr_utils
 
 namespace ir
 {
-
-using regex::regex_t_sptr;
-
-/// A convenience typedef for std::vector<regex_t_sptr>.
-typedef vector<regex_t_sptr> regex_t_sptrs_type;
 
 // <corpus::exported_decls_builder>
 
@@ -65,14 +62,10 @@ class corpus::exported_decls_builder::priv
   // where one ID appertains to more than one function.
   str_fn_ptrs_map_type	id_fns_map_;
   str_var_ptr_map_type	id_var_map_;
-  strings_type&	fns_suppress_regexps_;
-  regex_t_sptrs_type	compiled_fns_suppress_regexp_;
-  strings_type&	vars_suppress_regexps_;
-  regex_t_sptrs_type	compiled_vars_suppress_regexp_;
-  strings_type&	fns_keep_regexps_;
-  regex_t_sptrs_type	compiled_fns_keep_regexps_;
-  strings_type&	vars_keep_regexps_;
-  regex_t_sptrs_type	compiled_vars_keep_regexps_;
+  regex_t_sptrs_type	fns_suppress_regexps_;
+  regex_t_sptrs_type	vars_suppress_regexps_;
+  regex_t_sptrs_type	fns_keep_regexps_;
+  regex_t_sptrs_type	vars_keep_regexps_;
   strings_type&	sym_id_of_fns_to_keep_;
   strings_type&	sym_id_of_vars_to_keep_;
 
@@ -80,10 +73,10 @@ public:
 
   priv(functions& fns,
        variables& vars,
-       strings_type& fns_suppress_regexps,
-       strings_type& vars_suppress_regexps,
-       strings_type& fns_keep_regexps,
-       strings_type& vars_keep_regexps,
+       regex_t_sptrs_type fns_suppress_regexps,
+       regex_t_sptrs_type vars_suppress_regexps,
+       regex_t_sptrs_type fns_keep_regexps,
+       regex_t_sptrs_type vars_keep_regexps,
        strings_type& sym_id_of_fns_to_keep,
        strings_type& sym_id_of_vars_to_keep)
     : fns_(fns),
@@ -103,19 +96,7 @@ public:
   regex_t_sptrs_type&
   compiled_regex_fns_suppress()
   {
-    if (compiled_fns_suppress_regexp_.empty())
-      {
-	for (vector<string>::const_iterator i =
-	       fns_suppress_regexps_.begin();
-	     i != fns_suppress_regexps_.end();
-	     ++i)
-	  {
-	    regex_t_sptr r = regex::compile(*i);
-	    if (r)
-	      compiled_fns_suppress_regexp_.push_back(r);
-	  }
-      }
-    return compiled_fns_suppress_regexp_;
+    return fns_suppress_regexps_;
   }
 
   /// Getter for the compiled regular expressions that designates the
@@ -125,19 +106,7 @@ public:
   regex_t_sptrs_type&
   compiled_regex_fns_keep()
   {
-    if (compiled_fns_keep_regexps_.empty())
-      {
-	for (vector<string>::const_iterator i =
-	       fns_keep_regexps_.begin();
-	     i != fns_keep_regexps_.end();
-	     ++i)
-	  {
-	    regex_t_sptr r = regex::compile(*i);
-	    if (r)
-	      compiled_fns_keep_regexps_.push_back(r);
-	  }
-      }
-    return compiled_fns_keep_regexps_;
+    return fns_keep_regexps_;
   }
 
   /// Getter of the compiled regular expressions that designate the
@@ -147,19 +116,7 @@ public:
   regex_t_sptrs_type&
   compiled_regex_vars_suppress()
   {
-    if (compiled_vars_suppress_regexp_.empty())
-      {
-	for (vector<string>::const_iterator i =
-	       vars_suppress_regexps_.begin();
-	     i != vars_suppress_regexps_.end();
-	     ++i)
-	  {
-	    regex_t_sptr r = regex::compile(*i);
-	    if (r)
-	      compiled_vars_suppress_regexp_.push_back(r);
-	  }
-      }
-    return compiled_vars_suppress_regexp_;
+    return vars_suppress_regexps_;
   }
 
   /// Getter for the compiled regular expressions that designate the
@@ -169,19 +126,7 @@ public:
   regex_t_sptrs_type&
   compiled_regex_vars_keep()
   {
-    if (compiled_vars_keep_regexps_.empty())
-      {
-	for (vector<string>::const_iterator i =
-	       vars_keep_regexps_.begin();
-	     i != vars_keep_regexps_.end();
-	     ++i)
-	  {
-	    regex_t_sptr r = regex::compile(*i);
-	    if (r)
-	      compiled_vars_keep_regexps_.push_back(r);
-	  }
-      }
-    return compiled_vars_keep_regexps_;
+    return vars_keep_regexps_;
   }
 
   /// Getter for a map of the IDs of the functions that are present in
@@ -668,13 +613,13 @@ struct corpus::priv
   string					format_major_version_number_;
   string					format_minor_version_number_;
   environment*					env;
-  corpus_group*				group;
+  corpus_group*					group;
   corpus::exported_decls_builder_sptr		exported_decls_builder;
   corpus::origin				origin_;
-  vector<string>				regex_patterns_fns_to_suppress;
-  vector<string>				regex_patterns_vars_to_suppress;
-  vector<string>				regex_patterns_fns_to_keep;
-  vector<string>				regex_patterns_vars_to_keep;
+  regex_t_sptrs_type				regexes_fns_to_suppress;
+  regex_t_sptrs_type				regexes_vars_to_suppress;
+  regex_t_sptrs_type				regexes_fns_to_keep;
+  regex_t_sptrs_type				regexes_vars_to_keep;
   vector<string>				sym_id_fns_to_keep;
   vector<string>				sym_id_vars_to_keep;
   string					path;

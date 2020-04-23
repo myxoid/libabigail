@@ -73,14 +73,14 @@ using regex::regex_t_sptr;
 /// @param sym_id_of_vars_to_keep the IDs of the variables to keep in
 /// the exported variables set.
 corpus::exported_decls_builder
-::exported_decls_builder(functions&	fns,
-			 variables&	vars,
-			 strings_type&	fns_suppress_regexps,
-			 strings_type&	vars_suppress_regexps,
-			 strings_type&	fns_keep_regexps,
-			 strings_type&	vars_keep_regexps,
-			 strings_type&	sym_id_of_fns_to_keep,
-			 strings_type&	sym_id_of_vars_to_keep)
+::exported_decls_builder(functions&		fns,
+			 variables&		vars,
+			 regex_t_sptrs_type	fns_suppress_regexps,
+			 regex_t_sptrs_type	vars_suppress_regexps,
+			 regex_t_sptrs_type	fns_keep_regexps,
+			 regex_t_sptrs_type	vars_keep_regexps,
+			 strings_type&		sym_id_of_fns_to_keep,
+			 strings_type&		sym_id_of_vars_to_keep)
   : priv_(new priv(fns, vars,
 		   fns_suppress_regexps,
 		   vars_suppress_regexps,
@@ -1281,7 +1281,7 @@ corpus::lookup_variable_symbol(const elf_symbol& symbol) const
 /// supplying regular expressions describing the set of functions she
 /// want to see removed from the public decl table by populating the
 /// vector of regular expressions returned by
-/// corpus::get_regex_patterns_of_fns_to_suppress().
+/// corpus::get_regexes_of_fns_to_suppress().
 ///
 /// @return the vector of functions of the public decl table.  The
 /// functions are sorted using their mangled name or name if they
@@ -1337,7 +1337,7 @@ corpus::sort_functions()
 /// supplying regular expressions describing the set of variables she
 /// wants to see removed from the public decl table by populating the
 /// vector of regular expressions returned by
-/// corpus::get_regex_patterns_of_fns_to_suppress().
+/// corpus::get_regexes_of_fns_to_suppress().
 ///
 /// @return the vector of variables of the public decl table.  The
 /// variables are sorted using their name.
@@ -1382,61 +1382,61 @@ const elf_symbols&
 corpus::get_unreferenced_variable_symbols() const
 {return priv_->get_unreferenced_variable_symbols();}
 
-/// Accessor for the regex patterns describing the functions to drop
+/// Accessor for the regexes describing the functions to drop
 /// from the public decl table.
 ///
-/// @return the regex patterns describing the functions to drop from
+/// @return the regexes describing the functions to drop from
 /// the public decl table.
-vector<string>&
-corpus::get_regex_patterns_of_fns_to_suppress()
-{return priv_->regex_patterns_fns_to_suppress;}
+corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_fns_to_suppress()
+{return priv_->regexes_fns_to_suppress;}
 
-/// Accessor for the regex patterns describing the functions to drop
+/// Accessor for the regexes describing the functions to drop
 /// from the public decl table.
 ///
-/// @return the regex patterns describing the functions to drop from
+/// @return the regexes describing the functions to drop from
 /// the public decl table.
-const vector<string>&
-corpus::get_regex_patterns_of_fns_to_suppress() const
-{return priv_->regex_patterns_fns_to_suppress;}
+const corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_fns_to_suppress() const
+{return priv_->regexes_fns_to_suppress;}
 
-/// Accessor for the regex patterns describing the variables to drop
+/// Accessor for the regexes describing the variables to drop
 /// from the public decl table.
 ///
-/// @return the regex patterns describing the variables to drop from
+/// @return the regexes describing the variables to drop from
 /// the public decl table.
-vector<string>&
-corpus::get_regex_patterns_of_vars_to_suppress()
-{return priv_->regex_patterns_vars_to_suppress;}
+corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_vars_to_suppress()
+{return priv_->regexes_vars_to_suppress;}
 
-/// Accessor for the regex patterns describing the variables to drop
+/// Accessor for the regexes describing the variables to drop
 /// from the public decl table.
 ///
-/// @return the regex patterns describing the variables to drop from
+/// @return the regexes describing the variables to drop from
 /// the public decl table.
-const vector<string>&
-corpus::get_regex_patterns_of_vars_to_suppress() const
-{return priv_->regex_patterns_vars_to_suppress;}
+const corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_vars_to_suppress() const
+{return priv_->regexes_vars_to_suppress;}
 
-/// Accessor for the regex patterns describing the functions to keep
+/// Accessor for the regexes describing the functions to keep
 /// into the public decl table.  The other functions not matches by these
 /// regexes are dropped from the public decl table.
 ///
-/// @return the regex patterns describing the functions to keep into
+/// @return the regexes describing the functions to keep into
 /// the public decl table.
-vector<string>&
-corpus::get_regex_patterns_of_fns_to_keep()
-{return priv_->regex_patterns_fns_to_keep;}
+corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_fns_to_keep()
+{return priv_->regexes_fns_to_keep;}
 
-/// Accessor for the regex patterns describing the functions to keep
+/// Accessor for the regexes describing the functions to keep
 /// into the public decl table.  The other functions not matches by these
 /// regexes are dropped from the public decl table.
 ///
-/// @return the regex patterns describing the functions to keep into
+/// @return the regexes describing the functions to keep into
 /// the public decl table.
-const vector<string>&
-corpus::get_regex_patterns_of_fns_to_keep() const
-{return priv_->regex_patterns_fns_to_keep;}
+const corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_fns_to_keep() const
+{return priv_->regexes_fns_to_keep;}
 
 /// Getter for the vector of function symbol IDs to keep.
 ///
@@ -1458,25 +1458,25 @@ const vector<string>&
 corpus::get_sym_ids_of_fns_to_keep() const
 {return priv_->sym_id_fns_to_keep;}
 
-/// Accessor for the regex patterns describing the variables to keep
+/// Accessor for the regexes describing the variables to keep
 /// into the public decl table.  The other variables not matches by these
 /// regexes are dropped from the public decl table.
 ///
-/// @return the regex patterns describing the variables to keep into
+/// @return the regexes describing the variables to keep into
 /// the public decl table.
-vector<string>&
-corpus::get_regex_patterns_of_vars_to_keep()
-{return priv_->regex_patterns_vars_to_keep;}
+corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_vars_to_keep()
+{return priv_->regexes_vars_to_keep;}
 
-/// Accessor for the regex patterns describing the variables to keep
+/// Accessor for the regexes describing the variables to keep
 /// into the public decl table.  The other variables not matches by these
 /// regexes are dropped from the public decl table.
 ///
-/// @return the regex patterns describing the variables to keep into
+/// @return the regexes describing the variables to keep into
 /// the public decl table.
-const vector<string>&
-corpus::get_regex_patterns_of_vars_to_keep() const
-{return priv_->regex_patterns_vars_to_keep;}
+const corpus::regex_t_sptrs_type&
+corpus::get_regexes_of_vars_to_keep() const
+{return priv_->regexes_vars_to_keep;}
 
 /// Getter for the vector of variable symbol IDs to keep.
 ///
@@ -1550,10 +1550,10 @@ corpus::get_exported_decls_builder() const
       priv_->exported_decls_builder.reset
 	(new exported_decls_builder(priv_->fns,
 				    priv_->vars,
-				    priv_->regex_patterns_fns_to_suppress,
-				    priv_->regex_patterns_vars_to_suppress,
-				    priv_->regex_patterns_fns_to_keep,
-				    priv_->regex_patterns_vars_to_keep,
+				    priv_->regexes_fns_to_suppress,
+				    priv_->regexes_vars_to_suppress,
+				    priv_->regexes_fns_to_keep,
+				    priv_->regexes_vars_to_keep,
 				    priv_->sym_id_fns_to_keep,
 				    priv_->sym_id_vars_to_keep));
     }
