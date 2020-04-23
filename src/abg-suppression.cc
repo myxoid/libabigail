@@ -332,17 +332,21 @@ names_of_binaries_match(const suppression_base& suppr,
 suppression_base::~suppression_base()
 {}
 
-static type_suppression_sptr
-read_type_suppression(const ini::config::section& section);
+static bool
+read_type_suppression(const ini::config::section& section,
+		      suppression_sptr& suppr);
 
-static function_suppression_sptr
-read_function_suppression(const ini::config::section& section);
+static bool
+read_function_suppression(const ini::config::section& section,
+			  suppression_sptr& suppr);
 
-static variable_suppression_sptr
-read_variable_suppression(const ini::config::section& section);
+static bool
+read_variable_suppression(const ini::config::section& section,
+			  suppression_sptr& suppr);
 
-static file_suppression_sptr
-read_file_suppression(const ini::config::section& section);
+static bool
+read_file_suppression(const ini::config::section& section,
+		      suppression_sptr& suppr);
 
 /// Read a vector of suppression specifications from the sections of
 /// an ini::config.
@@ -367,13 +371,13 @@ read_suppressions(const ini::config& config,
       const std::string& name = section->get_name();
       suppression_sptr s;
       if (name == "suppress_type")
-	s = read_type_suppression(*section);
+	read_type_suppression(*section, s);
       else if (name == "suppress_function")
-	s = read_function_suppression(*section);
+	read_function_suppression(*section, s);
       else if (name == "suppress_variable")
-	s = read_variable_suppression(*section);
+	read_variable_suppression(*section, s);
       else if (name == "suppress_file")
-	s = read_file_suppression(*section);
+	read_file_suppression(*section, s);
       if (s)
 	suppressions.push_back(s);
     }
@@ -1597,13 +1601,13 @@ read_suppression_reach_kind(const string& input)
 ///
 /// @param section the section of the ini config to read.
 ///
-/// @return the resulting @ref type_suppression upon successful
-/// parsing, or nil.
-static type_suppression_sptr
-read_type_suppression(const ini::config::section& section)
+/// @param suppr the @ref suppression to assign to.
+///
+/// @return whether the parse was successful.
+static bool
+read_type_suppression(const ini::config::section& section,
+		      suppression_sptr& suppr)
 {
-  type_suppression_sptr result;
-
   static const char *const sufficient_props[] = {
     "file_name_regexp",
     "file_name_not_regexp",
@@ -1619,7 +1623,7 @@ read_type_suppression(const ini::config::section& section)
   if (!check_sufficient_props(sufficient_props,
 			      sizeof(sufficient_props)/sizeof(char*),
 			      section))
-    return result;
+    return false;
 
   ini::simple_property_sptr drop_artifact =
     is_simple_property(section.find_property("drop_artifact"));
@@ -1743,7 +1747,7 @@ read_type_suppression(const ini::config::section& section)
 	       type_suppression::insertion_range::create_fn_call_expr_boundary(ini::read_function_call_expr(ins_point)))
 	begin = expr;
       else
-	return result;
+	return false;
 
       end = type_suppression::insertion_range::create_integer_boundary(-1);
       type_suppression::insertion_range_sptr insert_range
@@ -1786,7 +1790,7 @@ read_type_suppression(const ini::config::section& section)
 		   type_suppression::insertion_range::create_fn_call_expr_boundary(ini::read_function_call_expr(str)))
 	    begin = expr;
 	  else
-	    return result;
+	    return false;
 
 	  str = val->get_content()[1];
 	  if (str == "end")
@@ -1799,7 +1803,7 @@ read_type_suppression(const ini::config::section& section)
 		   type_suppression::insertion_range::create_fn_call_expr_boundary(ini::read_function_call_expr(str)))
 	    end = expr;
 	  else
-	    return result;
+	    return false;
 
 	  type_suppression::insertion_range_sptr insert_range
 	    (new type_suppression::insertion_range(begin, end));
@@ -1810,7 +1814,7 @@ read_type_suppression(const ini::config::section& section)
 	// the 'has_data_member_inserted_between' property has a wrong
 	// value type, so let's discard the endire [suppress_type]
 	// section.
-	return result;
+	return false;
     }
 
   // Support has_data_members_inserted_between
@@ -1861,7 +1865,7 @@ read_type_suppression(const ini::config::section& section)
 		   type_suppression::insertion_range::create_fn_call_expr_boundary(ini::read_function_call_expr(str)))
 	    begin = expr;
 	  else
-	    return result;
+	    return false;
 
 	  str = list_value->get_content()[1];
 	  if (str == "end")
@@ -1874,7 +1878,7 @@ read_type_suppression(const ini::config::section& section)
 		   type_suppression::insertion_range::create_fn_call_expr_boundary(ini::read_function_call_expr(str)))
 	    end = expr;
 	  else
-	    return result;
+	    return false;
 
 	  type_suppression::insertion_range_sptr insert_range
 	    (new type_suppression::insertion_range(begin, end));
@@ -1882,7 +1886,7 @@ read_type_suppression(const ini::config::section& section)
 	  consider_data_member_insertion = true;
 	}
       if (!is_well_formed)
-	return result;
+	return false;
     }
 
   /// Support 'changed_enumerators = foo, bar, baz'
@@ -1909,56 +1913,57 @@ read_type_suppression(const ini::config::section& section)
 	changed_enumerator_names.push_back(p->get_value()->as_string());
     }
 
-  result.reset(new type_suppression(label_str, name_regex_str, name_str));
+  type_suppression result(label_str, name_regex_str, name_str);
 
   if (consider_type_kind)
     {
-      result->set_consider_type_kind(true);
-      result->set_type_kind(type_kind);
+      result.set_consider_type_kind(true);
+      result.set_type_kind(type_kind);
     }
 
   if (consider_reach_kind)
     {
-      result->set_consider_reach_kind(true);
-      result->set_reach_kind(reach_kind);
+      result.set_consider_reach_kind(true);
+      result.set_reach_kind(reach_kind);
     }
 
   if (consider_data_member_insertion)
-    result->set_data_member_insertion_ranges(insert_ranges);
+    result.set_data_member_insertion_ranges(insert_ranges);
 
   if (!name_not_regex_str.empty())
-    result->set_type_name_not_regex_str(name_not_regex_str);
+    result.set_type_name_not_regex_str(name_not_regex_str);
 
   if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+    result.set_file_name_regex_str(file_name_regex_str);
 
   if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+    result.set_file_name_not_regex_str(file_name_not_regex_str);
 
   if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+    result.set_soname_regex_str(soname_regex_str);
 
   if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+    result.set_soname_not_regex_str(soname_not_regex_str);
 
   if (!srcloc_not_in.empty())
-    result->set_source_locations_to_keep(srcloc_not_in);
+    result.set_source_locations_to_keep(srcloc_not_in);
 
   if (!srcloc_not_regexp_str.empty())
-    result->set_source_location_to_keep_regex_str(srcloc_not_regexp_str);
+    result.set_source_location_to_keep_regex_str(srcloc_not_regexp_str);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && ((!name_regex_str.empty()
 	   || !name_str.empty()
 	   || !srcloc_not_regexp_str.empty()
 	   || !srcloc_not_in.empty())))
-    result->set_drops_artifact_from_ir(true);
+    result.set_drops_artifact_from_ir(true);
 
-  if (result->get_type_kind() == type_suppression::ENUM_TYPE_KIND
+  if (result.get_type_kind() == type_suppression::ENUM_TYPE_KIND
       && !changed_enumerator_names.empty())
-    result->set_changed_enumerator_names(changed_enumerator_names);
+    result.set_changed_enumerator_names(changed_enumerator_names);
 
-  return result;
+  suppr.reset(new type_suppression(result));
+  return true;
 }
 
 // <function_suppression stuff>
@@ -3178,18 +3183,19 @@ read_parameter_spec_from_string(const string& str)
   return result;
 }
 
-/// Parse function suppression specification, build a resulting @ref
-/// function_suppression type and return a shared pointer to that
-/// object.
+/// Read a function suppression from an instance of
+/// ini::config::section and build a @ref function_suppression as a
+/// result.
 ///
-/// @return a shared pointer to the newly built @ref
-/// function_suppression.  If the function suppression specification
-/// could not be parsed then a nil shared pointer is returned.
-static function_suppression_sptr
-read_function_suppression(const ini::config::section& section)
+/// @param section the section of the ini config to read.
+///
+/// @param suppr the @ref suppression to assign to.
+///
+/// @return whether the parse was successful.
+static bool
+read_function_suppression(const ini::config::section& section,
+			  suppression_sptr& suppr)
 {
-  function_suppression_sptr result;
-
   static const char *const sufficient_props[] = {
     "label",
     "file_name_regexp",
@@ -3211,7 +3217,7 @@ read_function_suppression(const ini::config::section& section)
   if (!check_sufficient_props(sufficient_props,
 			      sizeof(sufficient_props)/sizeof(char*),
 			      section))
-    return result;
+    return false;
 
   ini::simple_property_sptr drop_artifact =
     is_simple_property(section.find_property("drop_artifact"));
@@ -3339,16 +3345,16 @@ read_function_suppression(const ini::config::section& section)
 	  parms.push_back(parm);
       }
 
-  result.reset(new function_suppression(label_str,
-					name,
-					name_regex_str,
-					return_type_name,
-					return_type_regex_str,
-					parms,
-					sym_name,
-					sym_name_regex_str,
-					sym_version,
-					sym_ver_regex_str));
+  function_suppression result(label_str,
+			      name,
+			      name_regex_str,
+			      return_type_name,
+			      return_type_regex_str,
+			      parms,
+			      sym_name,
+			      sym_name_regex_str,
+			      sym_version,
+			      sym_ver_regex_str);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name.empty()
@@ -3357,35 +3363,36 @@ read_function_suppression(const ini::config::section& section)
 	  || !sym_name.empty()
 	  || !sym_name_regex_str.empty()
 	  || !sym_name_not_regex_str.empty()))
-    result->set_drops_artifact_from_ir(true);
+    result.set_drops_artifact_from_ir(true);
 
   if (!change_kind_str.empty())
-    result->set_change_kind
+    result.set_change_kind
       (function_suppression::parse_change_kind(change_kind_str));
 
   if (!allow_other_aliases.empty())
-    result->set_allow_other_aliases(allow_other_aliases == "yes"
-				    || allow_other_aliases == "true");
+    result.set_allow_other_aliases(allow_other_aliases == "yes"
+				   || allow_other_aliases == "true");
 
   if (!name_not_regex_str.empty())
-    result->set_name_not_regex_str(name_not_regex_str);
+    result.set_name_not_regex_str(name_not_regex_str);
 
   if (!sym_name_not_regex_str.empty())
-    result->set_symbol_name_not_regex_str(sym_name_not_regex_str);
+    result.set_symbol_name_not_regex_str(sym_name_not_regex_str);
 
   if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+    result.set_file_name_regex_str(file_name_regex_str);
 
   if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+    result.set_file_name_not_regex_str(file_name_not_regex_str);
 
   if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+    result.set_soname_regex_str(soname_regex_str);
 
   if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+    result.set_soname_not_regex_str(soname_not_regex_str);
 
-  return result;
+  suppr.reset(new function_suppression(result));
+  return true;
 }
 
 // </function_suppression stuff>
@@ -4055,18 +4062,19 @@ operator|(variable_suppression::change_kind l,
     (static_cast<unsigned>(l) | static_cast<unsigned>(r));
 }
 
-/// Parse variable suppression specification, build a resulting @ref
-/// variable_suppression type and return a shared pointer to that
-/// object.
+/// Read a variable suppression from an instance of
+/// ini::config::section and build a @ref variable_suppression as a
+/// result.
 ///
-/// @return a shared pointer to the newly built @ref
-/// variable_suppression.  If the variable suppression specification
-/// could not be parsed then a nil shared pointer is returned.
-static variable_suppression_sptr
-read_variable_suppression(const ini::config::section& section)
+/// @param section the section of the ini config to read.
+///
+/// @param suppr the @ref suppression to assign to.
+///
+/// @return whether the parse was successful.
+static bool
+read_variable_suppression(const ini::config::section& section,
+			  suppression_sptr& suppr)
 {
-  variable_suppression_sptr result;
-
   static const char *const sufficient_props[] = {
     "label",
     "file_name_regexp",
@@ -4087,7 +4095,7 @@ read_variable_suppression(const ini::config::section& section)
   if (!check_sufficient_props(sufficient_props,
 			      sizeof(sufficient_props)/sizeof(char*),
 			      section))
-    return result;
+    return false;
 
   ini::simple_property_sptr drop_artifact =
     is_simple_property(section.find_property("drop_artifact"));
@@ -4194,15 +4202,15 @@ read_variable_suppression(const ini::config::section& section)
     ? type_name_regex_prop->get_value()->as_string()
      : "";
 
-  result.reset(new variable_suppression(label_str,
-					name_str,
-					name_regex_str,
-					symbol_name,
-					symbol_name_regex_str,
-					symbol_version,
-					symbol_version_regex_str,
-					type_name_str,
-					type_name_regex_str));
+  variable_suppression result(label_str,
+			      name_str,
+			      name_regex_str,
+			      symbol_name,
+			      symbol_name_regex_str,
+			      symbol_version,
+			      symbol_version_regex_str,
+			      type_name_str,
+			      type_name_regex_str);
 
   if ((drop_artifact_str == "yes" || drop_artifact_str == "true")
       && (!name_str.empty()
@@ -4211,31 +4219,32 @@ read_variable_suppression(const ini::config::section& section)
 	  || !symbol_name.empty()
 	  || !symbol_name_regex_str.empty()
 	  || !symbol_name_not_regex_str.empty()))
-    result->set_drops_artifact_from_ir(true);
+    result.set_drops_artifact_from_ir(true);
 
   if (!name_not_regex_str.empty())
-    result->set_name_not_regex_str(name_not_regex_str);
+    result.set_name_not_regex_str(name_not_regex_str);
 
   if (!symbol_name_not_regex_str.empty())
-    result->set_symbol_name_not_regex_str(symbol_name_not_regex_str);
+    result.set_symbol_name_not_regex_str(symbol_name_not_regex_str);
 
   if (!change_kind_str.empty())
-    result->set_change_kind
+    result.set_change_kind
       (variable_suppression::parse_change_kind(change_kind_str));
 
   if (!file_name_regex_str.empty())
-    result->set_file_name_regex_str(file_name_regex_str);
+    result.set_file_name_regex_str(file_name_regex_str);
 
   if (!file_name_not_regex_str.empty())
-    result->set_file_name_not_regex_str(file_name_not_regex_str);
+    result.set_file_name_not_regex_str(file_name_not_regex_str);
 
   if (!soname_regex_str.empty())
-    result->set_soname_regex_str(soname_regex_str);
+    result.set_soname_regex_str(soname_regex_str);
 
   if (!soname_not_regex_str.empty())
-    result->set_soname_not_regex_str(soname_not_regex_str);
+    result.set_soname_not_regex_str(soname_not_regex_str);
 
-  return result;
+  suppr.reset(new variable_suppression(result));
+  return true;
 }
 
 // </variable_suppression stuff>
@@ -4318,17 +4327,17 @@ file_suppression::~file_suppression()
 }
 
 /// Read a file suppression from an instance of ini::config::section
-/// and build a @ref type_suppression as a result.
+/// and build a @ref file_suppression as a result.
 ///
-/// @param section the section (from an ini file) to read the file
-/// suppression from.
+/// @param section the section of the ini config to read.
 ///
-/// @return file_suppression_sptr.
-static file_suppression_sptr
-read_file_suppression(const ini::config::section& section)
+/// @param suppr the @ref suppression to assign to.
+///
+/// @return whether the parse was successful.
+static bool
+read_file_suppression(const ini::config::section& section,
+		      suppression_sptr& suppr)
 {
-  file_suppression_sptr result;
-
   static const char *const sufficient_props[] = {
     "file_name_regexp",
     "file_name_not_regexp",
@@ -4338,7 +4347,7 @@ read_file_suppression(const ini::config::section& section)
   if (!check_sufficient_props(sufficient_props,
 			      sizeof(sufficient_props)/sizeof(char*),
 			      section))
-    return result;
+    return false;
 
   ini::simple_property_sptr label_prop =
     is_simple_property(section.find_property("label"));
@@ -4370,23 +4379,22 @@ read_file_suppression(const ini::config::section& section)
     ? soname_not_regex_prop->get_value()->as_string()
     : "";
 
-  result.reset(new file_suppression(label_str,
-				    file_name_regex_str,
-				    file_name_not_regex_str));
+  file_suppression result(label_str, file_name_regex_str, file_name_not_regex_str);
 
   if (!soname_regex_str.empty())
     {
-      result->set_soname_regex_str(soname_regex_str);
-      result->set_drops_artifact_from_ir(true);
+      result.set_soname_regex_str(soname_regex_str);
+      result.set_drops_artifact_from_ir(true);
     }
 
   if (!soname_not_regex_str.empty())
     {
-      result->set_soname_not_regex_str(soname_not_regex_str);
-      result->set_drops_artifact_from_ir(true);
+      result.set_soname_not_regex_str(soname_not_regex_str);
+      result.set_drops_artifact_from_ir(true);
     }
 
-  return result;
+  suppr.reset(new file_suppression(result));
+  return true;
 }
 
 /// Test if a given suppression specification is a file suppression
