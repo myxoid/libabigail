@@ -286,8 +286,8 @@ sonames_of_binaries_match(const suppression_base& suppr,
   if (!suppr.has_soname_related_property())
     return false;
 
-  if (!suppr.priv_->matches_soname(first_soname)
-      && !suppr.priv_->matches_soname(second_soname))
+  if (!suppression_matches_soname(first_soname, suppr)
+      && !suppression_matches_soname(second_soname, suppr))
     return false;
 
   return true;
@@ -1003,8 +1003,8 @@ suppression_matches_type_name(const type_suppression&	s,
 			      const string&		type_name)
 {
   if (!s.get_type_name().empty()
-      || s.priv_->get_type_name_regex()
-      || s.priv_->get_type_name_not_regex())
+      || s.get_type_name_regex()
+      || s.get_type_name_not_regex())
     {
       // Check if there is an exact type name match.
       if (!s.get_type_name().empty())
@@ -1020,14 +1020,14 @@ suppression_matches_type_name(const type_suppression&	s,
 	  // the regular expression of the type name, then this
 	  // suppression doesn't apply.
 	  if (const regex_t_sptr& type_name_regex =
-	      s.priv_->get_type_name_regex())
+	      s.get_type_name_regex())
 	    {
 	      if (!regex::match(type_name_regex, type_name))
 		return false;
 	    }
 
 	  if (const regex_t_sptr type_name_not_regex =
-	      s.priv_->get_type_name_not_regex())
+	      s.get_type_name_not_regex())
 	    {
 	      if (regex::match(type_name_not_regex, type_name))
 		return false;
@@ -1075,7 +1075,7 @@ suppression_matches_type_location(const type_suppression&	s,
       unsigned loc_line = 0, loc_column = 0;
       loc.expand(loc_path, loc_line, loc_column);
 
-      if (regex_t_sptr regexp = s.priv_->get_source_location_to_keep_regex())
+      if (regex_t_sptr regexp = s.get_source_location_to_keep_regex())
 	if (regex::match(regexp, loc_path))
 	  return false;
 
@@ -1090,7 +1090,7 @@ suppression_matches_type_location(const type_suppression&	s,
   else
     {
       if (!s.get_source_locations_to_keep().empty()
-	  || s.priv_->get_source_location_to_keep_regex())
+	  || s.get_source_location_to_keep_regex())
 	// The user provided a "source_location_not_regexp" or
 	// a "source_location_not_in" property that was not
 	// triggered.  This means the current type suppression
@@ -1141,7 +1141,7 @@ suppression_matches_type_location(const type_suppression&	s,
 	    }
 	}
       if (!s.get_source_locations_to_keep().empty()
-	  || s.priv_->get_source_location_to_keep_regex())
+	  || s.get_source_location_to_keep_regex())
 	// The user provided a "source_location_not_regexp" or
 	// a "source_location_not_in" property that was not
 	// triggered.  This means the current type suppression
@@ -2549,7 +2549,7 @@ function_suppression::suppresses_function(const function_decl* fn,
     }
 
   // check if the "name_regexp" property matches.
-  const regex_t_sptr name_regex = priv_->get_name_regex();
+  const regex_t_sptr name_regex = get_name_regex();
   if (name_regex)
     {
       if (!regex::match(name_regex, fname))
@@ -2580,7 +2580,7 @@ function_suppression::suppresses_function(const function_decl* fn,
     }
 
   // check if the "name_not_regexp" property matches.
-  const regex_t_sptr name_not_regex = priv_->get_name_not_regex();
+  const regex_t_sptr name_not_regex = get_name_not_regex();
   if (name_not_regex)
     {
       if (regex::match(name_not_regex, fname))
@@ -2626,7 +2626,7 @@ function_suppression::suppresses_function(const function_decl* fn,
     }
   else
     {
-      const regex_t_sptr return_type_regex = priv_->get_return_type_regex();
+      const regex_t_sptr return_type_regex = get_return_type_regex();
       if (return_type_regex
 	  && !regex::match(return_type_regex, fn_return_type_name))
 	return false;
@@ -2664,12 +2664,11 @@ function_suppression::suppresses_function(const function_decl* fn,
     }
   else if (sym)
     {
-      const regex_t_sptr symbol_name_regex = priv_->get_symbol_name_regex();
+      const regex_t_sptr symbol_name_regex = get_symbol_name_regex();
       if (symbol_name_regex && !regex::match(symbol_name_regex, fn_sym_name))
 	return false;
 
-      const regex_t_sptr symbol_name_not_regex =
-	priv_->get_symbol_name_not_regex();
+      const regex_t_sptr symbol_name_not_regex = get_symbol_name_not_regex();
       if (symbol_name_not_regex
 	  && regex::match(symbol_name_not_regex, fn_sym_name))
 	return false;
@@ -2706,8 +2705,7 @@ function_suppression::suppresses_function(const function_decl* fn,
     }
   else if (sym)
     {
-      const regex_t_sptr symbol_version_regex =
-	priv_->get_symbol_version_regex();
+      const regex_t_sptr symbol_version_regex = get_symbol_version_regex();
       if (symbol_version_regex
 	  && !regex::match(symbol_version_regex, fn_sym_version))
 	return false;
@@ -2747,7 +2745,7 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  else
 	    {
 	      const regex_t_sptr parm_type_name_regex =
-		(*p)->priv_->get_type_name_regex();
+		(*p)->get_parameter_type_name_regex();
 	      if (parm_type_name_regex)
 		{
 		  if (!regex::match(parm_type_name_regex,
@@ -2838,7 +2836,7 @@ function_suppression::suppresses_function_symbol(const elf_symbol* sym,
     }
   else if (get_symbol_name_regex())
     {
-      const regex_t_sptr symbol_name_regex = priv_->get_symbol_name_regex();
+      const regex_t_sptr symbol_name_regex = get_symbol_name_regex();
       if (symbol_name_regex && !regex::match(symbol_name_regex, sym_name))
 	return false;
     }
@@ -2853,8 +2851,7 @@ function_suppression::suppresses_function_symbol(const elf_symbol* sym,
     }
   else if (get_symbol_version_regex())
     {
-      const regex_t_sptr symbol_version_regex =
-	priv_->get_symbol_version_regex();
+      const regex_t_sptr symbol_version_regex = get_symbol_version_regex();
       if (symbol_version_regex
 	  && !regex::match(symbol_version_regex, sym_version))
 	return false;
@@ -2946,21 +2943,21 @@ bool
 suppression_matches_function_name(const suppr::function_suppression& s,
 				  const string& fn_name)
 {
-  if (regex_t_sptr regexp = s.priv_->get_name_regex())
+  if (regex_t_sptr regexp = s.get_name_regex())
     {
       if (!regex::match(regexp, fn_name))
 	return false;
     }
-  else if (regex_t_sptr regexp = s.priv_->get_name_not_regex())
+  else if (regex_t_sptr regexp = s.get_name_not_regex())
     {
       if (regex::match(regexp, fn_name))
 	return false;
     }
-  else if (s.priv_->name_.empty())
+  else if (s.get_name().empty())
     return false;
-  else // if (!s.priv_->name_.empty())
+  else // if (!s.get_name().empty())
     {
-      if (s.priv_->name_ != fn_name)
+      if (s.get_name() != fn_name)
 	return false;
     }
 
@@ -2982,21 +2979,21 @@ bool
 suppression_matches_function_sym_name(const suppr::function_suppression& s,
 				      const string& fn_linkage_name)
 {
-  if (regex_t_sptr regexp = s.priv_->get_symbol_name_regex())
+  if (regex_t_sptr regexp = s.get_symbol_name_regex())
     {
       if (!regex::match(regexp, fn_linkage_name))
 	return false;
     }
-  else if (regex_t_sptr regexp = s.priv_->get_symbol_name_not_regex())
+  else if (regex_t_sptr regexp = s.get_symbol_name_not_regex())
     {
       if (regex::match(regexp, fn_linkage_name))
 	return false;
     }
-  else if (s.priv_->symbol_name_.empty())
+  else if (s.get_symbol_name().empty())
     return false;
-  else // if (!s.priv_->symbol_name_.empty())
+  else // if (!s.get_symbol_name().empty())
     {
-      if (s.priv_->symbol_name_ != fn_linkage_name)
+      if (s.get_symbol_name() != fn_linkage_name)
 	return false;
     }
 
@@ -3015,21 +3012,21 @@ bool
 suppression_matches_variable_name(const suppr::variable_suppression& s,
 				  const string& var_name)
 {
-  if (regex_t_sptr regexp = s.priv_->get_name_regex())
+  if (regex_t_sptr regexp = s.get_name_regex())
     {
       if (!regex::match(regexp, var_name))
 	return false;
     }
-  else if (regex_t_sptr regexp = s.priv_->get_name_not_regex())
+  else if (regex_t_sptr regexp = s.get_name_not_regex())
     {
       if (regex::match(regexp, var_name))
 	return false;
     }
-  else if (s.priv_->name_.empty())
+  else if (s.get_name().empty())
     return false;
-  else // if (!s.priv_->name_.empty())
+  else // if (!s.get_name().empty())
     {
-      if (s.priv_->name_ != var_name)
+      if (s.get_name() != var_name)
 	return false;
     }
 
@@ -3049,22 +3046,21 @@ bool
 suppression_matches_variable_sym_name(const suppr::variable_suppression& s,
 				      const string& var_linkage_name)
 {
-  if (regex_t_sptr regexp = s.priv_->get_symbol_name_regex())
+  if (regex_t_sptr regexp = s.get_symbol_name_regex())
     {
       if (!regex::match(regexp, var_linkage_name))
 	return false;
     }
-  else if (regex_t_sptr regexp =
-	   s.priv_->get_symbol_name_not_regex())
+  else if (regex_t_sptr regexp = s.get_symbol_name_not_regex())
     {
       if (regex::match(regexp, var_linkage_name))
 	return false;
     }
-  else if (s.priv_->symbol_name_.empty())
+  else if (s.get_symbol_name().empty())
     return false;
-  else // if (!s.priv_->symbol_name_.empty())
+  else // if (!s.get_symbol_name().empty())
     {
-      if (s.priv_->symbol_name_ != var_linkage_name)
+      if (s.get_symbol_name() != var_linkage_name)
 	return false;
     }
 
@@ -3084,7 +3080,7 @@ bool
 suppression_matches_type(const suppr::type_suppression& s,
 			 const string& type_name)
 {
-  if (regex_t_sptr regexp = s.priv_->get_type_name_regex())
+  if (regex_t_sptr regexp = s.get_type_name_regex())
     {
       if (!regex::match(regexp, type_name))
 	return false;
@@ -3816,11 +3812,11 @@ variable_suppression::suppresses_variable(const var_decl* var,
       // "name_regex" and "name_not_regex" properties match
       if (get_name().empty())
 	{
-	  const regex_t_sptr name_regex = priv_->get_name_regex();
+	  const regex_t_sptr name_regex = get_name_regex();
 	  if (name_regex && !regex::match(name_regex, var_name))
 	    return false;
 
-	  const regex_t_sptr name_not_regex = priv_->get_name_not_regex();
+	  const regex_t_sptr name_not_regex = get_name_not_regex();
 	  if (name_not_regex && regex::match(name_not_regex, var_name))
 	    return false;
 	}
@@ -3836,12 +3832,11 @@ variable_suppression::suppresses_variable(const var_decl* var,
     }
   else
     {
-      const regex_t_sptr sym_name_regex = priv_->get_symbol_name_regex();
+      const regex_t_sptr sym_name_regex = get_symbol_name_regex();
       if (sym_name_regex && !regex::match(sym_name_regex, var_sym_name))
 	return false;
 
-      const regex_t_sptr sym_name_not_regex =
-	priv_->get_symbol_name_not_regex();
+      const regex_t_sptr sym_name_not_regex = get_symbol_name_not_regex();
       if (sym_name_not_regex && regex::match(sym_name_not_regex, var_sym_name))
 	return false;
     }
@@ -3856,8 +3851,7 @@ variable_suppression::suppresses_variable(const var_decl* var,
     }
   else
     {
-      const regex_t_sptr symbol_version_regex =
-	priv_->get_symbol_version_regex();
+      const regex_t_sptr symbol_version_regex = get_symbol_version_regex();
       if (symbol_version_regex
 	  && !regex::match(symbol_version_regex, var_sym_version))
 	return false;
@@ -3876,7 +3870,7 @@ variable_suppression::suppresses_variable(const var_decl* var,
     {
       if (get_type_name().empty())
 	{
-	  const regex_t_sptr type_name_regex = priv_->get_type_name_regex();
+	  const regex_t_sptr type_name_regex = get_type_name_regex();
 	  if (type_name_regex && !regex::match(type_name_regex, var_type_name))
 	    return false;
 	}
@@ -3967,7 +3961,7 @@ variable_suppression::suppresses_variable_symbol(const elf_symbol* sym,
     }
   else if (get_symbol_name_regex())
     {
-      const regex_t_sptr sym_name_regex = priv_->get_symbol_name_regex();
+      const regex_t_sptr sym_name_regex = get_symbol_name_regex();
       if (sym_name_regex && !regex::match(sym_name_regex, sym_name))
 	return false;
     }
@@ -3982,8 +3976,7 @@ variable_suppression::suppresses_variable_symbol(const elf_symbol* sym,
     }
   else if (get_symbol_version_regex())
     {
-      const regex_t_sptr symbol_version_regex =
-	priv_->get_symbol_version_regex();
+      const regex_t_sptr symbol_version_regex = get_symbol_version_regex();
       if (symbol_version_regex
 	  && !regex::match(symbol_version_regex, sym_version))
 	return false;
@@ -4308,14 +4301,14 @@ file_suppression::suppresses_file(const string& file_path)
 
   bool has_regexp = false;
 
-  if (regex_t_sptr regexp = suppression_base::priv_->get_file_name_regex())
+  if (regex_t_sptr regexp = get_file_name_regex())
     {
       has_regexp = true;
       if (!regex::match(regexp, fname))
 	return false;
     }
 
-  if (regex_t_sptr regexp = suppression_base::priv_->get_file_name_not_regex())
+  if (regex_t_sptr regexp = get_file_name_not_regex())
     {
       has_regexp = true;
       if (regex::match(regexp, fname))
@@ -4479,7 +4472,7 @@ suppression_matches_soname_or_filename(const string& soname,
 				       const suppression_base& suppr)
 {
   return (suppression_matches_soname(soname, suppr)
-	 || suppr.priv_->matches_binary_name(filename));
+	  || suppr.priv_->matches_binary_name(filename));
 }
 
 /// @return the name of the artificial private type suppression
