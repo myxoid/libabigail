@@ -3247,6 +3247,10 @@ bool
 suppression_matches_function_name(const suppr::function_suppression& s,
 				  const string& fn_name)
 {
+  // TODO: Check. This function tests regex before string; most things
+  // do the opposite order. Also, name_not_regex is not checked
+  // independently of name_regex. And the same for the other
+  // suppression_matches_*_name functions.
   if (regex_t_sptr regexp = s.priv_->get_name_regex())
     {
       if (!regex::match(regexp, fn_name))
