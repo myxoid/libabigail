@@ -75,38 +75,6 @@ public:
   {}
 
   friend class suppression_base;
-
-  /// Get the regular expression object associated to the
-  /// 'file_name_regex' property of @ref suppression_base.
-  const regex::regex_t_sptr&
-  get_file_name_regex() const
-  {
-    return file_name_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'file_name_not_regex' property of @ref suppression_base.
-  const regex::regex_t_sptr&
-  get_file_name_not_regex() const
-  {
-    return file_name_not_regex_;
-  }
-
-  /// Get the regular expression object associated to the 'soname_regex'
-  /// property of @ref suppression_base.
-  const regex::regex_t_sptr&
-  get_soname_regex() const
-  {
-    return soname_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'soname_not_regex' property of @ref suppression_base.
-  const regex::regex_t_sptr&
-  get_soname_not_regex() const
-  {
-    return soname_not_regex_;
-  }
 }; // end class suppression_base::priv
 
 // </suppression_base stuff>
@@ -133,15 +101,6 @@ class function_suppression::parameter_spec::priv
   priv(size_t i, const string& tn, const regex::regex_t_sptr& tn_regex)
     : index_(i), type_name_(tn), type_name_regex_(tn_regex)
   {}
-
-  /// Get the regular expression object associated to the
-  /// 'type_name_regex' property of @ref
-  /// function_suppression::parameter_spec.
-  const regex::regex_t_sptr
-  get_type_name_regex() const
-  {
-    return type_name_regex_;
-  }
 }; // end class function_suppression::parameter_spec::priv
 
 
@@ -191,54 +150,6 @@ struct function_suppression::priv
       symbol_version_regex_(symbol_version_regex),
       allow_other_aliases_(true)
   {}
-
-  /// Get the regular expression object associated to the 'name_regex'
-  /// property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_name_regex() const
-  {
-    return name_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'name_not_regex' property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_name_not_regex() const
-  {
-    return name_not_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'return_type_regex' property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_return_type_regex() const
-  {
-    return return_type_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_name_regex' property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_symbol_name_regex() const
-  {
-    return symbol_name_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_name_not_regex' property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_symbol_name_not_regex() const
-  {
-    return symbol_name_not_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_version_regex' property of @ref function_suppression.
-  const regex::regex_t_sptr
-  get_symbol_version_regex() const
-  {
-    return symbol_version_regex_;
-  }
 }; // end class function_suppression::priv
 
 bool
@@ -343,54 +254,6 @@ struct variable_suppression::priv
       type_name_(type_name),
       type_name_regex_(type_name_regex)
   {}
-
-  /// Get the regular expression object associated to the 'name_regex'
-  /// property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_name_regex() const
-  {
-    return name_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'name_not_regex' property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_name_not_regex() const
-  {
-    return name_not_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_name_regex' property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_symbol_name_regex() const
-  {
-    return symbol_name_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_name_not_regex' property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_symbol_name_not_regex() const
-  {
-    return symbol_name_not_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'symbol_version_regex' property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_symbol_version_regex()  const
-  {
-    return symbol_version_regex_;
-  }
-
-  /// Get the regular expression object associated to the
-  /// 'type_name_regex' property of @ref variable_suppression.
-  const regex::regex_t_sptr
-  get_type_name_regex() const
-  {
-    return type_name_regex_;
-  }
 };// end class variable_supppression::priv
 
 template <typename ReadContextType>
@@ -453,51 +316,6 @@ public:
       consider_reach_kind_(consider_reach_kind),
       reach_kind_(reach_kind)
   {}
-
-  /// Get the regular expression object associated to the
-  /// 'type_name_regex' property of @ref type_suppression.
-  const regex::regex_t_sptr
-  get_type_name_regex() const
-  {
-    return type_name_regex_;
-  }
-
-  /// Setter for the type_name_regex object.
-  ///
-  /// @param r the new type_name_regex object.
-  void
-  set_type_name_regex(regex::regex_t_sptr r)
-  {type_name_regex_ = r;}
-
-  /// Get the regular expression object associated to the
-  /// 'type_name_not_regex' property of @ref type_suppression.
-  const regex::regex_t_sptr
-  get_type_name_not_regex() const
-  {
-    return type_name_not_regex_;
-  }
-
-  /// Setter for the type_name_not_regex object.
-  ///
-  /// @param r the new type_name_not_regex object.
-  void
-  set_type_name_not_regex(regex::regex_t_sptr r)
-  {type_name_not_regex_ = r;}
-
-  /// Get the regular expression object associated to the
-  /// 'source_location_to_keep_regex' property of @ref type_suppression.
-  const regex::regex_t_sptr
-  get_source_location_to_keep_regex() const
-  {
-    return source_location_to_keep_regex_;
-  }
-
-  /// Setter for the source_location_to_keep_regex object.
-  ///
-  /// @param r the new regex object.
-  void
-  set_source_location_to_keep_regex(regex::regex_t_sptr r)
-  {source_location_to_keep_regex_ = r;}
 
   friend class type_suppression;
 }; // class type_suppression::priv

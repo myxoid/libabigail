@@ -516,7 +516,7 @@ type_suppression::get_type_name_regex() const
 /// @param r the new regexp string.
 void
 type_suppression::set_type_name_not_regex(const regex_t_sptr& r)
-{priv_->set_type_name_not_regex(r);}
+{priv_->type_name_not_regex_ = r;}
 
 /// Getter for the "type_name_not_regex" property of the type
 /// suppression specification.
