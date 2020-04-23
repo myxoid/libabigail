@@ -102,19 +102,16 @@ public:
   bool
   has_soname_related_property() const;
 
+  bool
+  matches_soname(const std::string& soname) const;
+
+  bool
+  matches_binary_name(const std::string& binary_name) const;
+
   virtual bool
   suppresses_diff(const diff*) const = 0;
 
   virtual ~suppression_base();
-
-  friend bool
-  suppression_matches_soname(const string& soname,
-			     const suppression_base& suppr);
-
-  friend bool
-  suppression_matches_soname_or_filename(const string& soname,
-					 const string& filename,
-					 const suppression_base& suppr);
 }; // end class suppression_base
 
 void
