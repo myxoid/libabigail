@@ -43,22 +43,6 @@ public:
       drops_artifact_()
   {}
 
-  priv(const string& label)
-    : is_artificial_(),
-      drops_artifact_(),
-      label_(label)
-  {}
-
-  priv(const string& label,
-       const regex::regex_t_sptr& file_name_regex,
-       const regex::regex_t_sptr& file_name_not_regex)
-    : is_artificial_(),
-      drops_artifact_(),
-      label_(label),
-      file_name_regex_(file_name_regex),
-      file_name_not_regex_(file_name_not_regex)
-  {}
-
   friend class suppression_base;
 }; // end class suppression_base::priv
 
@@ -74,14 +58,6 @@ class function_suppression::parameter_spec::priv
   size_t				index_;
   string				type_name_;
   regex::regex_t_sptr			type_name_regex_;
-
-  priv()
-    : index_()
-  {}
-
-  priv(size_t i, const string& tn)
-    : index_(i), type_name_(tn)
-  {}
 
   priv(size_t i, const string& tn, const regex::regex_t_sptr& tn_regex)
     : index_(i), type_name_(tn), type_name_regex_(tn_regex)
@@ -112,28 +88,6 @@ struct function_suppression::priv
   priv():
     change_kind_(ALL_CHANGE_KIND),
     allow_other_aliases_(true)
-  {}
-
-  priv(const string&			name,
-       const regex::regex_t_sptr&	name_regex,
-       const string&			return_type_name,
-       const regex::regex_t_sptr&	return_type_regex,
-       const parameter_specs_type&	parm_specs,
-       const string&			symbol_name,
-       const regex::regex_t_sptr&	symbol_name_regex,
-       const string&			symbol_version,
-       const regex::regex_t_sptr&	symbol_version_regex)
-    : change_kind_(ALL_CHANGE_KIND),
-      name_(name),
-      name_regex_(name_regex),
-      return_type_name_(return_type_name),
-      return_type_regex_(return_type_regex),
-      parm_specs_(parm_specs),
-      symbol_name_(symbol_name),
-      symbol_name_regex_(symbol_name_regex),
-      symbol_version_(symbol_version),
-      symbol_version_regex_(symbol_version_regex),
-      allow_other_aliases_(true)
   {}
 }; // end class function_suppression::priv
 
@@ -276,20 +230,6 @@ public:
       type_kind_(CLASS_TYPE_KIND),
       consider_reach_kind_(false),
       reach_kind_(DIRECT_REACH_KIND)
-  {}
-
-  priv(const regex::regex_t_sptr&	type_name_regexp,
-       const string&			type_name,
-       bool				consider_type_kind,
-       type_suppression::type_kind	type_kind,
-       bool				consider_reach_kind,
-       type_suppression::reach_kind	reach_kind)
-    : type_name_regex_(type_name_regexp),
-      type_name_(type_name),
-      consider_type_kind_(consider_type_kind),
-      type_kind_(type_kind),
-      consider_reach_kind_(consider_reach_kind),
-      reach_kind_(reach_kind)
   {}
 
   friend class type_suppression;
