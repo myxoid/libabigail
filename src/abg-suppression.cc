@@ -64,6 +64,31 @@ read(const ini::property_sptr& prop, std::string& result)
   return true;
 }
 
+/// Read and compile a regex from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output compiled regex.
+///
+/// @return whether parsing and compiling were successful.
+static bool
+read(const ini::property_sptr& prop, regex_t_sptr& result)
+{
+  std::string str;
+  if (!read(prop, str))
+    return false;
+  regex_t_sptr regex = regex::compile(str);
+  if (!regex)
+    {
+      // TODO: maybe emit bad regex 'str' error message
+      return false;
+    }
+  result = regex;
+  return true;
+}
+
 // section parsing
 
 /// Check if a section has at least one of the given properties.
@@ -1705,46 +1730,6 @@ read_type_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr file_name_regex_prop =
-    is_simple_property(section.find_property("file_name_regexp"));
-  regex_t_sptr file_name_regex;
-  if (file_name_regex_prop)
-    file_name_regex =
-      regex::compile(file_name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr file_name_not_regex_prop =
-    is_simple_property(section.find_property("file_name_not_regexp"));
-  regex_t_sptr file_name_not_regex;
-  if (file_name_not_regex_prop)
-    file_name_not_regex =
-      regex::compile(file_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_regex_prop =
-    is_simple_property(section.find_property("soname_regexp"));
-  regex_t_sptr soname_regex;
-  if (soname_regex_prop)
-    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_not_regex_prop =
-    is_simple_property(section.find_property("soname_not_regexp"));
-  regex_t_sptr soname_not_regex;
-  if (soname_not_regex_prop)
-    soname_not_regex =
-      regex::compile(soname_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_regex_prop =
-    is_simple_property(section.find_property("name_regexp"));
-  regex_t_sptr name_regex;
-  if (name_regex_prop)
-    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_not_regex_prop =
-    is_simple_property(section.find_property("name_not_regexp"));
-  regex_t_sptr name_not_regex;
-  if (name_not_regex_prop)
-    name_not_regex =
-      regex::compile(name_not_regex_prop->get_value()->as_string());
-
   ini::property_sptr srcloc_not_in_prop =
     section.find_property("source_location_not_in");
   unordered_set<string> srcloc_not_in;
@@ -1766,13 +1751,6 @@ read_type_suppression(const ini::config::section& section,
 	    }
 	}
     }
-
-  ini::simple_property_sptr srcloc_not_regexp_prop =
-    is_simple_property(section.find_property("source_location_not_regexp"));
-  regex_t_sptr srcloc_not_regex;
-  if (srcloc_not_regexp_prop)
-    srcloc_not_regex =
-      regex::compile(srcloc_not_regexp_prop->get_value()->as_string());
 
   // Support has_data_member_inserted_at
   vector<type_suppression::insertion_range_sptr> insert_ranges;
@@ -1968,7 +1946,12 @@ read_type_suppression(const ini::config::section& section,
 	result.set_label(str);
     }
 
-  result.set_type_name_regex(name_regex);
+  if (ini::property_sptr prop = section.find_property("name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_type_name_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("name"))
     {
@@ -2002,26 +1985,50 @@ read_type_suppression(const ini::config::section& section,
   if (consider_data_member_insertion)
     result.set_data_member_insertion_ranges(insert_ranges);
 
-  if (name_not_regex)
-    result.set_type_name_not_regex(name_not_regex);
+  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_type_name_not_regex(regex);
+    }
 
-  if (file_name_regex)
-    result.set_file_name_regex(file_name_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_regex(regex);
+    }
 
-  if (file_name_not_regex)
-    result.set_file_name_not_regex(file_name_not_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_not_regex(regex);
+    }
 
-  if (soname_regex)
-    result.set_soname_regex(soname_regex);
+  if (ini::property_sptr prop = section.find_property("soname_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_regex(regex);
+    }
 
-  if (soname_not_regex)
-    result.set_soname_not_regex(soname_not_regex);
+  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_not_regex(regex);
+    }
 
   if (!srcloc_not_in.empty())
     result.set_source_locations_to_keep(srcloc_not_in);
 
-  if (srcloc_not_regex)
-    result.set_source_location_to_keep_regex(srcloc_not_regex);
+  if (ini::property_sptr prop = section.find_property("source_location_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_source_location_to_keep_regex(regex);
+    }
 
   ini::property_sptr drop_prop = section.find_property("drop_artifact");
   if (!drop_prop)
@@ -2031,9 +2038,9 @@ read_type_suppression(const ini::config::section& section,
       std::string str;
       if (read(drop_prop, str))
 	if ((str == "yes" || str == "true")
-	    && (name_regex
+	    && (result.get_type_name_regex()
 		|| !result.get_type_name().empty()
-		|| srcloc_not_regex
+		|| result.get_source_location_to_keep_regex()
 		|| !result.get_source_locations_to_keep().empty()))
 	  result.set_drops_artifact_from_ir(true);
     }
@@ -3229,74 +3236,6 @@ read_function_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr file_name_regex_prop =
-    is_simple_property(section.find_property("file_name_regexp"));
-  regex_t_sptr file_name_regex;
-  if (file_name_regex_prop)
-    file_name_regex =
-      regex::compile(file_name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr file_name_not_regex_prop =
-    is_simple_property(section.find_property("file_name_not_regexp"));
-  regex_t_sptr file_name_not_regex;
-  if (file_name_not_regex_prop)
-    file_name_not_regex =
-      regex::compile(file_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_regex_prop =
-    is_simple_property(section.find_property("soname_regexp"));
-  regex_t_sptr soname_regex;
-  if (soname_regex_prop)
-    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_not_regex_prop =
-    is_simple_property(section.find_property("soname_not_regexp"));
-  regex_t_sptr soname_not_regex;
-  if (soname_not_regex_prop)
-    soname_not_regex =
-      regex::compile(soname_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_regex_prop =
-    is_simple_property(section.find_property("name_regexp"));
-  regex_t_sptr name_regex;
-  if (name_regex_prop)
-    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_not_regex_prop =
-    is_simple_property(section.find_property("name_not_regexp"));
-  regex_t_sptr name_not_regex;
-  if (name_not_regex_prop)
-    name_not_regex =
-      regex::compile(name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr return_type_regex_prop =
-    is_simple_property(section.find_property("return_type_regexp"));
-  regex_t_sptr return_type_regex;
-  if (return_type_regex_prop)
-    return_type_regex =
-      regex::compile(return_type_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_name_regex_prop =
-    is_simple_property(section.find_property("symbol_name_regexp"));
-  regex_t_sptr sym_name_regex;
-  if (sym_name_regex_prop)
-    sym_name_regex =
-      regex::compile(sym_name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_name_not_regex_prop =
-    is_simple_property(section.find_property("symbol_name_not_regexp"));
-  regex_t_sptr sym_name_not_regex;
-  if (sym_name_not_regex_prop)
-    sym_name_not_regex =
-      regex::compile(sym_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_ver_regex_prop =
-    is_simple_property(section.find_property("symbol_version_regexp"));
-  regex_t_sptr sym_ver_regex;
-  if (sym_ver_regex_prop)
-    sym_ver_regex =
-      regex::compile(sym_ver_regex_prop->get_value()->as_string());
-
   function_suppression::parameter_spec_sptr parm;
   function_suppression::parameter_specs_type parms;
   for (ini::config::properties_type::const_iterator p =
@@ -3328,7 +3267,12 @@ read_function_suppression(const ini::config::section& section,
 	result.set_name(str);
     }
 
-  result.set_name_regex(name_regex);
+  if (ini::property_sptr prop = section.find_property("name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_name_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("return_type_name"))
     {
@@ -3337,7 +3281,12 @@ read_function_suppression(const ini::config::section& section,
 	result.set_return_type_name(str);
     }
 
-  result.set_return_type_regex(return_type_regex);
+  if (ini::property_sptr prop = section.find_property("return_type_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_return_type_regex(regex);
+    }
 
   result.set_parameter_specs(parms);
 
@@ -3348,7 +3297,12 @@ read_function_suppression(const ini::config::section& section,
 	result.set_symbol_name(str);
     }
 
-  result.set_symbol_name_regex(sym_name_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_name_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("symbol_version"))
     {
@@ -3357,7 +3311,12 @@ read_function_suppression(const ini::config::section& section,
 	result.set_symbol_version(str);
     }
 
-  result.set_symbol_version_regex(sym_ver_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_version_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_version_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("change_kind"))
     {
@@ -3375,23 +3334,47 @@ read_function_suppression(const ini::config::section& section,
 	  result.set_allow_other_aliases(str == "yes" || str == "true");
     }
 
-  if (name_not_regex)
-    result.set_name_not_regex(name_not_regex);
+  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_name_not_regex(regex);
+    }
 
-  if (sym_name_not_regex)
-    result.set_symbol_name_not_regex(sym_name_not_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_name_not_regex(regex);
+    }
 
-  if (file_name_regex)
-    result.set_file_name_regex(file_name_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_regex(regex);
+    }
 
-  if (file_name_not_regex)
-    result.set_file_name_not_regex(file_name_not_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_not_regex(regex);
+    }
 
-  if (soname_regex)
-    result.set_soname_regex(soname_regex);
+  if (ini::property_sptr prop = section.find_property("soname_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_regex(regex);
+    }
 
-  if (soname_not_regex)
-    result.set_soname_not_regex(soname_not_regex);
+  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_not_regex(regex);
+    }
 
   ini::property_sptr drop_prop = section.find_property("drop_artifact");
   if (!drop_prop)
@@ -3402,11 +3385,11 @@ read_function_suppression(const ini::config::section& section,
       if (read(drop_prop, str))
 	if ((str == "yes" || str == "true")
 	    && (!result.get_name().empty()
-		|| name_regex
-		|| name_not_regex
+		|| result.get_name_regex()
+		|| result.get_name_not_regex()
 		|| !result.get_symbol_name().empty()
-		|| sym_name_regex
-		|| sym_name_not_regex))
+		|| result.get_symbol_name_regex()
+		|| result.get_symbol_name_not_regex()))
 	  result.set_drops_artifact_from_ir(true);
     }
 
@@ -4062,74 +4045,6 @@ read_variable_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr file_name_regex_prop =
-    is_simple_property(section.find_property("file_name_regexp"));
-  regex_t_sptr file_name_regex;
-  if (file_name_regex_prop)
-    file_name_regex =
-      regex::compile(file_name_regex_prop->get_value()->as_string());
-
- ini::simple_property_sptr file_name_not_regex_prop =
-  is_simple_property(section.find_property("file_name_not_regexp"));
- regex_t_sptr file_name_not_regex;
- if (file_name_not_regex_prop)
-   file_name_not_regex =
-     regex::compile(file_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_regex_prop =
-    is_simple_property(section.find_property("soname_regexp"));
-  regex_t_sptr soname_regex;
-  if (soname_regex_prop)
-    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_not_regex_prop =
-    is_simple_property(section.find_property("soname_not_regexp"));
-  regex_t_sptr soname_not_regex;
-  if (soname_not_regex_prop)
-    soname_not_regex =
-      regex::compile(soname_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_regex_prop =
-    is_simple_property(section.find_property("name_regexp"));
-  regex_t_sptr name_regex;
-  if (name_regex_prop)
-    name_regex = regex::compile(name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr name_not_regex_prop =
-    is_simple_property(section.find_property("name_not_regexp"));
-  regex_t_sptr name_not_regex;
-  if (name_not_regex_prop)
-    name_not_regex =
-      regex::compile(name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_name_regex_prop =
-    is_simple_property(section.find_property("symbol_name_regexp"));
-  regex_t_sptr symbol_name_regex;
-  if (sym_name_regex_prop)
-    symbol_name_regex =
-      regex::compile(sym_name_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_name_not_regex_prop =
-    is_simple_property(section.find_property("symbol_name_not_regexp"));
-  regex_t_sptr symbol_name_not_regex;
-  if (sym_name_not_regex_prop)
-    symbol_name_not_regex =
-      regex::compile(sym_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr sym_version_regex_prop =
-    is_simple_property(section.find_property("symbol_version_regexp"));
-  regex_t_sptr symbol_version_regex;
-  if (sym_version_regex_prop)
-    symbol_version_regex =
-      regex::compile(sym_version_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr type_name_regex_prop =
-    is_simple_property(section.find_property("type_name_regexp"));
-  regex_t_sptr type_name_regex;
-  if (type_name_regex_prop)
-    type_name_regex =
-      regex::compile(type_name_regex_prop->get_value()->as_string());
-
   variable_suppression result;
 
   if (ini::property_sptr prop = section.find_property("label"))
@@ -4146,7 +4061,12 @@ read_variable_suppression(const ini::config::section& section,
 	result.set_name(str);
     }
 
-  result.set_name_regex(name_regex);
+  if (ini::property_sptr prop = section.find_property("name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_name_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("symbol_name"))
     {
@@ -4155,7 +4075,12 @@ read_variable_suppression(const ini::config::section& section,
 	result.set_symbol_name(str);
     }
 
-  result.set_symbol_name_regex(symbol_name_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_name_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("symbol_version"))
     {
@@ -4164,7 +4089,12 @@ read_variable_suppression(const ini::config::section& section,
 	result.set_symbol_version(str);
     }
 
-  result.set_symbol_version_regex(symbol_version_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_version_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_version_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("type_name"))
     {
@@ -4173,13 +4103,26 @@ read_variable_suppression(const ini::config::section& section,
 	result.set_type_name(str);
     }
 
-  result.set_type_name_regex(type_name_regex);
+  if (ini::property_sptr prop = section.find_property("type_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_type_name_regex(regex);
+    }
 
-  if (name_not_regex)
-    result.set_name_not_regex(name_not_regex);
+  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_name_not_regex(regex);
+    }
 
-  if (symbol_name_not_regex)
-    result.set_symbol_name_not_regex(symbol_name_not_regex);
+  if (ini::property_sptr prop = section.find_property("symbol_name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_symbol_name_not_regex(regex);
+    }
 
   if (ini::property_sptr prop = section.find_property("change_kind"))
     {
@@ -4189,17 +4132,33 @@ read_variable_suppression(const ini::config::section& section,
 	  result.set_change_kind(variable_suppression::parse_change_kind(str));
     }
 
-  if (file_name_regex)
-    result.set_file_name_regex(file_name_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_regex(regex);
+    }
 
-  if (file_name_not_regex)
-    result.set_file_name_not_regex(file_name_not_regex);
+  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_not_regex(regex);
+    }
 
-  if (soname_regex)
-    result.set_soname_regex(soname_regex);
+  if (ini::property_sptr prop = section.find_property("soname_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_regex(regex);
+    }
 
-  if (soname_not_regex)
-    result.set_soname_not_regex(soname_not_regex);
+  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_soname_not_regex(regex);
+    }
 
   ini::property_sptr drop_prop = section.find_property("drop_artifact");
   if (!drop_prop)
@@ -4210,11 +4169,11 @@ read_variable_suppression(const ini::config::section& section,
       if (read(drop_prop, str))
 	if ((str == "yes" || str == "true")
 	    && (!result.get_name().empty()
-		|| name_regex
-		|| name_not_regex
+		|| result.get_name_regex()
+		|| result.get_name_not_regex()
 		|| !result.get_symbol_name().empty()
-		|| symbol_name_regex
-		|| symbol_name_not_regex))
+		|| result.get_symbol_name_regex()
+		|| result.get_symbol_name_not_regex()))
 	  result.set_drops_artifact_from_ir(true);
     }
 
@@ -4307,33 +4266,6 @@ read_file_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::simple_property_sptr file_name_regex_prop =
-    is_simple_property(section.find_property("file_name_regexp"));
-  regex_t_sptr file_name_regex;
-  if (file_name_regex_prop)
-    file_name_regex =
-      regex::compile(file_name_regex_prop->get_value()->as_string());
-
- ini::simple_property_sptr file_name_not_regex_prop =
-    is_simple_property(section.find_property("file_name_not_regexp"));
- regex_t_sptr file_name_not_regex;
- if (file_name_not_regex_prop)
-   file_name_not_regex =
-     regex::compile(file_name_not_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_regex_prop =
-    is_simple_property(section.find_property("soname_regexp"));
-  regex_t_sptr soname_regex;
-  if (soname_regex_prop)
-    soname_regex = regex::compile(soname_regex_prop->get_value()->as_string());
-
-  ini::simple_property_sptr soname_not_regex_prop =
-    is_simple_property(section.find_property("soname_not_regexp"));
-  regex_t_sptr soname_not_regex;
-  if (soname_not_regex_prop)
-    soname_not_regex =
-      regex::compile(soname_not_regex_prop->get_value()->as_string());
-
   file_suppression result;
 
   if (ini::property_sptr prop = section.find_property("label"))
@@ -4343,20 +4275,39 @@ read_file_suppression(const ini::config::section& section,
 	result.set_label(str);
     }
 
-  result.set_file_name_regex(file_name_regex);
-  result.set_file_name_not_regex(file_name_not_regex);
-
-  if (soname_regex)
+  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
     {
-      result.set_soname_regex(soname_regex);
-      result.set_drops_artifact_from_ir(true);
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_regex(regex);
     }
 
-  if (soname_not_regex)
+  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
     {
-      result.set_soname_not_regex(soname_not_regex);
-      result.set_drops_artifact_from_ir(true);
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	result.set_file_name_not_regex(regex);
     }
+
+  if (ini::property_sptr prop = section.find_property("soname_regexp"))
+    {
+      regex_t_sptr regex;
+      if (read(prop, regex))
+	{
+	  result.set_soname_regex(regex);
+	  result.set_drops_artifact_from_ir(true);
+	}
+    }
+
+  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
+  {
+    regex_t_sptr regex;
+    if (read(prop, regex))
+      {
+	result.set_soname_not_regex(regex);
+	result.set_drops_artifact_from_ir(true);
+      }
+  }
 
   suppr.reset(new file_suppression(result));
   return true;
