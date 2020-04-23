@@ -253,6 +253,74 @@ suppression_base::has_soname_related_property() const
   return get_soname_regex() || get_soname_not_regex();
 }
 
+/// Test if the current suppression matches a given SONAME.
+///
+/// @param soname the SONAME to consider.
+///
+/// @return true iff the suppression matches the SONAME denoted by
+/// @p soname.
+///
+/// Note that if the suppression contains no property that is
+/// related to SONAMEs, the function returns false.
+bool
+suppression_base::matches_soname(const string& soname) const
+{
+  bool has_regexp = false;
+  if (regex::regex_t_sptr regexp = get_soname_regex())
+    {
+      has_regexp = true;
+      if (!regex::match(regexp, soname))
+	return false;
+    }
+
+  if (regex::regex_t_sptr regexp = get_soname_not_regex())
+    {
+      has_regexp = true;
+      if (regex::match(regexp, soname))
+	return false;
+    }
+
+  if (!has_regexp)
+    return false;
+
+  return true;
+}
+
+/// Test if the current suppression matches the full file path to a
+/// given binary.
+///
+/// @param binary_name the full path to the binary.
+///
+/// @return true iff the suppression matches the path denoted by @p
+/// binary_name.
+///
+/// Note that if the suppression contains no property that is
+/// related to file name, the function returns false.
+bool
+suppression_base::matches_binary_name(const string& binary_name) const
+{
+  bool has_regexp = false;
+
+  if (regex::regex_t_sptr regexp = get_file_name_regex())
+    {
+      has_regexp = true;
+      if (!regex::match(regexp, binary_name))
+	return false;
+    }
+
+  if (regex::regex_t_sptr regexp = get_file_name_not_regex())
+    {
+      has_regexp = true;
+      if (regex::match(regexp, binary_name))
+	return false;
+    }
+
+  if (!has_regexp)
+    return false;
+
+  return true;
+}
+
 /// Check if the SONAMEs of the two binaries being compared match the
 /// content of the properties "soname_regexp" and "soname_not_regexp"
 /// of the current suppression specification.
@@ -306,8 +374,8 @@ names_of_binaries_match(const suppression_base& suppr,
   if (!suppr.has_file_name_related_property())
     return false;
 
-  if (!suppr.priv_->matches_binary_name(first_binary_path)
-      && !suppr.priv_->matches_binary_name(second_binary_path))
+  if (!suppr.matches_binary_name(first_binary_path)
+      && !suppr.matches_binary_name(second_binary_path))
     return false;
 
   return true;
@@ -4331,7 +4399,7 @@ bool
 suppression_matches_soname(const string& soname,
 			   const suppression_base& suppr)
 {
-  return suppr.priv_->matches_soname(soname);
+  return suppr.matches_soname(soname);
 }
 
 /// Test if a given SONAME or file name is matched by a given
@@ -4351,7 +4419,7 @@ suppression_matches_soname_or_filename(const string& soname,
 				       const suppression_base& suppr)
 {
   return (suppression_matches_soname(soname, suppr)
-	  || suppr.priv_->matches_binary_name(filename));
+	  || suppr.matches_binary_name(filename));
 }
 
 /// @return the name of the artificial private type suppression
