@@ -434,7 +434,7 @@ read(const ini::property_sptr& prop, regex_t_sptr& result)
   regex_t_sptr regex = regex::compile(str);
   if (!regex)
     {
-      // TODO: maybe emit bad regex 'str' error message
+      std::cerr << "error: bad regex '" << str << "'\n";
       return false;
     }
   result = regex;
