@@ -47,22 +47,6 @@ public:
       drops_artifact_()
   {}
 
-  priv(const string& label)
-    : is_artificial_(),
-      drops_artifact_(),
-      label_(label)
-  {}
-
-  priv(const string& label,
-       const string& file_name_regex_str,
-       const string& file_name_not_regex_str)
-    : is_artificial_(),
-      drops_artifact_(),
-      label_(label),
-      file_name_regex_str_(file_name_regex_str),
-      file_name_not_regex_str_(file_name_not_regex_str)
-  {}
-
   friend class suppression_base;
 
   /// Get the regular expression object associated to the 'file_name_regex'
@@ -213,14 +197,6 @@ class function_suppression::parameter_spec::priv
   string				type_name_regex_str_;
   mutable regex::regex_t_sptr		type_name_regex_;
 
-  priv()
-    : index_()
-  {}
-
-  priv(size_t i, const string& tn)
-    : index_(i), type_name_(tn)
-  {}
-
   priv(size_t i, const string& tn, const string& tn_regex)
     : index_(i), type_name_(tn), type_name_regex_str_(tn_regex)
   {}
@@ -265,29 +241,6 @@ struct function_suppression::priv
     change_kind_(ALL_CHANGE_KIND),
     allow_other_aliases_(true)
   {}
-
-  priv(const string&			name,
-       const string&			name_regex_str,
-       const string&			return_type_name,
-       const string&			return_type_regex_str,
-       const parameter_specs_type&	parm_specs,
-       const string&			symbol_name,
-       const string&			symbol_name_regex_str,
-       const string&			symbol_version,
-       const string&			symbol_version_regex_str)
-    : change_kind_(ALL_CHANGE_KIND),
-      name_(name),
-      name_regex_str_(name_regex_str),
-      return_type_name_(return_type_name),
-      return_type_regex_str_(return_type_regex_str),
-      parm_specs_(parm_specs),
-      symbol_name_(symbol_name),
-      symbol_name_regex_str_(symbol_name_regex_str),
-      symbol_version_(symbol_version),
-      symbol_version_regex_str_(symbol_version_regex_str),
-      allow_other_aliases_(true)
-  {}
-
 
   /// Getter for a pointer to a regular expression object built from
   /// the regular expression string
@@ -642,20 +595,6 @@ public:
       type_kind_(CLASS_TYPE_KIND),
       consider_reach_kind_(false),
       reach_kind_(DIRECT_REACH_KIND)
-  {}
-
-  priv(const string&			type_name_regexp,
-       const string&			type_name,
-       bool				consider_type_kind,
-       type_suppression::type_kind	type_kind,
-       bool				consider_reach_kind,
-       type_suppression::reach_kind	reach_kind)
-    : type_name_regex_str_(type_name_regexp),
-      type_name_(type_name),
-      consider_type_kind_(consider_type_kind),
-      type_kind_(type_kind),
-      consider_reach_kind_(consider_reach_kind),
-      reach_kind_(reach_kind)
   {}
 
   /// Get the regular expression object associated to the 'type_name_regex'
