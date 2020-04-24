@@ -306,6 +306,35 @@ string_to_type_kind(const std::string& str, type_suppression::type_kind& result)
   return true;
 }
 
+/// Parse the value of the "accessed_through" property in the
+/// "suppress_type" section.
+///
+/// @param str the input string representing the value of the
+/// "accessed_through" property.
+///
+/// @result the @ref type_suppression::reach_kind enumerator parsed.
+///
+/// @return whether the parse was successful.
+static bool
+string_to_reach_kind(const std::string& str,
+		     type_suppression::reach_kind& result)
+{
+  if (str == "direct")
+    result = type_suppression::DIRECT_REACH_KIND;
+  else if (str == "pointer")
+    result = type_suppression::POINTER_REACH_KIND;
+  else if (str == "reference")
+    result = type_suppression::REFERENCE_REACH_KIND;
+  else if (str == "reference-or-pointer")
+    result = type_suppression::REFERENCE_OR_POINTER_REACH_KIND;
+  else
+    {
+      // TODO: maybe emit bad reach kind 'str' message
+      return false;
+    }
+  return true;
+}
+
 // property value parsing
 
 /// Read an offset range from a property value.
@@ -585,6 +614,22 @@ read(const ini::property_sptr& prop, type_suppression::type_kind& result)
 {
   std::string str;
   return read(prop, str) && string_to_type_kind(str, result);
+}
+
+/// Read a reach kind value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output reach kind.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, type_suppression::reach_kind& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_reach_kind(str, result);
 }
 
 // section parsing
@@ -1060,27 +1105,11 @@ type_suppression::type_kind
 type_suppression::get_type_kind() const
 {return priv_->type_kind_;}
 
-/// Test if the current type suppression specification
-/// suggests to consider how the matching diff node is reached.
-///
-/// @return true if the current type suppression specification
-/// suggests to consider how the matching diff node is reached.
-bool
-type_suppression::get_consider_reach_kind() const
-{return priv_->consider_reach_kind_;}
-
-/// Set a flag saying if the current type suppression specification
-/// suggests to consider how the matching diff node is reached.
-///
-/// @param f the new value of the flag.  It's true iff the current
-/// type suppression specification suggests to consider how the
-/// matching diff node is reached.
-void
-type_suppression::set_consider_reach_kind(bool f)
-{priv_->consider_reach_kind_ = f;}
-
 /// Getter of the way the diff node matching the current suppression
 /// specification is to be reached.
+///
+/// UNSPECIFIED_REACH_KIND means no reach kind suppression filtering will
+/// happen.
 ///
 /// @return the way the diff node matching the current suppression
 /// specification is to be reached.
@@ -1090,6 +1119,9 @@ type_suppression::get_reach_kind() const
 
 /// Setter of the way the diff node matching the current suppression
 /// specification is to be reached.
+///
+/// UNSPECIFIED_REACH_KIND means no reach kind suppression filtering will
+/// happen.
 ///
 /// @param p the way the diff node matching the current suppression
 /// specification is to be reached.
@@ -1258,7 +1290,7 @@ type_suppression::suppresses_diff(const diff* diff) const
 
   // If the suppression should consider the way the diff node has been
   // reached, then do it now.
-  if (get_consider_reach_kind())
+  if (get_reach_kind() != UNSPECIFIED_REACH_KIND)
     {
       if (get_reach_kind() == POINTER_REACH_KIND)
 	{
@@ -2022,28 +2054,6 @@ is_type_suppression(suppression_sptr suppr)
 
 // </type_suppression stuff>
 
-/// Parse the value of the "accessed_through" property in the
-/// "suppress_type" section.
-///
-/// @param input the input string representing the value of the
-/// "accessed_through" property.
-///
-/// @return the @ref type_suppression::reach_kind enumerator parsed.
-static type_suppression::reach_kind
-read_suppression_reach_kind(const string& input)
-{
-  if (input == "direct")
-    return type_suppression::DIRECT_REACH_KIND;
-  else if (input == "pointer")
-    return type_suppression::POINTER_REACH_KIND;
-  else if (input == "reference")
-    return type_suppression::REFERENCE_REACH_KIND;
-  else if (input == "reference-or-pointer")
-    return type_suppression::REFERENCE_OR_POINTER_REACH_KIND;
-  else
-    return type_suppression::DIRECT_REACH_KIND;
-}
-
 /// Read a type suppression from an instance of ini::config::section
 /// and build a @ref type_suppression as a result.
 ///
@@ -2105,13 +2115,9 @@ read_type_suppression(const ini::config::section& section,
 
   if (ini::property_sptr prop = section.find_property("accessed_through"))
     {
-      std::string str;
-      if (read(prop, str))
-	{
-	  type_suppression::reach_kind kind = read_suppression_reach_kind(str);
-	  result.set_consider_reach_kind(true);
-	  result.set_reach_kind(kind);
-	}
+      type_suppression::reach_kind kind;
+      if (read(prop, kind))
+	result.set_reach_kind(kind);
     }
 
   // Support has_data_member_inserted_at which has the form:
