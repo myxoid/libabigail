@@ -393,7 +393,6 @@ public:
   /// to.
   enum change_kind
   {
-    UNDEFINED_CHANGE_KIND,
     /// A change in a sub-type of the function.
     FUNCTION_SUBTYPE_CHANGE_KIND = 1,
     /// The function was added to the second subject of the diff.
@@ -411,9 +410,6 @@ public:
   function_suppression();
 
   virtual ~function_suppression();
-
-  static change_kind
-  parse_change_kind(const string&);
 
   change_kind
   get_change_kind() const;
@@ -590,7 +586,6 @@ public:
   /// to.
   enum change_kind
   {
-    UNDEFINED_CHANGE_KIND,
     /// A change in a sub-type of the variable.
     VARIABLE_SUBTYPE_CHANGE_KIND = 1,
     /// The variable was added to the second second subject of the
@@ -615,9 +610,6 @@ public:
   variable_suppression();
 
   virtual ~variable_suppression();
-
-  static change_kind
-  parse_change_kind(const string&);
 
   change_kind
   get_change_kind() const;

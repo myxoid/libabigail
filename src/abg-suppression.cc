@@ -85,6 +85,63 @@ string_to_boolean(const std::string& str, bool& result)
   return false;
 }
 
+/// Parses a string containing the content of the "change-kind"
+/// property into @ref function_suppression::change_kind.
+///
+/// @param str the string to parse.
+///
+/// @param result the resulting @ref
+/// function_suppression::change_kind.
+///
+/// @return whether the parse was successful.
+bool
+string_to_function_change_kind(const std::string& str,
+			       function_suppression::change_kind& result)
+{
+  if (str == "function-subtype-change")
+    result = function_suppression::FUNCTION_SUBTYPE_CHANGE_KIND;
+  else if (str == "added-function")
+    result = function_suppression::ADDED_FUNCTION_CHANGE_KIND;
+  else if (str == "deleted-function")
+    result = function_suppression::DELETED_FUNCTION_CHANGE_KIND;
+  else if (str == "all")
+    result = function_suppression::ALL_CHANGE_KIND;
+  else
+    {
+      // TODO: maybe emit bad function change kind 'str' message
+      return false;
+    }
+  return true;
+}
+
+/// Parses a string containing the content of the "change-kind"
+/// property into @ref variable_suppression::change_kind.
+///
+/// @param str the string to parse.
+///
+/// @param result the resulting @ref variable_suppression::change_kind.
+///
+/// @return whether the parse was successful.
+bool
+string_to_variable_change_kind(const std::string& str,
+			       variable_suppression::change_kind& result)
+{
+  if (str == "variable-subtype-change")
+    result = variable_suppression::VARIABLE_SUBTYPE_CHANGE_KIND;
+  else if (str == "added-variable")
+    result = variable_suppression::ADDED_VARIABLE_CHANGE_KIND;
+  else if (str == "deleted-variable")
+    result = variable_suppression::DELETED_VARIABLE_CHANGE_KIND;
+  else if (str == "all")
+    result = variable_suppression::ALL_CHANGE_KIND;
+  else
+    {
+      // TODO: maybe emit bad variable change kind 'str' message
+      return false;
+    }
+  return true;
+}
+
 /// Parse an offset expression.
 ///
 /// @param str the input string representing the offset expression.
@@ -230,6 +287,38 @@ read(const ini::property_sptr& prop, bool& result)
 {
   std::string str;
   return read(prop, str) && string_to_boolean(str, result);
+}
+
+/// Read a function change kind value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output function change kind.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, function_suppression::change_kind& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_function_change_kind(str, result);
+}
+
+/// Read a variable change kind value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output variable change kind.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, variable_suppression::change_kind& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_variable_change_kind(str, result);
 }
 
 /// Read an offset value from a property.
@@ -2212,28 +2301,6 @@ function_suppression::function_suppression()
 function_suppression::~function_suppression()
 {}
 
-/// Parses a string containing the content of the "change-kind"
-/// property and returns the an instance of @ref
-/// function_suppression::change_kind as a result.
-///
-/// @param s the string to parse.
-///
-/// @return the resulting @ref function_suppression::change_kind.
-function_suppression::change_kind
-function_suppression::parse_change_kind(const string& s)
-{
-  if (s == "function-subtype-change")
-    return FUNCTION_SUBTYPE_CHANGE_KIND;
-  else if (s == "added-function")
-    return ADDED_FUNCTION_CHANGE_KIND;
-  else if (s == "deleted-function")
-    return DELETED_FUNCTION_CHANGE_KIND;
-  else if (s == "all")
-    return ALL_CHANGE_KIND;
-  else
-    return UNDEFINED_CHANGE_KIND;
-}
-
 /// Getter of the "change-kind" property.
 ///
 /// @param returnthe "change-kind" property.
@@ -2907,7 +2974,7 @@ function_suppression::suppresses_function_symbol(const elf_symbol* sym,
     return false;
 
   ABG_ASSERT(k & function_suppression::ADDED_FUNCTION_CHANGE_KIND
-	 || k & function_suppression::DELETED_FUNCTION_CHANGE_KIND);
+	     || k & function_suppression::DELETED_FUNCTION_CHANGE_KIND);
 
   // Check if the name and soname of the binaries match the current
   // suppr spect
@@ -3386,10 +3453,9 @@ read_function_suppression(const ini::config::section& section,
 
   if (ini::property_sptr prop = section.find_property("change_kind"))
     {
-      std::string str;
-      if (read(prop, str))
-	if (!str.empty())
-	  result.set_change_kind(function_suppression::parse_change_kind(str));
+      function_suppression::change_kind ck;
+      if (read(prop, ck))
+	result.set_change_kind(ck);
     }
 
   if (ini::property_sptr prop = section.find_property("allow_other_aliases"))
@@ -3485,29 +3551,7 @@ variable_suppression::variable_suppression()
 variable_suppression::~variable_suppression()
 {}
 
-/// Parses a string containing the content of the "change-kind"
-/// property and returns the an instance of @ref
-/// variable_suppression::change_kind as a result.
-///
-/// @param s the string to parse.
-///
-/// @return the resulting @ref variable_suppression::change_kind.
-variable_suppression::change_kind
-variable_suppression::parse_change_kind(const string& s)
-{
-  if (s == "variable-subtype-change")
-    return VARIABLE_SUBTYPE_CHANGE_KIND;
-  else if (s == "added-variable")
-    return ADDED_VARIABLE_CHANGE_KIND;
-  else if (s == "deleted-variable")
-    return DELETED_VARIABLE_CHANGE_KIND;
-  else if (s == "all")
-    return ALL_CHANGE_KIND;
-  else
-    return UNDEFINED_CHANGE_KIND;
-}
-
-/// Getter of the "change_king" property.
+/// Getter of the "change_kind" property.
 ///
 /// @return the value of the "change_kind" property.
 variable_suppression::change_kind
@@ -3956,7 +4000,7 @@ variable_suppression::suppresses_variable_symbol(const elf_symbol* sym,
     return false;
 
   ABG_ASSERT(k & ADDED_VARIABLE_CHANGE_KIND
-	 || k & DELETED_VARIABLE_CHANGE_KIND);
+	     || k & DELETED_VARIABLE_CHANGE_KIND);
 
   // Check if the name and soname of the binaries match the current
   // suppr spec.
@@ -4196,10 +4240,9 @@ read_variable_suppression(const ini::config::section& section,
 
   if (ini::property_sptr prop = section.find_property("change_kind"))
     {
-      std::string str;
-      if (read(prop, str))
-	if (!str.empty())
-	  result.set_change_kind(variable_suppression::parse_change_kind(str));
+      variable_suppression::change_kind ck;
+      if (read(prop, ck))
+	result.set_change_kind(ck);
     }
 
   if (ini::property_sptr prop = section.find_property("file_name_regexp"))
