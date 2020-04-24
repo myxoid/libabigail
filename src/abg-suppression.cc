@@ -311,7 +311,7 @@ string_to_type_kind(const std::string& str, type_suppression::type_kind& result)
     result = type_suppression::BUILTIN_TYPE_KIND;
   else
     {
-      // TODO: maybe emit bad type kind 'str' message
+      std::cerr << "warning: bad type kind '" << str << "'\n";
       return false;
     }
   return true;
