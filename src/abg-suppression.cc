@@ -340,7 +340,7 @@ string_to_reach_kind(const std::string& str,
     result = type_suppression::REFERENCE_OR_POINTER_REACH_KIND;
   else
     {
-      // TODO: maybe emit bad reach kind 'str' message
+      std::cerr << "warning: bad reach kind '" << str << "'\n";
       return false;
     }
   return true;
