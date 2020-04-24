@@ -136,7 +136,7 @@ public:
   /// be about.
   enum type_kind
   {
-    UNKNOWN_TYPE_KIND,
+    UNSPECIFIED_TYPE_KIND,
     CLASS_TYPE_KIND,
     STRUCT_TYPE_KIND,
     UNION_TYPE_KIND,
@@ -198,12 +198,6 @@ public:
 
   const string&
   get_type_name() const;
-
-  bool
-  get_consider_type_kind() const;
-
-  void
-  set_consider_type_kind(bool f);
 
   void
   set_type_kind(type_kind k);
