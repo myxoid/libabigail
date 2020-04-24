@@ -115,7 +115,7 @@ string_to_function_change_kind(const std::string& str,
     result = function_suppression::ALL_CHANGE_KIND;
   else
     {
-      // TODO: maybe emit bad function change kind 'str' message
+      std::cerr << "warning: bad function change kind '" << str <<  "'\n";
       return false;
     }
   return true;
@@ -143,7 +143,7 @@ string_to_variable_change_kind(const std::string& str,
     result = variable_suppression::ALL_CHANGE_KIND;
   else
     {
-      // TODO: maybe emit bad variable change kind 'str' message
+      std::cerr << "warning: bad variable change kind '" << str <<  "'\n";
       return false;
     }
   return true;
