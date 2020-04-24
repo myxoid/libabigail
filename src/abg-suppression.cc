@@ -47,8 +47,8 @@ using regex::regex_t_sptr;
 //
 // .ini format parsing - responsibility of ini::config
 //
-// string parsing helpers - analogous to operator>>; concerns: value
-// format
+// parsing of strings - done by string_to_foo functions,
+// analogously to operator>>; concerns: value format
 //
 // parsing of (untyped) properties to meaningful types - done in a
 // type-driven fashion by (overloaded) read functions; concerns:
@@ -57,6 +57,33 @@ using regex::regex_t_sptr;
 // field look-up within a section - currently done procedurally by the
 // read_foo_suppression functions but could be table-driven; concerns:
 // field presence / absence, optionality, multiplicity etc.
+
+// string parsing
+
+/// Parse a boolean value.
+///
+/// @param str the input string representing the value of the
+/// boolean.
+///
+/// @param result the parsed boolean value.
+///
+/// @return whether the parse was successful.
+static bool
+string_to_boolean(const std::string& str, bool& result)
+{
+  if (str == "yes" || str == "true")
+  {
+    result = true;
+    return true;
+  }
+  if (str == "no" || str == "false")
+  {
+    result = false;
+    return true;
+  }
+  // TODO: maybe emit bad boolean 'str' error message
+  return false;
+}
 
 // property parsing
 
@@ -105,6 +132,22 @@ read(const ini::property_sptr& prop, regex_t_sptr& result)
     }
   result = regex;
   return true;
+}
+
+/// Read a boolean value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output boolean.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, bool& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_boolean(str, result);
 }
 
 // section parsing
@@ -1987,13 +2030,12 @@ read_type_suppression(const ini::config::section& section,
     drop_prop = section.find_property("drop");
   if (drop_prop)
     {
-      std::string str;
-      if (read(drop_prop, str))
-	if ((str == "yes" || str == "true")
-	    && (result.get_type_name_regex()
-		|| !result.get_type_name().empty()
-		|| result.get_source_location_to_keep_regex()
-		|| !result.get_source_locations_to_keep().empty()))
+      bool b;
+      if (read(drop_prop, b))
+	if (b && (result.get_type_name_regex()
+		  || !result.get_type_name().empty()
+		  || result.get_source_location_to_keep_regex()
+		  || !result.get_source_locations_to_keep().empty()))
 	  result.set_drops_artifact_from_ir(true);
     }
 
@@ -3280,10 +3322,9 @@ read_function_suppression(const ini::config::section& section,
 
   if (ini::property_sptr prop = section.find_property("allow_other_aliases"))
     {
-      std::string str;
-      if (read(prop, str))
-	if (!str.empty())
-	  result.set_allow_other_aliases(str == "yes" || str == "true");
+      bool b;
+      if (read(prop, b))
+	result.set_allow_other_aliases(b);
     }
 
   if (ini::property_sptr prop = section.find_property("name_not_regexp"))
@@ -3333,15 +3374,14 @@ read_function_suppression(const ini::config::section& section,
     drop_prop = section.find_property("drop");
   if (drop_prop)
     {
-      std::string str;
-      if (read(drop_prop, str))
-	if ((str == "yes" || str == "true")
-	    && (!result.get_name().empty()
-		|| result.get_name_regex()
-		|| result.get_name_not_regex()
-		|| !result.get_symbol_name().empty()
-		|| result.get_symbol_name_regex()
-		|| result.get_symbol_name_not_regex()))
+      bool b;
+      if (read(drop_prop, b))
+	if (b && (!result.get_name().empty()
+		  || result.get_name_regex()
+		  || result.get_name_not_regex()
+		  || !result.get_symbol_name().empty()
+		  || result.get_symbol_name_regex()
+		  || result.get_symbol_name_not_regex()))
 	  result.set_drops_artifact_from_ir(true);
     }
 
@@ -4117,15 +4157,14 @@ read_variable_suppression(const ini::config::section& section,
     drop_prop = section.find_property("drop");
   if (drop_prop)
     {
-      std::string str;
-      if (read(drop_prop, str))
-	if ((str == "yes" || str == "true")
-	    && (!result.get_name().empty()
-		|| result.get_name_regex()
-		|| result.get_name_not_regex()
-		|| !result.get_symbol_name().empty()
-		|| result.get_symbol_name_regex()
-		|| result.get_symbol_name_not_regex()))
+      bool b;
+      if (read(drop_prop, b))
+	if (b && (!result.get_name().empty()
+		  || result.get_name_regex()
+		  || result.get_name_not_regex()
+		  || !result.get_symbol_name().empty()
+		  || result.get_symbol_name_regex()
+		  || result.get_symbol_name_not_regex()))
 	  result.set_drops_artifact_from_ir(true);
     }
 
