@@ -88,7 +88,7 @@ string_to_boolean(const std::string& str, bool& result)
     result = false;
     return true;
   }
-  // TODO: maybe emit bad boolean 'str' error message
+  std::cerr << "error: bad boolean '" << str << "'\n";
   return false;
 }
 
