@@ -216,7 +216,6 @@ class type_suppression::priv
   string				type_name_;
   regex::regex_t_sptr			type_name_not_regex_;
   type_suppression::type_kind		type_kind_;
-  bool					consider_reach_kind_;
   type_suppression::reach_kind		reach_kind_;
   type_suppression::offset_ranges	insertion_ranges_;
   unordered_set<string>			source_locations_to_keep_;
@@ -226,8 +225,7 @@ class type_suppression::priv
 public:
   priv()
     : type_kind_(UNSPECIFIED_TYPE_KIND),
-      consider_reach_kind_(false),
-      reach_kind_(DIRECT_REACH_KIND)
+      reach_kind_(UNSPECIFIED_REACH_KIND)
   {}
 
   friend class type_suppression;
