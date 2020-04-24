@@ -166,6 +166,10 @@ public:
     REFERENCE_OR_POINTER_REACH_KIND
   }; // end enum reach_kind
 
+  class offset;
+  /// Convenience typedef for a shared_ptr to @ref offset
+  typedef shared_ptr<offset> offset_sptr;
+
   class offset_range;
   /// A convenience typedef for a shared pointer to @ref
   /// offset_range.
@@ -267,6 +271,65 @@ public:
 type_suppression_sptr
 is_type_suppression(const suppression_sptr);
 
+/// The abstraction of an offset at which a member of a type might get
+/// inserted, in the context of a @ref type_suppression
+class type_suppression::offset
+{
+public:
+  virtual ~offset();
+
+  virtual bool
+  eval(class_decl_sptr context, ssize_t& value) const = 0;
+
+  class integer_offset;
+  class fn_call_expr_offset;
+
+  static offset_sptr
+  create_integer_offset(int value);
+
+  static offset_sptr
+  create_fn_call_expr_offset(ini::function_call_expr_sptr);
+
+  static offset_sptr
+  create_fn_call_expr_offset(const string&);
+};
+
+/// An @ref offset that is expressed as an integer value.
+/// That integer value is usually a bit offset.
+class type_suppression::offset::integer_offset
+  : public type_suppression::offset
+{
+  struct priv;
+  typedef shared_ptr<priv> priv_sptr;
+
+  priv_sptr priv_;
+
+  virtual bool
+  eval(class_decl_sptr context, ssize_t& value) const;
+
+public:
+  explicit integer_offset(int value);
+  ~integer_offset();
+}; //end class type_suppression::offset::integer_offset
+
+/// An @ref offset that is expressed as function call expression.  The
+/// (integer) value of that expression is usually a bit offset.
+class type_suppression::offset::fn_call_expr_offset
+  : public type_suppression::offset
+{
+  struct priv;
+  typedef shared_ptr<priv> priv_sptr;
+
+  priv_sptr priv_;
+
+  virtual bool
+  eval(class_decl_sptr context, ssize_t& value) const;
+
+public:
+  explicit fn_call_expr_offset(ini::function_call_expr_sptr expr);
+  ~fn_call_expr_offset();
+}; //end class type_suppression::offset::fn_call_expr_offset
+
 /// The abstraction of a range of offsets in which a member of a type
 /// might get inserted.
 class type_suppression::offset_range
@@ -275,21 +338,6 @@ class type_suppression::offset_range
   std::unique_ptr<priv> priv_;
 
 public:
-
-  class offset;
-  class integer_offset;
-  class fn_call_expr_offset;
-
-  /// Convenience typedef for a shared_ptr to @ref offset
-  typedef shared_ptr<offset> offset_sptr;
-
-  /// Convenience typedef for a shared_ptr to a @ref integer_offset
-  typedef shared_ptr<integer_offset> integer_offset_sptr;
-
-  /// Convenience typedef for a shared_ptr to a @ref
-  /// fn_call_expr_offset
-  typedef shared_ptr<fn_call_expr_offset> fn_call_expr_offset_sptr;
-
   offset_range();
 
   offset_range(offset_sptr begin, offset_sptr end);
@@ -297,79 +345,12 @@ public:
   offset_sptr
   begin() const;
 
- offset_sptr
+  offset_sptr
   end() const;
-
-  static offset_range::integer_offset_sptr
-  create_integer_offset(int value);
-
-  static offset_range::fn_call_expr_offset_sptr
-  create_fn_call_expr_offset(ini::function_call_expr_sptr);
-
-  static offset_range::fn_call_expr_offset_sptr
-  create_fn_call_expr_offset(const string&);
-
-  static bool
-  eval_boundary(offset_sptr	offset,
-		class_decl_sptr	context,
-		uint64_t&	value);
 
   static bool
   boundary_value_is_end(uint64_t value);
 }; // end class offset_range
-
-type_suppression::offset_range::integer_offset_sptr
-is_integer_offset(type_suppression::offset_range::offset_sptr);
-
-type_suppression::offset_range::fn_call_expr_offset_sptr
-is_fn_call_expr_offset(type_suppression::offset_range::offset_sptr);
-
-/// The abstraction of the offset of an @ref offset_range, in the
-/// context of a @ref type_suppression
-class type_suppression::offset_range::offset
-{
-  struct priv;
-  std::unique_ptr<priv> priv_;
-
-public:
-  offset();
-  virtual ~offset();
-};// end class type_suppression::offset_range::offset
-
-/// An @ref offset_range offset that is expressed as an integer
-/// value.  That integer value is usually a bit offset.
-class type_suppression::offset_range::integer_offset
-  : public type_suppression::offset_range::offset
-{
-  struct priv;
-  std::unique_ptr<priv> priv_;
-
-  integer_offset();
-
-public:
-  integer_offset(uint64_t value);
-  uint64_t as_integer() const;
-  operator uint64_t () const;
-  ~integer_offset();
-}; //end class type_suppression::offset_range::integer_offset
-
-/// An @ref offset_range offset that is expressed as function
-/// call expression.  The (integer) value of that expression is
-/// usually a bit offset.
-class type_suppression::offset_range::fn_call_expr_offset
-  : public type_suppression::offset_range::offset
-{
-  struct priv;
-  std::unique_ptr<priv> priv_;
-
-  fn_call_expr_offset();
-
-public:
-  fn_call_expr_offset(ini::function_call_expr_sptr expr);
-  ini::function_call_expr_sptr as_function_call_expr() const;
-  operator ini::function_call_expr_sptr () const;
-  ~fn_call_expr_offset();
-}; //end class type_suppression::offset_range::fn_call_expr_offset
 
 class function_suppression;
 
