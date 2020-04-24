@@ -149,9 +149,13 @@ public:
   /// The different ways through which the type diff has been reached.
   enum reach_kind
   {
+    /// The type diff has been reached in an unspecified manner. This
+    /// means "all reach kinds" or "don't filter by reach kind".
+    UNSPECIFIED_REACH_KIND = 0,
+
     /// The type diff has been reached (from a function or variable
     /// change) directly.
-    DIRECT_REACH_KIND = 0,
+    DIRECT_REACH_KIND,
 
     /// The type diff has been reached (from a function or variable
     /// change) through a pointer.
@@ -204,12 +208,6 @@ public:
 
   type_kind
   get_type_kind() const;
-
-  bool
-  get_consider_reach_kind() const;
-
-  void
-  set_consider_reach_kind(bool f);
 
   reach_kind
   get_reach_kind() const;
