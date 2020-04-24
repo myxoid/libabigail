@@ -358,17 +358,25 @@ static void
 read_suppressions(const ini::config& config,
 		  suppressions_type& suppressions)
 {
-  suppression_sptr s;
   for (ini::config::sections_type::const_iterator i =
 	 config.get_sections().begin();
        i != config.get_sections().end();
        ++i)
-    if ((s = read_type_suppression(**i))
-	|| (s = read_function_suppression(**i))
-	|| (s = read_variable_suppression(**i))
-	|| (s = read_file_suppression(**i)))
-      suppressions.push_back(s);
-
+    {
+      const ini::config::section_sptr& section = *i;
+      const std::string& name = section->get_name();
+      suppression_sptr s;
+      if (name == "suppress_type")
+	s = read_type_suppression(*section);
+      else if (name == "suppress_function")
+	s = read_function_suppression(*section);
+      else if (name == "suppress_variable")
+	s = read_variable_suppression(*section);
+      else if (name == "suppress_file")
+	s = read_file_suppression(*section);
+      if (s)
+	suppressions.push_back(s);
+    }
 }
 
 /// Read suppressions specifications from an input stream.
@@ -1595,9 +1603,6 @@ static type_suppression_sptr
 read_type_suppression(const ini::config::section& section)
 {
   type_suppression_sptr result;
-
-  if (section.get_name() != "suppress_type")
-    return result;
 
   static const char *const sufficient_props[] = {
     "file_name_regexp",
@@ -3185,9 +3190,6 @@ read_function_suppression(const ini::config::section& section)
 {
   function_suppression_sptr result;
 
-  if (section.get_name() != "suppress_function")
-    return result;
-
   static const char *const sufficient_props[] = {
     "label",
     "file_name_regexp",
@@ -4065,9 +4067,6 @@ read_variable_suppression(const ini::config::section& section)
 {
   variable_suppression_sptr result;
 
-  if (section.get_name() != "suppress_variable")
-    return result;
-
   static const char *const sufficient_props[] = {
     "label",
     "file_name_regexp",
@@ -4329,9 +4328,6 @@ static file_suppression_sptr
 read_file_suppression(const ini::config::section& section)
 {
   file_suppression_sptr result;
-
-  if (section.get_name() != "suppress_file")
-    return result;
 
   static const char *const sufficient_props[] = {
     "file_name_regexp",
