@@ -579,7 +579,6 @@ class type_suppression::priv
   string				type_name_;
   string				type_name_not_regex_str_;
   mutable regex::regex_t_sptr		type_name_not_regex_;
-  bool					consider_type_kind_;
   type_suppression::type_kind		type_kind_;
   bool					consider_reach_kind_;
   type_suppression::reach_kind		reach_kind_;
@@ -591,8 +590,7 @@ class type_suppression::priv
 
 public:
   priv()
-    : consider_type_kind_(false),
-      type_kind_(CLASS_TYPE_KIND),
+    : type_kind_(UNSPECIFIED_TYPE_KIND),
       consider_reach_kind_(false),
       reach_kind_(DIRECT_REACH_KIND)
   {}

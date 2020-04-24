@@ -272,6 +272,40 @@ string_to_offset(const std::string& str, type_suppression::offset_sptr& result)
   return false;
 }
 
+/// Parse the value of the "type_kind" property in the "suppress_type"
+/// section.
+///
+/// @param str the input string representing the value of the
+/// "type_kind" property.
+///
+/// @param result the @ref type_kind enumerator parsed.
+///
+/// @return whether the parse was successful.
+static bool
+string_to_type_kind(const std::string& str, type_suppression::type_kind& result)
+{
+  if (str == "class")
+    result = type_suppression::CLASS_TYPE_KIND;
+  else if (str == "struct")
+    result = type_suppression::STRUCT_TYPE_KIND;
+  else if (str == "union")
+    result = type_suppression::UNION_TYPE_KIND;
+  else if (str == "enum")
+    result = type_suppression::ENUM_TYPE_KIND;
+  else if (str == "array")
+    result = type_suppression::ARRAY_TYPE_KIND;
+  else if (str == "typedef")
+    result = type_suppression::TYPEDEF_TYPE_KIND;
+  else if (str == "builtin")
+    result = type_suppression::BUILTIN_TYPE_KIND;
+  else
+    {
+      // TODO: maybe emit bad type kind 'str' message
+      return false;
+    }
+  return true;
+}
+
 // property value parsing
 
 /// Read an offset range from a property value.
@@ -535,6 +569,22 @@ static bool
 read(const ini::property_sptr& prop, std::unordered_set<std::string>& result)
 {
   return read(prop, std::inserter(result, result.end()));
+}
+
+/// Read a type kind value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output type kind.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, type_suppression::type_kind& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_type_kind(str, result);
 }
 
 // section parsing
@@ -990,27 +1040,10 @@ const string&
 type_suppression::get_type_name() const
 {return priv_->type_name_;}
 
-/// Getter of the property that says whether to consider the kind of
-/// type this suppression is about.
-///
-/// @return the boolean value of the property.
-bool
-type_suppression::get_consider_type_kind() const
-{return priv_->consider_type_kind_;}
-
-/// Setter of the property that says whether to consider the kind of
-/// type this suppression is about.
-///
-/// @param f the new boolean value of the property.
-void
-type_suppression::set_consider_type_kind(bool f)
-{priv_->consider_type_kind_ = f;}
-
 /// Setter of the kind of type this suppression is about.
 ///
-/// Note that this will be considered during evaluation of the
-/// suppression only if type_suppression::get_consider_type_kind()
-/// returns true.
+/// UNSPECIFIED_TYPE_KIND means no type kind suppression filtering will
+/// happen.
 ///
 /// @param k the new kind of type this suppression is about.
 void
@@ -1019,9 +1052,8 @@ type_suppression::set_type_kind(type_kind k)
 
 /// Getter of the kind of type this suppression is about.
 ///
-/// Note that this will be considered during evaluation of the
-/// suppression only if type_suppression::get_consider_type_kind()
-/// returns true.
+/// UNSPECIFIED_TYPE_KIND means no type kind suppression filtering will
+/// happen.
 ///
 /// @return the kind of type this suppression is about.
 type_suppression::type_kind
@@ -1466,51 +1498,48 @@ static bool
 suppression_matches_type_no_name(const type_suppression&	 s,
 				 const type_base_sptr		&type)
 {
-  // If the suppression should consider type kind then, well, check
-  // for that.
-  if (s.get_consider_type_kind())
+  type_suppression::type_kind tk = s.get_type_kind();
+  bool matches = true;
+  switch (tk)
     {
-      type_suppression::type_kind tk = s.get_type_kind();
-      bool matches = true;
-      switch (tk)
-	{
-	case type_suppression::UNKNOWN_TYPE_KIND:
-	case type_suppression::CLASS_TYPE_KIND:
-	  if (!is_class_type(type))
-	    matches = false;
-	  break;
-	case type_suppression::STRUCT_TYPE_KIND:
-	  {
-	    class_decl_sptr klass = is_class_type(type);
-	    if (!klass || !klass->is_struct())
-	      matches = false;
-	  }
-	  break;
-	case type_suppression::UNION_TYPE_KIND:
-	  if (!is_union_type(type))
-	    matches = false;
-	  break;
-	case type_suppression::ENUM_TYPE_KIND:
-	  if (!is_enum_type(type))
-	    matches = false;
-	  break;
-	case type_suppression::ARRAY_TYPE_KIND:
-	  if (!is_array_type(type))
-	    matches = false;
-	  break;
-	case type_suppression::TYPEDEF_TYPE_KIND:
-	  if (!is_typedef(type))
-	    matches = false;
-	  break;
-	case type_suppression::BUILTIN_TYPE_KIND:
-	  if (!is_type_decl(type))
-	    matches = false;
-	  break;
-	}
-
-      if (!matches)
-	return false;
+    case type_suppression::UNSPECIFIED_TYPE_KIND:
+      // Nothing to check.
+      break;
+    case type_suppression::CLASS_TYPE_KIND:
+      if (!is_class_type(type))
+	matches = false;
+      break;
+    case type_suppression::STRUCT_TYPE_KIND:
+      {
+	class_decl_sptr klass = is_class_type(type);
+	if (!klass || !klass->is_struct())
+	  matches = false;
+      }
+      break;
+    case type_suppression::UNION_TYPE_KIND:
+      if (!is_union_type(type))
+	matches = false;
+      break;
+    case type_suppression::ENUM_TYPE_KIND:
+      if (!is_enum_type(type))
+	matches = false;
+      break;
+    case type_suppression::ARRAY_TYPE_KIND:
+      if (!is_array_type(type))
+	matches = false;
+      break;
+    case type_suppression::TYPEDEF_TYPE_KIND:
+      if (!is_typedef(type))
+	matches = false;
+      break;
+    case type_suppression::BUILTIN_TYPE_KIND:
+      if (!is_type_decl(type))
+	matches = false;
+      break;
     }
+
+  if (!matches)
+    return false;
 
   // Check if there is a source location related match.
   if (!suppression_matches_type_location(s, type))
@@ -1993,34 +2022,6 @@ is_type_suppression(suppression_sptr suppr)
 
 // </type_suppression stuff>
 
-/// Parse the value of the "type_kind" property in the "suppress_type"
-/// section.
-///
-/// @param input the input string representing the value of the
-/// "type_kind" property.
-///
-/// @return the @ref type_kind enumerator parsed.
-static type_suppression::type_kind
-read_type_kind_string(const string& input)
-{
-  if (input == "class")
-    return type_suppression::CLASS_TYPE_KIND;
-  else if (input == "struct")
-    return type_suppression::STRUCT_TYPE_KIND;
-  else if (input == "union")
-    return type_suppression::UNION_TYPE_KIND;
-  else if (input == "enum")
-    return type_suppression::ENUM_TYPE_KIND;
-  else if (input == "array")
-    return type_suppression::ARRAY_TYPE_KIND;
-  else if (input == "typedef")
-    return type_suppression::TYPEDEF_TYPE_KIND;
-  else if (input == "builtin")
-    return type_suppression::BUILTIN_TYPE_KIND;
-  else
-    return type_suppression::UNKNOWN_TYPE_KIND;
-}
-
 /// Parse the value of the "accessed_through" property in the
 /// "suppress_type" section.
 ///
@@ -2097,13 +2098,9 @@ read_type_suppression(const ini::config::section& section,
 
   if (ini::property_sptr prop = section.find_property("type_kind"))
     {
-      std::string str;
-      if (read(prop, str))
-	{
-	  type_suppression::type_kind kind = read_type_kind_string(str);
-	  result.set_consider_type_kind(true);
-	  result.set_type_kind(kind);
-	}
+      type_suppression::type_kind kind;
+      if (read(prop, kind))
+	result.set_type_kind(kind);
     }
 
   if (ini::property_sptr prop = section.find_property("accessed_through"))
