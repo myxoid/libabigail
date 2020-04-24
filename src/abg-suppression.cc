@@ -835,18 +835,16 @@ type_suppression::suppresses_diff(const diff* diff) const
 		    {
 		      type_suppression::offset_range_sptr range = *i;
 		      uint64_t range_begin_val = 0, range_end_val = 0;
-		      if (!type_suppression::offset_range::eval_boundary
-			  (range->begin(), first_type_decl, range_begin_val))
+		      if (!range->begin()->eval(first_type_decl, range_begin_val))
 			break;
-		      if (!type_suppression::offset_range::eval_boundary
-			  (range->end(), first_type_decl, range_end_val))
+		      if (!range->end()->eval(first_type_decl, range_end_val))
 			break;
 
 		      uint64_t range_begin = range_begin_val;
 		      uint64_t range_end = range_end_val;
 
-		      if (insertion_range::boundary_value_is_end(range_begin)
-			  && insertion_range::boundary_value_is_end(range_end))
+		      if (offset_range::boundary_value_is_end(range_begin)
+			  && offset_range::boundary_value_is_end(range_end))
 			{
 			  // This idiom represents the predicate
 			  // "has_data_member_inserted_at = end"
@@ -1282,7 +1280,7 @@ type_suppression::offset_range::offset_range(offset_sptr begin, offset_sptr end)
 /// @return the beginning of the range.  An offset that is an instance
 /// of @ref integer_offset with a negative value means the maximum
 /// possible value.
-type_suppression::offset_range::offset_sptr
+type_suppression::offset_sptr
 type_suppression::offset_range::begin() const
 {return priv_->begin_;}
 
@@ -1291,52 +1289,84 @@ type_suppression::offset_range::begin() const
 /// @return the end of the range.  An offset that is an instance of
 /// @ref integer_offset with a negative value means the maximum
 /// possible value.
-type_suppression::offset_range::offset_sptr
+type_suppression::offset_sptr
 type_suppression::offset_range::end() const
 {return priv_->end_;}
 
 /// Create an integer offset.
 ///
 /// The return value of this function is to be used as a boundary for
-/// an instance of @ref type_suppression::offset_range.  That offset
+/// an instance of @ref type_suppression::offset_range.  The offset
 /// evaluates to an integer value.
 ///
 /// @param value the value of the integer offset.
 ///
 /// @return the resulting integer offset.
-type_suppression::offset_range::integer_offset_sptr
-type_suppression::offset_range::create_integer_offset(int value)
-{return integer_offset_sptr(new integer_offset(value));}
+type_suppression::offset_sptr
+type_suppression::offset::create_integer_offset(int value)
+{return offset_sptr(new integer_offset(value));}
+
+/// Destructor of @ref type_suppression::offset.
+type_suppression::offset::~offset()
+{}
+
+/// Private data type for @ref
+/// type_suppression::offset::integer_offset.
+struct type_suppression::offset::integer_offset::priv
+{
+  uint64_t value_;
+
+  priv()
+    : value_()
+  {}
+
+  priv(uint64_t value)
+    : value_(value)
+  {}
+}; // end type_suppression::offset::integer_offset::priv
+
+/// Explicit constructor of type_suppression::offset::integer_offset.
+///
+/// @param value the integer value of the newly created integer offset.
+type_suppression::offset::integer_offset::integer_offset(int value)
+  : priv_(new priv(value))
+{}
+
+/// Destructor of @ref type_suppression::offset::integer_offset.
+type_suppression::offset::integer_offset::~integer_offset()
+{}
 
 /// Create a function call expression offset.
 ///
 /// The return value of this function is to be used as a boundary for
-/// an instance of @ref type_suppression::offset_range.  The value is
-/// actually a function call expression that itself evalutates to an
-/// integer value, in the context of a @ref class_decl.
+/// an instance of @ref type_suppression::offset_range.  The value
+/// of the offset is actually a function call expression that itself
+/// evalutates to an integer value, in the context of a @ref
+/// class_decl.
 ///
 /// @param expr the function call expression to create the offset from.
 ///
 /// @return the resulting function call expression offset.
-type_suppression::offset_range::fn_call_expr_offset_sptr
-type_suppression::offset_range::create_fn_call_expr_offset(ini::function_call_expr_sptr expr)
-{return fn_call_expr_offset_sptr(new fn_call_expr_offset(expr));}
+type_suppression::offset_sptr
+type_suppression::offset::create_fn_call_expr_offset(ini::function_call_expr_sptr expr)
+{return offset_sptr(new fn_call_expr_offset(expr));}
 
 /// Create a function call expression offset.
 ///
 /// The return value of this function is to be used as a boundary for
-/// an instance of @ref type_suppression::offset_range.  The value is
-/// actually a function call expression that itself evalutates to an
-/// integer value, in the context of a @ref class_decl.
+/// an instance of @ref type_suppression::offset_range.  The value
+/// of the offset is actually a function call expression that
+/// itself evalutates to an integer value, in the context of a @ref
+/// class_decl.
 ///
 /// @param s a string representing the expression the function call
 /// expression to create the offset from.
 ///
 /// @return the resulting function call expression offset.
-type_suppression::offset_range::fn_call_expr_offset_sptr
-type_suppression::offset_range::create_fn_call_expr_offset(const string& s)
+type_suppression::offset_sptr
+type_suppression::offset::create_fn_call_expr_offset(const string& s)
 {
-  fn_call_expr_offset_sptr result, nil;
+  offset_sptr result;
   ini::function_call_expr_sptr expr;
   if (ini::read_function_call_expr(s, expr) && expr)
     result.reset(new fn_call_expr_offset(expr));
@@ -1345,56 +1375,90 @@ type_suppression::offset_range::create_fn_call_expr_offset(const string& s)
 
 /// Evaluate an offset to get a resulting integer value.
 ///
-/// @param offset the offset to evaluate.
-///
-/// @param context the context of evualuation.  It's a @ref class_decl
+/// @param context the context of evaluation.  It's a @ref class_decl
 /// to take into account during the evaluation, if there is a need for
 /// it.
 ///
 /// @return true iff the evaluation was successful and @p value
 /// contains the resulting value.
 bool
-type_suppression::offset_range::eval_boundary(offset_sptr	offset,
-					      class_decl_sptr	context,
-					      uint64_t&		value)
+type_suppression::offset::integer_offset::eval(
+  class_decl_sptr, uint64_t& value) const
 {
-  if (integer_offset_sptr b = is_integer_offset(offset))
+  value = priv_->value_;
+  return true;
+}
+
+/// Private data type of type @ref
+/// type_suppression::offset::fn_call_expr_offset.
+struct type_suppression::offset::fn_call_expr_offset::priv
+{
+  ini::function_call_expr_sptr expr_;
+
+  priv()
+  {}
+
+  priv(ini::function_call_expr_sptr expr)
+    : expr_(expr)
+  {}
+}; // end struct type_suppression::offset::fn_call_expr_offset::priv
+
+/// Explicit constructor for @ref
+/// type_suppression::offset::fn_call_expr_offset.
+///
+/// @param expr the function call expression to build this offset
+/// from.
+type_suppression::offset::fn_call_expr_offset::fn_call_expr_offset(
+  ini::function_call_expr_sptr expr)
+  : priv_(new priv(expr))
+{}
+
+/// Destructor of @ref
+/// type_suppression::offset::fn_call_expr_offset.
+type_suppression::offset::fn_call_expr_offset::~fn_call_expr_offset()
+{}
+
+/// Evaluate an offset to get a resulting integer value.
+///
+/// @param context the context of evaluation.  It's a @ref class_decl
+/// to take into account during the evaluation, if there is a need for
+/// it.
+///
+/// @return true iff the evaluation was successful and @p value
+/// contains the resulting value.
+bool
+type_suppression::offset::fn_call_expr_offset::eval(
+  class_decl_sptr context, uint64_t& value) const
+{
+  ini::function_call_expr_sptr fn_call = priv_->expr_;
+  if ((fn_call->get_name() == "offset_of"
+       || fn_call->get_name() == "offset_after")
+      && fn_call->get_arguments().size() == 1)
     {
-      value = b->as_integer();
-      return true;
-    }
-  else if (fn_call_expr_offset_sptr b = is_fn_call_expr_offset(offset))
-    {
-      ini::function_call_expr_sptr fn_call = b->as_function_call_expr();
-      if ((fn_call->get_name() == "offset_of"
-	   || fn_call->get_name() == "offset_after")
-	  && fn_call->get_arguments().size() == 1)
+      string member_name = fn_call->get_arguments()[0];
+      for (class_decl::data_members::const_iterator it =
+	     context->get_data_members().begin();
+	   it != context->get_data_members().end();
+	   ++it)
 	{
-	  string member_name = fn_call->get_arguments()[0];
-	  for (class_decl::data_members::const_iterator it =
-		 context->get_data_members().begin();
-	       it != context->get_data_members().end();
-	       ++it)
+	  if (!get_data_member_is_laid_out(**it))
+	    continue;
+	  if ((*it)->get_name() == member_name)
 	    {
-	      if (!get_data_member_is_laid_out(**it))
-		continue;
-	      if ((*it)->get_name() == member_name)
+	      if (fn_call->get_name() == "offset_of")
+		value = get_data_member_offset(*it);
+	      else if (fn_call->get_name() == "offset_after")
 		{
-		  if (fn_call->get_name() == "offset_of")
-		    value = get_data_member_offset(*it);
-		  else if (fn_call->get_name() == "offset_after")
+		  if (!get_next_data_member_offset(context, *it, value))
 		    {
-		      if (!get_next_data_member_offset(context, *it, value))
-			{
-			  value = get_data_member_offset(*it) +
-			    (*it)->get_type()->get_size_in_bits();
-			}
+		      value = get_data_member_offset(*it) +
+			(*it)->get_type()->get_size_in_bits();
 		    }
-		  else
-		    // We should not reach this point.
-		    abort();
-		  return true;
 		}
+	      else
+		// We should not reach this point.
+		abort();
+	      return true;
 	    }
 	}
     }
@@ -1413,132 +1477,6 @@ type_suppression::offset_range::boundary_value_is_end(uint64_t value)
 {
   return value == std::numeric_limits<uint64_t>::max();
 }
-
-/// Tests if a given instance of @ref
-/// type_suppression::offset_range::offset is actually an integer offset.
-///
-/// @param b the offset to test.
-///
-/// @return a pointer to the instance of
-/// type_suppression::offset_range::integer_offset if @p b is
-/// actually an integer offset.  Otherwise, return a null pointer.
-type_suppression::offset_range::integer_offset_sptr
-is_integer_offset(type_suppression::offset_range::offset_sptr b)
-{return dynamic_pointer_cast<type_suppression::offset_range::integer_offset>(b);}
-
-/// Tests if a given instance of @ref
-/// type_suppression::offset_range::offset is actually an function call expression offset.
-///
-/// @param b the offset to test.
-///
-/// @return a pointer to the instance of
-/// type_suppression::offset_range::fn_call_expr_offset if @p b
-/// is actually an function call expression offset.  Otherwise,
-/// return a null pointer.
-type_suppression::offset_range::fn_call_expr_offset_sptr
-is_fn_call_expr_offset(type_suppression::offset_range::offset_sptr b)
-{return dynamic_pointer_cast<type_suppression::offset_range::fn_call_expr_offset>(b);}
-
-/// The private data type of @ref
-/// type_suppression::offset_range::offset.
-struct type_suppression::offset_range::offset::priv
-{
-  priv()
-  {}
-}; // end struct type_suppression::offset_range::offset::priv
-
-/// Default constructor of @ref
-/// type_suppression::offset_range::offset
-type_suppression::offset_range::offset::offset()
-  : priv_(new priv())
-{}
-
-/// Destructor of @ref type_suppression::offset_range::offset.
-type_suppression::offset_range::offset::~offset()
-{}
-
-/// Private data type for @ref
-/// type_suppression::offset_range::integer_offset.
-struct type_suppression::offset_range::integer_offset::priv
-{
-  uint64_t value_;
-
-  priv()
-    : value_()
-  {}
-
-  priv(uint64_t value)
-    : value_(value)
-  {}
-}; // end type_suppression::offset_range::integer_offset::priv
-
-/// Converting constructor of
-/// type_suppression::offset_range::integer_offset.
-///
-/// @param value the integer value of the newly created integer offset.
-type_suppression::offset_range::integer_offset::integer_offset(uint64_t value)
-  : priv_(new priv(value))
-{}
-
-/// Return the integer value of the current instance of @ref
-/// type_suppression::offset_range::integer_offset.
-///
-/// @return the integer value of the current offset.
-uint64_t
-type_suppression::offset_range::integer_offset::as_integer() const
-{return priv_->value_;}
-
-/// Converts the current offset into an integer value.
-///
-/// @return the integer value of the current offset.
-type_suppression::offset_range::integer_offset::operator uint64_t() const
-{return as_integer();}
-
-/// Destructor of @ref type_suppression::offset_range::integer_offset.
-type_suppression::offset_range::integer_offset::~integer_offset()
-{}
-
-/// Private data type of type @ref
-/// type_suppression::offset_range::fn_call_expr_offset.
-struct type_suppression::offset_range::fn_call_expr_offset::priv
-{
-  ini::function_call_expr_sptr expr_;
-
-  priv()
-  {}
-
-  priv(ini::function_call_expr_sptr expr)
-    : expr_(expr)
-  {}
-}; // end struct type_suppression::offset_range::fn_call_expr_offset::priv
-
-/// Converting constructor for @ref
-/// type_suppression::offset_range::fn_call_expr_offset.
-///
-/// @param expr the function call expression to build this offset
-/// from.
-type_suppression::offset_range::fn_call_expr_offset::
-fn_call_expr_offset(ini::function_call_expr_sptr expr)
-  : priv_(new priv(expr))
-{}
-
-/// Returns the function call expression value of the current offset.
-///
-/// @return the function call expression value of the current offset;
-ini::function_call_expr_sptr
-type_suppression::offset_range::fn_call_expr_offset::as_function_call_expr() const
-{return priv_->expr_;}
-
-/// Converts the current offset to its function call expression value.
-///
-/// @return the function call expression value of the current offset.
-type_suppression::offset_range::fn_call_expr_offset::operator ini::function_call_expr_sptr () const
-{return as_function_call_expr();}
-
-/// Destructor of @ref
-/// type_suppression::offset_range::fn_call_expr_offset.
-type_suppression::offset_range::fn_call_expr_offset::~fn_call_expr_offset()
-{}
 
 /// Test if an instance of @ref suppression is an instance of @ref
 /// type_suppression.
@@ -1664,19 +1602,19 @@ read_type_suppression(const ini::config::section& section,
       // So this property has the form:
       //   has_data_member_inserted_at = <one-string-property-value>
       string ins_point = prop->get_value()->as_string();
-      type_suppression::offset_range::offset_sptr begin, end;
+      type_suppression::offset_sptr begin, end;
       if (ins_point == "end")
-	begin = type_suppression::offset_range::create_integer_offset(-1);
+	begin = type_suppression::offset::create_integer_offset(-1);
       else if (isdigit(ins_point[0]))
-	begin = type_suppression::offset_range::create_integer_offset
+	begin = type_suppression::offset::create_integer_offset
 	  (atoi(ins_point.c_str()));
-      else if (type_suppression::offset_range::fn_call_expr_offset_sptr expr =
-	       type_suppression::offset_range::create_fn_call_expr_offset(ini::read_function_call_expr(ins_point)))
+      else if (type_suppression::offset_sptr expr =
+	       type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(ins_point)))
 	begin = expr;
       else
 	return false;
 
-      end = type_suppression::offset_range::create_integer_offset(-1);
+      end = type_suppression::offset::create_integer_offset(-1);
       type_suppression::offset_range_sptr insert_range
 	(new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
@@ -1696,7 +1634,7 @@ read_type_suppression(const ini::config::section& section,
       //  This means that the tuple_property_value contains just one
       //  value, which is a list_property that itself contains 2
       //  values.
-      type_suppression::offset_range::offset_sptr begin, end;
+      type_suppression::offset_sptr begin, end;
       ini::tuple_property_value_sptr v = prop->get_value();
       if (v
 	  && v->get_value_items().size() == 1
@@ -1709,12 +1647,12 @@ read_type_suppression(const ini::config::section& section,
 	  string str = val->get_content()[0];
 	  if (str == "end")
 	    begin =
-	      type_suppression::offset_range::create_integer_offset(-1);
+	      type_suppression::offset::create_integer_offset(-1);
 	  else if (isdigit(str[0]))
-	    begin = type_suppression::offset_range::create_integer_offset
+	    begin = type_suppression::offset::create_integer_offset
 	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_range::fn_call_expr_offset_sptr expr =
-		   type_suppression::offset_range::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
+	  else if (type_suppression::offset_sptr expr =
+		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
 	    begin = expr;
 	  else
 	    return false;
@@ -1722,12 +1660,12 @@ read_type_suppression(const ini::config::section& section,
 	  str = val->get_content()[1];
 	  if (str == "end")
 	    end =
-	      type_suppression::offset_range::create_integer_offset(-1);
+	      type_suppression::offset::create_integer_offset(-1);
 	  else if (isdigit(str[0]))
-	    end = type_suppression::offset_range::create_integer_offset
+	    end = type_suppression::offset::create_integer_offset
 	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_range::fn_call_expr_offset_sptr expr =
-		   type_suppression::offset_range::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
+	  else if (type_suppression::offset_sptr expr =
+		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
 	    end = expr;
 	  else
 	    return false;
@@ -1779,17 +1717,17 @@ read_type_suppression(const ini::config::section& section,
 	      break;
 	    }
 
-	  type_suppression::offset_range::offset_sptr begin, end;
+	  type_suppression::offset_sptr begin, end;
 	  string str = list_value->get_content()[0];
 	  if (str == "end")
 	    begin =
-	      type_suppression::offset_range::create_integer_offset(-1);
+	      type_suppression::offset::create_integer_offset(-1);
 	  else if (isdigit(str[0]))
 	    begin =
-	      type_suppression::offset_range::create_integer_offset
+	      type_suppression::offset::create_integer_offset
 	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_range::fn_call_expr_offset_sptr expr =
-		   type_suppression::offset_range::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
+	  else if (type_suppression::offset_sptr expr =
+		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
 	    begin = expr;
 	  else
 	    return false;
@@ -1797,12 +1735,12 @@ read_type_suppression(const ini::config::section& section,
 	  str = list_value->get_content()[1];
 	  if (str == "end")
 	    end =
-	      type_suppression::offset_range::create_integer_offset(-1);
+	      type_suppression::offset::create_integer_offset(-1);
 	  else if (isdigit(str[0]))
-	    end = type_suppression::offset_range::create_integer_offset
+	    end = type_suppression::offset::create_integer_offset
 	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_range::fn_call_expr_offset_sptr expr =
-		   type_suppression::offset_range::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
+	  else if (type_suppression::offset_sptr expr =
+		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
 	    end = expr;
 	  else
 	    return false;
