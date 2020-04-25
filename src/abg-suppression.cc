@@ -365,20 +365,21 @@ property_value_to_offset_range(const ini::property_value_sptr &value,
   ini::tuple_property_value_sptr tuple_value = is_tuple_property_value(value);
   if (!tuple_value || tuple_value->get_value_items().size() != 1)
     {
-      // TODO: maybe emit bad tuple value message
+      std::cerr << "error: bad tuple value '" << tuple_value << "'\n";
       return false;
     }
   const ini::property_value_sptr& tuple_contents = tuple_value->get_value_items()[0];
   ini::list_property_value_sptr list = is_list_property_value(tuple_contents);
   if (!list)
     {
-      // TODO: maybe emit expected list message
+      std::cerr << "error: expected list: '" << tuple_contents << "'\n";
       return false;
     }
   const std::vector<std::string>& list_contents = list->get_content();
   if (list_contents.size() != 2)
     {
-      // TODO: maybe emit list not size 2 message
+      std::cerr << "error: expected list of size 2: '"
+		<< tuple_contents << "'\n";
       return false;
     }
   type_suppression::offset_sptr begin;
@@ -538,7 +539,8 @@ read(const ini::property_sptr& prop,
   ini::tuple_property_sptr tuple = is_tuple_property(prop);
   if (!tuple)
     {
-      // TODO: maybe emit not a tuple property message
+      std::cerr << "error: not a tuple property: '"
+		<< prop->get_name() << "'\n";
       return false;
     }
   return property_value_to_offset_range(tuple->get_value(), result);
