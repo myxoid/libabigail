@@ -219,7 +219,7 @@ class type_suppression::priv
   type_suppression::type_kind		type_kind_;
   bool					consider_reach_kind_;
   type_suppression::reach_kind		reach_kind_;
-  type_suppression::insertion_ranges	insertion_ranges_;
+  type_suppression::offset_ranges	insertion_ranges_;
   unordered_set<string>			source_locations_to_keep_;
   regex::regex_t_sptr			source_location_to_keep_regex_;
   mutable vector<string>		changed_enumerator_names_;

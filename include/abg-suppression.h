@@ -166,12 +166,12 @@ public:
     REFERENCE_OR_POINTER_REACH_KIND
   }; // end enum reach_kind
 
-  class insertion_range;
+  class offset_range;
   /// A convenience typedef for a shared pointer to @ref
-  /// insertion_range.
-  typedef shared_ptr<insertion_range> insertion_range_sptr;
-  /// A convenience typedef for a vector of @ref insertion_range_sptr.
-  typedef vector<insertion_range_sptr> insertion_ranges;
+  /// offset_range.
+  typedef shared_ptr<offset_range> offset_range_sptr;
+  /// A convenience typedef for a vector of @ref offset_range_sptr.
+  typedef vector<offset_range_sptr> offset_ranges;
 
   type_suppression();
 
@@ -220,12 +220,12 @@ public:
   set_reach_kind(reach_kind k);
 
   void
-  set_data_member_insertion_ranges(const insertion_ranges& r);
+  set_data_member_insertion_ranges(const offset_ranges& r);
 
-  const insertion_ranges&
+  const offset_ranges&
   get_data_member_insertion_ranges() const;
 
-  insertion_ranges&
+  offset_ranges&
   get_data_member_insertion_ranges();
 
   const unordered_set<string>&
@@ -269,107 +269,107 @@ is_type_suppression(const suppression_sptr);
 
 /// The abstraction of a range of offsets in which a member of a type
 /// might get inserted.
-class type_suppression::insertion_range
+class type_suppression::offset_range
 {
   struct priv;
   std::unique_ptr<priv> priv_;
 
 public:
 
-  class boundary;
-  class integer_boundary;
-  class fn_call_expr_boundary;
+  class offset;
+  class integer_offset;
+  class fn_call_expr_offset;
 
-  /// Convenience typedef for a shared_ptr to @ref boundary
-  typedef shared_ptr<boundary> boundary_sptr;
+  /// Convenience typedef for a shared_ptr to @ref offset
+  typedef shared_ptr<offset> offset_sptr;
 
-  /// Convenience typedef for a shared_ptr to a @ref integer_boundary
-  typedef shared_ptr<integer_boundary> integer_boundary_sptr;
+  /// Convenience typedef for a shared_ptr to a @ref integer_offset
+  typedef shared_ptr<integer_offset> integer_offset_sptr;
 
   /// Convenience typedef for a shared_ptr to a @ref
-  /// fn_call_expr_boundary
-  typedef shared_ptr<fn_call_expr_boundary> fn_call_expr_boundary_sptr;
+  /// fn_call_expr_offset
+  typedef shared_ptr<fn_call_expr_offset> fn_call_expr_offset_sptr;
 
-  insertion_range();
+  offset_range();
 
-  insertion_range(boundary_sptr begin, boundary_sptr end);
+  offset_range(offset_sptr begin, offset_sptr end);
 
-  boundary_sptr
+  offset_sptr
   begin() const;
 
- boundary_sptr
+ offset_sptr
   end() const;
 
-  static insertion_range::integer_boundary_sptr
-  create_integer_boundary(int value);
+  static offset_range::integer_offset_sptr
+  create_integer_offset(int value);
 
-  static insertion_range::fn_call_expr_boundary_sptr
-  create_fn_call_expr_boundary(ini::function_call_expr_sptr);
+  static offset_range::fn_call_expr_offset_sptr
+  create_fn_call_expr_offset(ini::function_call_expr_sptr);
 
-  static insertion_range::fn_call_expr_boundary_sptr
-  create_fn_call_expr_boundary(const string&);
+  static offset_range::fn_call_expr_offset_sptr
+  create_fn_call_expr_offset(const string&);
 
   static bool
-  eval_boundary(boundary_sptr	boundary,
-		class_decl_sptr context,
+  eval_boundary(offset_sptr	offset,
+		class_decl_sptr	context,
 		uint64_t&	value);
 
   static bool
   boundary_value_is_end(uint64_t value);
-}; // end class insertion_range
+}; // end class offset_range
 
-type_suppression::insertion_range::integer_boundary_sptr
-is_integer_boundary(type_suppression::insertion_range::boundary_sptr);
+type_suppression::offset_range::integer_offset_sptr
+is_integer_offset(type_suppression::offset_range::offset_sptr);
 
-type_suppression::insertion_range::fn_call_expr_boundary_sptr
-is_fn_call_expr_boundary(type_suppression::insertion_range::boundary_sptr);
+type_suppression::offset_range::fn_call_expr_offset_sptr
+is_fn_call_expr_offset(type_suppression::offset_range::offset_sptr);
 
-/// The abstraction of the boundary of an @ref insertion_range, in the
+/// The abstraction of the offset of an @ref offset_range, in the
 /// context of a @ref type_suppression
-class type_suppression::insertion_range::boundary
+class type_suppression::offset_range::offset
 {
   struct priv;
   std::unique_ptr<priv> priv_;
 
 public:
-  boundary();
-  virtual ~boundary();
-};// end class type_suppression::insertion_range::boundary
+  offset();
+  virtual ~offset();
+};// end class type_suppression::offset_range::offset
 
-/// An @ref insertion_range boundary that is expressed as an integer
+/// An @ref offset_range offset that is expressed as an integer
 /// value.  That integer value is usually a bit offset.
-class type_suppression::insertion_range::integer_boundary
-  : public type_suppression::insertion_range::boundary
+class type_suppression::offset_range::integer_offset
+  : public type_suppression::offset_range::offset
 {
   struct priv;
   std::unique_ptr<priv> priv_;
 
-  integer_boundary();
+  integer_offset();
 
 public:
-  integer_boundary(uint64_t value);
+  integer_offset(uint64_t value);
   uint64_t as_integer() const;
   operator uint64_t () const;
-  ~integer_boundary();
-}; //end class type_suppression::insertion_range::integer_boundary
+  ~integer_offset();
+}; //end class type_suppression::offset_range::integer_offset
 
-/// An @ref insertion_range boundary that is expressed as function
+/// An @ref offset_range offset that is expressed as function
 /// call expression.  The (integer) value of that expression is
 /// usually a bit offset.
-class type_suppression::insertion_range::fn_call_expr_boundary
-  : public type_suppression::insertion_range::boundary
+class type_suppression::offset_range::fn_call_expr_offset
+  : public type_suppression::offset_range::offset
 {
   struct priv;
   std::unique_ptr<priv> priv_;
 
-  fn_call_expr_boundary();
+  fn_call_expr_offset();
 
 public:
-  fn_call_expr_boundary(ini::function_call_expr_sptr expr);
+  fn_call_expr_offset(ini::function_call_expr_sptr expr);
   ini::function_call_expr_sptr as_function_call_expr() const;
   operator ini::function_call_expr_sptr () const;
-  ~fn_call_expr_boundary();
-}; //end class type_suppression::insertion_range::fn_call_expr_boundary
+  ~fn_call_expr_offset();
+}; //end class type_suppression::offset_range::fn_call_expr_offset
 
 class function_suppression;
 
