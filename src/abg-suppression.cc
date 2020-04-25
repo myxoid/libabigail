@@ -274,7 +274,7 @@ string_to_offset(const std::string& str, type_suppression::offset_sptr& result)
       result = expr;
       return true;
     }
-  // TODO: maybe emit bad offset expression 'str' message
+  std::cerr << "error: bad offset expression: '" << str << "'\n";
   return false;
 }
 
