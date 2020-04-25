@@ -85,6 +85,43 @@ string_to_boolean(const std::string& str, bool& result)
   return false;
 }
 
+/// Parse an offset expression.
+///
+/// @param str the input string representing the offset expression.
+///
+/// @param result the parsed offset expression.
+///
+/// @return whether the parse was successful.
+static bool
+string_to_offset(const std::string& str, type_suppression::offset_sptr& result)
+{
+  if (str == "end")
+    {
+      result = type_suppression::offset::create_integer_offset(-1);
+      return true;
+    }
+  else if (!str.empty() && isdigit(str[0]))
+    {
+      std::istringstream is(str);
+      int n;
+      is >> n;
+      if (!is.fail() && is.eof())
+	{
+	  result = type_suppression::offset::create_integer_offset(n);
+	  return true;
+	}
+    }
+  else if (type_suppression::offset_sptr expr =
+	     type_suppression::offset::create_fn_call_expr_offset(
+	       ini::read_function_call_expr(str)))
+    {
+      result = expr;
+      return true;
+    }
+  // TODO: maybe emit bad offset expression 'str' message
+  return false;
+}
+
 // property parsing
 
 /// Read a string from a property.
@@ -148,6 +185,22 @@ read(const ini::property_sptr& prop, bool& result)
 {
   std::string str;
   return read(prop, str) && string_to_boolean(str, result);
+}
+
+/// Read an offset value from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output offset.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop, type_suppression::offset_sptr& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_offset(str, result);
 }
 
 // section parsing
@@ -1747,26 +1800,15 @@ read_type_suppression(const ini::config::section& section,
 	}
     }
 
-  // Support has_data_member_inserted_at
   vector<type_suppression::offset_range_sptr> insert_ranges;
-  if (ini::simple_property_sptr prop =
-      is_simple_property(section.find_property("has_data_member_inserted_at")))
+  // Support has_data_member_inserted_at which has the form:
+  //   has_data_member_inserted_at = <one-string-property-value>
+  if (const ini::property_sptr& prop =
+      section.find_property("has_data_member_inserted_at"))
     {
-      // So this property has the form:
-      //   has_data_member_inserted_at = <one-string-property-value>
-      string ins_point = prop->get_value()->as_string();
       type_suppression::offset_sptr begin, end;
-      if (ins_point == "end")
-	begin = type_suppression::offset::create_integer_offset(-1);
-      else if (isdigit(ins_point[0]))
-	begin = type_suppression::offset::create_integer_offset
-	  (atoi(ins_point.c_str()));
-      else if (type_suppression::offset_sptr expr =
-	       type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(ins_point)))
-	begin = expr;
-      else
+      if (!read(prop, begin))
 	return false;
-
       end = type_suppression::offset::create_integer_offset(-1);
       type_suppression::offset_range_sptr insert_range
 	(new type_suppression::offset_range(begin, end));
@@ -1797,29 +1839,11 @@ read_type_suppression(const ini::config::section& section,
 	    is_list_property_value(v->get_value_items()[0]);
 	  ABG_ASSERT(val);
 	  string str = val->get_content()[0];
-	  if (str == "end")
-	    begin =
-	      type_suppression::offset::create_integer_offset(-1);
-	  else if (isdigit(str[0]))
-	    begin = type_suppression::offset::create_integer_offset
-	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_sptr expr =
-		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
-	    begin = expr;
-	  else
+	  if (!string_to_offset(str, begin))
 	    return false;
 
 	  str = val->get_content()[1];
-	  if (str == "end")
-	    end =
-	      type_suppression::offset::create_integer_offset(-1);
-	  else if (isdigit(str[0]))
-	    end = type_suppression::offset::create_integer_offset
-	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_sptr expr =
-		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
-	    end = expr;
-	  else
+	  if (!string_to_offset(str, end))
 	    return false;
 
 	  type_suppression::offset_range_sptr insert_range
@@ -1863,30 +1887,11 @@ read_type_suppression(const ini::config::section& section,
 
 	  type_suppression::offset_sptr begin, end;
 	  string str = list_value->get_content()[0];
-	  if (str == "end")
-	    begin =
-	      type_suppression::offset::create_integer_offset(-1);
-	  else if (isdigit(str[0]))
-	    begin =
-	      type_suppression::offset::create_integer_offset
-	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_sptr expr =
-		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
-	    begin = expr;
-	  else
+	  if (!string_to_offset(str, begin))
 	    return false;
 
 	  str = list_value->get_content()[1];
-	  if (str == "end")
-	    end =
-	      type_suppression::offset::create_integer_offset(-1);
-	  else if (isdigit(str[0]))
-	    end = type_suppression::offset::create_integer_offset
-	      (atoi(str.c_str()));
-	  else if (type_suppression::offset_sptr expr =
-		   type_suppression::offset::create_fn_call_expr_offset(ini::read_function_call_expr(str)))
-	    end = expr;
-	  else
+	  if (!string_to_offset(str, end))
 	    return false;
 
 	  type_suppression::offset_range_sptr insert_range
