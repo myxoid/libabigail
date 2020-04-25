@@ -122,6 +122,51 @@ string_to_offset(const std::string& str, type_suppression::offset_sptr& result)
   return false;
 }
 
+// property value parsing
+
+/// Read an offset range from a property value.
+///
+/// The property value should be a tuple property value containing a
+/// list of two strings.
+///
+/// @param prop the input property.
+///
+/// @param value the output offset range.
+///
+/// @return whether the parse was successful.
+static bool
+property_value_to_offset_range(const ini::property_value_sptr &value,
+			       type_suppression::offset_range_sptr& result)
+{
+  ini::tuple_property_value_sptr tuple_value = is_tuple_property_value(value);
+  if (!tuple_value || tuple_value->get_value_items().size() != 1)
+    {
+      // TODO: maybe emit bad tuple value message
+      return false;
+    }
+  const ini::property_value_sptr& tuple_contents = tuple_value->get_value_items()[0];
+  ini::list_property_value_sptr list = is_list_property_value(tuple_contents);
+  if (!list)
+    {
+      // TODO: maybe emit expected list message
+      return false;
+    }
+  const std::vector<std::string>& list_contents = list->get_content();
+  if (list_contents.size() != 2)
+    {
+      // TODO: maybe emit list not size 2 message
+      return false;
+    }
+  type_suppression::offset_sptr begin;
+  if (!string_to_offset(list_contents[0], begin))
+    return false;
+  type_suppression::offset_sptr end;
+  if (!string_to_offset(list_contents[1], end))
+    return false;
+  result.reset(new type_suppression::offset_range(begin, end));
+  return true;
+}
+
 // property parsing
 
 /// Read a string from a property.
@@ -176,6 +221,28 @@ read(const ini::property_sptr& prop, type_suppression::offset_sptr& result)
 {
   std::string str;
   return read(prop, str) && string_to_offset(str, result);
+}
+
+/// Read an offset range from a property.
+///
+/// The property should be a tuple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output offset range.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop,
+     type_suppression::offset_range_sptr& result)
+{
+  ini::tuple_property_sptr tuple = is_tuple_property(prop);
+  if (!tuple)
+    {
+      // TODO: maybe emit not a tuple property message
+      return false;
+    }
+  return property_value_to_offset_range(tuple->get_value(), result);
 }
 
 // section parsing
@@ -1723,45 +1790,21 @@ read_type_suppression(const ini::config::section& section,
     }
 
   // Support has_data_member_inserted_between
-  if (ini::tuple_property_sptr prop =
-      is_tuple_property(section.find_property
-			("has_data_member_inserted_between")))
+  // ensures that this has the form:
+  //  has_data_member_inserted_between = {0 , end};
+  // and not (for instance):
+  //  has_data_member_inserted_between = {{0 , end}, {1, foo}}
+  //
+  //  This means that the tuple_property_value contains just one
+  //  value, which is a list_property that itself contains 2
+  //  values.
+  if (const ini::property_sptr& prop =
+      section.find_property ("has_data_member_inserted_between"))
     {
-      // ensures that this has the form:
-      //  has_data_member_inserted_between = {0 , end};
-      // and not (for instance):
-      //  has_data_member_inserted_between = {{0 , end}, {1, foo}}
-      //
-      //  This means that the tuple_property_value contains just one
-      //  value, which is a list_property that itself contains 2
-      //  values.
-      type_suppression::offset_sptr begin, end;
-      ini::tuple_property_value_sptr v = prop->get_value();
-      if (v
-	  && v->get_value_items().size() == 1
-	  && is_list_property_value(v->get_value_items()[0])
-	  && is_list_property_value(v->get_value_items()[0])->get_content().size() == 2)
-	{
-	  ini::list_property_value_sptr val =
-	    is_list_property_value(v->get_value_items()[0]);
-	  ABG_ASSERT(val);
-	  string str = val->get_content()[0];
-	  if (!string_to_offset(str, begin))
-	    return false;
-
-	  str = val->get_content()[1];
-	  if (!string_to_offset(str, end))
-	    return false;
-
-	  type_suppression::offset_range_sptr insert_range
-	    (new type_suppression::offset_range(begin, end));
-	  insert_ranges.push_back(insert_range);
-	}
-      else
-	// the 'has_data_member_inserted_between' property has a wrong
-	// value type, so let's discard the endire [suppress_type]
-	// section.
+      type_suppression::offset_range_sptr range;
+      if (!read(prop, range))
 	return false;
+      insert_ranges.push_back(range);
     }
 
   // Support has_data_members_inserted_between
@@ -1781,28 +1824,10 @@ read_type_suppression(const ini::config::section& section,
 	   i != prop->get_value()->get_value_items().end();
 	   ++i)
 	{
-	  ini::tuple_property_value_sptr tuple_value =
-	    is_tuple_property_value(*i);
-	  if (!tuple_value
-	      || tuple_value->get_value_items().size() != 1
-	      || !is_list_property_value(tuple_value->get_value_items()[0]))
+	  const ini::property_value_sptr& value = *i;
+	  type_suppression::offset_range_sptr insert_range;
+	  if (!property_value_to_offset_range(value, insert_range))
 	    return false;
-	  ini::list_property_value_sptr list_value =
-	    is_list_property_value(tuple_value->get_value_items()[0]);
-	  if (list_value->get_content().size() != 2)
-	    return false;
-
-	  type_suppression::offset_sptr begin, end;
-	  string str = list_value->get_content()[0];
-	  if (!string_to_offset(str, begin))
-	    return false;
-
-	  str = list_value->get_content()[1];
-	  if (!string_to_offset(str, end))
-	    return false;
-
-	  type_suppression::offset_range_sptr insert_range
-	    (new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
 	}
     }
