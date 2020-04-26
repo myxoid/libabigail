@@ -360,7 +360,7 @@ public:
   /// @param pkg_kind the kind of package.
   package(const string&			path,
 	  const string&			dir,
-          kind					pkg_kind = package::KIND_MAIN)
+	  kind					pkg_kind = package::KIND_MAIN)
     : path_(path),
       kind_(pkg_kind)
   {
@@ -767,9 +767,9 @@ package::extracted_packages_parent_dir()
       const char *cachedir = getenv("XDG_CACHE_HOME");
 
       if (cachedir != NULL)
-        p = cachedir;
+	p = cachedir;
       else
-        {
+	{
 	  const char* s = getenv("HOME");
 	  if (s != NULL)
 	    p = s;
@@ -782,7 +782,7 @@ package::extracted_packages_parent_dir()
 		p = "/tmp";
 	    }
 	  p += "/.cache/libabigail";
-        }
+	}
 
       // Create the cache directory if it doesn't exist
       ABG_ASSERT(ensure_dir_path_created(p));
@@ -1057,11 +1057,11 @@ extract_package(const package& package,
     case abigail::tools_utils::FILE_TYPE_RPM:
 #ifdef WITH_RPM
       if (!extract_rpm(package.path(), package.extracted_dir_path(), opts))
-        {
-          emit_prefix("abipkgdiff", cerr)
+	{
+	  emit_prefix("abipkgdiff", cerr)
 	    << "Error while extracting package " << package.path() << "\n";
-          return false;
-        }
+	  return false;
+	}
       return true;
 #else
       emit_prefix("abipkgdiff", cerr)
@@ -1073,11 +1073,11 @@ extract_package(const package& package,
     case abigail::tools_utils::FILE_TYPE_DEB:
 #ifdef WITH_DEB
       if (!extract_deb(package.path(), package.extracted_dir_path(), opts))
-        {
-          emit_prefix("abipkgdiff", cerr)
+	{
+	  emit_prefix("abipkgdiff", cerr)
 	    << "Error while extracting package" << package.path() << "\n";
-          return false;
-        }
+	  return false;
+	}
       return true;
 #else
       emit_prefix("abipkgdiff", cerr)
@@ -1095,12 +1095,12 @@ extract_package(const package& package,
     case abigail::tools_utils::FILE_TYPE_TAR:
 #ifdef WITH_TAR
       if (!extract_tar(package.path(), package.extracted_dir_path(), opts))
-        {
-          emit_prefix("abipkgdiff", cerr)
+	{
+	  emit_prefix("abipkgdiff", cerr)
 	    << "Error while extracting GNU tar archive "
 	    << package.path() << "\n";
-          return false;
-        }
+	  return false;
+	}
       return true;
 #else
       emit_prefix("abipkgdiff", cerr)
@@ -1155,7 +1155,7 @@ set_diff_context_from_opts(diff_context_sptr ctxt,
   ctxt->error_output_stream(&cerr);
   // See comment in abidiff.cc's set_diff_context_from_opts.
   ctxt->show_redundant_changes(opts.show_redundant_changes
-                               || opts.leaf_changes_only);
+			       || opts.leaf_changes_only);
   ctxt->show_leaf_changes_only(opts.leaf_changes_only);
   ctxt->show_impacted_interfaces(opts.show_impacted_interfaces);
   ctxt->show_unreachable_types(opts.show_all_types);
@@ -2015,7 +2015,7 @@ create_maps_of_package_content(package& package, options& opts)
 	{
 	  if (e->type != abigail::dwarf_reader::ELF_TYPE_DSO
 	      && e->type != abigail::dwarf_reader::ELF_TYPE_EXEC
-              && e->type != abigail::dwarf_reader::ELF_TYPE_PI_EXEC)
+	      && e->type != abigail::dwarf_reader::ELF_TYPE_PI_EXEC)
 	    {
 	      if (is_linux_kernel_package)
 		{
@@ -2364,7 +2364,7 @@ compare_prepared_userspace_packages(package& first_package,
       if (iter != second_package.path_elf_file_sptr_map().end()
 	  && (iter->second->type == abigail::dwarf_reader::ELF_TYPE_DSO
 	      || iter->second->type == abigail::dwarf_reader::ELF_TYPE_EXEC
-              || iter->second->type == abigail::dwarf_reader::ELF_TYPE_PI_EXEC
+	      || iter->second->type == abigail::dwarf_reader::ELF_TYPE_PI_EXEC
 	      || iter->second->type == abigail::dwarf_reader::ELF_TYPE_RELOCATABLE))
 	{
 	  if (iter->second->type != abigail::dwarf_reader::ELF_TYPE_RELOCATABLE)
@@ -2697,85 +2697,85 @@ parse_command_line(int argc, char* argv[], options& opts)
   for (int i = 1; i < argc; ++i)
     {
       if (argv[i][0] != '-')
-        {
-          if (opts.package1.empty())
-            {
-              opts.package1 = make_path_absolute(argv[i]).get();
-              opts.nonexistent_file = !file_exists(opts.package1);
-            }
-          else if (opts.package2.empty())
-            {
-              opts.package2 = make_path_absolute(argv[i]).get();
-              opts.nonexistent_file = !file_exists(opts.package2);
-            }
-          else
+	{
+	  if (opts.package1.empty())
+	    {
+	      opts.package1 = make_path_absolute(argv[i]).get();
+	      opts.nonexistent_file = !file_exists(opts.package1);
+	    }
+	  else if (opts.package2.empty())
+	    {
+	      opts.package2 = make_path_absolute(argv[i]).get();
+	      opts.nonexistent_file = !file_exists(opts.package2);
+	    }
+	  else
 	    {
 	      opts.wrong_arg = argv[i];
 	      return false;
 	    }
 
-          if (opts.nonexistent_file)
-            {
-              opts.wrong_option = argv[i];
-              return true;
-            }
-        }
+	  if (opts.nonexistent_file)
+	    {
+	      opts.wrong_option = argv[i];
+	      return true;
+	    }
+	}
       else if (!strcmp(argv[i], "--debug-info-pkg1")
 	       || !strcmp(argv[i], "--d1"))
-        {
-          int j = i + 1;
-          if (j >= argc)
-            {
+	{
+	  int j = i + 1;
+	  if (j >= argc)
+	    {
 	      opts.missing_operand = true;
 	      opts.wrong_option = argv[i];
 	      return true;
-            }
-          opts.debug_packages1.push_back
+	    }
+	  opts.debug_packages1.push_back
 	    (abigail::tools_utils::make_path_absolute(argv[j]).get());
-          ++i;
-        }
+	  ++i;
+	}
       else if (!strcmp(argv[i], "--debug-info-pkg2")
 	       || !strcmp(argv[i], "--d2"))
-        {
-          int j = i + 1;
-          if (j >= argc)
-            {
+	{
+	  int j = i + 1;
+	  if (j >= argc)
+	    {
 	      opts.missing_operand = true;
 	      opts.wrong_option = argv[i];
 	      return true;
-            }
-          opts.debug_packages2.push_back
+	    }
+	  opts.debug_packages2.push_back
 	    (abigail::tools_utils::make_path_absolute(argv[j]).get());
-          ++i;
-        }
+	  ++i;
+	}
       else if (!strcmp(argv[i], "--devel-pkg1")
 	       || !strcmp(argv[i], "--devel1"))
-        {
-          int j = i + 1;
-          if (j >= argc)
-            {
+	{
+	  int j = i + 1;
+	  if (j >= argc)
+	    {
 	      opts.missing_operand = true;
 	      opts.wrong_option = argv[i];
 	      return true;
-            }
-          opts.devel_package1 =
+	    }
+	  opts.devel_package1 =
 	    abigail::tools_utils::make_path_absolute(argv[j]).get();
-          ++i;
-        }
+	  ++i;
+	}
       else if (!strcmp(argv[i], "--devel-pkg2")
 	       || !strcmp(argv[i], "--devel2"))
-        {
-          int j = i + 1;
-          if (j >= argc)
-            {
+	{
+	  int j = i + 1;
+	  if (j >= argc)
+	    {
 	      opts.missing_operand = true;
 	      opts.wrong_option = argv[i];
 	      return true;
-            }
-          opts.devel_package2 =
+	    }
+	  opts.devel_package2 =
 	    abigail::tools_utils::make_path_absolute(argv[j]).get();
-          ++i;
-        }
+	  ++i;
+	}
       else if (!strcmp(argv[i], "--drop-private-types"))
 	opts.drop_private_types = true;
       else if (!strcmp(argv[i], "--no-default-suppression"))
@@ -2877,10 +2877,10 @@ parse_command_line(int argc, char* argv[], options& opts)
 	}
       else if (!strcmp(argv[i], "--help")
 	       || !strcmp(argv[i], "-h"))
-        {
-          opts.display_usage = true;
-          return true;
-        }
+	{
+	  opts.display_usage = true;
+	  return true;
+	}
       else if (!strcmp(argv[i], "--version")
 	       || !strcmp(argv[i], "-v"))
 	{
@@ -2921,7 +2921,7 @@ main(int argc, char* argv[])
     {
       emit_prefix("abipkgdiff", cerr)
 	<< "missing operand\n"
-        "try the --help option for more information\n";
+	"try the --help option for more information\n";
       return (abigail::tools_utils::ABIDIFF_USAGE_ERROR
 	      | abigail::tools_utils::ABIDIFF_ERROR);
     }

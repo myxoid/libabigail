@@ -690,7 +690,7 @@ set_diff_context_from_opts(diff_context_sptr ctxt,
   // redundancy analysis pass altogether.  That could help save a
   // couple of CPU cycle here and there!
   ctxt->show_redundant_changes(opts.show_redundant_changes
-                               || opts.leaf_changes_only);
+			       || opts.leaf_changes_only);
   ctxt->show_symbols_unreferenced_by_debug_info
     (opts.show_symbols_not_referenced_by_debug_info);
   ctxt->show_added_symbols_unreferenced_by_debug_info

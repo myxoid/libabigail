@@ -856,7 +856,7 @@ static bool write_pointer_type_def(const pointer_type_def_sptr&,
 static bool write_reference_type_def(const reference_type_def_sptr&,
 				     write_context&, unsigned);
 static bool write_array_type_def(const array_type_def_sptr&,
-			         write_context&, unsigned);
+				 write_context&, unsigned);
 static bool write_enum_type_decl(const enum_type_decl_sptr&,
 				 write_context&, unsigned);
 static bool write_typedef_decl(const typedef_decl_sptr&,
@@ -2816,8 +2816,8 @@ write_array_type_def(const array_type_def_sptr&	decl,
       vector<array_type_def::subrange_sptr>::const_iterator si;
 
       for (si = decl->get_subranges().begin();
-           si != decl->get_subranges().end(); ++si)
-        {
+	   si != decl->get_subranges().end(); ++si)
+	{
 	  unsigned local_indent =
 	    indent + ctxt.get_config().get_xml_element_indent();
 	  write_array_subrange_type(*si, ctxt, local_indent);
@@ -3238,18 +3238,18 @@ write_function_decl(const function_decl_sptr& decl, write_context& ctxt,
        ++pi)
     {
       if ((*pi)->get_variadic_marker())
-        {
-          do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
-          o << "<parameter is-variadic='yes'";
-        }
+	{
+	  do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
+	  o << "<parameter is-variadic='yes'";
+	}
       else
 	{
 	  parm_type = (*pi)->get_type();
 
-          annotate(*pi, ctxt,
+	  annotate(*pi, ctxt,
 		   indent + ctxt.get_config().get_xml_element_indent());
 
-          do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
+	  do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
 
 	  o << "<parameter type-id='"
 	    << ctxt.get_id_for_type(parm_type)
@@ -3336,17 +3336,17 @@ write_function_type(const function_type_sptr& fn_type,
     {
 
       if ((*pi)->get_variadic_marker())
-        {
-          do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
-          o << "<parameter is-variadic='yes'";
-        }
+	{
+	  do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
+	  o << "<parameter is-variadic='yes'";
+	}
       else
 	{
 	  parm_type = (*pi)->get_type();
 
-          annotate(*pi, ctxt, indent + ctxt.get_config().get_xml_element_indent());
+	  annotate(*pi, ctxt, indent + ctxt.get_config().get_xml_element_indent());
 
-          do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
+	  do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
 	  o << "<parameter type-id='"
 	    << ctxt.get_id_for_type(parm_type)
 	    << "'";
@@ -3560,7 +3560,7 @@ write_class_decl(const class_decl_sptr& decl,
 	   base != decl->get_base_specifiers().end();
 	   ++base)
 	{
-          annotate((*base)->get_base_class(), ctxt, indent);
+	  annotate((*base)->get_base_class(), ctxt, indent);
 	  do_indent(o, nb_ws);
 	  o << "<base-class";
 
@@ -3954,7 +3954,7 @@ write_member_type(const type_base_sptr& t, write_context& ctxt, unsigned indent)
 	 || write_reference_type_def(dynamic_pointer_cast<reference_type_def>(t),
 				     id, ctxt, nb_ws)
 	 || write_array_type_def(dynamic_pointer_cast<array_type_def>(t),
-			         id, ctxt, nb_ws)
+				 id, ctxt, nb_ws)
 	 || write_enum_type_decl(dynamic_pointer_cast<enum_type_decl>(t),
 				 id, ctxt, nb_ws)
 	 || write_typedef_decl(dynamic_pointer_cast<typedef_decl>(t),
@@ -4351,7 +4351,7 @@ create_archive_write_context(const string& archive_path)
 static bool
 write_translation_unit_to_archive(const translation_unit& tu,
 				  archive_write_ctxt& ctxt,
-                                  const bool annotate)
+				  const bool annotate)
 {
   if (!ctxt.archive)
     return false;
@@ -4393,7 +4393,7 @@ write_translation_unit_to_archive(const translation_unit& tu,
 static bool
 write_corpus_to_archive(const corpus& corp,
 			archive_write_ctxt& ctxt,
-                        const bool annotate)
+			const bool annotate)
 {
   for (translation_units::const_iterator i =
 	 corp.get_translation_units().begin();
@@ -4424,7 +4424,7 @@ write_corpus_to_archive(const corpus& corp,
 static bool
 write_corpus_to_archive(const corpus& corp,
 			archive_write_ctxt_sptr ctxt,
-                        const bool annotate)
+			const bool annotate)
 {return write_corpus_to_archive(corp, *ctxt, annotate);}
 
  /// Serialize the current corpus to disk in a file at a given path.
@@ -4440,7 +4440,7 @@ write_corpus_to_archive(const corpus& corp,
 bool
 write_corpus_to_archive(const corpus& corp,
 			const string& path,
-                        const bool annotate)
+			const bool annotate)
 {
   archive_write_ctxt_sptr ctxt = create_archive_write_context(path);
   ABG_ASSERT(ctxt);

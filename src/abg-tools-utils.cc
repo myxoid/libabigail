@@ -1488,12 +1488,12 @@ guess_file_type(istream& in)
       && (unsigned char) buf[2] == 0xee
       && (unsigned char) buf[3] == 0xdb)
     {
-        if (buf[7] == 0x00)
-          return FILE_TYPE_RPM;
-        else if (buf[7] == 0x01)
-          return FILE_TYPE_SRPM;
-        else
-          return FILE_TYPE_UNKNOWN;
+	if (buf[7] == 0x00)
+	  return FILE_TYPE_RPM;
+	else if (buf[7] == 0x01)
+	  return FILE_TYPE_SRPM;
+	else
+	  return FILE_TYPE_UNKNOWN;
     }
 
   if (buf[257]    == 'u'
