@@ -40,6 +40,24 @@ using regex::regex_t_sptr;
 
 // <parsing stuff>
 
+// Parsing utilities
+//
+// Suppression specifications parsing can broken down into the
+// following pieces.
+//
+// .ini format parsing - responsibility of ini::config
+//
+// string parsing helpers - analogous to operator>>; concerns: value
+// format
+//
+// parsing of (untyped) properties to meaningful types - done in a
+// type-driven fashion by (overloaded) read functions; concerns:
+// property structure and value format
+//
+// field look-up within a section - currently done procedurally by the
+// read_foo_suppression functions but could be table-driven; concerns:
+// field presence / absence, optionality, multiplicity etc.
+
 // property parsing
 
 /// Read a string from a property.
