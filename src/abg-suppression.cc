@@ -163,7 +163,8 @@ string_to_parameter_spec(const std::string& str,
 
   // look for the parameter index
   std::string index_str;
-  if (str[cur] == '\'')
+  int index = -1;
+  if (cur < str.size() && str[cur] == '\'')
     {
       ++cur;
       for (; cur < str.size(); ++cur)
@@ -172,48 +173,65 @@ string_to_parameter_spec(const std::string& str,
 	else
 	  index_str += str[cur];
     }
+  if (!index_str.empty())
+    index = atoi(index_str.c_str());
 
   // skip white spaces.
   for (; cur < str.size(); ++cur)
     if (!isspace(str[cur]))
       break;
 
-  bool is_regex = false;
-  if (str[cur] == '/')
+  bool need_slash = false;
+  if (cur < str.size() && str[cur] == '/')
     {
-      is_regex = true;
+      need_slash = true;
       ++cur;
     }
 
   // look for the type name (regex)
+  bool is_regex = false;
   std::string type_name;
   for (; cur < str.size(); ++cur)
     if (!isspace(str[cur]))
       {
-	if (is_regex && str[cur] == '/')
-	  break;
+	if (need_slash && str[cur] == '/')
+	  {
+	    ++cur;
+	    need_slash = false;
+	    is_regex = true;
+	    break;
+	  }
 	type_name += str[cur];
       }
 
-  if (is_regex && str[cur] == '/')
-    ++cur;
-
-  if (!index_str.empty() || !type_name.empty())
+  if (need_slash)
     {
-      std::string type_name_regex;
-      if (is_regex)
-	{
-	  type_name_regex = type_name;
-	  type_name.clear();
-	}
-      function_suppression::parameter_spec* p =
-	new function_suppression::parameter_spec(atoi(index_str.c_str()),
-						 type_name, type_name_regex);
-      result.reset(p);
-      return true;
+      // TODO: maybe emit missing trailing '/' message
+      return false;
     }
 
-  return false;
+  if (cur != str.size())
+    {
+      // TODO: maybe emit trailing junk message
+      return false;
+    }
+
+  if (index < 0 && !is_regex && type_name.empty())
+    {
+      // TODO maybe emit bad parameter specification message
+      return false;
+    }
+
+  std::string type_name_regex;
+  if (is_regex)
+    {
+      type_name_regex = type_name;
+      type_name.clear();
+    }
+
+  result.reset(new function_suppression::parameter_spec(
+    index, type_name, type_name_regex));
+  return true;
 }
 
 /// Parse an offset expression.
