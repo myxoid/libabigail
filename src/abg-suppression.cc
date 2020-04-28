@@ -2405,7 +2405,8 @@ read_type_suppression(const ini::config::section& section,
   if (result.get_type_kind() != type_suppression::ENUM_TYPE_KIND
       && !result.get_changed_enumerator_names().empty())
     {
-      // TODO: maybe emit changed enumerators ignored message
+      std::cerr << "warning: changed_enumerators ignored as 'type_kind = enum'"
+		<< " not specified\n";
       result.set_changed_enumerator_names(std::vector<std::string>());
     }
 
