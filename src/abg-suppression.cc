@@ -11,6 +11,7 @@
 /// libabigail.
 
 #include <algorithm>
+#include <iterator>
 
 #include "abg-internal.h"
 #include <memory>
@@ -507,6 +508,48 @@ read(const ini::property_sptr& prop,
     }
   // TODO(!success): maybe emit bad member insertion ranges message
   return success;
+}
+
+/// Read a list of strings from a property.
+///
+/// The property should be either a simple property or a list property.
+///
+/// @param prop the input property.
+///
+/// @param it an insert iterator to write the items to.
+///
+/// @return whether the parse was successful
+template<typename C> static bool
+read(const ini::property_sptr& prop, std::insert_iterator<C> it)
+{
+  if (ini::simple_property_sptr simple = is_simple_property(prop))
+    {
+      *it++ = simple->get_value()->as_string();
+      return true;
+    }
+  if (ini::list_property_sptr list = is_list_property(prop))
+    {
+      const std::vector<std::string>& items = list->get_value()->get_content();
+      std::copy(items.begin(), items.end(), it);
+      return true;
+    }
+  // TODO: maybe emit not a list of strings message
+  return false;
+}
+
+/// Read a vector of strings from a property.
+///
+/// The property should be either a simple property or a list property.
+///
+/// @param prop the input property.
+///
+/// @param result the output string vector
+///
+/// @return whether the parse was successful
+static bool
+read(const ini::property_sptr& prop, std::vector<std::string>& result)
+{
+  return read(prop, std::inserter(result, result.end()));
 }
 
 // section parsing
@@ -2134,30 +2177,6 @@ read_type_suppression(const ini::config::section& section,
 	}
     }
 
-  /// Support 'changed_enumerators = foo, bar, baz'
-  ///
-  /// Note that this constraint is valid only if we have:
-  ///   'type_kind = enum'.
-  ///
-  /// If the current type is an enum and if it carries changed
-  /// enumerators listed in the changed_enumerators property value
-  /// then it should be suppressed.
-
-  ini::property_sptr changed_enumerators_prop =
-    section.find_property("changed_enumerators");
-
-  vector<string> changed_enumerator_names;
-  if (changed_enumerators_prop)
-    {
-      if (ini::list_property_sptr p =
-	  is_list_property(changed_enumerators_prop))
-	changed_enumerator_names =
-	  p->get_value()->get_content();
-      else if (ini::simple_property_sptr p =
-	       is_simple_property(changed_enumerators_prop))
-	changed_enumerator_names.push_back(p->get_value()->as_string());
-    }
-
   type_suppression result;
 
   if (ini::property_sptr prop = section.find_property("label"))
@@ -2314,9 +2333,26 @@ read_type_suppression(const ini::config::section& section,
       result.set_drops_artifact_from_ir(false);
     }
 
-  if (result.get_type_kind() == type_suppression::ENUM_TYPE_KIND
-      && !changed_enumerator_names.empty())
-    result.set_changed_enumerator_names(changed_enumerator_names);
+  /// Support 'changed_enumerators = foo, bar, baz'
+  ///
+  /// If the current type is an enum and if it carries changed
+  /// enumerators listed in the changed_enumerators property value
+  /// then it should be suppressed.
+  if (ini::property_sptr prop = section.find_property("changed_enumerators"))
+    {
+      std::vector<std::string> strs;
+      if (read(prop, strs))
+	result.set_changed_enumerator_names(strs);
+    }
+
+  /// Note that this constraint is valid only if we have:
+  ///   'type_kind = enum'.
+  if (result.get_type_kind() != type_suppression::ENUM_TYPE_KIND
+      && !result.get_changed_enumerator_names().empty()))
+    {
+      // TODO: maybe emit changed enumerators ignored message
+      result.set_changed_enumerator_names(std::vector<std::string>());
+    }
 
   suppr.reset(new type_suppression(result));
   return true;
