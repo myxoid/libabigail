@@ -119,7 +119,11 @@ suppression_base::get_label() const
 
 /// Setter for the label associated to this suppression specification.
 ///
-/// @param label the new label.
+/// @param label the new label.  This is intended to be an informative
+/// text string that the evalution code might use to designate this
+/// function suppression specification in error messages.  This
+/// parameter might be empty, in which case it's ignored at evaluation
+/// time.
 void
 suppression_base::set_label(const string& label)
 {priv_->label_ = label;}
@@ -128,10 +132,11 @@ suppression_base::set_label(const string& label)
 /// of @ref suppression_base.
 ///
 /// The "file_name_regex" property is a regular expression string that
-/// designates the file name that contains the ABI artifact this
-/// suppression should apply to.
+/// identifies files containing ABI artifacts that this suppression
+/// should apply to.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression string that denotes the
+/// file names to match.
 void
 suppression_base::set_file_name_regex_str(const string& regexp)
 {priv_->file_name_regex_str_ = regexp;}
@@ -140,8 +145,8 @@ suppression_base::set_file_name_regex_str(const string& regexp)
 /// of @ref suppression_base.
 ///
 /// The "file_name_regex" property is a regular expression string that
-/// designates the file name that contains the ABI artifacts this
-/// suppression should apply to.
+/// identifies files containing ABI artifacts that this suppression
+/// should apply to.
 ///
 /// @return the regular expression string.
 const string&
@@ -151,12 +156,12 @@ suppression_base::get_file_name_regex_str() const
 /// Setter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
-/// The current suppression specification should apply to ABI
-/// artifacts of a file which name does *NOT* match the regular
-/// expression string designated by the "file_name_not_regex"
-/// property.
+/// The "file_name_not_regex" property is a regular expression string
+/// that identifies files containing ABI artifacts that this
+/// suppression should *NOT* apply to.
 ///
-/// @param regexp the new regular expression string.
+/// @param regexp the new regular expression string that denotes the
+/// file names to *NOT* match.
 void
 suppression_base::set_file_name_not_regex_str(const string& regexp)
 {priv_->file_name_not_regex_str_ = regexp;}
@@ -164,10 +169,9 @@ suppression_base::set_file_name_not_regex_str(const string& regexp)
 /// Getter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
-/// The current suppression specification should apply to ABI
-/// artifacts of a file which name does *NOT* match the regular
-/// expression string designated by the "file_name_not_regex"
-/// property.
+/// The "file_name_not_regex" property is a regular expression string
+/// that identifies files containing ABI artifacts that this
+/// suppression should *NOT* apply to.
 ///
 /// @return the regular expression string.
 const string&
@@ -457,7 +461,7 @@ type_suppression::get_type_name_regex_str() const
 /// This returns a regular expression string that specifies the family
 /// of types that should be kept after suppression.
 ///
-/// @param r the new regexp string.
+/// @param r the new regular expression.
 void
 type_suppression::set_type_name_not_regex_str(const string& r)
 {priv_->set_type_name_not_regex_str(r);}
@@ -468,7 +472,7 @@ type_suppression::set_type_name_not_regex_str(const string& r)
 /// This returns a regular expression string that specifies the family
 /// of types that should be kept after suppression.
 ///
-/// @return the new regexp string.
+/// @return the new regular expression string.
 const string&
 type_suppression::get_type_name_not_regex_str() const
 {return priv_->get_type_name_not_regex_str();}
@@ -1958,14 +1962,15 @@ read_type_suppression(const ini::config::section& section,
 /// Constructor for the @ref the function_suppression::parameter_spec
 /// type.
 ///
+/// Note that at evaluation time, the parameter @tn_regex is taken
+/// into account only if the parameter @p tn is empty.
+///
 /// @param i the index of the parameter designated by this specification.
 ///
 /// @param tn the type name of the parameter designated by this specification.
 ///
 /// @param tn_regex a regular expression that defines a set of type
-/// names for the parameter designated by this specification.  Note
-/// that at evaluation time, this regular expression is taken in
-/// account only if the parameter @p tn is empty.
+/// names for the parameter designated by this specification.
 function_suppression::parameter_spec::parameter_spec(size_t i,
 						     const string& tn,
 						     const string& tn_regex)
@@ -2101,6 +2106,10 @@ function_suppression::set_name(const string& n)
 /// Getter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate.
 ///
+/// If the name as returned by function_suppression::get_name() is not
+/// empty, then this property is ignored at specification evaluation
+/// time.
+///
 /// @return the regular expression for the possible names of the
 /// function(s).
 const string&
@@ -2109,6 +2118,10 @@ function_suppression::get_name_regex_str() const
 
 /// Setter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate.
+///
+/// If the name as returned by function_suppression::get_name() is not
+/// empty, then this property is ignored at specification evaluation
+/// time.
 ///
 /// @param r the new the regular expression for the possible names of
 /// the function(s).
@@ -3387,6 +3400,7 @@ variable_suppression::set_name(const string& n)
 
 /// Getter for the regular expression for a family of names of
 /// variables the user wants the current specification to designate.
+///
 /// If the variable name as returned by
 /// variable_suppression::get_name() is not empty, then this property
 /// is ignored at evaluation time.  This property might be empty, in
@@ -3399,6 +3413,7 @@ variable_suppression::get_name_regex_str() const
 
 /// Setter for the regular expression for a family of names of
 /// variables the user wants the current specification to designate.
+///
 /// If the variable name as returned by
 /// variable_suppression::get_name() is not empty, then this property
 /// is ignored at evaluation time.  This property might be empty, in
@@ -3418,7 +3433,7 @@ variable_suppression::get_name_not_regex_str() const
 
 /// Setter for the "name_not_regexp" property of the specification.
 ///
-/// @param r the new value of the "name_not_regexp" property.
+/// @param r the new regular expression for variable name exclusion.
 void
 variable_suppression::set_name_not_regex_str(const string& r)
 {priv_->name_not_regex_str_ = r;}
@@ -3530,7 +3545,10 @@ variable_suppression::set_symbol_version(const string& v)
 
 /// Getter of the regular expression for a family of versions of
 /// symbol for the variables the user wants the current specification
-/// to designate.  If @p symbol_version is not empty, then this
+/// to designate.
+///
+/// If the symbol version as returned by
+/// variable_suppression::get_symbol_version() is not empty, then this
 /// property is ignored at evaluation time.  This property might be
 /// empty, in which case it's ignored at evaluation time.
 ///
@@ -3542,7 +3560,10 @@ variable_suppression::get_symbol_version_regex_str() const
 
 /// Setter of the regular expression for a family of versions of
 /// symbol for the variables the user wants the current specification
-/// to designate.  If @p symbol_version is not empty, then this
+/// to designate.
+///
+/// If the symbol version as returned by
+/// variable_suppression::get_symbol_version() is not empty, then this
 /// property is ignored at evaluation time.  This property might be
 /// empty, in which case it's ignored at evaluation time.
 ///
