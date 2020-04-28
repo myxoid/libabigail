@@ -270,6 +270,42 @@ read(const ini::property_sptr& prop,
   return property_value_to_offset_range(tuple->get_value(), result);
 }
 
+/// Read offset ranges from a property.
+///
+/// The property should be a tuple property containing tuple property
+/// values that are pairs.
+///
+/// @param prop the input property.
+///
+/// @param result the output offset range vector.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop,
+     std::vector<type_suppression::offset_range_sptr>& result)
+{
+  ini::tuple_property_sptr tuple = is_tuple_property(prop);
+  if (!tuple)
+    {
+      // TODO: maybe emit not a tuple property message
+      return false;
+    }
+  bool success = true;
+  for (vector<ini::property_value_sptr>::const_iterator i =
+	 tuple->get_value()->get_value_items().begin();
+       i != tuple->get_value()->get_value_items().end();
+       ++i)
+    {
+      type_suppression::offset_range_sptr range;
+      if (property_value_to_offset_range(*i, range))
+	result.push_back(range);
+      else
+	success = false;
+    }
+  // TODO(!success): maybe emit bad member insertion ranges message
+  return success;
+}
+
 // section parsing
 
 /// Check if a section has at least one of the given properties.
@@ -1908,22 +1944,10 @@ read_type_suppression(const ini::config::section& section,
   // So we expect a tuple property, with potentially several pairs (as
   // part of the value); each pair designating a range.  Note that
   // each pair (range) is a list property value.
-  if (ini::tuple_property_sptr prop =
-      is_tuple_property(section.find_property
-			("has_data_members_inserted_between")))
-    {
-      for (vector<ini::property_value_sptr>::const_iterator i =
-	     prop->get_value()->get_value_items().begin();
-	   i != prop->get_value()->get_value_items().end();
-	   ++i)
-	{
-	  const ini::property_value_sptr& value = *i;
-	  type_suppression::offset_range_sptr insert_range;
-	  if (!property_value_to_offset_range(value, insert_range))
-	    return false;
-	  insert_ranges.push_back(insert_range);
-	}
-    }
+  if (const ini::property_sptr& prop =
+      section.find_property("has_data_members_inserted_between"))
+    if (!read(prop, insert_ranges))
+      return false;
 
   /// Support 'changed_enumerators = foo, bar, baz'
   ///
