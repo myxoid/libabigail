@@ -1845,10 +1845,9 @@ read_type_suppression(const ini::config::section& section,
       is_tuple_property(section.find_property
 			("has_data_members_inserted_between")))
     {
-      bool is_well_formed = true;
       for (vector<ini::property_value_sptr>::const_iterator i =
 	     prop->get_value()->get_value_items().begin();
-	   is_well_formed && i != prop->get_value()->get_value_items().end();
+	   i != prop->get_value()->get_value_items().end();
 	   ++i)
 	{
 	  ini::tuple_property_value_sptr tuple_value =
@@ -1856,17 +1855,11 @@ read_type_suppression(const ini::config::section& section,
 	  if (!tuple_value
 	      || tuple_value->get_value_items().size() != 1
 	      || !is_list_property_value(tuple_value->get_value_items()[0]))
-	    {
-	      is_well_formed = false;
-	      break;
-	    }
+	    return false;
 	  ini::list_property_value_sptr list_value =
 	    is_list_property_value(tuple_value->get_value_items()[0]);
 	  if (list_value->get_content().size() != 2)
-	    {
-	      is_well_formed = false;
-	      break;
-	    }
+	    return false;
 
 	  type_suppression::offset_sptr begin, end;
 	  string str = list_value->get_content()[0];
@@ -1900,8 +1893,6 @@ read_type_suppression(const ini::config::section& section,
 	    (new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
 	}
-      if (!is_well_formed)
-	return false;
     }
 
   /// Support 'changed_enumerators = foo, bar, baz'
