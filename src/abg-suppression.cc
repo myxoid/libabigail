@@ -213,19 +213,19 @@ string_to_parameter_spec(const std::string& str,
 
   if (need_slash)
     {
-      // TODO: maybe emit missing trailing '/' message
+      std::cerr << "error: missing trailing '/' in '" << str << "'\n";
       return false;
     }
 
   if (cur != str.size())
     {
-      // TODO: maybe emit trailing junk message
+      std::cerr << "error: trailing junk in '" << str << "'\n";
       return false;
     }
 
   if (index < 0 && !is_regex && type_name.empty())
     {
-      // TODO maybe emit bad parameter specification message
+      std::cerr << "error: bad parameter specification '" << str << "'\n";
       return false;
     }
 
