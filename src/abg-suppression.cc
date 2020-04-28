@@ -1228,7 +1228,7 @@ read_suppressions(const ini::config& config, suppressions_type& suppressions)
 	section_success = read_file_suppression(*section, s);
       else
 	{
-	  // TODO: maybe emit unknown section name error
+	  std::cerr << "error: unknown section name '" << name << "'\n";
 	  success = false;
 	  continue;
 	}
@@ -1236,7 +1236,7 @@ read_suppressions(const ini::config& config, suppressions_type& suppressions)
 	suppressions.push_back(s);
       else
 	{
-	  // TODO: maybe emit section parse failure message
+	  std::cerr << "error: failed to read section '" << name << "'\n";
 	  success = false;
 	}
     }
@@ -1258,7 +1258,7 @@ read_suppressions(std::istream& input,
   ini::config_sptr config = ini::read_config(input);
   if (!config)
     {
-      // TODO: maybe report ini configuration parse failure
+      std::cerr << "error: failed to parse ini configuration\n";
       return false;
     }
   return read_suppressions(*config, suppressions);
@@ -1279,7 +1279,8 @@ read_suppressions(const string& file_path,
   ini::config_sptr config = ini::read_config(file_path);
   if (!config)
     {
-      // TODO: maybe report ini configuration file_path parse failure
+      std::cerr << "error: failed to parse ini configuration from '"
+		<< file_path << "'\n";
       return false;
     }
   return read_suppressions(*config, suppressions);
