@@ -1749,7 +1749,6 @@ read_type_suppression(const ini::config::section& section,
 
   // Support has_data_member_inserted_at
   vector<type_suppression::offset_range_sptr> insert_ranges;
-  bool consider_data_member_insertion = false;
   if (ini::simple_property_sptr prop =
       is_simple_property(section.find_property("has_data_member_inserted_at")))
     {
@@ -1772,7 +1771,6 @@ read_type_suppression(const ini::config::section& section,
       type_suppression::offset_range_sptr insert_range
 	(new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
-	  consider_data_member_insertion = true;
     }
 
   // Support has_data_member_inserted_between
@@ -1827,7 +1825,6 @@ read_type_suppression(const ini::config::section& section,
 	  type_suppression::offset_range_sptr insert_range
 	    (new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
-	  consider_data_member_insertion = true;
 	}
       else
 	// the 'has_data_member_inserted_between' property has a wrong
@@ -1902,7 +1899,6 @@ read_type_suppression(const ini::config::section& section,
 	  type_suppression::offset_range_sptr insert_range
 	    (new type_suppression::offset_range(begin, end));
 	  insert_ranges.push_back(insert_range);
-	  consider_data_member_insertion = true;
 	}
       if (!is_well_formed)
 	return false;
@@ -1977,7 +1973,7 @@ read_type_suppression(const ini::config::section& section,
 	}
     }
 
-  if (consider_data_member_insertion)
+  if (!insert_ranges.empty())
     result.set_data_member_insertion_ranges(insert_ranges);
 
   if (ini::property_sptr prop = section.find_property("name_not_regexp"))
