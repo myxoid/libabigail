@@ -118,7 +118,11 @@ suppression_base::get_label() const
 
 /// Setter for the label associated to this suppression specification.
 ///
-/// @param label the new label.
+/// @param label the new label.  This is intended to be an informative
+/// text string that the evalution code might use to designate this
+/// function suppression specification in error messages.  This
+/// parameter might be empty, in which case it's ignored at evaluation
+/// time.
 void
 suppression_base::set_label(const string& label)
 {priv_->label_ = label;}
@@ -127,10 +131,11 @@ suppression_base::set_label(const string& label)
 /// of @ref suppression_base.
 ///
 /// The "file_name_regex" property is a regular expression that
-/// designates the file name that contains the ABI artifact this
-/// suppression should apply to.
+/// identifies files containing ABI artifacts that this suppression
+/// should apply to.
 ///
-/// @param regexp the new regular expression.
+/// @param regexp the new regular expression that denotes the file
+/// names to match, or a null pointer to unset this.
 void
 suppression_base::set_file_name_regex(const regex_t_sptr& regexp)
 {priv_->file_name_regex_ = regexp;}
@@ -139,10 +144,10 @@ suppression_base::set_file_name_regex(const regex_t_sptr& regexp)
 /// of @ref suppression_base.
 ///
 /// The "file_name_regex" property is a regular expression that
-/// designates the file name that contains the ABI artifacts this
-/// suppression should apply to.
+/// identifies files containing ABI artifacts that this suppression
+/// should apply to.
 ///
-/// @return the regular expression.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 suppression_base::get_file_name_regex() const
 {return priv_->file_name_regex_;}
@@ -150,11 +155,12 @@ suppression_base::get_file_name_regex() const
 /// Setter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
-/// The current suppression specification should apply to ABI
-/// artifacts of a file which name does *NOT* match the regular
-/// expression designated by the "file_name_not_regex" property.
+/// The "file_name_not_regex" property is a regular expression that
+/// identifies files containing ABI artifacts that this suppression
+/// should *NOT* apply to.
 ///
-/// @param regexp the new regular expression.
+/// @param regexp the new regular expression that denotes the file
+/// names to *NOT* match, or a null pointer to unset this.
 void
 suppression_base::set_file_name_not_regex(const regex_t_sptr& regexp)
 {priv_->file_name_not_regex_ = regexp;}
@@ -162,11 +168,11 @@ suppression_base::set_file_name_not_regex(const regex_t_sptr& regexp)
 /// Getter for the "file_name_not_regex" property of the current
 /// instance of @ref suppression_base.
 ///
-/// The current suppression specification should apply to ABI
-/// artifacts of a file which name does *NOT* match the regular
-/// expression designated by the "file_name_not_regex" property.
+/// The "file_name_not_regex" property is a regular expression that
+/// identifies files containing ABI artifacts that this suppression
+/// should *NOT* apply to, or a null pointer if unset.
 ///
-/// @return the regular expression.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 suppression_base::get_file_name_not_regex() const
 {return priv_->file_name_not_regex_;}
@@ -189,7 +195,8 @@ suppression_base::has_file_name_related_property() const
 /// soname of the shared library that contains the ABI artifacts this
 /// suppression should apply to.
 ///
-/// @param regexp the new regular expression.
+/// @param regexp the new regular expression, or a null pointer to
+/// unset this.
 void
 suppression_base::set_soname_regex(const regex_t_sptr& regexp)
 {priv_->soname_regex_ = regexp;}
@@ -201,7 +208,7 @@ suppression_base::set_soname_regex(const regex_t_sptr& regexp)
 /// soname of the shared library that contains the ABI artifacts this
 /// suppression should apply to.
 ///
-/// @return the regular expression.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 suppression_base::get_soname_regex() const
 {return priv_->soname_regex_;}
@@ -213,7 +220,8 @@ suppression_base::get_soname_regex() const
 /// artifacts of a shared library which SONAME does *NOT* match the
 /// regular expression designated by the "soname_not_regex" property.
 ///
-/// @param regexp the new regular expression.
+/// @param regexp the new regular expression, or a null pointer to
+/// unset this.
 void
 suppression_base::set_soname_not_regex(const regex_t_sptr& regexp)
 {priv_->soname_not_regex_ = regexp;}
@@ -223,9 +231,10 @@ suppression_base::set_soname_not_regex(const regex_t_sptr& regexp)
 ///
 /// The current suppression specification should apply to ABI
 /// artifacts of a shared library which SONAME does *NOT* match the
-/// regular expression designated by the "soname_not_regex" property.
+/// regular expression designated by the "soname_not_regex" property,
+/// or a null pointer if unset.
 ///
-/// @return the regular expression.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 suppression_base::get_soname_not_regex() const
 {return priv_->soname_not_regex_;}
@@ -496,7 +505,8 @@ type_suppression::~type_suppression()
 /// This sets a regular expression that specifies the family of types
 /// about which diff reports should be suppressed.
 ///
-/// @param name_regex the new regular expression to set.
+/// @param name_regex the new regular expression to set, or a null
+/// pointer to unset this.
 void
 type_suppression::set_type_name_regex(const regex_t_sptr& name_regex)
 {priv_->type_name_regex_ = name_regex;}
@@ -507,7 +517,7 @@ type_suppression::set_type_name_regex(const regex_t_sptr& name_regex)
 /// This returns a regular expression that specifies the family
 /// of types about which diff reports should be suppressed.
 ///
-/// @return the regular expression.
+/// @return the regular expression or a null pointer if unset.
 const regex_t_sptr&
 type_suppression::get_type_name_regex() const
 {return priv_->type_name_regex_;}
@@ -518,7 +528,8 @@ type_suppression::get_type_name_regex() const
 /// This sets a regular expression that specifies the family
 /// of types that should be kept after suppression.
 ///
-/// @param r the new regexp string.
+/// @param r the new regular expression, or a null pointer to unset
+/// this.
 void
 type_suppression::set_type_name_not_regex(const regex_t_sptr& r)
 {priv_->type_name_not_regex_ = r;}
@@ -529,7 +540,7 @@ type_suppression::set_type_name_not_regex(const regex_t_sptr& r)
 /// This returns a regular expression that specifies the family
 /// of types that should be kept after suppression.
 ///
-/// @return the new regexp string.
+/// @return the new regular expression, or a null pointer if unset.
 const regex_t_sptr&
 type_suppression::get_type_name_not_regex() const
 {return priv_->type_name_not_regex_;}
@@ -682,7 +693,7 @@ type_suppression::set_source_locations_to_keep
 /// Getter of the regular expression that designates the source
 /// location paths of types that should not be suppressed.
 ///
-/// @return the regular expression.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 type_suppression::get_source_location_to_keep_regex() const
 {return priv_->source_location_to_keep_regex_;}
@@ -1981,14 +1992,16 @@ read_type_suppression(const ini::config::section& section,
 /// Constructor for the @ref the function_suppression::parameter_spec
 /// type.
 ///
+/// Note that at evaluation time, the parameter @tn_regex is taken
+/// into account only if the parameter @p tn is empty.
+///
 /// @param i the index of the parameter designated by this specification.
 ///
 /// @param tn the type name of the parameter designated by this specification.
 ///
 /// @param tn_regex a regular expression that defines a set of type
-/// names for the parameter designated by this specification.  Note
-/// that at evaluation time, this regular expression is taken in
-/// account only if the parameter @p tn is empty.
+/// names for the parameter designated by this specification, or a
+/// null pointer to omit this.
 function_suppression::parameter_spec::parameter_spec(size_t i,
 						     const string& tn,
 						     const regex_t_sptr& tn_regex)
@@ -2035,7 +2048,7 @@ function_suppression::parameter_spec::set_parameter_type_name(const string& tn)
 /// function_suppression::parameter_spec::get_parameter_type_name() is
 /// empty.
 ///
-/// @return the regular expression or the parameter type name.
+/// @return the regular expression, or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::parameter_spec::get_parameter_type_name_regex() const
 {return priv_->type_name_regex_;}
@@ -2049,7 +2062,7 @@ function_suppression::parameter_spec::get_parameter_type_name_regex() const
 /// empty.
 ///
 /// @param type_name_regex the new type name regular expression to
-/// set.
+/// set, or a null pointer to unset this.
 void
 function_suppression::parameter_spec::set_parameter_type_name_regex
 (const regex_t_sptr& type_name_regex)
@@ -2124,14 +2137,22 @@ function_suppression::set_name(const string& n)
 /// Getter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate.
 ///
+/// If the name as returned by function_suppression::get_name() is not
+/// empty, then this property is ignored at specification evaluation
+/// time.
+///
 /// @return the regular expression for the possible names of the
-/// function(s).
+/// function(s), or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_name_regex() const
 {return priv_->name_regex_;}
 
 /// Setter for a regular expression for a family of names of functions
 /// the user wants the current specification to designate.
+///
+/// If the name as returned by function_suppression::get_name() is not
+/// empty, then this property is ignored at specification evaluation
+/// time.
 ///
 /// @param r the new the regular expression for the possible names of
 /// the function(s).
@@ -2144,7 +2165,7 @@ function_suppression::set_name_regex(const regex_t_sptr& r)
 /// of.
 ///
 /// @return the regular expression for the possible names of the
-/// function(s).
+/// function(s), or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_name_not_regex() const
 {return priv_->name_not_regex_;}
@@ -2188,7 +2209,7 @@ function_suppression::set_return_type_name(const string& tr)
 /// time.
 ///
 /// @return the regular expression for the possible names of the
-/// return types of the function(s).
+/// return types of the function(s), or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_return_type_regex() const
 {return priv_->return_type_regex_;}
@@ -2274,7 +2295,7 @@ function_suppression::set_symbol_name(const string& n)
 /// evaluation time.
 ///
 /// @return the regular expression for a family of names of symbols of
-/// functions to designate.
+/// functions to designate, or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_symbol_name_regex() const
 {return priv_->symbol_name_regex_;}
@@ -2308,8 +2329,9 @@ function_suppression::set_symbol_name_regex(const regex_t_sptr& r)
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @return the regular expression for a family of names of
-/// symbols that is to be *NOT* suppressed by this suppression specification.
+/// @return the regular expression for a family of names of symbols
+/// that is to be *NOT* suppressed by this suppression specification,
+/// or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_symbol_name_not_regex() const
 {return priv_->symbol_name_not_regex_;}
@@ -2366,7 +2388,7 @@ function_suppression::set_symbol_version(const string& v)
 /// it's ignored at evaluation time.
 ///
 /// @return the regular expression for the versions of symbols of
-/// functions to designate.
+/// functions to designate, or a null pointer if unset.
 const regex_t_sptr&
 function_suppression::get_symbol_version_regex() const
 {return priv_->symbol_version_regex_;}
@@ -3407,18 +3429,21 @@ variable_suppression::set_name(const string& n)
 
 /// Getter for the regular expression for a family of names of
 /// variables the user wants the current specification to designate.
+///
 /// If the variable name as returned by
 /// variable_suppression::get_name() is not empty, then this property
 /// is ignored at evaluation time.  This property might be empty, in
 /// which case it's ignored at evaluation time.
 ///
-/// @return the regular expression for the variable name.
+/// @return the regular expression for the variable name, or a null
+/// pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_name_regex() const
 {return priv_->name_regex_;}
 
 /// Setter for the regular expression for a family of names of
 /// variables the user wants the current specification to designate.
+///
 /// If the variable name as returned by
 /// variable_suppression::get_name() is not empty, then this property
 /// is ignored at evaluation time.  This property might be empty, in
@@ -3431,14 +3456,16 @@ variable_suppression::set_name_regex(const regex_t_sptr& r)
 
 /// Getter for the "name_not_regexp" property of the specification.
 ///
-/// @return the value of the "name_not_regexp" property.
+/// @return the regular expression for variable name exclusion, or a
+/// null pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_name_not_regex() const
 {return priv_->name_not_regex_;}
 
 /// Setter for the "name_not_regexp" property of the specification.
 ///
-/// @param r the new value of the "name_not_regexp" property.
+/// @param r the new regular expression for variable name exclusion,
+/// or a null pointer to unset this.
 void
 variable_suppression::set_name_not_regex(const regex_t_sptr& r)
 {priv_->name_not_regex_ = r;}
@@ -3473,7 +3500,8 @@ variable_suppression::set_symbol_name(const string& n)
 /// property returned by variable_suppression::get_symbol_name() is
 /// empty.
 ///
-/// @return the regular expression for a symbol name of the variable.
+/// @return the regular expression for a symbol name of the variable,
+/// or a null pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_symbol_name_regex() const
 {return priv_->symbol_name_regex_;}
@@ -3504,8 +3532,9 @@ variable_suppression::set_symbol_name_regex(const regex_t_sptr& r)
 /// This property might be empty, in which case it's ignored at
 /// evaluation time.
 ///
-/// @return the regular expression for a family of names of
-/// symbols that is to be *NOT* suppressed by this suppression specification.
+/// @return the regular expression for a family of names of symbols
+/// that is to be *NOT* suppressed by this suppression specification,
+/// or a null pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_symbol_name_not_regex() const
 {return priv_->symbol_name_not_regex_;}
@@ -3550,19 +3579,25 @@ variable_suppression::set_symbol_version(const string& v)
 
 /// Getter of the regular expression for a family of versions of
 /// symbol for the variables the user wants the current specification
-/// to designate.  If @p symbol_version is not empty, then this
+/// to designate.
+///
+/// If the symbol version as returned by
+/// variable_suppression::get_symbol_version() is not empty, then this
 /// property is ignored at evaluation time.  This property might be
 /// empty, in which case it's ignored at evaluation time.
 ///
 /// @return the regular expression of the symbol version of the
-/// variable.
+/// variable, or a null pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_symbol_version_regex() const
 {return priv_->symbol_version_regex_;}
 
 /// Setter of the regular expression for a family of versions of
 /// symbol for the variables the user wants the current specification
-/// to designate.  If @p symbol_version is not empty, then this
+/// to designate.
+///
+/// If the symbol version as returned by
+/// variable_suppression::get_symbol_version() is not empty, then this
 /// property is ignored at evaluation time.  This property might be
 /// empty, in which case it's ignored at evaluation time.
 ///
@@ -3602,7 +3637,8 @@ variable_suppression::set_type_name(const string& n)
 /// property is ignored at evaluation time.  This property might be
 /// empty, in which case it's ignored at evaluation time.
 ///
-/// @return the regular expression of the variable type name.
+/// @return the regular expression of the variable type name, or a
+/// null pointer if unset.
 const regex_t_sptr&
 variable_suppression::get_type_name_regex() const
 {return priv_->type_name_regex_;}
