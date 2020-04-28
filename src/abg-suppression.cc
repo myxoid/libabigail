@@ -142,6 +142,80 @@ string_to_variable_change_kind(const std::string& str,
   return true;
 }
 
+/// Parse a string containing a parameter spec, build an instance of
+/// function_suppression::parameter_spec from it and return a pointer
+/// to that object.
+///
+/// @param result a shared pointer pointer to assign the newly built
+/// instance of function_suppression::parameter_spec.
+///
+/// @return whether parsing was successful
+static bool
+string_to_parameter_spec(const std::string& str,
+			 function_suppression::parameter_spec_sptr& result)
+{
+  std::string::size_type cur = 0;
+
+  // skip leading white spaces.
+  for (; cur < str.size(); ++cur)
+    if (!isspace(str[cur]))
+      break;
+
+  // look for the parameter index
+  std::string index_str;
+  if (str[cur] == '\'')
+    {
+      ++cur;
+      for (; cur < str.size(); ++cur)
+	if (!isdigit(str[cur]))
+	  break;
+	else
+	  index_str += str[cur];
+    }
+
+  // skip white spaces.
+  for (; cur < str.size(); ++cur)
+    if (!isspace(str[cur]))
+      break;
+
+  bool is_regex = false;
+  if (str[cur] == '/')
+    {
+      is_regex = true;
+      ++cur;
+    }
+
+  // look for the type name (regex)
+  std::string type_name;
+  for (; cur < str.size(); ++cur)
+    if (!isspace(str[cur]))
+      {
+	if (is_regex && str[cur] == '/')
+	  break;
+	type_name += str[cur];
+      }
+
+  if (is_regex && str[cur] == '/')
+    ++cur;
+
+  if (!index_str.empty() || !type_name.empty())
+    {
+      regex_t_sptr type_name_regex;
+      if (is_regex)
+	{
+	  type_name_regex = regex::compile(type_name);
+	  type_name.clear();
+	}
+      function_suppression::parameter_spec* p =
+	new function_suppression::parameter_spec(atoi(index_str.c_str()),
+						 type_name, type_name_regex);
+      result.reset(p);
+      return true;
+    }
+
+  return false;
+}
+
 /// Parse an offset expression.
 ///
 /// @param str the input string representing the offset expression.
@@ -3261,78 +3335,6 @@ suppression_matches_type(const suppr::type_suppression& s,
   return true;
 }
 
-/// Parse a string containing a parameter spec, build an instance of
-/// function_suppression::parameter_spec from it and return a pointer
-/// to that object.
-///
-/// @return a shared pointer pointer to the newly built instance of
-/// function_suppression::parameter_spec.  If the parameter
-/// specification could not be parsed, return a nil object.
-static function_suppression::parameter_spec_sptr
-read_parameter_spec_from_string(const string& str)
-{
-  string::size_type cur = 0;
-  function_suppression::parameter_spec_sptr result;
-
-  // skip leading white spaces.
-  for (; cur < str.size(); ++cur)
-    if (!isspace(str[cur]))
-      break;
-
-  // look for the parameter index
-  string index_str;
-  if (str[cur] == '\'')
-    {
-      ++cur;
-      for (; cur < str.size(); ++cur)
-	if (!isdigit(str[cur]))
-	  break;
-	else
-	  index_str += str[cur];
-    }
-
-  // skip white spaces.
-  for (; cur < str.size(); ++cur)
-    if (!isspace(str[cur]))
-      break;
-
-  bool is_regex = false;
-  if (str[cur] == '/')
-    {
-      is_regex = true;
-      ++cur;
-    }
-
-  // look for the type name (regex)
-  string type_name;
-  for (; cur < str.size(); ++cur)
-    if (!isspace(str[cur]))
-      {
-	if (is_regex && str[cur] == '/')
-	  break;
-	type_name += str[cur];
-      }
-
-  if (is_regex && str[cur] == '/')
-    ++cur;
-
-  if (!index_str.empty() || !type_name.empty())
-    {
-      regex_t_sptr type_name_regex;
-      if (is_regex)
-	{
-	  type_name_regex = regex::compile(type_name);
-	  type_name.clear();
-	}
-      function_suppression::parameter_spec* p =
-	new function_suppression::parameter_spec(atoi(index_str.c_str()),
-						 type_name, type_name_regex);
-      result.reset(p);
-    }
-
-  return result;
-}
-
 /// Read a function suppression from an instance of
 /// ini::config::section and build a @ref function_suppression as a
 /// result.
@@ -3369,7 +3371,6 @@ read_function_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  function_suppression::parameter_spec_sptr parm;
   function_suppression::parameter_specs_type parms;
   for (ini::config::properties_type::const_iterator p =
 	 section.get_properties().begin();
@@ -3379,8 +3380,8 @@ read_function_suppression(const ini::config::section& section,
       {
 	ini::simple_property_sptr prop = is_simple_property(*p);
 	ABG_ASSERT(prop);
-	if ((parm = read_parameter_spec_from_string
-	      (prop->get_value()->as_string())))
+	function_suppression::parameter_spec_sptr parm;
+	if (string_to_parameter_spec(prop->get_value()->as_string(), parm))
 	  parms.push_back(parm);
       }
 
