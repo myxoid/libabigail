@@ -418,6 +418,23 @@ read(const ini::property_sptr& prop, variable_suppression::change_kind& result)
   return read(prop, str) && string_to_variable_change_kind(str, result);
 }
 
+/// Read a parameter specification from a property.
+///
+/// The property should be a simple property.
+///
+/// @param prop the input property.
+///
+/// @param result the output parameter specification.
+///
+/// @return whether the parse was successful.
+static bool
+read(const ini::property_sptr& prop,
+     function_suppression::parameter_spec_sptr& result)
+{
+  std::string str;
+  return read(prop, str) && string_to_parameter_spec(str, result);
+}
+
 /// Read an offset value from a property.
 ///
 /// The property should be a simple property.
@@ -3394,20 +3411,6 @@ read_function_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  function_suppression::parameter_specs_type parms;
-  for (ini::config::properties_type::const_iterator p =
-	 section.get_properties().begin();
-       p != section.get_properties().end();
-       ++p)
-    if ((*p)->get_name() == "parameter")
-      {
-	ini::simple_property_sptr prop = is_simple_property(*p);
-	ABG_ASSERT(prop);
-	function_suppression::parameter_spec_sptr parm;
-	if (string_to_parameter_spec(prop->get_value()->as_string(), parm))
-	  parms.push_back(parm);
-      }
-
   function_suppression result;
 
   if (ini::property_sptr prop = section.find_property("label"))
@@ -3445,6 +3448,19 @@ read_function_suppression(const ini::config::section& section,
 	result.set_return_type_regex(regex);
     }
 
+  function_suppression::parameter_specs_type parms;
+  for (ini::config::properties_type::const_iterator p =
+	 section.get_properties().begin();
+       p != section.get_properties().end();
+       ++p)
+    {
+      const ini::property_sptr& prop = *p;
+      if (prop->get_name() != "parameter")
+	continue;
+      function_suppression::parameter_spec_sptr parm;
+      if (read(prop, parm))
+	parms.push_back(parm);
+    }
   result.set_parameter_specs(parms);
 
   if (ini::property_sptr prop = section.find_property("symbol_name"))
