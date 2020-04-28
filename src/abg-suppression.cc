@@ -608,7 +608,7 @@ read(const ini::property_sptr& prop, std::insert_iterator<C> it)
       std::copy(items.begin(), items.end(), it);
       return true;
     }
-  // TODO: maybe emit not a list of strings message
+  std::cerr << "error: property is not a list of strings\n";
   return false;
 }
 
