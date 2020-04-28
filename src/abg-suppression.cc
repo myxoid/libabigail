@@ -562,7 +562,8 @@ read(const ini::property_sptr& prop,
   ini::tuple_property_sptr tuple = is_tuple_property(prop);
   if (!tuple)
     {
-      // TODO: maybe emit not a tuple property message
+      std::cerr << "error: not a tuple property: '"
+		<< prop->get_name() << "'\n";
       return false;
     }
   bool success = true;
@@ -577,7 +578,9 @@ read(const ini::property_sptr& prop,
       else
 	success = false;
     }
-  // TODO(!success): maybe emit bad member insertion ranges message
+  if (!success)
+    std::cerr << "error: bad member insertion ranges: '"
+	      << tuple->get_value()->as_string() << "'\n";
   return success;
 }
 
