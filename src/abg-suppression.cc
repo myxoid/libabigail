@@ -552,6 +552,21 @@ read(const ini::property_sptr& prop, std::vector<std::string>& result)
   return read(prop, std::inserter(result, result.end()));
 }
 
+/// Read an unordered set of strings from a property.
+///
+/// The property should be either a simple property or a list property.
+///
+/// @param prop the input property.
+///
+/// @param result the output unordered string set
+///
+/// @return whether the parse was successful
+static bool
+read(const ini::property_sptr& prop, std::unordered_set<std::string>& result)
+{
+  return read(prop, std::inserter(result, result.end()));
+}
+
 // section parsing
 
 /// Check if a section has at least one of the given properties.
@@ -2155,28 +2170,6 @@ read_type_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  ini::property_sptr srcloc_not_in_prop =
-    section.find_property("source_location_not_in");
-  unordered_set<string> srcloc_not_in;
-  if (srcloc_not_in_prop)
-    {
-      if (ini::simple_property_sptr p = is_simple_property(srcloc_not_in_prop))
-	srcloc_not_in.insert(p->get_value()->as_string());
-      else
-	{
-	  ini::list_property_sptr list_property =
-	    is_list_property(srcloc_not_in_prop);
-	  if (list_property)
-	    {
-	      vector<string>::const_iterator i;
-	      for (i = list_property->get_value()->get_content().begin();
-		   i != list_property->get_value()->get_content().end();
-		   ++i)
-		srcloc_not_in.insert(*i);
-	    }
-	}
-    }
-
   type_suppression result;
 
   if (ini::property_sptr prop = section.find_property("label"))
@@ -2303,8 +2296,13 @@ read_type_suppression(const ini::config::section& section,
 	result.set_soname_not_regex(regex);
     }
 
-  if (!srcloc_not_in.empty())
-    result.set_source_locations_to_keep(srcloc_not_in);
+  if (const ini::property_sptr& prop =
+      section.find_property("source_location_not_in"))
+    {
+      std::unordered_set<std::string> strs;
+      if (read(prop, strs))
+	result.set_source_locations_to_keep(strs);
+    }
 
   if (ini::property_sptr prop = section.find_property("source_location_not_regexp"))
     {
@@ -2348,7 +2346,7 @@ read_type_suppression(const ini::config::section& section,
   /// Note that this constraint is valid only if we have:
   ///   'type_kind = enum'.
   if (result.get_type_kind() != type_suppression::ENUM_TYPE_KIND
-      && !result.get_changed_enumerator_names().empty()))
+      && !result.get_changed_enumerator_names().empty())
     {
       // TODO: maybe emit changed enumerators ignored message
       result.set_changed_enumerator_names(std::vector<std::string>());
