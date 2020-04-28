@@ -358,10 +358,12 @@ read_file_suppression(const ini::config::section& section,
 ///
 /// @param suppressions out parameter.  The vector of suppressions to
 /// append the newly read suppressions to.
-static void
-read_suppressions(const ini::config& config,
-		  suppressions_type& suppressions)
+///
+/// @return whether the parse was successful.
+static bool
+read_suppressions(const ini::config& config, suppressions_type& suppressions)
 {
+  bool success = true;
   for (ini::config::sections_type::const_iterator i =
 	 config.get_sections().begin();
        i != config.get_sections().end();
@@ -369,18 +371,31 @@ read_suppressions(const ini::config& config,
     {
       const ini::config::section_sptr& section = *i;
       const std::string& name = section->get_name();
+      bool section_success;
       suppression_sptr s;
       if (name == "suppress_type")
-	read_type_suppression(*section, s);
+	section_success = read_type_suppression(*section, s);
       else if (name == "suppress_function")
-	read_function_suppression(*section, s);
+	section_success = read_function_suppression(*section, s);
       else if (name == "suppress_variable")
-	read_variable_suppression(*section, s);
+	section_success = read_variable_suppression(*section, s);
       else if (name == "suppress_file")
-	read_file_suppression(*section, s);
-      if (s)
+	section_success = read_file_suppression(*section, s);
+      else
+	{
+	  // TODO: maybe emit unknown section name error
+	  success = false;
+	  continue;
+	}
+      if (section_success)
 	suppressions.push_back(s);
+      else
+	{
+	  // TODO: maybe emit section parse failure message
+	  success = false;
+	}
     }
+  return success;
 }
 
 /// Read suppressions specifications from an input stream.
@@ -389,12 +404,19 @@ read_suppressions(const ini::config& config,
 ///
 /// @param suppressions the vector of suppressions to append the newly
 /// read suppressions to.
-void
+///
+/// @return whether the parse was successful
+bool
 read_suppressions(std::istream& input,
 		  suppressions_type& suppressions)
 {
-    if (ini::config_sptr config = ini::read_config(input))
-    read_suppressions(*config, suppressions);
+  ini::config_sptr config = ini::read_config(input);
+  if (!config)
+    {
+      // TODO: maybe report ini configuration parse failure
+      return false;
+    }
+  return read_suppressions(*config, suppressions);
 }
 
 /// Read suppressions specifications from an input file on disk.
@@ -403,12 +425,19 @@ read_suppressions(std::istream& input,
 ///
 /// @param suppressions the vector of suppressions to append the newly
 /// read suppressions to.
-void
+///
+/// @return whether the parse was successful
+bool
 read_suppressions(const string& file_path,
 		  suppressions_type& suppressions)
 {
-  if (ini::config_sptr config = ini::read_config(file_path))
-    read_suppressions(*config, suppressions);
+  ini::config_sptr config = ini::read_config(file_path);
+  if (!config)
+    {
+      // TODO: maybe report ini configuration file_path parse failure
+      return false;
+    }
+  return read_suppressions(*config, suppressions);
 }
 // </suppression_base stuff>
 

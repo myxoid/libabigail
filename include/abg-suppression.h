@@ -116,11 +116,11 @@ public:
 					 const suppression_base& suppr);
 }; // end class suppression_base
 
-void
+bool
 read_suppressions(std::istream& input,
 		  suppressions_type& suppressions);
 
-void
+bool
 read_suppressions(const string& file_path,
 		  suppressions_type& suppressions);
 
