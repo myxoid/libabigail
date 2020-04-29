@@ -912,6 +912,34 @@ void
 type_suppression::set_data_member_insertion_ranges(const offset_ranges& r)
 {priv_->insertion_ranges_ = r;}
 
+/// Append a data member insertion range that extends from the given
+/// offset to the end.
+///
+/// @param o the insertion offset.
+void
+type_suppression::add_data_member_insertion_offset(const offset_sptr& o)
+{
+  add_data_member_insertion_range(offset_range_sptr(
+    new offset_range(o, offset::create_integer_offset(-1))));
+}
+
+/// Append a data member insertion range.
+///
+/// @param r the insertion range.
+void
+type_suppression::add_data_member_insertion_range(const offset_range_sptr& r)
+{priv_->insertion_ranges_.push_back(r);}
+
+/// Append data member insertion ranges.
+///
+/// @param rs the insertion ranges.
+void
+type_suppression::add_data_member_insertion_ranges(const offset_ranges& rs)
+{
+  priv_->insertion_ranges_.insert(priv_->insertion_ranges_.end(),
+				  rs.begin(), rs.end());
+}
+
 /// Getter for the vector of data member insertion range that
 /// specifiers where a data member is inserted as far as this
 /// suppression specification is concerned.
@@ -1903,52 +1931,6 @@ read_type_suppression(const ini::config::section& section,
 	}
     }
 
-  vector<type_suppression::offset_range_sptr> insert_ranges;
-  // Support has_data_member_inserted_at which has the form:
-  //   has_data_member_inserted_at = <one-string-property-value>
-  if (const ini::property_sptr& prop =
-      section.find_property("has_data_member_inserted_at"))
-    {
-      type_suppression::offset_sptr begin, end;
-      if (!read(prop, begin))
-	return false;
-      end = type_suppression::offset::create_integer_offset(-1);
-      type_suppression::offset_range_sptr insert_range
-	(new type_suppression::offset_range(begin, end));
-	  insert_ranges.push_back(insert_range);
-    }
-
-  // Support has_data_member_inserted_between
-  // ensures that this has the form:
-  //  has_data_member_inserted_between = {0 , end};
-  // and not (for instance):
-  //  has_data_member_inserted_between = {{0 , end}, {1, foo}}
-  //
-  //  This means that the tuple_property_value contains just one
-  //  value, which is a list_property that itself contains 2
-  //  values.
-  if (const ini::property_sptr& prop =
-      section.find_property ("has_data_member_inserted_between"))
-    {
-      type_suppression::offset_range_sptr range;
-      if (!read(prop, range))
-	return false;
-      insert_ranges.push_back(range);
-    }
-
-  // Support has_data_members_inserted_between
-  // The syntax looks like:
-  //
-  //    has_data_members_inserted_between = {{8, 24}, {32, 64}, {128, end}}
-  //
-  // So we expect a tuple property, with potentially several pairs (as
-  // part of the value); each pair designating a range.  Note that
-  // each pair (range) is a list property value.
-  if (const ini::property_sptr& prop =
-      section.find_property("has_data_members_inserted_between"))
-    if (!read(prop, insert_ranges))
-      return false;
-
   /// Support 'changed_enumerators = foo, bar, baz'
   ///
   /// Note that this constraint is valid only if we have:
@@ -2018,8 +2000,51 @@ read_type_suppression(const ini::config::section& section,
 	}
     }
 
-  if (!insert_ranges.empty())
-    result.set_data_member_insertion_ranges(insert_ranges);
+  // Support has_data_member_inserted_at which has the form:
+  //   has_data_member_inserted_at = <one-string-property-value>
+  if (ini::property_sptr prop =
+      section.find_property("has_data_member_inserted_at"))
+    {
+      type_suppression::offset_sptr offset;
+      if (!read(prop, offset))
+	return false;
+      result.add_data_member_insertion_offset(offset);
+    }
+
+  // Support has_data_member_inserted_between
+  // ensures that this has the form:
+  //  has_data_member_inserted_between = {0 , end};
+  // and not (for instance):
+  //  has_data_member_inserted_between = {{0 , end}, {1, foo}}
+  //
+  //  This means that the tuple_property_value contains just one
+  //  value, which is a list_property that itself contains 2
+  //  values.
+  if (ini::property_sptr prop =
+      section.find_property ("has_data_member_inserted_between"))
+    {
+      type_suppression::offset_range_sptr range;
+      if (!read(prop, range))
+	return false;
+      result.add_data_member_insertion_range(range);
+    }
+
+  // Support has_data_members_inserted_between
+  // The syntax looks like:
+  //
+  //    has_data_members_inserted_between = {{8, 24}, {32, 64}, {128, end}}
+  //
+  // So we expect a tuple property, with potentially several pairs (as
+  // part of the value); each pair designating a range.  Note that
+  // each pair (range) is a list property value.
+  if (ini::property_sptr prop =
+      section.find_property("has_data_members_inserted_between"))
+    {
+      vector<type_suppression::offset_range_sptr> ranges;
+      if (!read(prop, ranges))
+	return false;
+      result.add_data_member_insertion_ranges(ranges);
+    }
 
   if (ini::property_sptr prop = section.find_property("name_not_regexp"))
     {

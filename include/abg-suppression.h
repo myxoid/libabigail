@@ -226,6 +226,15 @@ public:
   void
   set_data_member_insertion_ranges(const offset_ranges& r);
 
+  void
+  add_data_member_insertion_offset(const offset_sptr& b);
+
+  void
+  add_data_member_insertion_range(const offset_range_sptr& r);
+
+  void
+  add_data_member_insertion_ranges(const offset_ranges& rs);
+
   const offset_ranges&
   get_data_member_insertion_ranges() const;
 
