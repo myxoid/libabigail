@@ -1483,52 +1483,52 @@ type_suppression::suppresses_diff(const diff* diff) const
     }
 
   // If the suppression should consider the way the diff node has been
-  // reached, then do it now.
-  if (get_reach_kind() != UNSPECIFIED_REACH_KIND)
+  // reached, then do it now.  Further processing relates to the
+  // underlying type if a pointer or reference reach kind was
+  // specified.
+  type_suppression::reach_kind rk = get_reach_kind();
+  switch (rk)
     {
-      if (get_reach_kind() == POINTER_REACH_KIND)
+    case type_suppression::UNSPECIFIED_REACH_KIND:
+      break;
+    case type_suppression::POINTER_REACH_KIND:
+      if (const pointer_diff* ptr_diff = is_pointer_diff(diff))
 	{
-	  if (const pointer_diff* ptr_diff = is_pointer_diff(diff))
-	    {
-	      d = is_type_diff(ptr_diff->underlying_type_diff().get());
-	      if (!d)
-		// This might be of, e.g, distinct_diff type.
-		return false;
-	      d = is_type_diff(peel_qualified_diff(d));
-	    }
-	  else
-	    return false;
+	  d = is_type_diff(ptr_diff->underlying_type_diff().get());
+	  ABG_ASSERT(d);
+          d = is_type_diff(peel_qualified_diff(d));
+	  break;
 	}
-      else if (get_reach_kind() == REFERENCE_REACH_KIND)
+      return false;
+    case type_suppression::REFERENCE_REACH_KIND:
+      if (const reference_diff* ref_diff = is_reference_diff(diff))
 	{
-	  if (const reference_diff* ref_diff = is_reference_diff(diff))
-	    {
-	      d = is_type_diff(ref_diff->underlying_type_diff().get());
-	      if (!d)
-		// This might be of, e.g, distinct_diff type.
-		return false;
-	      d = is_type_diff(peel_qualified_diff(d));
-	    }
-	  else
-	    return false;
+	  d = is_type_diff(ref_diff->underlying_type_diff().get());
+	  ABG_ASSERT(d);
+          d = is_type_diff(peel_qualified_diff(d));
+	  break;
 	}
-      else if (get_reach_kind() == REFERENCE_OR_POINTER_REACH_KIND)
+      return false;
+    case type_suppression::REFERENCE_OR_POINTER_REACH_KIND:
+      if (const pointer_diff* ptr_diff = is_pointer_diff(diff))
 	{
-	  if (const pointer_diff* ptr_diff = is_pointer_diff(diff))
-	    {
-	      d = is_type_diff(ptr_diff->underlying_type_diff().get());
-	      ABG_ASSERT(d);
-	      d = is_type_diff(peel_qualified_diff(d));
-	    }
-	  else if (const reference_diff* ref_diff = is_reference_diff(diff))
-	    {
-	      d = is_type_diff(ref_diff->underlying_type_diff().get());
-	      ABG_ASSERT(d);
-	      d = is_type_diff(peel_qualified_diff(d));
-	    }
-	  else
-	    return false;
+	  d = is_type_diff(ptr_diff->underlying_type_diff().get());
+	  ABG_ASSERT(d);
+          d = is_type_diff(peel_qualified_diff(d));
+	  break;
 	}
+      if (const reference_diff* ref_diff = is_reference_diff(diff))
+	{
+	  d = is_type_diff(ref_diff->underlying_type_diff().get());
+	  ABG_ASSERT(d);
+          d = is_type_diff(peel_qualified_diff(d));
+	  break;
+	}
+      return false;
+    case type_suppression::DIRECT_REACH_KIND:
+      // Do we need to check we didn't get here *via* a pointer or a
+      // reference?
+      return false;
     }
 
   type_base_sptr ft, st;
