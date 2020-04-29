@@ -1724,48 +1724,44 @@ static bool
 suppression_matches_type_no_name(const type_suppression&	 s,
 				 const type_base_sptr		&type)
 {
+  // If the suppression should consider type kind then, well, check
+  // for that.
   type_suppression::type_kind tk = s.get_type_kind();
-  bool matches = true;
   switch (tk)
     {
     case type_suppression::UNSPECIFIED_TYPE_KIND:
       // Nothing to check.
       break;
     case type_suppression::CLASS_TYPE_KIND:
-      if (!is_class_type(type))
-	matches = false;
-      break;
+      if (is_class_type(type))
+	break;
+      return false;
     case type_suppression::STRUCT_TYPE_KIND:
-      {
-	class_decl_sptr klass = is_class_type(type);
-	if (!klass || !klass->is_struct())
-	  matches = false;
-      }
-      break;
+      if (class_decl_sptr klass = is_class_type(type))
+	if (klass->is_struct())
+	  break;
+      return false;
     case type_suppression::UNION_TYPE_KIND:
-      if (!is_union_type(type))
-	matches = false;
-      break;
+      if (is_union_type(type))
+	break;
+      return false;
     case type_suppression::ENUM_TYPE_KIND:
-      if (!is_enum_type(type))
-	matches = false;
-      break;
+      if (is_enum_type(type))
+	break;
+      return false;
     case type_suppression::ARRAY_TYPE_KIND:
-      if (!is_array_type(type))
-	matches = false;
-      break;
+      if (is_array_type(type))
+	break;
+      return false;
     case type_suppression::TYPEDEF_TYPE_KIND:
-      if (!is_typedef(type))
-	matches = false;
-      break;
+      if (is_typedef(type))
+	break;
+      return false;
     case type_suppression::BUILTIN_TYPE_KIND:
-      if (!is_type_decl(type))
-	matches = false;
-      break;
+      if (is_type_decl(type))
+	break;
+      return false;
     }
-
-  if (!matches)
-    return false;
 
   // Check if there is a source location related match.
   if (!suppression_matches_type_location(s, type))
