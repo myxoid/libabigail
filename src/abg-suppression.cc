@@ -754,26 +754,10 @@ class call {
 
 // section parsing
 
-/// Check if a section has at least one of the given properties.
-///
-/// @param names pointer to the start of an array of names.
-///
-/// @param count number of names in the array.
-///
-/// @return whether at least of one the properties was found.
-bool
-check_sufficient_props(const char *const * names, size_t count,
-		       const ini::config::section& section)
-{
-  for (const char *const * name = names; name < names + count; ++name)
-    if (section.find_property(*name))
-      return true;
-  // TODO: Possibly give reason for failure in a message here.
-  return false;
-}
-
 // How to process a suppression specification property.
 template<typename C> struct property_info {
+  /// Is this a sufficient property?
+  bool is_sufficient_;
   /// Is this a repeatable property?
   bool allow_many_;
   /// A function object that consumes an ini config property and acts
@@ -798,6 +782,7 @@ parse(const std::map<std::string, property_info<C>>& info,
       const ini::config::section& section,
       C& klass)
 {
+  bool sufficient = false;
   bool success = true;
   std::set<std::string> seen;
   for (ini::config::properties_type::const_iterator p =
@@ -827,8 +812,17 @@ parse(const std::map<std::string, property_info<C>>& info,
 	      // TODO: maybe emit bad property 'name' message
 	      success = false;
 	    }
+	  if (details.is_sufficient_)
+	    sufficient = true;
 	}
     }
+
+  if (!sufficient)
+    {
+      // TODO: maybe emit insufficient message
+      success = false;
+    }
+
   return success;
 }
 
@@ -2246,53 +2240,36 @@ static bool
 read_type_suppression(const ini::config::section& section,
 		      suppression_sptr& suppr)
 {
-  static const char *const sufficient_props[] = {
-    "file_name_regexp",
-    "file_name_not_regexp",
-    "soname_regexp",
-    "soname_not_regexp",
-    "name",
-    "name_regexp",
-    "name_not_regexp",
-    "type_kind",
-    "source_location_not_in",
-    "source_location_not_regexp",
-  };
-  if (!check_sufficient_props(sufficient_props,
-			      sizeof(sufficient_props)/sizeof(char*),
-			      section))
-    return false;
-
   typedef type_suppression S;
 
   static const std::map<std::string, property_info<S>> info = {
-    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir   } },
-    { "drop",                   { 0, &S::set_drops_artifact_from_ir   } },
-    { "label",                  { 0, &S::set_label                    } },
-    { "file_name_regexp",       { 0, &S::set_file_name_regex_str      } },
-    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex_str  } },
-    { "soname_regexp",          { 0, &S::set_soname_regex_str         } },
-    { "soname_not_regexp",      { 0, &S::set_soname_not_regex_str     } },
-    { "name_regexp",            { 0, &S::set_type_name_regex_str      } },
-    { "name_not_regexp",        { 0, &S::set_type_name_not_regex_str  } },
-    { "name",                   { 0, &S::set_type_name                } },
-    { "source_location_not_in", { 0, &S::set_source_locations_to_keep } },
+    { "drop_artifact",          { 0, 0, &S::set_drops_artifact_from_ir   } },
+    { "drop",                   { 0, 0, &S::set_drops_artifact_from_ir   } },
+    { "label",                  { 0, 0, &S::set_label                    } },
+    { "file_name_regexp",       { 1, 0, &S::set_file_name_regex_str      } },
+    { "file_name_not_regexp",   { 1, 0, &S::set_file_name_not_regex_str  } },
+    { "soname_regexp",          { 1, 0, &S::set_soname_regex_str         } },
+    { "soname_not_regexp",      { 1, 0, &S::set_soname_not_regex_str     } },
+    { "name_regexp",            { 1, 0, &S::set_type_name_regex_str      } },
+    { "name_not_regexp",        { 1, 0, &S::set_type_name_not_regex_str  } },
+    { "name",                   { 1, 0, &S::set_type_name                } },
+    { "source_location_not_in", { 1, 0, &S::set_source_locations_to_keep } },
     { "source_location_not_regexp",
-      { 0, &S::set_source_location_to_keep_regex_str } },
-    { "type_kind",              { 0, &S::set_type_kind                } },
-    { "accessed_through",       { 0, &S::set_reach_kind               } },
+      { 1, 0, &S::set_source_location_to_keep_regex_str } },
+    { "type_kind",              { 1, 0, &S::set_type_kind                } },
+    { "accessed_through",       { 0, 0, &S::set_reach_kind               } },
     { "has_data_member_inserted_at",
-      { 0, &S::add_data_member_insertion_offset      } },
+      { 0, 0, &S::add_data_member_insertion_offset      } },
     { "has_data_member_inserted_between",
-      { 0, &S::add_data_member_insertion_range       } },
+      { 0, 0, &S::add_data_member_insertion_range       } },
     { "has_data_members_inserted_between",
-      { 0, &S::add_data_member_insertion_ranges      } },
-    { "changed_enumerators",    { 0, &S::set_changed_enumerator_names } },
+      { 0, 0, &S::add_data_member_insertion_ranges      } },
+    { "changed_enumerators",    { 0, 0, &S::set_changed_enumerator_names } },
   };
 
   S result;
   if (!parse(info, section, result))
-	return false;
+    return false;
 
   if (result.get_drops_artifact_from_ir()
       && result.get_type_name_regex_str().empty()
@@ -3392,53 +3369,30 @@ static bool
 read_function_suppression(const ini::config::section& section,
 			  suppression_sptr& suppr)
 {
-  static const char *const sufficient_props[] = {
-    "label",
-    "file_name_regexp",
-    "file_name_not_regexp",
-    "soname_regexp",
-    "soname_not_regexp",
-    "name",
-    "name_regexp",
-    "name_not_regexp",
-    "parameter",
-    "return_type_name",
-    "return_type_regexp",
-    "symbol_name",
-    "symbol_name_regexp",
-    "symbol_name_not_regexp",
-    "symbol_version",
-    "symbol_version_regexp",
-  };
-  if (!check_sufficient_props(sufficient_props,
-			      sizeof(sufficient_props)/sizeof(char*),
-			      section))
-    return false;
-
   typedef function_suppression S;
 
   static const std::map<std::string, property_info<S>> info = {
-    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir    } },
-    { "drop",                   { 0, &S::set_drops_artifact_from_ir    } },
-    { "change_kind",            { 0, &S::set_change_kind               } },
-    { "allow_other_aliases",    { 0, &S::set_allow_other_aliases       } },
-    { "label",                  { 0, &S::set_label                     } },
-    { "file_name_regexp",       { 0, &S::set_file_name_regex_str       } },
-    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex_str   } },
-    { "soname_regexp",          { 0, &S::set_soname_regex_str          } },
-    { "soname_not_regexp",      { 0, &S::set_soname_not_regex_str      } },
-    { "name",                   { 0, &S::set_name                      } },
-    { "name_regexp",            { 0, &S::set_name_regex_str            } },
-    { "name_not_regexp",        { 0, &S::set_name_not_regex_str        } },
-    { "return_type_name",       { 0, &S::set_return_type_name          } },
-    { "return_type_regexp",     { 0, &S::set_return_type_regex_str     } },
-    { "symbol_name",            { 0, &S::set_symbol_name               } },
-    { "symbol_name_regexp",     { 0, &S::set_symbol_name_regex_str     } },
-    { "symbol_name_not_regexp", { 0, &S::set_symbol_name_not_regex_str } },
-    { "symbol_version",         { 0, &S::set_symbol_version            } },
-    { "symbol_version_regexp",  { 0, &S::set_symbol_version_regex_str  } },
-    { "allow_other_aliases",    { 0, &S::set_allow_other_aliases       } },
-    { "parameter",              { 1, &S::append_parameter_specs        } },
+    { "drop_artifact",          { 0, 0, &S::set_drops_artifact_from_ir    } },
+    { "drop",                   { 0, 0, &S::set_drops_artifact_from_ir    } },
+    { "change_kind",            { 0, 0, &S::set_change_kind               } },
+    { "allow_other_aliases",    { 0, 0, &S::set_allow_other_aliases       } },
+    { "label",                  { 1, 0, &S::set_label                     } },
+    { "file_name_regexp",       { 1, 0, &S::set_file_name_regex_str       } },
+    { "file_name_not_regexp",   { 1, 0, &S::set_file_name_not_regex_str   } },
+    { "soname_regexp",          { 1, 0, &S::set_soname_regex_str          } },
+    { "soname_not_regexp",      { 1, 0, &S::set_soname_not_regex_str      } },
+    { "name",                   { 1, 0, &S::set_name                      } },
+    { "name_regexp",            { 1, 0, &S::set_name_regex_str            } },
+    { "name_not_regexp",        { 1, 0, &S::set_name_not_regex_str        } },
+    { "return_type_name",       { 1, 0, &S::set_return_type_name          } },
+    { "return_type_regexp",     { 1, 0, &S::set_return_type_regex_str     } },
+    { "symbol_name",            { 1, 0, &S::set_symbol_name               } },
+    { "symbol_name_regexp",     { 1, 0, &S::set_symbol_name_regex_str     } },
+    { "symbol_name_not_regexp", { 1, 0, &S::set_symbol_name_not_regex_str } },
+    { "symbol_version",         { 1, 0, &S::set_symbol_version            } },
+    { "symbol_version_regexp",  { 1, 0, &S::set_symbol_version_regex_str  } },
+    { "allow_other_aliases",    { 0, 0, &S::set_allow_other_aliases       } },
+    { "parameter",              { 1, 1, &S::append_parameter_specs        } },
   };
 
   S result;
@@ -4069,49 +4023,27 @@ static bool
 read_variable_suppression(const ini::config::section& section,
 			  suppression_sptr& suppr)
 {
-  static const char *const sufficient_props[] = {
-    "label",
-    "file_name_regexp",
-    "file_name_not_regexp",
-    "soname_regexp",
-    "soname_not_regexp",
-    "name",
-    "name_regexp",
-    "name_not_regexp",
-    "symbol_name",
-    "symbol_name_regexp",
-    "symbol_name_not_regexp",
-    "symbol_version",
-    "symbol_version_regexp",
-    "type_name",
-    "type_name_regexp",
-  };
-  if (!check_sufficient_props(sufficient_props,
-			      sizeof(sufficient_props)/sizeof(char*),
-			      section))
-    return false;
-
   typedef variable_suppression S;
 
   static const std::map<std::string, property_info<S>> info = {
-    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir    } },
-    { "drop",                   { 0, &S::set_drops_artifact_from_ir    } },
-    { "change_kind",            { 0, &S::set_change_kind               } },
-    { "label",                  { 0, &S::set_label                     } },
-    { "file_name_regexp",       { 0, &S::set_file_name_regex_str       } },
-    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex_str   } },
-    { "soname_regexp",          { 0, &S::set_soname_regex_str          } },
-    { "soname_not_regexp",      { 0, &S::set_soname_not_regex_str      } },
-    { "name",                   { 0, &S::set_name                      } },
-    { "name_regexp",            { 0, &S::set_name_regex_str            } },
-    { "name_not_regexp",        { 0, &S::set_name_not_regex_str        } },
-    { "symbol_name",            { 0, &S::set_symbol_name               } },
-    { "symbol_name_regexp",     { 0, &S::set_symbol_name_regex_str     } },
-    { "symbol_name_not_regexp", { 0, &S::set_symbol_name_not_regex_str } },
-    { "symbol_version",         { 0, &S::set_symbol_version            } },
-    { "symbol_version_regexp",  { 0, &S::set_symbol_version_regex_str  } },
-    { "type_name",              { 0, &S::set_type_name                 } },
-    { "type_name_regexp",       { 0, &S::set_type_name_regex_str       } },
+    { "drop_artifact",          { 0, 0, &S::set_drops_artifact_from_ir    } },
+    { "drop",                   { 0, 0, &S::set_drops_artifact_from_ir    } },
+    { "change_kind",            { 0, 0, &S::set_change_kind               } },
+    { "label",                  { 1, 0, &S::set_label                     } },
+    { "file_name_regexp",       { 1, 0, &S::set_file_name_regex_str       } },
+    { "file_name_not_regexp",   { 1, 0, &S::set_file_name_not_regex_str   } },
+    { "soname_regexp",          { 1, 0, &S::set_soname_regex_str          } },
+    { "soname_not_regexp",      { 1, 0, &S::set_soname_not_regex_str      } },
+    { "name",                   { 1, 0, &S::set_name                      } },
+    { "name_regexp",            { 1, 0, &S::set_name_regex_str            } },
+    { "name_not_regexp",        { 1, 0, &S::set_name_not_regex_str        } },
+    { "symbol_name",            { 1, 0, &S::set_symbol_name               } },
+    { "symbol_name_regexp",     { 1, 0, &S::set_symbol_name_regex_str     } },
+    { "symbol_name_not_regexp", { 1, 0, &S::set_symbol_name_not_regex_str } },
+    { "symbol_version",         { 1, 0, &S::set_symbol_version            } },
+    { "symbol_version_regexp",  { 1, 0, &S::set_symbol_version_regex_str  } },
+    { "type_name",              { 1, 0, &S::set_type_name                 } },
+    { "type_name_regexp",       { 1, 0, &S::set_type_name_regex_str       } },
   };
 
   S result;
@@ -4208,25 +4140,14 @@ static bool
 read_file_suppression(const ini::config::section& section,
 		      suppression_sptr& suppr)
 {
-  static const char *const sufficient_props[] = {
-    "file_name_regexp",
-    "file_name_not_regexp",
-    "soname_regexp",
-    "soname_not_regexp",
-  };
-  if (!check_sufficient_props(sufficient_props,
-			      sizeof(sufficient_props)/sizeof(char*),
-			      section))
-    return false;
-
   typedef file_suppression S;
 
   static const std::map<std::string, property_info<S>> info = {
-    { "label",                { 0, &S::set_label                   } },
-    { "file_name_regexp",     { 0, &S::set_file_name_regex_str     } },
-    { "file_name_not_regexp", { 0, &S::set_file_name_not_regex_str } },
-    { "soname_regexp",        { 0, &S::set_soname_regex_str        } },
-    { "soname_not_regexp",    { 0, &S::set_soname_not_regex_str    } },
+    { "label",                { 0, 0, &S::set_label                   } },
+    { "file_name_regexp",     { 1, 0, &S::set_file_name_regex_str     } },
+    { "file_name_not_regexp", { 1, 0, &S::set_file_name_not_regex_str } },
+    { "soname_regexp",        { 1, 0, &S::set_soname_regex_str        } },
+    { "soname_not_regexp",    { 1, 0, &S::set_soname_not_regex_str    } },
   };
 
   S result;
