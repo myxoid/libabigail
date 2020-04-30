@@ -2400,6 +2400,31 @@ read_type_suppression(const ini::config::section& section,
       result.set_drops_artifact_from_ir(false);
     }
 
+  // Check for conflicting or redundant type_name, type_name_regexp
+  // and type_name_not_regex properties.
+  std::string type_name = result.get_type_name();
+  if (!type_name.empty())
+    {
+      regex_t_sptr type_name_regex = result.get_type_name_regex();
+      if (type_name_regex)
+	{
+	  std::cerr << "notice: type_name_regex "
+		    << (!regex::match(type_name_regex, type_name)
+			? "conflicts with"
+			: "is redundant given")
+		    << " type_name '" << type_name << "'\n";
+	}
+      regex_t_sptr type_name_not_regex = result.get_type_name_not_regex();
+      if (type_name_not_regex)
+	{
+	  std::cerr << "notice: type_name_not_regex "
+		    << (regex::match(type_name_not_regex, type_name)
+			? "conflicts with"
+			: "is redundant given")
+		    << " type_name '" << type_name << "'\n";
+	}
+    }
+
   /// Note that changed_enumerators is valid only if we have:
   ///   'type_kind = enum'.
   if (result.get_type_kind() != type_suppression::ENUM_TYPE_KIND
