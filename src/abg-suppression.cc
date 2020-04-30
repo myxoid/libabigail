@@ -802,7 +802,7 @@ parse(const std::map<std::string, property_info<C>>& info,
 	  info.find(name);
       if (i == info.end())
 	{
-	  // TODO: maybe emit unknown property 'name' message
+	  std::cerr << "error: unknown property '" << name << "'\n";
 	  success = false;
 	}
       else
@@ -810,12 +810,12 @@ parse(const std::map<std::string, property_info<C>>& info,
 	  const property_info<C>& details = i->second;
 	  if (!details.allow_many_ && !seen.insert(name).second)
 	    {
-	      // TODO: maybe emit repeated property 'name' message
+	      std::cerr << "error: repeated property '" << name << "'\n";
 	      success = false;
 	    }
 	  else if (!details.consume_(prop, klass))
 	    {
-	      // TODO: maybe emit bad property 'name' message
+	      std::cerr << "error: bad property '" << name <<  "'\n";
 	      success = false;
 	    }
 	  if (details.is_sufficient_)
