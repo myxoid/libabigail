@@ -855,7 +855,20 @@ parse(const std::map<std::string, property_info<C>>& info,
 
   if (!sufficient)
     {
-      // TODO: maybe emit insufficient message
+      std::string label = klass.get_label();
+      std::cerr << "error: suppression ";
+      if (label.empty())
+	std::cerr << "with no label";
+      else
+	std::cerr << "'" << label << "'";
+      std::cerr << " will be ignored as it has none of:";
+      for (typename std::map<std::string, property_info<C>>::const_iterator i =
+	     info.begin();
+	   i != info.end();
+	   ++i)
+	if (i->second.is_sufficient_)
+	  std::cerr << " '" << i->first << "'";
+      std::cerr << "\n";
       success = false;
     }
 
