@@ -11,7 +11,9 @@
 /// libabigail.
 
 #include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <map>
 
 #include "abg-internal.h"
 #include <memory>
@@ -55,9 +57,13 @@ using regex::regex_t_sptr;
 // type-driven fashion by (overloaded) read functions; concerns:
 // property structure and value format
 //
-// field look-up within a section - currently done procedurally by the
-// read_foo_suppression functions but could be table-driven; concerns:
-// field presence / absence, optionality, multiplicity etc.
+// parsing of sections (multimaps from strings to properties) - done
+// in a table-driven fashion by templated parse function, invoked by
+// read_foo_suppression functions; concerns: named property presence /
+// absence, optionality, multiplicity etc.
+//
+// suppression population - here done by invoking mutating member
+// functions via type-erasing function objects
 
 // string parsing
 
@@ -662,6 +668,120 @@ read(const ini::property_sptr& prop, type_suppression::reach_kind& result)
   return read(prop, str) && string_to_reach_kind(str, result);
 }
 
+// suppression population
+
+// There are complexities here. C++ is a language where composing two
+// functions can take many lines of code.
+//
+// Access to the suppression specifications is via getters and
+// setters, so we need to use pointers to member functions. If we had
+// direct member access, we could use pointers to members directly in
+// parse and hand the read functions references to the members in
+// situ.
+//
+// So we need to wrap function objects (so we can erase the data type
+// of the value being passed): ini config property -> (hidden typed
+// value) -> suppression member.
+//
+// With an inheritance hierarchy we have worries about casting
+// structure references up or pointers to member functions down.
+// This is because the warty language says that
+//
+// &type_suppression::set_label is a void (suppression_base::*)(...)
+//
+// While the pointer is implicitly convertible we can still end up
+// baking the wrong type into a function object if we're not careful.
+//
+// Without this, using member function pointers would be simple.
+//
+// So we have to either support conversion (of references) in the
+// function objects (as std::function does) and erase the base type as
+// well or arrange for the pointers to be downcast to the intended
+// type before being wrapped up.
+//
+// We do the former.
+
+#if __cplusplus >= 201402L
+
+template<typename C>
+class call {
+ public:
+  bool operator()(const ini::property_sptr& prop, C& klass) const {
+    return fun(prop, klass);
+  }
+  template <typename B, typename T> call(void (B::*member)(T))
+    : fun([member](const ini::property_sptr& prop, C& klass) -> bool {
+	    std::remove_const_t<std::remove_reference_t<T>> value;
+	    if (!read(prop, value))
+	      return false;
+	    B& base_klass = klass;
+	    (base_klass.*member)(value);
+	    return true;
+	  })
+  {}
+
+ private:
+  std::function<bool(const ini::property_sptr&, C&)> fun;
+};
+
+#else
+
+template<typename C>
+class call {
+ public:
+  bool operator()(const ini::property_sptr& prop, C& klass) const {
+    return (*fun_)(prop, klass);
+  }
+
+  template <typename B, typename T> call(void (B::*member)(const T&)) {
+    struct typeful : typeless {
+      typeful(void (B::*m)(const T&)) : member_(m) {}
+
+      bool operator()(const ini::property_sptr& prop, C& klass) const {
+	T value;
+	if (!read(prop, value))
+	  return false;
+	B& base_klass = klass;
+	(base_klass.*member_)(value);
+	return true;
+      }
+
+      void (B::*member_)(const T&);
+    };
+
+    fun_.reset(new typeful(member));
+  }
+
+  template <typename B, typename T> call(void (B::*member)(T)) {
+    struct typeful : typeless {
+      typeful(void (B::*m)(T)) : member_(m) {}
+
+      bool operator()(const ini::property_sptr& prop, C& klass) const {
+	T value;
+	if (!read(prop, value))
+	  return false;
+	B& base_klass = klass;
+	(base_klass.*member_)(value);
+	return true;
+      }
+
+      void (B::*member_)(T);
+    };
+
+    fun_.reset(new typeful(member));
+  }
+
+ private:
+  struct typeless {
+    virtual ~typeless() {}
+    virtual bool operator()(const ini::property_sptr& prop, C& klass) const = 0;
+  };
+
+  std::shared_ptr<const typeless> fun_;
+};
+
+#endif
+
 // section parsing
 
 /// Check if a section has at least one of the given properties.
@@ -680,6 +800,66 @@ check_sufficient_props(const char *const * names, size_t count,
       return true;
   // TODO: Possibly give reason for failure in a message here.
   return false;
+}
+
+// How to process a suppression specification property.
+template<typename C> struct property_info {
+  /// Is this a repeatable property?
+  bool allow_many_;
+  /// A function object that consumes an ini config property and acts
+  /// on a suppression specification in some way..
+  call<C> consume_;
+};
+
+/// Parse an ini config section into a suppression specification.
+///
+/// This is generic over the type of the suppression specification.
+///
+/// @param info a mapping from property names to property processing
+/// descriptions.
+///
+/// @param section the ini config section to parse.
+///
+/// @param klass the suppression specification to populate.
+///
+/// @return whether parsing was successful.
+template<typename C> bool
+parse(const std::map<std::string, property_info<C>>& info,
+      const ini::config::section& section,
+      C& klass)
+{
+  bool success = true;
+  std::set<std::string> seen;
+  for (ini::config::properties_type::const_iterator p =
+	 section.get_properties().begin();
+       p != section.get_properties().end();
+       ++p)
+    {
+      const ini::property_sptr& prop = *p;
+      const std::string& name = prop->get_name();
+      typename std::map<std::string, property_info<C>>::const_iterator i =
+	  info.find(name);
+      if (i == info.end())
+	{
+	  // TODO: maybe emit unknown property 'name' message
+	  success = false;
+	}
+      else
+	{
+	  const property_info<C>& details = i->second;
+	  if (!details.allow_many_ && !seen.insert(name).second)
+	    {
+	      // TODO: maybe emit repeated property 'name' message
+	      success = false;
+	    }
+	  else if (!details.consume_(prop, klass))
+	    {
+	      // TODO: maybe emit bad property 'name' message
+	      success = false;
+	    }
+	}
+    }
+  return success;
 }
 
 // </parsing stuff>
@@ -2181,148 +2361,36 @@ read_type_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  type_suppression result;
+  typedef type_suppression S;
 
-  if (ini::property_sptr prop = section.find_property("label"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_label(str);
-    }
+  static const std::map<std::string, property_info<S>> info = {
+    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir   } },
+    { "drop",                   { 0, &S::set_drops_artifact_from_ir   } },
+    { "label",                  { 0, &S::set_label                    } },
+    { "file_name_regexp",       { 0, &S::set_file_name_regex          } },
+    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex      } },
+    { "soname_regexp",          { 0, &S::set_soname_regex             } },
+    { "soname_not_regexp",      { 0, &S::set_soname_not_regex         } },
+    { "name_regexp",            { 0, &S::set_type_name_regex          } },
+    { "name_not_regexp",        { 0, &S::set_type_name_not_regex      } },
+    { "name",                   { 0, &S::set_type_name                } },
+    { "source_location_not_in", { 0, &S::set_source_locations_to_keep } },
+    { "source_location_not_regexp",
+      { 0, &S::set_source_location_to_keep_regex } },
+    { "type_kind",              { 0, &S::set_type_kind                } },
+    { "accessed_through",       { 0, &S::set_reach_kind               } },
+    { "has_data_member_inserted_at",
+      { 0, &S::add_data_member_insertion_offset  } },
+    { "has_data_member_inserted_between",
+      { 0, &S::add_data_member_insertion_range   } },
+    { "has_data_members_inserted_between",
+      { 0, &S::add_data_member_insertion_ranges  } },
+    { "changed_enumerators",    { 0, &S::set_changed_enumerator_names } },
+  };
 
-  if (ini::property_sptr prop = section.find_property("name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_type_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_type_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("type_kind"))
-    {
-      type_suppression::type_kind kind;
-      if (read(prop, kind))
-	result.set_type_kind(kind);
-    }
-
-  if (ini::property_sptr prop = section.find_property("accessed_through"))
-    {
-      type_suppression::reach_kind kind;
-      if (read(prop, kind))
-	result.set_reach_kind(kind);
-    }
-
-  // Support has_data_member_inserted_at which has the form:
-  //   has_data_member_inserted_at = <one-string-property-value>
-  if (ini::property_sptr prop =
-      section.find_property("has_data_member_inserted_at"))
-    {
-      type_suppression::offset_sptr offset;
-      if (!read(prop, offset))
+  S result;
+  if (!parse(info, section, result))
 	return false;
-      result.add_data_member_insertion_offset(offset);
-    }
-
-  // Support has_data_member_inserted_between
-  // ensures that this has the form:
-  //  has_data_member_inserted_between = {0 , end};
-  // and not (for instance):
-  //  has_data_member_inserted_between = {{0 , end}, {1, foo}}
-  //
-  //  This means that the tuple_property_value contains just one
-  //  value, which is a list_property that itself contains 2
-  //  values.
-  if (ini::property_sptr prop =
-      section.find_property ("has_data_member_inserted_between"))
-    {
-      type_suppression::offset_range_sptr range;
-      if (!read(prop, range))
-	return false;
-      result.add_data_member_insertion_range(range);
-    }
-
-  // Support has_data_members_inserted_between
-  // The syntax looks like:
-  //
-  //    has_data_members_inserted_between = {{8, 24}, {32, 64}, {128, end}}
-  //
-  // So we expect a tuple property, with potentially several pairs (as
-  // part of the value); each pair designating a range.  Note that
-  // each pair (range) is a list property value.
-  if (ini::property_sptr prop =
-      section.find_property("has_data_members_inserted_between"))
-    {
-      vector<type_suppression::offset_range_sptr> ranges;
-      if (!read(prop, ranges))
-	return false;
-      result.add_data_member_insertion_ranges(ranges);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_type_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_not_regex(regex);
-    }
-
-  if (const ini::property_sptr& prop =
-      section.find_property("source_location_not_in"))
-    {
-      std::unordered_set<std::string> strs;
-      if (read(prop, strs))
-	result.set_source_locations_to_keep(strs);
-    }
-
-  if (ini::property_sptr prop = section.find_property("source_location_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_source_location_to_keep_regex(regex);
-    }
-
-  ini::property_sptr drop_prop = section.find_property("drop_artifact");
-  if (!drop_prop)
-    drop_prop = section.find_property("drop");
-  if (drop_prop)
-    {
-      bool b;
-      if (read(drop_prop, b))
-	result.set_drops_artifact_from_ir(b);
-    }
 
   if (result.get_drops_artifact_from_ir()
       && !result.get_type_name_regex()
@@ -2334,19 +2402,7 @@ read_type_suppression(const ini::config::section& section,
       result.set_drops_artifact_from_ir(false);
     }
 
-  /// Support 'changed_enumerators = foo, bar, baz'
-  ///
-  /// If the current type is an enum and if it carries changed
-  /// enumerators listed in the changed_enumerators property value
-  /// then it should be suppressed.
-  if (ini::property_sptr prop = section.find_property("changed_enumerators"))
-    {
-      std::vector<std::string> strs;
-      if (read(prop, strs))
-	result.set_changed_enumerator_names(strs);
-    }
-
-  /// Note that this constraint is valid only if we have:
+  /// Note that changed_enumerators is valid only if we have:
   ///   'type_kind = enum'.
   if (result.get_type_kind() != type_suppression::ENUM_TYPE_KIND
       && !result.get_changed_enumerator_names().empty())
@@ -2355,7 +2411,7 @@ read_type_suppression(const ini::config::section& section,
       result.set_changed_enumerator_names(std::vector<std::string>());
     }
 
-  suppr.reset(new type_suppression(result));
+  suppr.reset(new S(result));
   return true;
 }
 
@@ -3448,151 +3504,35 @@ read_function_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  function_suppression result;
+  typedef function_suppression S;
 
-  if (ini::property_sptr prop = section.find_property("label"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_label(str);
-    }
+  static const std::map<std::string, property_info<S>> info = {
+    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir } },
+    { "drop",                   { 0, &S::set_drops_artifact_from_ir } },
+    { "change_kind",            { 0, &S::set_change_kind            } },
+    { "allow_other_aliases",    { 0, &S::set_allow_other_aliases    } },
+    { "label",                  { 0, &S::set_label                  } },
+    { "file_name_regexp",       { 0, &S::set_file_name_regex        } },
+    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex    } },
+    { "soname_regexp",          { 0, &S::set_soname_regex           } },
+    { "soname_not_regexp",      { 0, &S::set_soname_not_regex       } },
+    { "name",                   { 0, &S::set_name                   } },
+    { "name_regexp",            { 0, &S::set_name_regex             } },
+    { "name_not_regexp",        { 0, &S::set_name_not_regex         } },
+    { "return_type_name",       { 0, &S::set_return_type_name       } },
+    { "return_type_regexp",     { 0, &S::set_return_type_regex      } },
+    { "symbol_name",            { 0, &S::set_symbol_name            } },
+    { "symbol_name_regexp",     { 0, &S::set_symbol_name_regex      } },
+    { "symbol_name_not_regexp", { 0, &S::set_symbol_name_not_regex  } },
+    { "symbol_version",         { 0, &S::set_symbol_version         } },
+    { "symbol_version_regexp",  { 0, &S::set_symbol_version_regex   } },
+    { "allow_other_aliases",    { 0, &S::set_allow_other_aliases    } },
+    { "parameter",              { 1, &S::append_parameter_specs     } },
+  };
 
-  if (ini::property_sptr prop = section.find_property("name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("return_type_name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_return_type_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("return_type_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_return_type_regex(regex);
-    }
-
-  function_suppression::parameter_specs_type parms;
-  for (ini::config::properties_type::const_iterator p =
-	 section.get_properties().begin();
-       p != section.get_properties().end();
-       ++p)
-    {
-      const ini::property_sptr& prop = *p;
-      if (prop->get_name() != "parameter")
-	continue;
-      function_suppression::parameter_spec_sptr parm;
-      if (read(prop, parm))
-	parms.push_back(parm);
-    }
-  result.set_parameter_specs(parms);
-
-  if (ini::property_sptr prop = section.find_property("symbol_name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_symbol_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_version"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_symbol_version(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_version_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_version_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("change_kind"))
-    {
-      function_suppression::change_kind ck;
-      if (read(prop, ck))
-	result.set_change_kind(ck);
-    }
-
-  if (ini::property_sptr prop = section.find_property("allow_other_aliases"))
-    {
-      bool b;
-      if (read(prop, b))
-	result.set_allow_other_aliases(b);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_not_regex(regex);
-    }
-
-  ini::property_sptr drop_prop = section.find_property("drop_artifact");
-  if (!drop_prop)
-    drop_prop = section.find_property("drop");
-  if (drop_prop)
-    {
-      bool b;
-      if (read(drop_prop, b))
-	result.set_drops_artifact_from_ir(b);
-    }
+  S result;
+  if (!parse(info, section, result))
+    return false;
 
   if (result.get_drops_artifact_from_ir()
       && result.get_name().empty()
@@ -3606,7 +3546,7 @@ read_function_suppression(const ini::config::section& section,
       result.set_drops_artifact_from_ir(false);
     }
 
-  suppr.reset(new function_suppression(result));
+  suppr.reset(new S(result));
   return true;
 }
 
@@ -4236,129 +4176,32 @@ read_variable_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  variable_suppression result;
+  typedef variable_suppression S;
 
-  if (ini::property_sptr prop = section.find_property("label"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_label(str);
-    }
+  static const std::map<std::string, property_info<S>> info = {
+    { "drop_artifact",          { 0, &S::set_drops_artifact_from_ir } },
+    { "drop",                   { 0, &S::set_drops_artifact_from_ir } },
+    { "change_kind",            { 0, &S::set_change_kind            } },
+    { "label",                  { 0, &S::set_label                  } },
+    { "file_name_regexp",       { 0, &S::set_file_name_regex        } },
+    { "file_name_not_regexp",   { 0, &S::set_file_name_not_regex    } },
+    { "soname_regexp",          { 0, &S::set_soname_regex           } },
+    { "soname_not_regexp",      { 0, &S::set_soname_not_regex       } },
+    { "name",                   { 0, &S::set_name                   } },
+    { "name_regexp",            { 0, &S::set_name_regex             } },
+    { "name_not_regexp",        { 0, &S::set_name_not_regex         } },
+    { "symbol_name",            { 0, &S::set_symbol_name            } },
+    { "symbol_name_regexp",     { 0, &S::set_symbol_name_regex      } },
+    { "symbol_name_not_regexp", { 0, &S::set_symbol_name_not_regex  } },
+    { "symbol_version",         { 0, &S::set_symbol_version         } },
+    { "symbol_version_regexp",  { 0, &S::set_symbol_version_regex   } },
+    { "type_name",              { 0, &S::set_type_name              } },
+    { "type_name_regexp",       { 0, &S::set_type_name_regex        } },
+  };
 
-  if (ini::property_sptr prop = section.find_property("name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_symbol_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_version"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_symbol_version(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_version_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_version_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("type_name"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_type_name(str);
-    }
-
-  if (ini::property_sptr prop = section.find_property("type_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_type_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("symbol_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_symbol_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("change_kind"))
-    {
-      variable_suppression::change_kind ck;
-      if (read(prop, ck))
-	result.set_change_kind(ck);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_not_regex(regex);
-    }
-
-  ini::property_sptr drop_prop = section.find_property("drop_artifact");
-  if (!drop_prop)
-    drop_prop = section.find_property("drop");
-  if (drop_prop)
-    {
-      bool b;
-      if (read(drop_prop, b))
-	result.set_drops_artifact_from_ir(b);
-    }
+  S result;
+  if (!parse(info, section, result))
+    return false;
 
   if (result.get_drops_artifact_from_ir()
       && result.get_name().empty()
@@ -4372,7 +4215,7 @@ read_variable_suppression(const ini::config::section& section,
       result.set_drops_artifact_from_ir(false);
     }
 
-  suppr.reset(new variable_suppression(result));
+  suppr.reset(new S(result));
   return true;
 }
 
@@ -4461,47 +4304,24 @@ read_file_suppression(const ini::config::section& section,
 			      section))
     return false;
 
-  file_suppression result;
+  typedef file_suppression S;
 
-  if (ini::property_sptr prop = section.find_property("label"))
-    {
-      std::string str;
-      if (read(prop, str))
-	result.set_label(str);
-    }
+  static const std::map<std::string, property_info<S>> info = {
+    { "label",                { 0, &S::set_label               } },
+    { "file_name_regexp",     { 0, &S::set_file_name_regex     } },
+    { "file_name_not_regexp", { 0, &S::set_file_name_not_regex } },
+    { "soname_regexp",        { 0, &S::set_soname_regex        } },
+    { "soname_not_regexp",    { 0, &S::set_soname_not_regex    } },
+  };
 
-  if (ini::property_sptr prop = section.find_property("file_name_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("file_name_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_file_name_not_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_regex(regex);
-    }
-
-  if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
-    {
-      regex_t_sptr regex;
-      if (read(prop, regex))
-	result.set_soname_not_regex(regex);
-    }
+  S result;
+  if (!parse(info, section, result))
+    return false;
 
   // TODO: investigate this, there is currently no user control possible.
   result.set_drops_artifact_from_ir(result.has_soname_related_property());
 
-  suppr.reset(new file_suppression(result));
+  suppr.reset(new S(result));
   return true;
 }
 
