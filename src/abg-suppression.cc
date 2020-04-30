@@ -1939,11 +1939,17 @@ read_type_suppression(const ini::config::section& section,
     {
       bool b;
       if (read(drop_prop, b))
-	if (b && (!result.get_type_name_regex_str().empty()
-		  || !result.get_type_name().empty()
-		  || !result.get_source_location_to_keep_regex_str().empty()
-		  || !result.get_source_locations_to_keep().empty()))
-	  result.set_drops_artifact_from_ir(true);
+	result.set_drops_artifact_from_ir(b);
+    }
+
+  if (result.get_drops_artifact_from_ir()
+      && result.get_type_name_regex_str().empty()
+      && result.get_type_name().empty()
+      && result.get_source_location_to_keep_regex_str().empty()
+      && result.get_source_locations_to_keep().empty())
+    {
+      // TODO: maybe emit warning about 'drop' directive being ignored
+      result.set_drops_artifact_from_ir(false);
     }
 
   if (result.get_type_kind() == type_suppression::ENUM_TYPE_KIND
@@ -3292,13 +3298,19 @@ read_function_suppression(const ini::config::section& section,
     {
       bool b;
       if (read(drop_prop, b))
-	if (b && (!result.get_name().empty()
-		  || !result.get_name_regex_str().empty()
-		  || !result.get_name_not_regex_str().empty()
-		  || !result.get_symbol_name().empty()
-		  || !result.get_symbol_name_regex_str().empty()
-		  || !result.get_symbol_name_not_regex_str().empty()))
-	  result.set_drops_artifact_from_ir(true);
+	result.set_drops_artifact_from_ir(b);
+    }
+
+  if (result.get_drops_artifact_from_ir()
+      && result.get_name().empty()
+      && result.get_name_regex_str().empty()
+      && result.get_name_not_regex_str().empty()
+      && result.get_symbol_name().empty()
+      && result.get_symbol_name_regex_str().empty()
+      && result.get_symbol_name_not_regex_str().empty())
+    {
+      // TODO: maybe emit warning about 'drop' directive being ignored
+      result.set_drops_artifact_from_ir(false);
     }
 
   suppr.reset(new function_suppression(result));
@@ -4079,13 +4091,19 @@ read_variable_suppression(const ini::config::section& section,
     {
       bool b;
       if (read(drop_prop, b))
-	if (b && (!result.get_name().empty()
-		  || !result.get_name_regex_str().empty()
-		  || !result.get_name_not_regex_str().empty()
-		  || !result.get_symbol_name().empty()
-		  || !result.get_symbol_name_regex_str().empty()
-		  || !result.get_symbol_name_not_regex_str().empty()))
-	  result.set_drops_artifact_from_ir(true);
+	result.set_drops_artifact_from_ir(b);
+    }
+
+  if (result.get_drops_artifact_from_ir()
+      && result.get_name().empty()
+      && result.get_name_regex_str().empty()
+      && result.get_name_not_regex_str().empty()
+      && result.get_symbol_name().empty()
+      && result.get_symbol_name_regex_str().empty()
+      && result.get_symbol_name_not_regex_str().empty())
+    {
+      // TODO: maybe emit warning about 'drop' directive being ignored
+      result.set_drops_artifact_from_ir(false);
     }
 
   suppr.reset(new variable_suppression(result));
@@ -4204,21 +4222,18 @@ read_file_suppression(const ini::config::section& section,
     {
       std::string regex;
       if (read(prop, regex))
-	{
-	  result.set_soname_regex_str(regex);
-	  result.set_drops_artifact_from_ir(true);
-	}
+	result.set_soname_regex_str(regex);
     }
 
   if (ini::property_sptr prop = section.find_property("soname_not_regexp"))
   {
     std::string regex;
     if (read(prop, regex))
-      {
-	result.set_soname_not_regex_str(regex);
-	result.set_drops_artifact_from_ir(true);
-      }
+      result.set_soname_not_regex_str(regex);
   }
+
+  // TODO: investigate this, there is currently no user control possible.
+  result.set_drops_artifact_from_ir(result.has_soname_related_property());
 
   suppr.reset(new file_suppression(result));
   return true;
