@@ -2395,7 +2395,8 @@ read_type_suppression(const ini::config::section& section,
       && !result.get_source_location_to_keep_regex()
       && result.get_source_locations_to_keep().empty())
     {
-      // TODO: maybe emit warning about 'drop' directive being ignored
+      std::cerr << "warning: ignoring drop directive as no type name or source "
+		<< " location restrictions have been specified\n";
       result.set_drops_artifact_from_ir(false);
     }
 
@@ -3516,7 +3517,8 @@ read_function_suppression(const ini::config::section& section,
       && !result.get_symbol_name_regex()
       && !result.get_symbol_name_not_regex())
     {
-      // TODO: maybe emit warning about 'drop' directive being ignored
+      std::cerr << "warning: ignoring drop directive as no function name or "
+		<< " function symbol name restrictions have been specified\n";
       result.set_drops_artifact_from_ir(false);
     }
 
@@ -4163,7 +4165,8 @@ read_variable_suppression(const ini::config::section& section,
       && !result.get_symbol_name_regex()
       && !result.get_symbol_name_not_regex())
     {
-      // TODO: maybe emit warning about 'drop' directive being ignored
+      std::cerr << "warning: ignoring drop directive as no variable name or "
+		<< " variable symbol name restrictions have been specified\n";
       result.set_drops_artifact_from_ir(false);
     }
 
