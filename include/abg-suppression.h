@@ -760,11 +760,6 @@ typedef shared_ptr<file_suppression> file_suppression_sptr;
 /// which file it has to avoid loading.
 class file_suppression: public suppression_base
 {
-  class priv;
-  typedef shared_ptr<priv> priv_sptr;
-
-  priv_sptr priv_;
-
 public:
 
   file_suppression();
