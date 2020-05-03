@@ -742,8 +742,6 @@ typedef shared_ptr<file_suppression> file_suppression_sptr;
 /// which file it has to avoid loading.
 class file_suppression: public suppression_base
 {
-  std::unique_ptr<priv> priv_;
-
 public:
 
   file_suppression();
