@@ -2876,7 +2876,8 @@ get_default_harmless_categories_bitmap()
 diff_category
 get_default_harmful_categories_bitmap()
 {
-  return (abigail::comparison::SIZE_OR_OFFSET_CHANGE_CATEGORY
+  return (abigail::comparison::SIZE_CHANGE_CATEGORY
+	  | abigail::comparison::OFFSET_CHANGE_CATEGORY
 	  | abigail::comparison::VIRTUAL_MEMBER_CHANGE_CATEGORY
 	  | abigail::comparison::FN_PARM_ADD_REMOVE_CHANGE_CATEGORY);
 }
@@ -2987,11 +2988,19 @@ operator<<(ostream& o, diff_category c)
       emitted_a_category |= true;
     }
 
-  if (c & SIZE_OR_OFFSET_CHANGE_CATEGORY)
+  if (c & SIZE_CHANGE_CATEGORY)
     {
       if (emitted_a_category)
 	o << "|";
-      o << "SIZE_OR_OFFSET_CHANGE_CATEGORY";
+      o << "SIZE_CHANGE_CATEGORY";
+      emitted_a_category |= true;
+    }
+
+  if (c & OFFSET_CHANGE_CATEGORY)
+    {
+      if (emitted_a_category)
+	o << "|";
+      o << "OFFSET_CHANGE_CATEGORY";
       emitted_a_category |= true;
     }
 

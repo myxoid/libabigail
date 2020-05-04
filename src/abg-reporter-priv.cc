@@ -411,8 +411,10 @@ represent(const var_diff_sptr	&diff,
   const string o_pretty_representation =
     o->get_pretty_representation(/*internal=*/false, /*qualified_name=*/false);
   // no n_pretty_representation here as it's only needed in a couple of places
-  const bool show_size_offset_changes = ctxt->get_allowed_category()
-					& SIZE_OR_OFFSET_CHANGE_CATEGORY;
+  const bool show_size_changes = ctxt->get_allowed_category()
+				 & SIZE_CHANGE_CATEGORY;
+  const bool show_offset_changes = ctxt->get_allowed_category()
+				   & OFFSET_CHANGE_CATEGORY;
 
   // Has the main diff text been output?
   bool emitted = false;
@@ -579,7 +581,7 @@ represent(const var_diff_sptr	&diff,
 	out << "now becomes laid out";
       emitted = true;
     }
-  if (show_size_offset_changes)
+  if (show_offset_changes)
     {
       if (o_offset != n_offset)
 	{
@@ -602,7 +604,9 @@ represent(const var_diff_sptr	&diff,
 	  maybe_show_relative_offset_change(diff, *ctxt, out);
 	  emitted = true;
 	}
-
+    }
+  if (show_size_changes)
+    {
       if (!size_reported && o_size != n_size)
 	{
 	  if (begin_with_and)
@@ -753,7 +757,7 @@ report_size_and_alignment_changes(type_or_decl_base_sptr	first,
   unsigned fdc = first_array ? first_array->get_dimension_count(): 0,
     sdc = second_array ? second_array->get_dimension_count(): 0;
 
-  if (ctxt->get_allowed_category() & SIZE_OR_OFFSET_CHANGE_CATEGORY)
+  if (ctxt->get_allowed_category() & SIZE_CHANGE_CATEGORY)
     {
       if (fs != ss || fdc != sdc)
 	{
@@ -819,12 +823,13 @@ report_size_and_alignment_changes(type_or_decl_base_sptr	first,
 	    }
 	} // end if (fs != ss || fdc != sdc)
       else
+	// TODO: Is this the right check?
 	if (ctxt->show_relative_offset_changes())
 	  {
 	    out << indent << "type size hasn't changed\n";
 	  }
     }
-  if ((ctxt->get_allowed_category() & SIZE_OR_OFFSET_CHANGE_CATEGORY)
+  if ((ctxt->get_allowed_category() & SIZE_CHANGE_CATEGORY)
       && (fa != sa))
     {
       out << indent;
