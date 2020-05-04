@@ -222,6 +222,14 @@ test-abidiff/test-PR27616-squished-v0.abi \
 test-abidiff/test-PR27616-squished-v1.abi \
 test-abidiff/test-PR27616-v0.xml \
 test-abidiff/test-PR27616-v1.xml \
+test-abidiff-exit/test-offset-harm-v0.c \
+test-abidiff-exit/test-offset-harm-v0.o \
+test-abidiff-exit/test-offset-harm-v1.c \
+test-abidiff-exit/test-offset-harm-v1.o \
+test-abidiff-exit/test-offset-harm-report0.txt \
+test-abidiff-exit/test-offset-harm-report1.txt \
+test-abidiff-exit/test-offset-harm-report2.txt \
+test-abidiff-exit/test-offset-harm-report3.txt \
 \
 test-diff-dwarf/test0-v0.cc		\
 test-diff-dwarf/test0-v0.o			\
