@@ -414,6 +414,42 @@ InOutSpec in_out_specs[] =
     "data/test-abidiff-exit/test-missing-alias-report.txt",
     "output/test-abidiff-exit/test-missing-alias-report.txt"
   },
+  {
+    "data/test-abidiff-exit/test-offset-harm-v0.o",
+    "data/test-abidiff-exit/test-offset-harm-v1.o",
+    "",
+    "--offset-changes-are-harmless",
+    abigail::tools_utils::ABIDIFF_ABI_CHANGE,
+    "data/test-abidiff-exit/test-offset-harm-report0.txt",
+    "output/test-abidiff-exit/test-offset-harm-report0.txt"
+  },
+  {
+    "data/test-abidiff-exit/test-offset-harm-v0.o",
+    "data/test-abidiff-exit/test-offset-harm-v1.o",
+    "",
+    "--offset-changes-are-harmless --harmless",
+    abigail::tools_utils::ABIDIFF_ABI_CHANGE,
+    "data/test-abidiff-exit/test-offset-harm-report1.txt",
+    "output/test-abidiff-exit/test-offset-harm-report1.txt"
+  },
+  {
+    "data/test-abidiff-exit/test-offset-harm-v0.o",
+    "data/test-abidiff-exit/test-offset-harm-v1.o",
+    "",
+    "--offset-changes-are-harmless --no-harmful",
+    abigail::tools_utils::ABIDIFF_OK,
+    "data/test-abidiff-exit/test-offset-harm-report2.txt",
+    "output/test-abidiff-exit/test-offset-harm-report2.txt"
+  },
+  {
+    "data/test-abidiff-exit/test-offset-harm-v0.o",
+    "data/test-abidiff-exit/test-offset-harm-v1.o",
+    "",
+    "--offset-changes-are-harmless --harmless --no-harmful",
+    abigail::tools_utils::ABIDIFF_ABI_CHANGE,
+    "data/test-abidiff-exit/test-offset-harm-report3.txt",
+    "output/test-abidiff-exit/test-offset-harm-report3.txt"
+  },
   {0, 0, 0 ,0, 0, 0, abigail::tools_utils::ABIDIFF_OK, 0, 0}
 };
 
