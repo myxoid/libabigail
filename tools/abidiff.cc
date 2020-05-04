@@ -35,10 +35,13 @@ using abigail::translation_unit;
 using abigail::translation_unit_sptr;
 using abigail::corpus_sptr;
 using abigail::corpus_group_sptr;
+using abigail::comparison::NO_CHANGE_CATEGORY;
+using abigail::comparison::OFFSET_CHANGE_CATEGORY;
 using abigail::comparison::translation_unit_diff_sptr;
 using abigail::comparison::corpus_diff;
 using abigail::comparison::corpus_diff_sptr;
 using abigail::comparison::compute_diff;
+using abigail::comparison::diff_category;
 using abigail::comparison::get_default_harmless_categories_bitmap;
 using abigail::comparison::get_default_harmful_categories_bitmap;
 using abigail::suppr::suppression_sptr;
@@ -84,6 +87,7 @@ struct options
   bool			show_hexadecimal_values;
   bool			show_offsets_sizes_in_bits;
   bool			show_relative_offset_changes;
+  bool			offset_changes_are_harmless;
   bool			show_stats_only;
   bool			show_symtabs;
   bool			show_deleted_fns;
@@ -132,6 +136,7 @@ struct options
       show_hexadecimal_values(),
       show_offsets_sizes_in_bits(true),
       show_relative_offset_changes(true),
+      offset_changes_are_harmless(false),
       show_stats_only(),
       show_symtabs(),
       show_deleted_fns(),
@@ -229,6 +234,7 @@ display_usage(const string& prog_name, ostream& out)
     << " --show-bits  show size and offsets in bits\n"
     << " --show-hex  show size and offset in hexadecimal\n"
     << " --show-dec  show size and offset in decimal\n"
+    << " --offset-changes-are-harmless"
     << " --no-show-relative-offset-changes  do not show relative"
     " offset changes\n"
     << " --suppressions|--suppr <path> specify a suppression file\n"
@@ -497,6 +503,8 @@ parse_command_line(int argc, char* argv[], options& opts)
 	opts.show_hexadecimal_values = false;
       else if (!strcmp(argv[i], "--no-show-relative-offset-changes"))
 	opts.show_relative_offset_changes = false;
+      else if (!strcmp(argv[i], "--offset-changes-are-harmless"))
+	opts.offset_changes_are_harmless = true;
       else if (!strcmp(argv[i], "--suppressions")
 	       || !strcmp(argv[i], "--suppr"))
 	{
@@ -720,7 +728,7 @@ set_diff_context_from_opts(diff_context_sptr ctxt,
   // redundancy analysis pass altogether.  That could help save a
   // couple of CPU cycle here and there!
   ctxt->show_redundant_changes(opts.show_redundant_changes
-                               || opts.leaf_changes_only);
+			       || opts.leaf_changes_only);
   ctxt->show_symbols_unreferenced_by_debug_info
     (opts.show_symbols_not_referenced_by_debug_info);
   ctxt->show_added_symbols_unreferenced_by_debug_info
@@ -728,11 +736,17 @@ set_diff_context_from_opts(diff_context_sptr ctxt,
   ctxt->show_unreachable_types(opts.show_all_types);
   ctxt->show_impacted_interfaces(opts.show_impacted_interfaces);
 
+  diff_category extra_harmless = opts.offset_changes_are_harmless
+				 ? OFFSET_CHANGE_CATEGORY
+				 : NO_CHANGE_CATEGORY;
+
   if (!opts.show_harmless_changes)
-      ctxt->switch_categories_off(get_default_harmless_categories_bitmap());
+    ctxt->switch_categories_off(get_default_harmless_categories_bitmap()
+				| extra_harmless);
 
   if (!opts.show_harmful_changes)
-    ctxt->switch_categories_off(get_default_harmful_categories_bitmap());
+    ctxt->switch_categories_off(get_default_harmful_categories_bitmap()
+				&~ extra_harmless);
 
   suppressions_type supprs;
   for (vector<string>::const_iterator i = opts.suppression_paths.begin();
