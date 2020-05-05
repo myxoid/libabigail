@@ -3748,7 +3748,6 @@ build_function_type(read_context&	ctxt,
 			    : new function_type(return_type,
 						parms, size, align));
 
-  ctxt.get_translation_unit()->bind_function_type_life_time(fn_type);
   ctxt.key_type_decl(fn_type, id);
 
   for (xmlNodePtr n = node->children; n ; n = n->next)
@@ -3775,6 +3774,7 @@ build_function_type(read_context&	ctxt,
     }
 
   fn_type->set_parameters(parms);
+  ctxt.get_translation_unit()->bind_function_type_life_time(fn_type);
 
   return fn_type;
 }
