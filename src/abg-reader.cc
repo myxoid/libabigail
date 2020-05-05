@@ -860,66 +860,21 @@ public:
   }
 #endif
 
-  /// Test if a type should be canonicalized early.  If so,
-  /// canonicalize it right away.  Otherwise, schedule it for late
-  /// canonicalizing; that is, schedule it so that it's going to be
-  /// canonicalized when the translation unit is fully read.
+  /// Schedule all types for canonicalizing once the translation unit
+  /// is fully read.
   ///
   /// @param t the type to consider for canonicalizing.
   void
-  maybe_canonicalize_type(type_base_sptr t,
-			  bool force_delay = false)
+  canonicalize_type_later(type_base_sptr t)
   {
-    if (!t)
-      return;
+    ABG_ASSERT(t);
+    ABG_ASSERT(!t->get_canonical_type());
 
-    if (t->get_canonical_type())
-      return;
+    // Check that class types have been properly added to their contexts.
+    if (class_decl_sptr c = is_class_type(t))
+      ABG_ASSERT(c->get_scope());
 
-    // If this class has some non-canonicalized sub type, then wait
-    // for the when we've read all the translation unit to
-    // canonicalize all of its non-canonicalized sub types and then we
-    // can canonicalize this one.
-    //
-    // Also, if this is a declaration-only class, wait for the end of
-    // the translation unit reading so that we have its definition and
-    // then we'll use that for canonicalizing it.
-    if (!force_delay
-	&& !type_has_non_canonicalized_subtype(t)
-	&& !is_class_type(t)
-	&& !is_union_type(t)
-	// Below are types that *must* be canonicalized only after
-	// they are added to their context; but then this function
-	// might be called to early, before they are actually added to
-	// their context.
-	//
-	// TODO: make sure this function is called after types are
-	// added to their context, so that we can try to
-	// early-canonicalize some of these types, reducing the size
-	// of the set of types to put on the side, waiting for being
-	// canonicalized.
-	&& !is_method_type(t)
-	&& !is_reference_type(t)
-	&& !is_pointer_type(t)
-	&& !is_qualified_type(t)
-	&& !is_typedef(t)
-	&& !is_enum_type(t)
-	&& !is_function_type(t))
-      {
-	canonicalize(t);
-#ifdef WITH_DEBUG_SELF_COMPARISON
-	maybe_check_abixml_canonical_type_stability(t);
-#endif
-      }
-    else
-      {
-	// We do not want to try to canonicalize a class type that
-	// hasn't been properly added to its context.
-	if (class_decl_sptr c = is_class_type(t))
-	  ABG_ASSERT(c->get_scope());
-
-	schedule_type_for_late_canonicalizing(t);
-      }
+    schedule_type_for_late_canonicalizing(t);
   }
 
   /// Schedule a type for being canonicalized after the current
@@ -930,9 +885,9 @@ public:
   schedule_type_for_late_canonicalizing(type_base_sptr t)
   {m_types_to_canonicalize.push_back(t);}
 
-  /// Perform the canonicalizing of types that ought to be done after
-  /// the current translation unit is read.  This function is called
-  /// when the current corpus is fully built.
+  /// Perform the canonicalizing of types after the current
+  /// translation unit is read.  This function is called when the
+  /// current corpus is fully built.
   void
   perform_late_type_canonicalizing()
   {
@@ -1397,7 +1352,7 @@ read_context::build_or_get_type_decl(const string& id,
       if (add_decl_to_scope)
 	pop_scope_or_abort(scope);
 
-      maybe_canonicalize_type(t, !add_decl_to_scope);
+      canonicalize_type_later(t);
     }
   return t;
 }
@@ -3296,7 +3251,7 @@ build_function_decl(read_context&	ctxt,
 
   ctxt.get_translation_unit()->bind_function_type_life_time(fn_type);
 
-  ctxt.maybe_canonicalize_type(fn_type, !add_to_current_scope);
+  ctxt.canonicalize_type_later(fn_type);
 
   ctxt.maybe_add_fn_to_exported_decls(fn_decl.get());
 
@@ -4733,7 +4688,7 @@ build_class_decl(read_context&		ctxt,
 		  decl_base_sptr td = get_type_declaration(t);
 		  ABG_ASSERT(td);
 		  set_member_access_specifier(td, access);
-		  ctxt.maybe_canonicalize_type(t, !add_to_current_scope);
+		  ctxt.canonicalize_type_later(t);
 		  xml_char_sptr i= XML_NODE_GET_ATTRIBUTE(p, "id");
 		  string id = CHAR_STR(i);
 		  ABG_ASSERT(!id.empty());
@@ -5090,7 +5045,7 @@ build_union_decl(read_context& ctxt,
 		  decl_base_sptr td = get_type_declaration(t);
 		  ABG_ASSERT(td);
 		  set_member_access_specifier(td, access);
-		  ctxt.maybe_canonicalize_type(t, !add_to_current_scope);
+		  ctxt.canonicalize_type_later(t);
 		  xml_char_sptr i= XML_NODE_GET_ATTRIBUTE(p, "id");
 		  string id = CHAR_STR(i);
 		  ABG_ASSERT(!id.empty());
@@ -5342,7 +5297,7 @@ build_class_tdecl(read_context&	ctxt,
 						  add_to_current_scope))
 	{
 	  if (c->get_scope())
-	    ctxt.maybe_canonicalize_type(c, /*force_delay=*/false);
+	    ctxt.canonicalize_type_later(c);
 	  class_tmpl->set_pattern(c);
 	}
     }
@@ -5410,7 +5365,7 @@ build_type_tparameter(read_context&		ctxt,
 
   ABG_ASSERT(result->get_environment());
 
-  ctxt.maybe_canonicalize_type(result, /*force_delay=*/false);
+  ctxt.canonicalize_type_later(result);
 
   return result;
 }
@@ -5463,8 +5418,7 @@ build_type_composition(read_context&		ctxt,
 	      build_qualified_type_decl(ctxt, n,
 					/*add_to_current_scope=*/true)))
 	{
-	  ctxt.maybe_canonicalize_type(composed_type,
-				       /*force_delay=*/true);
+	  ctxt.canonicalize_type_later(composed_type);
 	  result->set_composed_type(composed_type);
 	  break;
 	}
@@ -5589,7 +5543,7 @@ build_template_tparameter(read_context&	ctxt,
   if (result)
     {
       ctxt.key_type_decl(result, id);
-      ctxt.maybe_canonicalize_type(result, /*force_delay=*/false);
+      ctxt.canonicalize_type_later(result);
     }
 
   return result;
@@ -5690,7 +5644,7 @@ handle_type_decl(read_context&	ctxt,
 {
   type_decl_sptr decl = build_type_decl(ctxt, node, add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5723,7 +5677,7 @@ handle_qualified_type_decl(read_context&	ctxt,
     build_qualified_type_decl(ctxt, node,
 			      add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5740,7 +5694,7 @@ handle_pointer_type_def(read_context&	ctxt,
   pointer_type_def_sptr decl = build_pointer_type_def(ctxt, node,
 						      add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5757,7 +5711,7 @@ handle_reference_type_def(read_context& ctxt,
   reference_type_def_sptr decl = build_reference_type_def(ctxt, node,
 							  add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5772,8 +5726,9 @@ handle_function_type(read_context&	ctxt,
 		     bool		add_to_current_scope)
 {
   function_type_sptr type = build_function_type(ctxt, node,
-						  add_to_current_scope);
-  ctxt.maybe_canonicalize_type(type, /*force_delay=*/true);
+						add_to_current_scope);
+  if (type)
+    ctxt.canonicalize_type_later(type);
   return type;
 }
 
@@ -5789,7 +5744,8 @@ handle_array_type_def(read_context&	ctxt,
 {
   array_type_def_sptr decl = build_array_type_def(ctxt, node,
 						  add_to_current_scope);
-  ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+  if (decl)
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5805,7 +5761,7 @@ handle_enum_type_decl(read_context&	ctxt,
     build_enum_type_decl_if_not_suppressed(ctxt, node,
 					   add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5820,7 +5776,7 @@ handle_typedef_decl(read_context&	ctxt,
   typedef_decl_sptr decl = build_typedef_decl(ctxt, node,
 					      add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5872,7 +5828,7 @@ handle_class_decl(read_context& ctxt,
   class_decl_sptr decl =
     build_class_decl_if_not_suppressed(ctxt, node, add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
@@ -5890,7 +5846,7 @@ handle_union_decl(read_context& ctxt,
   union_decl_sptr decl =
     build_union_decl_if_not_suppressed(ctxt, node, add_to_current_scope);
   if (decl && decl->get_scope())
-    ctxt.maybe_canonicalize_type(decl, /*force_delay=*/false);
+    ctxt.canonicalize_type_later(decl);
   return decl;
 }
 
