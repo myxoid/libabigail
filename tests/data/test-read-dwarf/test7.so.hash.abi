@@ -26,7 +26,7 @@
       <subrange length='10' type-id='4c87fef4' id='487da03a'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='160' id='e41e1db9'>
-      <subrange length='5' type-id='4c87fef4' id='53010e10'/>
+      <subrange length='5' type-id='4c87fef4' id='53010e11'/>
     </array-type-def>
     <type-decl name='sizetype' size-in-bits='64' id='4c87fef4'/>
     <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='50d9a3fa'>

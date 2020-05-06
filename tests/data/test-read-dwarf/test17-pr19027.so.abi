@@ -757,11 +757,11 @@
       <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
     </array-type-def>
     <array-type-def dimensions='2' type-id='a959aecb' size-in-bits='320' id='59ba990d'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f0'/>
       <subrange length='5' type-id='7359adad' id='53010e10'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='23bd8cb5' size-in-bits='32' id='eaa227ea'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f1'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='ee31ee44' size-in-bits='32' id='e09548f1'>
       <subrange length='4' type-id='7359adad' id='16fe7105'/>
@@ -769,17 +769,17 @@
     <type-decl name='short int' size-in-bits='16' id='a2185560'/>
     <type-decl name='signed char' size-in-bits='8' id='28577a57'/>
     <array-type-def dimensions='1' type-id='149c6638' size-in-bits='32' id='8141bf33'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f2'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b96825af' size-in-bits='32' id='d351502e'>
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7106'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b96825af' size-in-bits='64' id='13339fda'>
-      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
+      <subrange length='8' type-id='7359adad' id='56e0c0b2'/>
     </array-type-def>
     <type-decl name='unsigned char' size-in-bits='8' id='002ac4a6'/>
     <array-type-def dimensions='1' type-id='f0981eeb' size-in-bits='64' id='0d532ec1'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f3'/>
     </array-type-def>
     <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
     <enum-decl name='hb_buffer_serialize_format_t' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-buffer.h' line='305' column='1' id='a23c3b31'>
@@ -2546,13 +2546,13 @@
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='hb-face.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='94eda2ef' size-in-bits='32' id='08204ba6'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813b6'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='767ae7db' size-in-bits='128' id='b164f8c2'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813b7'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b96825af' size-in-bits='16' id='0f4b9e74'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f4'/>
     </array-type-def>
     <class-decl name='hb_font_funcs_t' size-in-bits='3072' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-font-private.hh' line='58' column='1' id='52c7255a'>
       <member-type access='public'>
@@ -6985,31 +6985,31 @@
       <subrange length='256' type-id='7359adad' id='36e5b9fa'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='d2508266' size-in-bits='96' id='c43766f5'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813b8'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='a0aca0ca' size-in-bits='64' id='a9ff1359'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813b9'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='1c64eff2' size-in-bits='16' id='801b1d81'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813ba'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='06c977b0' size-in-bits='32' id='d30eb84f'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813bb'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='600e567f' size-in-bits='16' id='0ddef26b'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813bc'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='0f676950' size-in-bits='16' id='6948b4e4'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813bd'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='73772998' size-in-bits='40' id='d8c48427'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813be'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='a98ffca7' size-in-bits='32' id='e7f6893e'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813bf'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='4481074f' size-in-bits='88' id='8c3d8356'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c0'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b96825af' size-in-bits='24' id='d3490169'>
       <subrange length='3' type-id='7359adad' id='56f209d2'/>
@@ -9035,124 +9035,124 @@
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='hb-ot-layout.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='802a161f' size-in-bits='32' id='d6fd7f86'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c1'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='e272644e' size-in-bits='16' id='7b1b583d'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c2'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='0b056d27' size-in-bits='24' id='86e35f9e'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c3'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='31296d39' size-in-bits='32' id='c5f505a0'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c4'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='38081ac2' size-in-bits='32' id='4adb6e41'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c5'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='9f4ddfee' size-in-bits='16' id='913e614d'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c6'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='2f293efd' size-in-bits='16' id='dc453234'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c7'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='41510bc6' size-in-bits='16' id='a4489a25'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c8'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='15999e12' size-in-bits='16' id='5d1a1f91'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813c9'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='fd3e7ed2' size-in-bits='16' id='e714ced1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813ca'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='6c606c21' size-in-bits='16' id='5685cfb8'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813cb'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='ddccf839' size-in-bits='16' id='7ea02230'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813cc'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='c0ac5794' size-in-bits='16' id='6c7bc583'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813cd'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='a55a47b8' size-in-bits='32' id='598b9d67'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813ce'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='fd7bc300' size-in-bits='16' id='0fa02bbf'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813cf'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b2e2902d' size-in-bits='16' id='c03e3a94'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d0'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='1b78a1fd' size-in-bits='16' id='6417cd74'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d1'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='2a2fdd0c' size-in-bits='16' id='fdcf7dfb'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d2'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='62095b2c' size-in-bits='16' id='9827c4db'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d3'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='9d05b568' size-in-bits='16' id='bdc2a887'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d4'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='3dc8f35c' size-in-bits='16' id='e2e2af4b'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d5'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='5140e546' size-in-bits='16' id='a3407355'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d6'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='ff06cafc' size-in-bits='16' id='6c66a33b'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d7'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='75c40f42' size-in-bits='16' id='806c81b1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d8'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='29e56465' size-in-bits='16' id='beac0a8c'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813d9'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='e29139c9' size-in-bits='16' id='894a99b0'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813da'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='58ff1033' size-in-bits='16' id='dd73c8ba'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813db'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='f9ae2a6e' size-in-bits='48' id='47675cad'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813dc'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='54710f52' size-in-bits='48' id='ca8d61d1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813dd'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='fc84a533' size-in-bits='48' id='fa6575fa'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813de'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='4665a4a1' size-in-bits='48' id='4cfb6558'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813df'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='f3c794ac' size-in-bits='16' id='1b68b60a'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+      <subrange length='1' type-id='7359adad' id='52f813e0'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='c894953d' size-in-bits='16' id='86c49187'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f5'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='16364127' size-in-bits='2304' id='d5461c23'>
-      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
+      <subrange length='8' type-id='7359adad' id='56e0c0b3'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='d2b59e75' size-in-bits='2048' id='099f2b9a'>
       <subrange length='32' type-id='7359adad' id='ae5bde82'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='f67b3947' size-in-bits='512' id='9c434a3f'>
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7107'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='0f8a375a' size-in-bits='4352' id='bdb60ae2'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f6'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='c16ca00b' size-in-bits='1280' id='a6d21939'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f7'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='863e9b4e' size-in-bits='64' id='697cc2c1'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f8'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='eaa32e2f' size-in-bits='192' id='20b03b60'>
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+      <subrange length='3' type-id='7359adad' id='56f209d3'/>
     </array-type-def>
     <class-decl name='hb_ot_map_t' size-in-bits='8192' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-map-private.hh' line='40' column='1' id='b5c19b71'>
       <member-type access='public'>
@@ -22860,13 +22860,13 @@
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='hb-ot-map.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='ecf53e85' size-in-bits='7168' id='0fba841a'>
-      <subrange length='32' type-id='7359adad' id='ae5bde82'/>
+      <subrange length='32' type-id='7359adad' id='ae5bde83'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='49d15055' size-in-bits='1024' id='ce852739'>
-      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
+      <subrange length='8' type-id='7359adad' id='56e0c0b4'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b29a5edb' size-in-bits='2304' id='dda98b39'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f9'/>
     </array-type-def>
     <class-decl name='hb_ot_map_builder_t' size-in-bits='10240' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-map-private.hh' line='181' column='1' id='355169dd'>
       <member-type access='private'>
@@ -23369,7 +23369,7 @@
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='hb-ot-shape.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='64' id='8e100159'>
-      <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
+      <subrange length='8' type-id='7359adad' id='56e0c0b5'/>
     </array-type-def>
     <class-decl name='hb_ot_complex_shaper_t' size-in-bits='704' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-shape-complex-private.hh' line='69' column='1' id='3f3599e7'>
       <data-member access='public' layout-offset-in-bits='0'>

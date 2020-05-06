@@ -1729,7 +1729,7 @@
       <subrange length='12' type-id='4c87fef4' id='84827bdc'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='112' id='f01a039e'>
-      <subrange length='14' type-id='4c87fef4' id='48882d96'/>
+      <subrange length='14' type-id='4c87fef4' id='48882d97'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='120' id='ec17bebb'>
       <subrange length='15' type-id='4c87fef4' id='8484ba73'/>
@@ -1794,7 +1794,7 @@
       <subrange length='8' type-id='4c87fef4' id='56e0c0b2'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='ea86de29' size-in-bits='96' id='326b5818'>
-      <subrange length='12' type-id='4c87fef4' id='84827bdc'/>
+      <subrange length='12' type-id='4c87fef4' id='84827bdd'/>
     </array-type-def>
     <type-decl name='double' size-in-bits='64' id='a0eb0f08'/>
     <type-decl name='float' size-in-bits='32' id='a6c45d85'/>
@@ -1809,7 +1809,7 @@
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
     <type-decl name='unsigned char' size-in-bits='8' id='002ac4a6'/>
     <array-type-def dimensions='1' type-id='002ac4a6' size-in-bits='128' id='92a46553'>
-      <subrange length='16' type-id='4c87fef4' id='848d0938'/>
+      <subrange length='16' type-id='4c87fef4' id='848d0939'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='002ac4a6' size-in-bits='256' id='fc872715'>
       <subrange length='32' type-id='4c87fef4' id='ae5bde82'/>

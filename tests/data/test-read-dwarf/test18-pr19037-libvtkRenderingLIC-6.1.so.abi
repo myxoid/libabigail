@@ -483,7 +483,7 @@
     <type-decl name='float' size-in-bits='32' id='a6c45d85'/>
     <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
     <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='128' id='2020bac4'>
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7106'/>
     </array-type-def>
     <type-decl name='long double' size-in-bits='128' id='e095c704'/>
     <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
@@ -5143,13 +5143,13 @@
       <subrange length='2' type-id='7359adad' id='52efc4ef'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='b59d7dce' size-in-bits='256' id='314f9837'>
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7107'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='807869d3' size-in-bits='128' id='666dd879'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f0'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='f0981eeb' size-in-bits='64' id='0d532ec1'>
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f1'/>
     </array-type-def>
     <class-decl name='vtkPainterCommunicator' size-in-bits='64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPainterCommunicator.h' line='30' column='1' id='e6497d50'>
       <member-function access='private' constructor='yes'>

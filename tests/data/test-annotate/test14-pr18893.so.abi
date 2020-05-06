@@ -3673,7 +3673,7 @@
     <!-- REAL[2] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='64' id='5df3d5e7'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f0'/>
     </array-type-def>
     <!-- REAL[3] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='96' id='61f61aca'>
@@ -3683,9 +3683,9 @@
     <!-- REAL[40][4] -->
     <array-type-def dimensions='2' type-id='234bc418' size-in-bits='5120' id='f343e529'>
       <!-- <anonymous range>[40] -->
-      <subrange length='40' type-id='7359adad' id='8f80b239'/>
+      <subrange length='40' type-id='7359adad' id='8f80b23a'/>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7106'/>
     </array-type-def>
     <!-- REAL[6400] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='204800' id='65bb74af'>
@@ -3695,12 +3695,12 @@
     <!-- StoredVertex*[3] -->
     <array-type-def dimensions='1' type-id='861154a2' size-in-bits='192' id='25b51a5f'>
       <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+      <subrange length='3' type-id='7359adad' id='56f209d3'/>
     </array-type-def>
     <!-- long int[2] -->
     <array-type-def dimensions='1' type-id='bd54fe1a' size-in-bits='128' id='6136feaa'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f1'/>
     </array-type-def>
     <!-- class StoredVertex -->
     <class-decl name='StoredVertex' size-in-bits='256' visibility='default' filepath='libnurbs/interface/glsurfeval.h' line='84' column='1' id='5c601ee4'>
@@ -5035,7 +5035,7 @@
     <!-- REAL[4] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='128' id='a201b87d'>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7107'/>
     </array-type-def>
     <!-- REAL[][24][24] -->
     <array-type-def dimensions='3' type-id='234bc418' size-in-bits='infinite' id='1e6e1d59'>
@@ -5044,7 +5044,7 @@
       <!-- <anonymous range>[24] -->
       <subrange length='24' type-id='7359adad' id='fdd3342b'/>
       <!-- <anonymous range>[24] -->
-      <subrange length='24' type-id='7359adad' id='fdd3342b'/>
+      <subrange length='24' type-id='7359adad' id='fdd3342c'/>
     </array-type-def>
     <!-- struct Curvelist -->
     <class-decl name='Curvelist' size-in-bits='256' is-struct='yes' visibility='default' filepath='libnurbs/internals/curvelist.h' line='47' column='1' id='5d0beef4'>
@@ -8242,9 +8242,9 @@
     <!-- REAL[3][4] -->
     <array-type-def dimensions='2' type-id='234bc418' size-in-bits='384' id='2f738f98'>
       <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+      <subrange length='3' type-id='7359adad' id='56f209d4'/>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7108'/>
     </array-type-def>
     <!-- struct GridVertex -->
     <class-decl name='GridVertex' size-in-bits='128' is-struct='yes' visibility='default' filepath='libnurbs/internals/gridvertex.h' line='39' column='1' id='3f2e4b5b'>
@@ -9171,7 +9171,7 @@
     <!-- Quiltspec[2] -->
     <array-type-def dimensions='1' type-id='2412cf51' size-in-bits='640' id='cebeb113'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f2'/>
     </array-type-def>
     <!-- REAL[120] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='3840' id='172a38aa'>
@@ -9186,19 +9186,19 @@
     <!-- REAL[5][5] -->
     <array-type-def dimensions='2' type-id='234bc418' size-in-bits='800' id='a5d9526b'>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='7359adad' id='53010e10'/>
+      <subrange length='5' type-id='7359adad' id='53010e11'/>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='7359adad' id='53010e10'/>
+      <subrange length='5' type-id='7359adad' id='53010e12'/>
     </array-type-def>
     <!-- float[4] -->
     <array-type-def dimensions='1' type-id='a6c45d85' size-in-bits='128' id='87305fb5'>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7109'/>
     </array-type-def>
     <!-- int[2] -->
     <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='64' id='e4266c7e'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f3'/>
     </array-type-def>
     <!-- class Curve -->
     <class-decl name='Curve' size-in-bits='8128' visibility='default' filepath='libnurbs/internals/curve.h' line='46' column='1' id='218b0c8c'>
@@ -10425,7 +10425,7 @@
     <!-- float[3] -->
     <array-type-def dimensions='1' type-id='a6c45d85' size-in-bits='96' id='c723f882'>
       <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+      <subrange length='3' type-id='7359adad' id='56f209d5'/>
     </array-type-def>
     <!-- Curvelist* -->
     <pointer-type-def type-id='5d0beef4' size-in-bits='64' id='d1ebbf42'/>
@@ -10834,7 +10834,7 @@
     <!-- GridTrimVertex*[2] -->
     <array-type-def dimensions='1' type-id='6ae24567' size-in-bits='128' id='ab299dbd'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f4'/>
     </array-type-def>
     <!-- class Mesher -->
     <class-decl name='Mesher' size-in-bits='7680' visibility='default' filepath='libnurbs/internals/mesher.h' line='47' column='1' id='43336373'>
@@ -11113,7 +11113,7 @@
     <!-- Real[2] -->
     <array-type-def dimensions='1' type-id='a802d838' size-in-bits='64' id='1118b547'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f5'/>
     </array-type-def>
     <!-- typedef float Real -->
     <typedef-decl name='Real' type-id='a6c45d85' filepath='libnurbs/nurbtess/definitions.h' line='36' column='1' id='a802d838'/>
@@ -11986,7 +11986,7 @@
     <!-- Patchspec[2] -->
     <array-type-def dimensions='1' type-id='5a62dc52' size-in-bits='640' id='85fe00da'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f6'/>
     </array-type-def>
     <!-- REAL[2880] -->
     <array-type-def dimensions='1' type-id='234bc418' size-in-bits='92160' id='e50de1e7'>
@@ -11996,9 +11996,9 @@
     <!-- REAL[2][5] -->
     <array-type-def dimensions='2' type-id='234bc418' size-in-bits='320' id='bc4b428a'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f7'/>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='7359adad' id='53010e10'/>
+      <subrange length='5' type-id='7359adad' id='53010e13'/>
     </array-type-def>
     <!-- struct Pspec -->
     <class-decl name='Pspec' size-in-bits='256' is-struct='yes' visibility='default' filepath='libnurbs/internals/patch.h' line='46' column='1' id='1ce37a50'>
@@ -12247,7 +12247,7 @@
     <!-- Pspec[2] -->
     <array-type-def dimensions='1' type-id='1ce37a50' size-in-bits='512' id='e0a39484'>
       <!-- <anonymous range>[2] -->
-      <subrange length='2' type-id='7359adad' id='52efc4ef'/>
+      <subrange length='2' type-id='7359adad' id='52efc4f8'/>
     </array-type-def>
     <!-- Patchlist* -->
     <pointer-type-def type-id='48a81e9d' size-in-bits='64' id='762f3b2d'/>
@@ -13315,7 +13315,7 @@
     <!-- long int[1000] -->
     <array-type-def dimensions='1' type-id='bd54fe1a' size-in-bits='64000' id='a475163d'>
       <!-- <anonymous range>[1000] -->
-      <subrange length='1000' type-id='7359adad' id='a4671b12'/>
+      <subrange length='1000' type-id='7359adad' id='a4671b13'/>
     </array-type-def>
     <!-- class Varray -->
     <class-decl name='Varray' size-in-bits='96192' visibility='default' filepath='libnurbs/internals/varray.h' line='43' column='1' id='7c8dc54a'>
@@ -14474,7 +14474,7 @@
     <!-- GLdouble[3] -->
     <array-type-def dimensions='1' type-id='aa631dda' size-in-bits='192' id='cc65a194'>
       <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+      <subrange length='3' type-id='7359adad' id='56f209d6'/>
     </array-type-def>
     <!-- __jmp_buf_tag[1] -->
     <array-type-def dimensions='1' type-id='95989dcf' size-in-bits='1600' id='092da536'>

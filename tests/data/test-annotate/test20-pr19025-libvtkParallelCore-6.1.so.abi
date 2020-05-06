@@ -32376,7 +32376,7 @@
     <!-- size_t[4] -->
     <array-type-def dimensions='1' type-id='b59d7dce' size-in-bits='256' id='314f9837'>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='7359adad' id='16fe7105'/>
+      <subrange length='4' type-id='7359adad' id='16fe7106'/>
     </array-type-def>
     <!-- __gnu_cxx::__normal_iterator<const unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >& -->
     <reference-type-def kind='lvalue' type-id='375a6f79' size-in-bits='64' id='cfdd5a15'/>
@@ -41551,7 +41551,7 @@
     <!-- int[20] -->
     <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='640' id='4725c728'>
       <!-- <anonymous range>[20] -->
-      <subrange length='20' type-id='7359adad' id='fdca39cf'/>
+      <subrange length='20' type-id='7359adad' id='fdca39d0'/>
     </array-type-def>
     <!-- class vtkSubGroup -->
     <class-decl name='vtkSubGroup' size-in-bits='3520' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkSubGroup.h' line='49' column='1' id='2ee25471'>

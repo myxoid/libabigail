@@ -1963,10 +1963,10 @@
       <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='6255636b' size-in-bits='infinite' id='29aaeeb7'>
-      <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
+      <subrange length='infinite' type-id='4c87fef4' id='031f2036'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='4ababdf0' size-in-bits='infinite' id='4088669f'>
-      <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
+      <subrange length='infinite' type-id='4c87fef4' id='031f2037'/>
     </array-type-def>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
     <typedef-decl name='_Atomic_word' type-id='95e97e5e' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/atomic_word.h' line='32' column='1' id='e9464a99'/>
