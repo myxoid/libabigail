@@ -147,32 +147,27 @@ report_diffs(const reporter_base& r,
        i != sorted_diffs.end();
        ++i)
     {
-      if (const var_diff *d = is_var_diff(*i))
+      const diff* diff = *i;
+
+      if (const var_diff *d = is_var_diff(diff))
 	if (is_data_member(d->first_var()))
 	  continue;
 
-      if (r.diff_to_be_reported((*i)->get_canonical_diff()))
+      if (r.diff_to_be_reported(diff))
 	{
 	  if (started_to_emit)
 	    out << "\n";
 
-	  string n = (*i)->first_subject()->get_pretty_representation();
-
-	  out << indent << "'" << n;
-
-	  report_loc_info((*i)->first_subject(),
-			  *(*i)->context(), out);
-
-	  diff* canon_diff = (*i)->get_canonical_diff();
-
+	  out << indent << "'"
+	      << diff->first_subject()->get_pretty_representation();
+	  report_loc_info(diff->first_subject(), *diff->context(), out);
 	  out << "' changed";
 	  // Work out whether the diff has only indirect changes.
-	  if ((*i)->context()->flag_indirect_changes()
-	      && !is_important(canon_diff))
+	  if (diff->context()->flag_indirect_changes() && !is_important(diff))
 	    out << " (indirectly)";
 	  out << ":\n";
+	  diff->report(out, indent + "  ");
 
-	  canon_diff->report(out, indent + "  ");
 	  started_to_emit = true;
 	}
     }
