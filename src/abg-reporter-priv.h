@@ -164,6 +164,12 @@ maybe_show_relative_size_change(const var_diff_sptr	&diff,
 				diff_context&		ctxt,
 				ostream&		out);
 
+bool
+is_important(const diff& d);
+
+void
+maybe_indirectly(const diff& diff, ostream& out);
+
 void
 represent(const var_diff_sptr	&diff,
 	  diff_context_sptr	ctxt,

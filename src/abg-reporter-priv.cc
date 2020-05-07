@@ -386,6 +386,59 @@ maybe_show_relative_size_change(const var_diff_sptr	&diff,
   out << " " << bits_or_bytes << ")";
 }
 
+/// See if a diff is important.
+///
+/// All changes to non-class/unions are important.
+/// Changes to class/unions are important if there are
+///   new or removed members
+///   a non-boring change to a member
+/// A non-boring change is one where the type decl has changed.
+/// So an unimportant change is one where the class/struct
+/// may have changed size but its declaration is unchanged.
+bool
+is_important(const diff& d)
+{
+  const class_or_union_diff* cou_dif = dynamic_cast<const class_or_union_diff*>(&d);
+  if (cou_dif) {
+    if (cou_dif->member_fns_changes())
+      return true;
+    if (cou_dif->data_members_changes()) {
+      if (cou_dif->class_or_union_diff::get_priv()->
+	  get_deleted_non_static_data_members_number())
+	return true;
+      if (cou_dif->class_or_union_diff::get_priv()->inserted_data_members_.size())
+	return true;
+
+      auto& changed_dm = cou_dif->class_or_union_diff::get_priv()->sorted_changed_dm_;
+      for (const auto& sub_dif : changed_dm) {
+	auto n1 = sub_dif->first_var()->get_pretty_representation();
+	auto n2 = sub_dif->second_var()->get_pretty_representation();
+	if (n1 != n2)
+	  return true;
+      }
+
+      auto& subtype_changed_dm = cou_dif->class_or_union_diff::get_priv()->sorted_subtype_changed_dm_;
+      for (const auto& sub_dif : subtype_changed_dm) {
+	auto n1 = sub_dif->first_var()->get_pretty_representation();
+	auto n2 = sub_dif->second_var()->get_pretty_representation();
+	if (n1 != n2)
+	  return true;
+      }
+    }
+    return false;
+  }
+  return true;
+}
+
+/// Work out whether the diff has only indirect changes and emit
+/// "indirect" flag if needed,
+void
+maybe_indirectly(const diff& diff, ostream& out)
+{
+  if (diff.context()->flag_indirect_changes() && !is_important(diff))
+    out << " (indirectly)";
+}
+
 /// Represent the changes carried by an instance of @ref var_diff that
 /// represent a difference between two class data members.
 ///
