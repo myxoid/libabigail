@@ -42,8 +42,8 @@ namespace comparison
 /// leaf_reporter if the node carries local changes and if the node's
 /// reporting hasn't been suppressed.
 bool
-leaf_reporter::diff_to_be_reported(const diff *d) const
-{return d && d->to_be_reported() && d->has_local_changes();}
+leaf_reporter::diff_to_be_reported(const diff& d) const
+{return d.to_be_reported() && d.has_local_changes();}
 
 /// Test if a given instance of @ref corpus_diff carries changes whose
 /// reports are not suppressed by any suppression specification.  In
@@ -153,7 +153,7 @@ report_diffs(const reporter_base& r,
 	if (is_data_member(d->first_var()))
 	  continue;
 
-      if (r.diff_to_be_reported(diff))
+      if (r.diff_to_be_reported(*diff))
 	{
 	  if (started_to_emit)
 	    out << "\n";
@@ -245,7 +245,7 @@ leaf_reporter::report(const typedef_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   // all changes carried by a typedef_diff are considered local, so
@@ -264,7 +264,7 @@ void
 leaf_reporter::report(const qualified_type_diff& d, ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   report_local_qualified_type_changes(d, out, indent);
@@ -281,7 +281,7 @@ leaf_reporter::report(const pointer_diff &d,
 {
   // Changes that modify the representation of a pointed-to type is
   // considered local to the pointer type.
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   out << indent
@@ -302,7 +302,7 @@ leaf_reporter::report(const reference_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   report_local_reference_type_changes(d, out, indent);
@@ -318,10 +318,11 @@ leaf_reporter::report(const fn_parm_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
-  ABG_ASSERT(diff_to_be_reported(d.type_diff().get()));
+  diff_sptr type_diff = d.type_diff();
+  ABG_ASSERT(diff_to_be_reported(*type_diff));
 
   function_decl::parameter_sptr f = d.first_parameter();
 
@@ -333,7 +334,7 @@ leaf_reporter::report(const fn_parm_diff& d,
   out << " of type '"
       << f->get_type_pretty_representation()
       << "' changed:\n";
-  d.type_diff()->report(out, indent + "  ");
+  type_diff->report(out, indent + "  ");
 }
 
 /// Report the changes carried by a @ref function_type_diff node.
@@ -346,15 +347,16 @@ leaf_reporter::report(const function_type_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   report_local_function_type_changes(d, out, indent);
 
-  if (diff_to_be_reported(d.priv_->return_type_diff_.get()))
+  const diff_sptr& return_type_diff = d.priv_->return_type_diff_;
+  if (diff_to_be_reported(*return_type_diff))
     {
       out << indent << "return type changed:\n";
-      d.priv_->return_type_diff_->report(out, indent + "  ");
+      return_type_diff->report(out, indent + "  ");
     }
 
   // Hmmh, the above was quick.  Now report about function parameters;
@@ -366,7 +368,7 @@ leaf_reporter::report(const function_type_diff& d,
        ++i)
     {
       diff_sptr dif = *i;
-      if (diff_to_be_reported(dif.get()))
+      if (diff_to_be_reported(*dif))
 	dif->report(out, indent);
     }
 }
@@ -389,17 +391,19 @@ leaf_reporter::report(const scope_diff& d,
   if (num_changed_types)
     out << indent << "changed types:\n";
 
-  for (diff_sptrs_type::const_iterator dif = d.changed_types().begin();
-       dif != d.changed_types().end();
-       ++dif)
+  for (diff_sptrs_type::const_iterator i = d.changed_types().begin();
+       i != d.changed_types().end();
+       ++i)
     {
-      if (!*dif || !diff_to_be_reported((*dif).get()))
+      const diff_sptr& dif = *i;
+
+      if (!diff_to_be_reported(*dif))
 	continue;
 
       out << indent << "  '"
-	  << (*dif)->first_subject()->get_pretty_representation()
+	  << dif->first_subject()->get_pretty_representation()
 	  << "' changed:\n";
-      (*dif)->report(out, indent + "    ");
+      dif->report(out, indent + "    ");
     }
 
   // Report changed decls
@@ -407,21 +411,22 @@ leaf_reporter::report(const scope_diff& d,
   if (num_changed_decls)
     out << indent << "changed declarations:\n";
 
-  for (diff_sptrs_type::const_iterator dif= d.changed_decls().begin();
-       dif != d.changed_decls().end ();
-       ++dif)
+  for (diff_sptrs_type::const_iterator i = d.changed_decls().begin();
+       i != d.changed_decls().end ();
+       ++i)
     {
-      if (!*dif || !diff_to_be_reported((*dif).get()))
+      const diff_sptr& dif = *i;
+      if (!diff_to_be_reported(*dif))
 	continue;
 
       out << indent << "  '"
-	  << (*dif)->first_subject()->get_pretty_representation()
+	  << dif->first_subject()->get_pretty_representation()
 	  << "' was changed to '"
-	  << (*dif)->second_subject()->get_pretty_representation() << "'";
-      report_loc_info((*dif)->second_subject(), *d.context(), out);
+	  << dif->second_subject()->get_pretty_representation() << "'";
+      report_loc_info(dif->second_subject(), *d.context(), out);
       out << ":\n";
 
-      (*dif)->report(out, indent + "    ");
+      dif->report(out, indent + "    ");
     }
 
   // Report removed types/decls
@@ -501,7 +506,7 @@ leaf_reporter::report(const array_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER3(d.first_array(),
@@ -514,7 +519,7 @@ leaf_reporter::report(const array_diff& d,
 					 out, indent);
 
   diff_sptr dif = d.element_type_diff();
-  if (diff_to_be_reported(dif.get()))
+  if (diff_to_be_reported(*dif))
     {
       string fn = ir::get_pretty_representation(is_type(dif->first_subject()));
       // report array element type changes
@@ -536,7 +541,7 @@ leaf_reporter::report(const class_or_union_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   class_or_union_sptr first = d.first_class_or_union(),
@@ -618,20 +623,20 @@ leaf_reporter::report(const class_or_union_diff& d,
 	   i != d.get_priv()->sorted_changed_member_functions_.end();
 	   ++i)
 	{
+	  const function_decl_diff_sptr& diff = *i;
 	  if (!(ctxt->get_allowed_category()
 		& NON_VIRT_MEM_FUN_CHANGE_CATEGORY)
 	      && !(get_member_function_is_virtual
-		   ((*i)->first_function_decl()))
+		   (diff->first_function_decl()))
 	      && !(get_member_function_is_virtual
-		   ((*i)->second_function_decl())))
+		   (diff->second_function_decl())))
 	    continue;
 
-	  diff_sptr diff = *i;
-	  if (!diff_to_be_reported(diff.get()))
+	  if (!diff_to_be_reported(*diff))
 	    continue;
 
 	  string repr =
-	    (*i)->first_function_decl()->get_pretty_representation();
+	    diff->first_function_decl()->get_pretty_representation();
 	  out << indent << "  '" << repr << "' has some changes:\n";
 	  diff->report(out, indent + "    ");
 	}
@@ -705,15 +710,21 @@ leaf_reporter::report(const class_or_union_diff& d,
 		 d.sorted_changed_data_members().begin();
 	       it != d.sorted_changed_data_members().end();
 	       ++it)
-	    if (diff_to_be_reported((*it).get()))
-	      represent(*it, ctxt, out, indent + "  ", /*local_only=*/true);
+	    {
+	      const var_diff_sptr& dif = *it;
+	      if (diff_to_be_reported(*dif))
+		represent(dif, ctxt, out, indent + "  ", /*local_only=*/true);
+	    }
 
 	  for (var_diff_sptrs_type::const_iterator it =
 		 d.sorted_subtype_changed_data_members().begin();
 	       it != d.sorted_subtype_changed_data_members().end();
 	       ++it)
-	    if (diff_to_be_reported((*it).get()))
-	      represent(*it, ctxt, out, indent + "  ", /*local_only=*/true);
+	    {
+	      const var_diff_sptr& dif = *it;
+	      if (diff_to_be_reported(*dif))
+		represent(dif, ctxt, out, indent + "  ", /*local_only=*/true);
+	    }
 	}
 
       // Report about data members replaced by an anonymous union data
@@ -732,7 +743,7 @@ leaf_reporter::report(const class_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER(d.first_subject(),
@@ -767,7 +778,7 @@ leaf_reporter::report(const union_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER(d.first_subject(),
@@ -796,7 +807,7 @@ leaf_reporter::report(const distinct_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-    if (!diff_to_be_reported(&d))
+    if (!diff_to_be_reported(d))
     return;
 
   type_or_decl_base_sptr f = d.first(), s = d.second();
@@ -827,7 +838,7 @@ leaf_reporter::report(const function_decl_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   maybe_report_diff_for_member(d.first_function_decl(),
@@ -883,8 +894,7 @@ leaf_reporter::report(const function_decl_diff& d,
 	    << linkage_names1 << "' to '" << linkage_names2 << "'\n";
     }
 
-  if (qn1 != qn2
-      && diff_to_be_reported(d.type_diff().get()))
+  if (qn1 != qn2 && diff_to_be_reported(*(d.type_diff())))
     {
       // So the function has sub-type changes that are to be
       // reported.  Let's see if the function name changed too; if it
@@ -983,7 +993,7 @@ leaf_reporter::report(const function_decl_diff& d,
     }
 
   // Report about function type differences.
-  if (diff_to_be_reported(d.type_diff().get()))
+  if (diff_to_be_reported(*(d.type_diff())))
     d.type_diff()->report(out, indent);
 }
 
@@ -997,7 +1007,7 @@ leaf_reporter::report(const var_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-  if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(d))
     return;
 
   decl_base_sptr first = d.first_var(), second = d.second_var();
@@ -1015,7 +1025,7 @@ leaf_reporter::report(const var_diff& d,
 
   if (diff_sptr dif = d.type_diff())
     {
-      if (diff_to_be_reported(dif.get()))
+      if (diff_to_be_reported(*dif))
 	{
 	  RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER2(dif, "type");
 	  out << indent << "type of variable changed:\n";
@@ -1194,7 +1204,7 @@ leaf_reporter::report(const corpus_diff& d,
 	  if (!diff)
 	    continue;
 
-	  if (diff_to_be_reported(diff.get()))
+	  if (diff_to_be_reported(*diff))
 	    {
 	      function_decl_sptr fn = (*i)->first_function_decl();
 	      out << indent << "  [C] '"
@@ -1340,7 +1350,7 @@ leaf_reporter::report(const corpus_diff& d,
 	  if (!diff)
 	    continue;
 
-	  if (!diff_to_be_reported(diff.get()))
+	  if (!diff_to_be_reported(*diff))
 	    continue;
 
 	  n1 = diff->first_subject()->get_pretty_representation();

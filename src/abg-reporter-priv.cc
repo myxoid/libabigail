@@ -405,7 +405,7 @@ represent(const var_diff_sptr	&diff,
 	  const string&	indent,
 	  bool			local_only)
 {
-  if (!ctxt->get_reporter()->diff_to_be_reported(diff.get()))
+  if (!ctxt->get_reporter()->diff_to_be_reported(*diff))
     return;
 
   const var_decl_sptr o = diff->first_var();
@@ -508,7 +508,7 @@ represent(const var_diff_sptr	&diff,
   if (!emitted)
     if (const diff_sptr d = diff->type_diff())
       {
-	if (ctxt->get_reporter()->diff_to_be_reported(d.get()))
+	if (ctxt->get_reporter()->diff_to_be_reported(*d))
 	  {
 	    if (local_only)
 	      out << indent << "type '"
@@ -1426,8 +1426,8 @@ maybe_report_interfaces_impacted_by_diff(const diff_sptr	&d,
 ///
 /// @return true iff the diff is to be reported.
 bool
-reporter_base::diff_to_be_reported(const diff *d) const
-{return d && d->to_be_reported();}
+reporter_base::diff_to_be_reported(const diff& d) const
+{return d.to_be_reported();}
 
 /// Report about data members replaced by an anonymous data member
 /// without changing the overall bit-layout of the class or union in

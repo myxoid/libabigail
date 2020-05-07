@@ -71,7 +71,7 @@ class reporter_base
 {
 public:
 
-  virtual bool diff_to_be_reported(const diff *d) const;
+  virtual bool diff_to_be_reported(const diff& d) const;
 
   virtual bool diff_has_net_changes(const corpus_diff *d) const = 0;
 
@@ -268,7 +268,7 @@ class leaf_reporter : public default_reporter
 {
 public:
 
-  virtual bool diff_to_be_reported(const diff *d) const;
+  virtual bool diff_to_be_reported(const diff& d) const;
 
   virtual bool diff_has_net_changes(const corpus_diff *d) const;
 
