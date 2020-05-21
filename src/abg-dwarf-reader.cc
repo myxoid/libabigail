@@ -438,10 +438,13 @@ static string
 build_internal_anonymous_die_name(const string &base_name,
 				  size_t anonymous_type_index);
 
-
 static string
 get_internal_anonymous_die_name(Dwarf_Die *die,
 				size_t anonymous_type_index);
+
+static string
+build_internal_underlying_enum_type_name(const string &base_name,
+					 bool is_anonymous);
 
 static string
 die_qualified_type_name(const read_context& ctxt,
@@ -10943,6 +10946,29 @@ build_internal_anonymous_die_name(const string &base_name,
   return name;
 }
 
+/// Build the internal name of the underlying type of an enum.
+///
+/// @param base_name the (unqualified) name of the enum the underlying
+/// type is destined to.
+///
+/// @param is_anonymous true if the underlying type of the enum is to
+/// be anonymous.
+static string
+build_internal_underlying_enum_type_name(const string &base_name,
+					 bool is_anonymous = true)
+{
+  std::ostringstream o;
+
+  if (is_anonymous)
+    o << "unnamed-enum";
+  else
+    o << "enum-" << base_name;
+
+  o << "-underlying-type";
+
+  return o.str();
+}
+
 /// Build a full internal anonymous type name.
 ///
 /// @param die the DIE representing the anonymous type to consider.
@@ -13457,6 +13483,39 @@ build_type_decl(read_context& ctxt, Dwarf_Die* die, size_t where_offset)
   return result;
 }
 
+/// Construct the type that is to be used as the underlying type of an
+/// enum.
+///
+/// @param ctxt the read context to use.
+///
+/// @param enum_name the name of the enum that this type is going to
+/// be the underlying type of.
+///
+/// @param enum_size the size of the enum.
+///
+/// @param is_anonymous whether the underlying type is anonymous or
+/// not. By default, this should be set to true as before c++11 (and
+/// in C), it's almost the case.
+static type_decl_sptr
+build_enum_underlying_type(read_context& ctxt,
+			   string enum_name,
+			   uint64_t enum_size,
+			   bool is_anonymous = true)
+{
+  string underlying_type_name =
+    build_internal_underlying_enum_type_name(enum_name, is_anonymous);
+
+  type_decl_sptr result(new type_decl(ctxt.env(), underlying_type_name,
+				      enum_size, enum_size, location()));
+  result->set_is_anonymous(is_anonymous);
+  translation_unit_sptr tu = ctxt.cur_transl_unit();
+  decl_base_sptr d = add_decl_to_scope(result, tu->get_global_scope().get());
+  result = dynamic_pointer_cast<type_decl>(d);
+  ABG_ASSERT(result);
+  canonicalize(result);
+  return result;
+}
+
 /// Build an enum_type_decl from a DW_TAG_enumeration_type DIE.
 ///
 /// @param ctxt the read context to use.
@@ -13543,15 +13602,6 @@ build_enum_type(read_context&	ctxt,
 
   // for now we consider that underlying types of enums are all anonymous
   bool enum_underlying_type_is_anonymous= true;
-  string underlying_type_name;
-  if (enum_underlying_type_is_anonymous)
-    {
-      underlying_type_name = "unnamed-enum";
-      enum_underlying_type_is_anonymous = true;
-    }
-  else
-    underlying_type_name = string("enum-") + name;
-  underlying_type_name += "-underlying-type";
 
   enum_type_decl::enumerators enms;
   Dwarf_Die child;
@@ -13576,16 +13626,10 @@ build_enum_type(read_context&	ctxt,
   // underlying type, so let's create an artificial one here, which
   // sole purpose is to be passed to the constructor of the
   // enum_type_decl type.
-  type_decl_sptr t(new type_decl(ctxt.env(), underlying_type_name,
-				 size, size, location()));
-  t->set_is_anonymous(enum_underlying_type_is_anonymous);
-  translation_unit_sptr tu = ctxt.cur_transl_unit();
-  decl_base_sptr d =
-    add_decl_to_scope(t, tu->get_global_scope().get());
-  canonicalize(t);
+  type_decl_sptr t =
+    build_enum_underlying_type(ctxt, name, size,
+			       enum_underlying_type_is_anonymous);
 
-  t = dynamic_pointer_cast<type_decl>(d);
-  ABG_ASSERT(t);
   result.reset(new enum_type_decl(name, loc, t, enms, linkage_name));
   result->set_is_anonymous(is_anonymous);
   result->set_is_declaration_only(is_declaration_only);
@@ -15858,7 +15902,8 @@ type_is_suppressed(const read_context& ctxt,
 /// a private type.
 ///
 /// The opaque version version of the type is just a declared-only
-/// version of the type (class or union type) denoted by @p type_die.
+/// version of the type (class, union or enum type) denoted by @p
+/// type_die.
 ///
 /// @param ctxt the read context in use.
 ///
@@ -15873,13 +15918,13 @@ type_is_suppressed(const read_context& ctxt,
 ///
 /// @return the opaque version of the type denoted by @p type_die or
 /// nil if no opaque version was found.
-static class_or_union_sptr
+static type_or_decl_base_sptr
 get_opaque_version_of_type(read_context	&ctxt,
 			   scope_decl		*scope,
 			   Dwarf_Die		*type_die,
 			   size_t		where_offset)
 {
-  class_or_union_sptr result;
+  type_or_decl_base_sptr result;
 
   if (type_die == 0)
     return result;
@@ -15887,7 +15932,14 @@ get_opaque_version_of_type(read_context	&ctxt,
   unsigned tag = dwarf_tag(type_die);
   if (tag != DW_TAG_class_type
       && tag != DW_TAG_structure_type
-      && tag != DW_TAG_union_type)
+      && tag != DW_TAG_union_type
+      && tag != DW_TAG_enumeration_type)
+    return result;
+
+  if (tag == DW_TAG_union_type)
+    // TODO: also handle declaration-only unions.  To do that, we mostly
+    // need to adapt add_or_update_union_type to make it schedule
+    // declaration-only unions for resolution too.
     return result;
 
   string type_name, linkage_name;
@@ -15898,17 +15950,19 @@ get_opaque_version_of_type(read_context	&ctxt,
 
   string qualified_name = build_qualified_name(scope, type_name);
 
+  //
   // TODO: also handle declaration-only unions.  To do that, we mostly
   // need to adapt add_or_update_union_type to make it schedule
   // declaration-only unions for resolution too.
-  string_classes_map::const_iterator i =
-    ctxt.declaration_only_classes().find(qualified_name);
-  if (i != ctxt.declaration_only_classes().end())
-    result = i->second.back();
-
-  if (!result)
+  //
+  if (tag == DW_TAG_structure_type || tag == DW_TAG_class_type)
     {
-      if (tag == DW_TAG_class_type || tag == DW_TAG_structure_type)
+      string_classes_map::const_iterator i =
+	ctxt.declaration_only_classes().find(qualified_name);
+      if (i != ctxt.declaration_only_classes().end())
+	result = i->second.back();
+
+      if (!result)
 	{
 	  // So we didn't find any pre-existing forward-declared-only
 	  // class for the class definition that we could return as an
@@ -15925,6 +15979,31 @@ get_opaque_version_of_type(read_context	&ctxt,
 	  ctxt.associate_die_to_type(type_die, klass, where_offset);
 	  ctxt.maybe_schedule_declaration_only_class_for_resolution(klass);
 	  result = klass;
+	}
+    }
+
+  if (tag == DW_TAG_enumeration_type)
+    {
+      string_enums_map::const_iterator i =
+	ctxt.declaration_only_enums().find(qualified_name);
+      if (i != ctxt.declaration_only_enums().end())
+	result = i->second.back();
+
+      if (!result)
+	{
+	  uint64_t size = 0;
+	  if (die_unsigned_constant_attribute(type_die, DW_AT_byte_size, size))
+	    size *= 8;
+	  type_decl_sptr underlying_type =
+	    build_enum_underlying_type(ctxt, type_name, size,
+				       /*anonymous=*/true);
+	  enum_type_decl::enumerators enumeratorz;
+	  enum_type_decl_sptr enum_type (new enum_type_decl(type_name,
+							    type_location,
+							    underlying_type,
+							    enumeratorz,
+							    linkage_name));
+	  result = enum_type;
 	}
     }
 
