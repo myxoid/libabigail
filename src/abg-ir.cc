@@ -15228,6 +15228,10 @@ enum_type_decl::set_is_declaration_only(bool f)
 	else
 	  ABG_ASSERT_NOT_REACHED;
       }
+
+  // A decl-only enum can't have enumerators.
+  if (priv_->is_declaration_only_ && !get_enumerators().empty())
+    ABG_ASSERT_NOT_REACHED;
 }
 
 /// Get the pretty representation of the current instance of @ref
