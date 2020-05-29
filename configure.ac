@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
 m4_define([version_major],   [1])
 m4_define([version_minor],   [8])
 
