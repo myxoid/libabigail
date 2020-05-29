@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: LGPL-3.0-or-later
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 m4_define([version_major],   [1])
 m4_define([version_minor],   [8])
 
