@@ -3190,7 +3190,7 @@ public:
 		    size_t where,
 		    bool die_as_type) const
   {
-    die_source source;
+    die_source source = NO_DEBUG_INFO_DIE_SOURCE;
     ABG_ASSERT(get_die_source(die, source));
 
     offset_offset_map_type &canonical_dies =
