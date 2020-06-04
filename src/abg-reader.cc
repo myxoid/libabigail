@@ -4161,6 +4161,9 @@ build_enum_type_decl(read_context&	ctxt,
   location loc;
   read_location(ctxt, node, loc);
 
+  bool is_decl_only = false;
+  read_is_declaration_only(node, is_decl_only);
+
   bool is_anonymous = false;
   read_is_anonymous(node, is_anonymous);
 
@@ -4221,6 +4224,7 @@ build_enum_type_decl(read_context&	ctxt,
 					   enums, linkage_name));
   t->set_is_anonymous(is_anonymous);
   t->set_is_artificial(is_artificial);
+  t->set_is_declaration_only(is_decl_only); // TODO: more to do here!
   if (ctxt.push_and_key_type_decl(t, id, add_to_current_scope))
     {
       ctxt.map_xml_node_to_decl(node, t);

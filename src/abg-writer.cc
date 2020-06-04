@@ -840,6 +840,8 @@ static bool write_elf_symbol_reference(const elf_symbol&, ostream&);
 static bool write_elf_symbol_reference(const elf_symbol_sptr, ostream&);
 static void write_class_or_union_is_declaration_only(const class_or_union_sptr&,
 						     ostream&);
+static void write_enum_is_declaration_only(const enum_type_decl_sptr&,
+					   ostream&);
 static void write_is_struct(const class_decl_sptr&, ostream&);
 static void write_is_anonymous(const decl_base_sptr&, ostream&);
 static void write_naming_typedef(const class_decl_sptr&, write_context&);
@@ -1749,6 +1751,20 @@ write_cdtor_const_static(bool is_ctor,
 static void
 write_class_or_union_is_declaration_only(const class_or_union_sptr& t,
 					 ostream& o)
+{
+  if (t->get_is_declaration_only())
+    o << " is-declaration-only='yes'";
+}
+
+/// Serialize the attribute "is-declaration-only", if the enum has its
+/// is_declaration_only property set.
+///
+/// @param t the pointer to instance of @ref enum_type_decl to
+/// consider.
+///
+/// @param o the output stream to serialize to.
+static void
+write_enum_is_declaration_only(const enum_type_decl_sptr& t, ostream& o)
 {
   if (t->get_is_declaration_only())
     o << " is-declaration-only='yes'";
@@ -2889,6 +2905,7 @@ write_enum_type_decl(const enum_type_decl_sptr& decl,
     o << " linkage-name='" << decl->get_linkage_name() << "'";
 
   write_location(decl, ctxt);
+  write_enum_is_declaration_only(decl, o);
 
   string i = id;
   if (i.empty())
