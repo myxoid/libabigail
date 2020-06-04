@@ -2497,6 +2497,21 @@ public:
   enumerators&
   get_enumerators();
 
+  bool
+  get_is_declaration_only() const;
+
+  void
+  set_is_declaration_only(bool f);
+
+  void
+  set_definition_of_declaration(enum_type_decl_sptr);
+
+  const enum_type_decl_sptr
+  get_definition_of_declaration() const;
+
+  const enum_type_decl*
+  get_naked_definition_of_declaration() const;
+
   virtual string
   get_pretty_representation(bool internal = false,
 			    bool qualified_name = true) const;

@@ -7924,6 +7924,38 @@ typedef_decl*
 is_typedef(type_base* t)
 {return dynamic_cast<typedef_decl*>(t);}
 
+/// Test if a type is a enum. This function looks through typedefs.
+///
+/// @parm t the type to consider.
+///
+/// @return the enum_decl if @p t is a enum_decl or null otherwise.
+enum_type_decl_sptr
+is_compatible_with_enum_type(const type_base_sptr& t)
+{
+  if (!t)
+    return enum_type_decl_sptr();
+
+  // Normally we should strip typedefs entirely, but this is
+  // potentially costly, especially on binaries with huge changesets
+  // like the Linux Kernel.  So we just get the leaf types for now.
+  //
+  // Maybe there should be an option by which users accepts to pay the
+  // CPU usage toll in exchange for finer filtering?
+
+  // type_base_sptr ty = strip_typedef(t);
+  type_base_sptr ty = peel_typedef_type(t);;
+  return is_enum_type(ty);
+}
+
+/// Test if a type is a enum. This function looks through typedefs.
+///
+/// @parm t the type to consider.
+///
+/// @return the enum_decl if @p t is a enum_decl or null otherwise.
+enum_type_decl_sptr
+is_compatible_with_enum_type(const decl_base_sptr& t)
+{return is_compatible_with_enum_type(is_type(t));}
+
 /// Test if a decl is an enum_type_decl
 ///
 /// @param d the decl to test for.
@@ -8303,6 +8335,50 @@ look_through_decl_only_class(class_or_union_sptr klass)
   class_or_union_sptr result = look_through_decl_only_class(*klass);
   if (!result)
     result = klass;
+
+  return result;
+}
+
+/// If a enum is a decl-only enum, get its definition.
+/// Otherwise, just return the initial enum.
+///
+/// @param the_enum the enum to consider.
+///
+/// @return either the definition of the enum, or the enum itself.
+enum_type_decl_sptr
+look_through_decl_only_enum(const enum_type_decl& the_enum)
+{
+  enum_type_decl_sptr enom;
+  if (the_enum.get_is_declaration_only())
+    enom = the_enum.get_definition_of_declaration();
+
+  if (!enom)
+    return enom;
+
+  while (enom
+	 && enom->get_is_declaration_only()
+	 && enom->get_definition_of_declaration())
+    enom = enom->get_definition_of_declaration();
+
+  ABG_ASSERT(enom);
+  return enom;
+}
+
+/// If a enum is a decl-only enum, get its definition.
+/// Otherwise, just return the initial enum.
+///
+/// @param enom the enum to consider.
+///
+/// @return either the definition of the enum, or the enum itself.
+enum_type_decl_sptr
+look_through_decl_only_enum(enum_type_decl_sptr enom)
+{
+  if (!enom)
+    return enom;
+
+  enum_type_decl_sptr result = look_through_decl_only_enum(*enom);
+  if (!result)
+    result = enom;
 
   return result;
 }
@@ -10163,6 +10239,37 @@ lookup_enum_type(const interned_string& qualified_name, const corpus& corp)
     result = lookup_enum_type_through_translation_units(qualified_name, corp);
 
   return result;
+}
+
+/// Look into a given corpus to find the enum type*s* that have a
+/// given qualified name.
+///
+/// @param qualified_name the qualified name of the type to look for.
+///
+/// @param corp the corpus to look into.
+///
+/// @return the vector of enum types that which name is @p qualified_name.
+const type_base_wptrs_type *
+lookup_enum_types(const interned_string& qualified_name, const corpus& corp)
+{
+  const istring_type_base_wptrs_map_type& m = corp.get_types().enum_types();
+
+  return lookup_types_in_map(qualified_name, m);
+}
+
+/// Look into a given corpus to find the enum type*s* that have a
+/// given qualified name.
+///
+/// @param qualified_name the qualified name of the type to look for.
+///
+/// @param corp the corpus to look into.
+///
+/// @return the vector of enum types that which name is @p qualified_name.
+const type_base_wptrs_type*
+lookup_enum_types(const string& qualified_name, const corpus& corp)
+{
+  interned_string s = corp.get_environment()->intern(qualified_name);
+  return lookup_enum_types(s, corp);
 }
 
 /// Look up an @ref enum_type_decl from a given corpus, by its location.
@@ -14974,17 +15081,26 @@ class enum_type_decl::priv
 {
   type_base_sptr	underlying_type_;
   enumerators		enumerators_;
+  decl_base_sptr       	declaration_;
+  enum_type_decl_wptr	definition_of_declaration_;
+  enum_type_decl*	naked_definition_of_declaration_;
+  bool			is_declaration_only_;
 
   friend class enum_type_decl;
 
-  priv();
-
 public:
+
+  priv()
+    : naked_definition_of_declaration_(),
+      is_declaration_only_(true)
+  {}
 
   priv(type_base_sptr underlying_type,
        enumerators& enumerators)
     : underlying_type_(underlying_type),
-      enumerators_(enumerators)
+      enumerators_(enumerators),
+      naked_definition_of_declaration_(),
+      is_declaration_only_(false)
   {}
 }; // end class enum_type_decl::priv
 
@@ -15039,6 +15155,80 @@ enum_type_decl::get_enumerators() const
 enum_type_decl::enumerators&
 enum_type_decl::get_enumerators()
 {return priv_->enumerators_;}
+
+/// Set the definition of this declaration-only @ref enum_type_decl.
+///
+/// @param d the new definition to set.
+void
+enum_type_decl::set_definition_of_declaration(enum_type_decl_sptr d)
+{
+  ABG_ASSERT(get_is_declaration_only());
+  priv_->definition_of_declaration_ = d;
+  if (d->get_canonical_type())
+    type_base::priv_->canonical_type = d->get_canonical_type();
+
+  priv_->naked_definition_of_declaration_ = d.get();
+}
+
+/// If this @ref enum_type_decl_sptr is declaration-only, get its
+/// definition, if any.
+///
+/// @return the definition of this decl-only enum.
+const enum_type_decl_sptr
+enum_type_decl::get_definition_of_declaration() const
+{
+  if (priv_->definition_of_declaration_.expired())
+    return enum_type_decl_sptr();
+  return enum_type_decl_sptr(priv_->definition_of_declaration_);
+}
+
+///  If this @ref enum_type_decl is declaration-only, get its
+///  definition, if any.
+///
+/// Note that this function doesn't return a smart pointer, but rather
+/// the underlying pointer managed by the smart pointer.  So it's as
+/// fast as possible.  This getter is to be used in code paths that are
+/// proven to be performance hot spots; especially, when comparing
+/// sensitive types like enums.  Those are compared extremely frequently
+/// and thus, their access to the definition of declaration must be
+/// fast.
+///
+/// @return the definition of the enum.
+const enum_type_decl*
+enum_type_decl::get_naked_definition_of_declaration() const
+{return priv_->naked_definition_of_declaration_;}
+
+/// Test if a @ref enum_type_decl is a declaration-only @ref
+/// enum_type_decl.
+///
+/// @return true iff the current @ref enum_type_decl is a
+/// declaration-only @ref enum_type_decl.
+bool
+enum_type_decl::get_is_declaration_only() const
+{return priv_->is_declaration_only_;}
+
+/// Set a flag saying if the @ref enum_type_decl is a declaration-only
+/// @ref enum_type_decl.
+///
+/// @param f true if the @ref enum_type_decl is a decalaration-only
+/// @ref enum_type_decl.
+void
+enum_type_decl::set_is_declaration_only(bool f)
+{
+  bool update_types_lookup_map = !f && priv_->is_declaration_only_;
+
+  priv_->is_declaration_only_ = f;
+
+  if (update_types_lookup_map)
+    if (scope_decl* s = get_scope())
+      {
+	scope_decl::declarations::iterator i;
+	if (s->find_iterator_for_member(this, i))
+	  maybe_update_types_lookup_map(*i);
+	else
+	  ABG_ASSERT_NOT_REACHED;
+      }
+}
 
 /// Get the pretty representation of the current instance of @ref
 /// enum_type_decl.
