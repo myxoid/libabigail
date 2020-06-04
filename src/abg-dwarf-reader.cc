@@ -198,6 +198,10 @@ typedef unordered_map<Dwarf_Off, Dwarf_Off> offset_offset_map_type;
 /// value is a vector of smart pointer to a class.
 typedef unordered_map<string, classes_type> string_classes_map;
 
+/// Convenience typedef for a map which key is a string and which
+/// value is a vector of smart pointer to a enum.
+typedef unordered_map<string, enums_type> string_enums_map;
+
 /// The abstraction of the place where a partial unit has been
 /// imported.  This is what the DW_TAG_imported_unit DIE expresses.
 ///
@@ -2282,6 +2286,7 @@ public:
   vector<Dwarf_Off>		type_unit_types_to_canonicalize_;
   vector<type_base_sptr>	extra_types_to_canonicalize_;
   string_classes_map		decl_only_classes_map_;
+  string_enums_map		decl_only_enums_map_;
   die_tu_map_type		die_tu_map_;
   corpus_group_sptr		cur_corpus_group_;
   corpus_sptr			cur_corpus_;
@@ -4615,6 +4620,203 @@ public:
 	      cerr << "Here are the "
 		   << num_decl_only_classes - num_resolved
 		   << " unresolved class declarations:\n";
+	    else
+	      cerr << "    " << i->first << "\n";
+	  }
+      }
+  }
+
+  /// Getter for the map of declaration-only enums that are to be
+  /// resolved to their definition enums by the end of the corpus
+  /// loading.
+  ///
+  /// @return a map of string -> vector of enums where the key is
+  /// the fully qualified name of the enum and the value is the
+  /// vector of declaration-only enum.
+  const string_enums_map&
+  declaration_only_enums() const
+  {return decl_only_enums_map_;}
+
+  /// Getter for the map of declaration-only enums that are to be
+  /// resolved to their definition enums by the end of the corpus
+  /// loading.
+  ///
+  /// @return a map of string -> vector of enums where the key is
+  /// the fully qualified name of the enum and the value is the
+  /// vector of declaration-only enum.
+  string_enums_map&
+  declaration_only_enums()
+  {return decl_only_enums_map_;}
+
+  /// If a given enum is a declaration-only enum then stash it on
+  /// the side so that at the end of the corpus reading we can resolve
+  /// it to its definition.
+  ///
+  /// @param enom the enum to consider.
+  void
+  maybe_schedule_declaration_only_enum_for_resolution(enum_type_decl_sptr& enom)
+  {
+    if (enom->get_is_declaration_only()
+	&& enom->get_definition_of_declaration() == 0)
+      {
+	string qn = enom->get_qualified_name();
+	string_enums_map::iterator record =
+	  declaration_only_enums().find(qn);
+	if (record == declaration_only_enums().end())
+	  declaration_only_enums()[qn].push_back(enom);
+	else
+	  record->second.push_back(enom);
+      }
+  }
+
+  /// Test if a given declaration-only enum has been scheduled for
+  /// resolution to a defined enum.
+  ///
+  /// @param enom the enum to consider for the test.
+  ///
+  /// @return true iff @p enom is a declaration-only enum and if
+  /// it's been scheduled for resolution to a defined enum.
+  bool
+  is_decl_only_enum_scheduled_for_resolution(enum_type_decl_sptr& enom)
+  {
+    if (enom->get_is_declaration_only())
+      return (declaration_only_enums().find(enom->get_qualified_name())
+	      != declaration_only_enums().end());
+
+    return false;
+  }
+
+  /// Walk the declaration-only enums that have been found during
+  /// the building of the corpus and resolve them to their definitions.
+  void
+  resolve_declaration_only_enums()
+  {
+    vector<string> resolved_enums;
+
+    for (string_enums_map::iterator i =
+	   declaration_only_enums().begin();
+	 i != declaration_only_enums().end();
+	 ++i)
+      {
+	bool to_resolve = false;
+	for (enums_type::iterator j = i->second.begin();
+	     j != i->second.end();
+	     ++j)
+	  if ((*j)->get_is_declaration_only()
+	      && ((*j)->get_definition_of_declaration() == 0))
+	    to_resolve = true;
+
+	if (!to_resolve)
+	  {
+	    resolved_enums.push_back(i->first);
+	    continue;
+	  }
+
+	// Now, for each decl-only enum that have the current name
+	// 'i->first', let's try to poke at the fully defined enum
+	// that is defined in the same translation unit as the
+	// declaration.
+	//
+	// If we find one enum (defined in the TU of the declaration)
+	// that defines the declaration, then the declaration can be
+	// resolved to that enum.
+	//
+	// If no defining enum is found in the TU of the declaration,
+	// then there are possibly three cases to consider:
+	//
+	//   1/ There is exactly one enum that defines the
+	//   declaration and that enum is defined in another TU.  In
+	//   this case, the declaration is resolved to that
+	//   definition.
+	//
+	//   2/ There are more than one enum that define that
+	//   declaration and none of them is defined in the TU of the
+	//   declaration.  In this case, the declaration is left
+	//   unresolved.
+	//
+	//   3/ No enum defines the declaration.  In this case, the
+	//   declaration is left unresoved.
+
+	// So get the enums that might define the current
+	// declarations which name is i->first.
+	const type_base_wptrs_type *enums =
+	  lookup_enum_types(i->first, *current_corpus());
+	if (!enums)
+	  continue;
+
+	unordered_map<string, enum_type_decl_sptr> per_tu_enum_map;
+	for (type_base_wptrs_type::const_iterator c = enums->begin();
+	     c != enums->end();
+	     ++c)
+	  {
+	    enum_type_decl_sptr enom = is_enum_type(type_base_sptr(*c));
+	    ABG_ASSERT(enom);
+
+	    enom = is_enum_type(look_through_decl_only_enum(enom));
+	    if (enom->get_is_declaration_only())
+	      continue;
+
+	    string tu_path = enom->get_translation_unit()->get_absolute_path();
+	    if (tu_path.empty())
+	      continue;
+
+	    // Build a map that associates the translation unit path
+	    // to the enum (that potentially defines the declarations
+	    // that we consider) that are defined in that translation unit.
+	    per_tu_enum_map[tu_path] = enom;
+	  }
+
+	if (!per_tu_enum_map.empty())
+	  {
+	    // Walk the declarations to resolve and resolve them
+	    // either to the definitions that are in the same TU as
+	    // the declaration, or to the definition found elsewhere,
+	    // if there is only one such definition.
+	    for (enums_type::iterator j = i->second.begin();
+		 j != i->second.end();
+		 ++j)
+	      {
+		if ((*j)->get_is_declaration_only()
+		    && ((*j)->get_definition_of_declaration() == 0))
+		  {
+		    string tu_path =
+		      (*j)->get_translation_unit()->get_absolute_path();
+		    unordered_map<string, enum_type_decl_sptr>::const_iterator e =
+		      per_tu_enum_map.find(tu_path);
+		    if (e != per_tu_enum_map.end())
+		      (*j)->set_definition_of_declaration(e->second);
+		    else if (per_tu_enum_map.size() == 1)
+		      (*j)->set_definition_of_declaration
+			(per_tu_enum_map.begin()->second);
+		  }
+	      }
+	    resolved_enums.push_back(i->first);
+	  }
+      }
+
+    size_t num_decl_only_enums = declaration_only_enums().size(),
+      num_resolved = resolved_enums.size();
+    if (show_stats())
+      cerr << "resolved " << num_resolved
+	   << " enum declarations out of "
+	   << num_decl_only_enums
+	   << "\n";
+
+    for (vector<string>::const_iterator i = resolved_enums.begin();
+	 i != resolved_enums.end();
+	 ++i)
+      declaration_only_enums().erase(*i);
+
+    for (string_enums_map::iterator i = declaration_only_enums().begin();
+	 i != declaration_only_enums().end();
+	 ++i)
+      {
+	if (show_stats())
+	  {
+	    if (i == declaration_only_enums().begin())
+	      cerr << "Here are the "
+		   << num_decl_only_enums - num_resolved
+		   << " unresolved enum declarations:\n";
 	    else
 	      cerr << "    " << i->first << "\n";
 	  }
@@ -13283,6 +13485,7 @@ build_enum_type(read_context&	ctxt,
   string name, linkage_name;
   location loc;
   die_loc_and_name(ctxt, die, loc, name, linkage_name);
+  bool is_declaration_only = die_is_declaration_only(die);
 
   bool is_anonymous = false;
   // If the enum is anonymous, let's give it a name.
@@ -13385,8 +13588,12 @@ build_enum_type(read_context&	ctxt,
   ABG_ASSERT(t);
   result.reset(new enum_type_decl(name, loc, t, enms, linkage_name));
   result->set_is_anonymous(is_anonymous);
+  result->set_is_declaration_only(is_declaration_only);
   result->set_is_artificial(is_artificial);
   ctxt.associate_die_to_type(die, result, where_offset);
+
+  ctxt.maybe_schedule_declaration_only_enum_for_resolution(result);
+
   return result;
 }
 
@@ -16129,6 +16336,24 @@ read_debug_info_into_corpus(read_context& ctxt)
     tools_utils::timer t;
     if (ctxt.do_log())
       {
+	cerr << "resolving declaration only enums ...";
+	t.start();
+      }
+    ctxt.resolve_declaration_only_enums();
+    if (ctxt.do_log())
+      {
+	t.stop();
+	cerr << " DONE@" << ctxt.current_corpus()->get_path()
+	     << ":"
+	     << t
+	     <<"\n";
+      }
+  }
+
+  {
+    tools_utils::timer t;
+    if (ctxt.do_log())
+      {
 	cerr << "fixing up functions with linkage name but "
 	     << "no advertised underlying symbols ....";
 	t.start();
@@ -16559,7 +16784,18 @@ build_ir_node_from_die(read_context&	ctxt,
 
     case DW_TAG_enumeration_type:
       {
-	if (!type_is_suppressed(ctxt, scope, die))
+	bool type_is_private = false;
+	bool type_suppressed =
+	  type_is_suppressed(ctxt, scope, die, type_is_private);
+	if (type_suppressed && type_is_private)
+	  // The type is suppressed because it's private.  If other
+	  // non-suppressed and declaration-only instances of this
+	  // type exist in the current corpus, then it means those
+	  // non-suppressed instances are opaque versions of the
+	  // suppressed private type.  Lets return one of these opaque
+	  // types then.
+	  result = get_opaque_version_of_type(ctxt, scope, die, where_offset);
+	else if (!type_suppressed)
 	  {
 	    enum_type_decl_sptr e = build_enum_type(ctxt, die, scope,
 						    where_offset);
