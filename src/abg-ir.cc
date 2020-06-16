@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- mode: C++ -*-
 //
@@ -13665,6 +13667,15 @@ type_base::get_canonical_type_for(type_base_sptr t)
   if (!t)
     return t;
 
+  bool debug = t->get_pretty_representation() == "struct time_namespace"
+	       || t->get_pretty_representation() == "class time_namespace";
+  if (debug)
+  {
+    std::cerr << "get_canonical_type_for "
+	      << t << " = "
+	      << t->get_pretty_representation() << "\n";
+  }
+
   environment* env = t->get_environment();
   ABG_ASSERT(env);
 
@@ -13674,6 +13685,10 @@ type_base::get_canonical_type_for(type_base_sptr t)
 
   bool decl_only_class_equals_definition =
     (odr_is_relevant(*t) || env->decl_only_class_equals_definition());
+
+  if (debug)
+    std::cerr << "  decl_only_class_equals_definition="
+	      << decl_only_class_equals_definition << "\n";
 
   class_or_union_sptr class_or_union = is_class_or_union_type(t);
 
@@ -13688,6 +13703,8 @@ type_base::get_canonical_type_for(type_base_sptr t)
   if (decl_only_class_equals_definition)
     if (class_or_union)
       {
+	if (debug)
+	  std::cerr << "class or union\n";
 	class_or_union = look_through_decl_only_class(class_or_union);
 	if (class_or_union->get_is_declaration_only())
 	  return type_base_sptr();
@@ -13696,6 +13713,8 @@ type_base::get_canonical_type_for(type_base_sptr t)
       }
 
   class_decl_sptr is_class = is_class_type(t);
+  if (debug)
+    std::cerr << "  get_canonical_type = " << t->get_canonical_type() << "\n";
   if (t->get_canonical_type())
     return t->get_canonical_type();
 
@@ -13729,6 +13748,8 @@ type_base::get_canonical_type_for(type_base_sptr t)
 
   type_base_sptr result;
   environment::canonical_types_map_type::iterator i = types.find(repr);
+  if (debug)
+    std::cerr << "  found(" << repr << ") = " << (i != types.end()) << "\n";
   if (i == types.end())
     {
       vector<type_base_sptr> v;
@@ -13765,6 +13786,8 @@ type_base::get_canonical_type_for(type_base_sptr t)
 	  // its own, with no definition in there.  In that case, the
 	  // declaration-only struct S should be left alone and not
 	  // resolved to any of the two definitions of struct S.
+	  if (debug)
+	    std::cerr << "  attempting on-the-fly canonicalisation\n";
 	  bool saved_decl_only_class_equals_definition =
 	    env->decl_only_class_equals_definition();
 	  env->do_on_the_fly_canonicalization(true);
@@ -13772,7 +13795,14 @@ type_base::get_canonical_type_for(type_base_sptr t)
 	  // equal their definition.
 	  env->decl_only_class_equals_definition(false);
 	  bool linux_eq = types_defined_same_linux_kernel_corpus_public(**it, *t);
+          if (debug)
+            sleep(0);
 	  bool plain_eq = compare_types_during_canonicalization(*it, t);
+	  if (debug)
+	    std::cerr
+		<< "  types_defined_same_linux_kernel_corpus_public("
+		<< *it << ", " << t << ") = " << linux_eq << "\n"
+		<< "  types_equal = " << plain_eq << "\n";
 	  // is it really just an optimisation?
 	  if (linux_eq > plain_eq)
 	    {
@@ -13968,10 +13998,23 @@ canonicalize(type_base_sptr t)
   if (!t)
     return t;
 
+  bool debug = t->get_pretty_representation() == "struct time_namespace"
+	       || t->get_pretty_representation() == "class time_namespace";
+  if (debug && t->get_canonical_type())
+    std::cerr << "canonicalize " << t << " ("
+	      << t->get_pretty_representation()
+	      << ") early return -> "
+	      << t->get_canonical_type() << "\n";
+
   if (t->get_canonical_type())
     return t->get_canonical_type();
 
   type_base_sptr canonical = type_base::get_canonical_type_for(t);
+  if (debug)
+    std::cerr << "  canonicalize " << t << " ("
+	      << t->get_pretty_representation()
+	      << ") found canonical " << canonical
+	      << " (" << canonical->get_pretty_representation() << ")\n";
   maybe_adjust_canonical_type(canonical, t);
 
   t->priv_->canonical_type = canonical;
@@ -14000,11 +14043,13 @@ canonicalize(type_base_sptr t)
 	      // to ST.
 	      if (type_base_sptr c = is_type(scope)->get_canonical_type())
 		// We want to add 'canonical' to set of canonical
-		// types belonging to the canonical type of ST.  That
+		// types belonging to the canonical type of ST.	 That
 		// way, just looking at the canonical type of ST is
 		// enough to get the types that belong to the scope of
 		// the class of equivalence of ST.
 		scope = is_scope_decl(is_decl(c)).get();
+	    if (debug)
+	      std::cerr << "  canonicalize inserting canonical into scope\n";
 	    scope->get_canonical_types().insert(canonical);
 	  }
 	// else, if the type doesn't have a scope, it's not meant to be

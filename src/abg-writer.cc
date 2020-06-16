@@ -2213,6 +2213,12 @@ write_canonical_types_of_scope(const scope_decl	&scope,
        i != canonical_types.end();
        ++i)
     {
+      auto x = is_class_type(*i);
+      if (x && x->get_qualified_name() == "time_namespace")
+	{
+	  std::cerr << "writing canonical type " << x->get_qualified_name()
+		    << " for scope '" << scope.get_name() << "' now\n";
+	}
       if (is_member_type)
 	write_member_type(*i, ctxt, indent);
       else
@@ -3678,6 +3684,12 @@ write_class_decl(const class_decl_sptr& d,
   annotate(decl, ctxt, indent);
 
   ostream& o = ctxt.get_ostream();
+
+  if (decl->get_qualified_name() == "time_namespace")
+  {
+    std::cerr << " writing class decl " << decl << " with "
+	      << decl->get_data_members().size() << " data members\n";
+  }
 
   write_class_decl_opening_tag(decl, id, ctxt, indent,
 			       /*prepare_to_handle_members=*/true);

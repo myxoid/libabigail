@@ -4127,6 +4127,11 @@ public:
 	  declaration_only_classes()[qn].push_back(klass);
 	else
 	  record->second.push_back(klass);
+	if (qn == "time_namespace")
+	{
+	  std::cerr << "  scheduling klass " << klass
+		    << " " << declaration_only_classes()[qn].size() << " times\n";
+	}
       }
   }
 
@@ -4192,6 +4197,11 @@ public:
 	      && ((*j)->get_definition_of_declaration() == 0))
 	    to_resolve = true;
 
+	if (i->first == "time_namespace")
+	{
+	  std::cerr << "Resolving decision: " << to_resolve << "\n";
+	}
+
 	if (!to_resolve)
 	  {
 	    resolved_classes.push_back(i->first);
@@ -4227,6 +4237,13 @@ public:
 	// declarations which name is i->first.
 	const type_base_wptrs_type *classes =
 	  lookup_class_types(i->first, *current_corpus());
+	if (i->first == "time_namespace")
+	{
+	  if (classes)
+	    std::cerr << "  found classes: " << classes->size() << "\n";
+	  else
+	    std::cerr << "  found no classes\n";
+	}
 	if (!classes)
 	  continue;
 
@@ -4256,8 +4273,25 @@ public:
 	    // to the class (that potentially defines the declarations
 	    // that we consider) that are defined in that translation unit.
 	    per_tu_class_map[tu_path] = klass;
+	    if (i->first == "time_namespace")
+	      std::cerr << "  mapping " << tu_path << " to " << klass << "\n";
 	  }
 
+	if (i->first == "time_namespace")
+	  {
+	    std::cerr << "  per_tu_class_map.size() = " << per_tu_class_map.size() << std::endl;
+	    std::cerr << "  declarations = " << i->second.size() << std::endl;
+	    for (classes_type::iterator j = i->second.begin();
+		 j != i->second.end();
+		 ++j)
+	      {
+		std::cerr << " decl_only=" << (*j)->get_is_declaration_only()
+			  << " def_of_decl=" << (*j)->get_definition_of_declaration()
+			  << " tu_path=" << (*j)->get_translation_unit()->get_absolute_path()
+			  << std::endl;
+	      }
+	    sleep(0);
+	  }
 	if (!per_tu_class_map.empty())
 	  {
 	    // Walk the declarations to resolve and resolve them
@@ -4276,10 +4310,18 @@ public:
 		    map<string, class_decl_sptr>::const_iterator e =
 		      per_tu_class_map.find(tu_path);
 		    if (e != per_tu_class_map.end())
-		      (*j)->set_definition_of_declaration(e->second);
+		      {
+			if (i->first == "time_namespace")
+			  std::cerr << "  klass " << *j << " given definition in same TU\n";
+			(*j)->set_definition_of_declaration(e->second);
+		      }
 		    else if (per_tu_class_map.size() == 1)
+		      {
+			if (i->first == "time_namespace")
+			  std::cerr << "  klass " << *j << " given only definition\n";
 		      (*j)->set_definition_of_declaration
 			(per_tu_class_map.begin()->second);
+		      }
 		    else if (per_tu_class_map.size() > 1)
 		      {
 			// We are in case where there are more than
@@ -4313,6 +4355,9 @@ public:
 			  (*j)->set_definition_of_declaration(first_class);
 		      }
 		  }
+		if (i->first == "time_namespace")
+		  std::cerr << "  klass " << *j << " now has definiton of declaration "
+			    << (*j)->get_definition_of_declaration() << "\n";
 	      }
 	    resolved_classes.push_back(i->first);
 	  }
@@ -12245,6 +12290,29 @@ add_or_update_class_type(read_context&	 ctxt,
 	name = build_internal_anonymous_die_name(name, s);
     }
 
+  if (name == "time_namespace")
+  {
+    std::cerr << name << "\n"
+	      << "  elf_path=" << ctxt.elf_path() << "\n"
+	      << "  klass=" << klass << "\n"
+	      << "  is-declaration-only: " << is_declaration_only << "\n";
+    if (loc)
+    {
+      string path;
+      unsigned line, column;
+      loc.expand(path, line, column);
+      std::cerr << " location: " << path << ":" << line << ":" << column << "\n";
+    }
+    if (corpus_sptr corp = ctxt.should_reuse_type_from_corpus_group())
+    {
+      std::cerr << "  should_reuse_type_from_corpus_group: " << (bool)corp << "\n";
+      auto lookup = loc
+		    ? lookup_class_type_per_location(loc.expand(), *corp)
+		    : lookup_class_type(name, *corp);
+      std::cerr << "  lookup " << lookup
+		<< " decl-only: " << lookup->get_is_declaration_only() << "\n";
+    }
+  }
   if (!is_anonymous)
     {
       if (corpus_sptr corp = ctxt.should_reuse_type_from_corpus_group())
@@ -12268,6 +12336,8 @@ add_or_update_class_type(read_context&	 ctxt,
 		      && is_declaration_only)))
 	    {
 	      ctxt.associate_die_to_type(die, result, where_offset);
+	      if (name == "time_namespace")
+		std::cerr << "  reusing " << result << "\n";
 	      return result;
 	    }
 	  else
@@ -12288,6 +12358,11 @@ add_or_update_class_type(read_context&	 ctxt,
 	is_class_type(ctxt.lookup_type_artifact_from_die(die)))
       klass = pre_existing_class;
 
+  if (name == "time_namespace")
+  {
+    std::cerr << "  klass now = " << klass << "\n";
+  }
+
   uint64_t size = 0;
   die_size_in_bits(die, size);
   bool is_artificial = die_is_artificial(die);
@@ -12303,7 +12378,11 @@ add_or_update_class_type(read_context&	 ctxt,
 	  && klass->get_definition_of_declaration())
 	res = result = is_class_type(klass->get_definition_of_declaration());
       if (loc)
+      {
+	if (name == "time_namespace")
+	  std::cerr << "  decorating result = klass with location\n";
 	result->set_location(loc);
+      }
     }
   else
     {
@@ -12317,10 +12396,17 @@ add_or_update_class_type(read_context&	 ctxt,
       res = add_decl_to_scope(result, scope);
       result = dynamic_pointer_cast<class_decl>(res);
       ABG_ASSERT(result);
+      if (name == "time_namespace")
+	std::cerr << "  building new type " << result
+		  << " with decl-only: " << is_declaration_only << "\n";
     }
 
   if (size != result->get_size_in_bits())
+  {
+    if (name == "time_namespace")
+      std::cerr << "  decorating result with size\n";
     result->set_size_in_bits(size);
+  }
 
   if (klass)
     // We are amending a class that was built before.  So let's check
@@ -12345,6 +12431,11 @@ add_or_update_class_type(read_context&	 ctxt,
   ctxt.associate_die_to_type(die, result, where_offset);
 
   ctxt.maybe_schedule_declaration_only_class_for_resolution(result);
+  if (name == "time_namespace")
+    std::cerr << "  schedule1: " << result << "\n";
+
+  if (name == "time_namespace")
+    std::cerr << "  has_child: " << has_child << "\n";
 
   if (!has_child)
     // TODO: set the access specifier for the declaration-only class
@@ -12493,6 +12584,9 @@ add_or_update_class_type(read_context&	 ctxt,
 	      ABG_ASSERT(has_scope(dm));
 	      ctxt.associate_die_to_decl(&child, dm, where_offset,
 					 /*associate_by_repr=*/false);
+
+	      if (name == "time_namespace")
+		std::cerr << "    got member: " << n << "\n";
 	    }
 	  // Handle member functions;
 	  else if (tag == DW_TAG_subprogram)
@@ -12552,6 +12646,8 @@ add_or_update_class_type(read_context&	 ctxt,
   }
 
   ctxt.maybe_schedule_declaration_only_class_for_resolution(result);
+  if (name == "time_namespace")
+    std::cerr << "  schedule2: " << result << "\n";
   return result;
 }
 
