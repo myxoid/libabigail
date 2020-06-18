@@ -13770,8 +13770,18 @@ type_base::get_canonical_type_for(type_base_sptr t)
 	  // Compare types by considering that decl-only classes don't
 	  // equal their definition.
 	  env->decl_only_class_equals_definition(false);
-	  bool equal = (types_defined_same_linux_kernel_corpus_public(**it, *t)
-			|| compare_types_during_canonicalization(*it, t));
+	  bool linux_eq = types_defined_same_linux_kernel_corpus_public(**it, *t);
+	  bool plain_eq = compare_types_during_canonicalization(*it, t);
+	  // is it really just an optimisation?
+	  if (linux_eq > plain_eq)
+	    {
+	      std::cerr << "type equality discrepancy with "
+			<< t->get_pretty_representation()
+			<< " and "
+			<< (*it)->get_pretty_representation()
+			<< std::endl;
+	    }
+	  bool equal = linux_eq || plain_eq;
 	  // Restore the state of the on-the-fly-canonicalization and
 	  // the decl-only-class-being-equal-to-a-matching-definition
 	  // flags.
