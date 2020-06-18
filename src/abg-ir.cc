@@ -13544,6 +13544,7 @@ types_defined_same_linux_kernel_corpus_public(const type_base& t1,
 	    // class/union is equal to all definitions of that
 	    // class/union, we can assume that the two types are
 	    // equal.
+	    ABG_ASSERT_NOT_REACHED;
 	    return true;
 	}
     }
