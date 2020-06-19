@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- mode: C++ -*-
 //
@@ -18537,15 +18539,58 @@ function_type::get_cached_name(bool internal) const
 {
   if (internal)
     {
+      bool is_canonical = get_naked_canonical_type();
+      std::string old_cached = priv_->internal_cached_name_;
+      bool has_cached = !old_cached.empty();
+
       if (!get_naked_canonical_type() || priv_->internal_cached_name_.empty())
 	priv_->internal_cached_name_ = get_function_type_name(this, internal);
 
+      std::string new_cached = priv_->internal_cached_name_;
+      bool now_has_cached = !new_cached.empty();
+      bool same = old_cached == new_cached;
+#if 1
+      if (!(now_has_cached && same == has_cached))
+	{
+	  std::cout << "internal "
+		    << (is_canonical ? "canon " : "non-canon ")
+		    << (has_cached ? "cached" : "non-cached")
+		    << " -> "
+		    << (now_has_cached ? "cached" : "non-cached")
+		    << " "
+		    << (old_cached == new_cached ? "same" : "different")
+		    << " " << old_cached << " -> " << new_cached
+		  << "\n";
+	}
+      sleep(0);
+#endif
+      ABG_ASSERT(now_has_cached && same == has_cached);
       return priv_->internal_cached_name_;
     }
+
+  bool is_canonical = get_naked_canonical_type();
+  std::string old_cached = priv_->cached_name_;
+  bool has_cached = !old_cached.empty();
 
   if (!get_naked_canonical_type() || priv_->cached_name_.empty())
     priv_->cached_name_ = get_function_type_name(this, internal);
 
+  std::string new_cached = priv_->cached_name_;
+  bool now_has_cached = !new_cached.empty();
+  bool same = old_cached == new_cached;
+  if (!(now_has_cached && same == has_cached))
+    {
+      std::cout << "external "
+		<< (is_canonical ? "canon " : "non-canon ")
+		<< (has_cached ? "cached" : "non-cached")
+		<< " -> "
+		<< (now_has_cached ? "cached" : "non-cached")
+		<< " "
+		<< (old_cached == new_cached ? "same" : "different")
+		<< " " << old_cached << " -> " << new_cached
+		<< "\n";
+      sleep(0);
+    }
   return priv_->cached_name_;
 }
 
