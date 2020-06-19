@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 // -*- mode: C++ -*-
 //
 // Copyright (C) 2013-2020 Red Hat, Inc.
@@ -13999,6 +14001,7 @@ qualified_type_def::get_qualified_name(bool internal) const
 
   if (!get_canonical_type())
     {
+      //XXX - we really shouldn't be getting here at all
       // The type hasn't been canonicalized yet. We want to return a
       // temporary name that is not cached because the structure of
       // this type (and so its name) can change until its
@@ -14393,6 +14396,7 @@ pointer_type_def::get_qualified_name(bool internal) const
 	}
       else
 	{
+          //XXX - we really shouldn't be getting here at all
 	  // As the type hasn't yet been canonicalized, its structure
 	  // (and so its name) can change.  So let's invalidate the
 	  // cache where we store its name at each invocation of this
@@ -14676,6 +14680,7 @@ reference_type_def::get_qualified_name(interned_string& qn, bool internal) const
 const interned_string&
 reference_type_def::get_qualified_name(bool internal) const
 {
+  //XXX - we should be asserting get_canonical_type()
   if (peek_qualified_name().empty()
       || !get_canonical_type())
     set_qualified_name(get_name_of_reference_to_type(*get_pointed_to_type(),
@@ -15588,6 +15593,7 @@ array_type_def::get_qualified_name(bool internal) const
 	}
       else
 	{
+          //XXX - bad news
 	  priv_->temp_internal_qualified_name_ =
 	    env->intern(get_type_representation(*this, /*internal=*/true));
 	  return priv_->temp_internal_qualified_name_;
@@ -15604,6 +15610,7 @@ array_type_def::get_qualified_name(bool internal) const
 	}
       else
 	{
+          //XXX - bad news
 	  set_qualified_name(env->intern(get_type_representation
 					 (*this, /*internal=*/false)));
 	  return decl_base::peek_qualified_name();
@@ -16114,6 +16121,7 @@ enum_type_decl::enumerator::get_name() const
 const interned_string&
 enum_type_decl::enumerator::get_qualified_name(bool internal) const
 {
+  //XXX - bad news?
   if (priv_->qualified_name_.empty())
     {
       const environment* env = priv_->enum_type_->get_environment();
@@ -17368,15 +17376,58 @@ function_type::get_cached_name(bool internal) const
 {
   if (internal)
     {
+      bool is_canonical = get_naked_canonical_type();
+      std::string old_cached = priv_->internal_cached_name_;
+      bool has_cached = !old_cached.empty();
+
       if (!get_naked_canonical_type() || priv_->internal_cached_name_.empty())
 	priv_->internal_cached_name_ = get_function_type_name(this, internal);
 
+      std::string new_cached = priv_->internal_cached_name_;
+      bool now_has_cached = !new_cached.empty();
+      bool same = old_cached == new_cached;
+#if 1
+      if (!(now_has_cached && same == has_cached))
+	{
+	  std::cout << "internal "
+		    << (is_canonical ? "canon " : "non-canon ")
+		    << (has_cached ? "cached" : "non-cached")
+		    << " -> "
+		    << (now_has_cached ? "cached" : "non-cached")
+		    << " "
+		    << (old_cached == new_cached ? "same" : "different")
+		    << " " << old_cached << " -> " << new_cached
+		  << "\n";
+	}
+      sleep(0);
+#endif
+      ABG_ASSERT(now_has_cached && same == has_cached);
       return priv_->internal_cached_name_;
     }
+
+  bool is_canonical = get_naked_canonical_type();
+  std::string old_cached = priv_->cached_name_;
+  bool has_cached = !old_cached.empty();
 
   if (!get_naked_canonical_type() || priv_->cached_name_.empty())
     priv_->cached_name_ = get_function_type_name(this, internal);
 
+  std::string new_cached = priv_->cached_name_;
+  bool now_has_cached = !new_cached.empty();
+  bool same = old_cached == new_cached;
+  if (!(now_has_cached && same == has_cached))
+    {
+      std::cout << "external "
+		<< (is_canonical ? "canon " : "non-canon ")
+		<< (has_cached ? "cached" : "non-cached")
+		<< " -> "
+		<< (now_has_cached ? "cached" : "non-cached")
+		<< " "
+		<< (old_cached == new_cached ? "same" : "different")
+		<< " " << old_cached << " -> " << new_cached
+		<< "\n";
+      sleep(0);
+    }
   return priv_->cached_name_;
 }
 
