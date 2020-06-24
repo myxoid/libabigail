@@ -21773,7 +21773,7 @@ struct class_decl::priv
   {}
 };// end struct class_decl::priv
 
-/// A Constructor for instances of \ref class_decl
+/// A Constructor for instances of @ref class_decl
 ///
 /// @param env the environment we are operating from.
 ///
@@ -21881,7 +21881,7 @@ class_decl::class_decl(const environment* env, const string& name,
   set_is_anonymous(is_anonymous);
 }
 
-/// A constructor for instances of class_decl.
+/// A constructor for instances of @ref class_decl.
 ///
 /// @param env the environment we are operating from.
 ///
@@ -21915,7 +21915,7 @@ class_decl::class_decl(const environment* env, const string& name,
   runtime_type_instance(this);
 }
 
-/// A constructor for instances of @ref class_decl.
+/// A Constructor for instances of @ref class_decl
 ///
 /// @param env the environment we are operating from.
 ///
