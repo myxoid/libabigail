@@ -20123,7 +20123,7 @@ struct class_decl::priv
   {}
 };// end struct class_decl::priv
 
-/// A Constructor for instances of \ref class_decl
+/// A Constructor for instances of @ref class_decl
 ///
 /// @param env the environment we are operating from.
 ///
