@@ -10875,45 +10875,34 @@ build_translation_unit_and_add_to_ir(read_context&	ctxt,
 
   if (ctxt.merge_translation_units())
     {
-      // See if there is already a translation for the address_size
-      // and language. If so, just reuse that one.
-      for (translation_units::const_iterator tu =
-	     corp->get_translation_units().begin();
-	   tu != corp->get_translation_units().end();
-	   ++tu)
-	{
-	  if ((*tu)->get_address_size() == address_size
-	      && (*tu)->get_language() == language)
-	    {
-	      result = (*tu);
-	      break;
-	    }
-	}
+      // Construct a fake TU name based on language and address size which are
+      // assumed invariant within a TU.
+      std::ostringstream os;
+      os << "lang=" << translation_unit_language_to_string(language)
+	 << " bits=" << (int)address_size;
+      compilation_dir = os.str();
+      path = "MERGED";
     }
-  else
-    {
-      // See if the same translation unit exits already in the current
-      // corpus.  Sometimes, the same translation unit can be present
-      // several times in the same debug info.  The content of the
-      // different instances of the translation unit are different.  So to
-      // represent that, we are going to re-use the same translation
-      // unit.  That is, it's going to be the union of all the translation
-      // units of the same path.
-      const string& abs_path =
-          compilation_dir.empty() ? path : compilation_dir + "/" + path;
-      result = corp->find_translation_unit(abs_path);
-    }
+
+  // See if the same translation unit exits already in the current
+  // corpus.  Sometimes, the same translation unit can be present
+  // several times in the same debug info.  The content of the
+  // different instances of the translation unit are different.	 So to
+  // represent that, we are going to re-use the same translation
+  // unit.  That is, it's going to be the union of all the translation
+  // units of the same path.
+  const string& abs_path =
+      compilation_dir.empty() ? path : compilation_dir + "/" + path;
+  result = corp->find_translation_unit(abs_path);
 
   if (!result)
     {
       result.reset(new translation_unit(ctxt.env(),
-					(ctxt.merge_translation_units()
-					 ? "" : path),
+					path,
 					address_size));
-      if (!ctxt.merge_translation_units())
-	result->set_compilation_dir_path(compilation_dir);
-      ctxt.current_corpus()->add(result);
       result->set_language(language);
+      result->set_compilation_dir_path(compilation_dir);
+      ctxt.current_corpus()->add(result);
     }
 
   ctxt.cur_transl_unit(result);
