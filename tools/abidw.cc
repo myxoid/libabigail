@@ -675,6 +675,19 @@ load_kernel_corpus_group_and_write_abixml(char* argv[],
     if (!abigail::tools_utils::check_file(opts.vmlinux, cerr, argv[0]))
       return 1;
 
+  // Options checking in normal mode.
+  //
+  // prepared_di_root_paths - ignored
+  // load_all_types - ignored
+  // no-linux_kernel_mode --ignored
+  // drop_undefined_syms - ignored
+  // merge_translation_units - passed on and used as usual
+  // show_stats - ignored
+  // [normal suppressions] - suppression paths passed on, treated a bit differently
+  // do_log = used, passed on and used as usual
+  // check_alt_debug_info_path -- ignored
+  // show_base_name_alt_debug_info_path - ignored
+
   timer t, global_timer;
   suppressions_type supprs;
 
