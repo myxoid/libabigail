@@ -690,7 +690,9 @@ load_kernel_corpus_group_and_write_abixml(char* argv[],
 					      opts.vmlinux,
 					      opts.suppression_paths,
 					      opts.kabi_whitelist_paths,
-					      supprs, opts.do_log, env);
+					      supprs, opts.do_log,
+					      opts.merge_translation_units,
+					      env);
   t.stop();
 
   if (opts.do_log)

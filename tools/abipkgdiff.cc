@@ -2544,6 +2544,7 @@ compare_prepared_linux_kernel_packages(package& first_package,
 						      opts.kabi_whitelist_paths,
 						      supprs,
 						      opts.verbose,
+						      false /*merge_translation_units*/,
 						      env);
 
   if (!corpus1)
@@ -2556,6 +2557,7 @@ compare_prepared_linux_kernel_packages(package& first_package,
 						      opts.kabi_whitelist_paths,
 						      supprs,
 						      opts.verbose,
+						      false /*merge_translation_units*/,
 						      env);
 
   if (!corpus2)

@@ -332,6 +332,7 @@ build_corpus_group_from_kernel_dist_under(const string&	root,
 					  vector<string>&	kabi_wl_paths,
 					  suppr::suppressions_type&	supprs,
 					  bool				verbose,
+					  bool				merge_translation_units,
 					  environment_sptr&		env);
 }// end namespace tools_utils
 

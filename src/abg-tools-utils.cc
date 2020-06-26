@@ -2542,6 +2542,7 @@ build_corpus_group_from_kernel_dist_under(const string&	root,
 					  vector<string>&	kabi_wl_paths,
 					  suppressions_type&	supprs,
 					  bool			verbose,
+					  bool			merge_translation_units,
 					  environment_sptr&	env)
 {
   string vmlinux = vmlinux_path;
@@ -2578,6 +2579,7 @@ build_corpus_group_from_kernel_dist_under(const string&	root,
 	    dwarf_reader::create_read_context(vmlinux, di_roots ,env.get(),
 					      /*read_all_types=*/false,
 					      /*linux_kernel_mode=*/true);
+	  set_merge_translation_units(*ctxt, merge_translation_units);
 	  dwarf_reader::set_do_log(*ctxt, verbose);
 
 	  t.start();

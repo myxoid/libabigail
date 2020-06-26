@@ -428,6 +428,7 @@ main(int argc, char* argv[])
 						      opts.kabi_whitelist_paths,
 						      opts.read_time_supprs,
 						      opts.verbose,
+						      false /*merge_translation_units*/,
 						      env);
 	  print_kernel_dist_binary_paths_under(opts.kernel_dist_root1, opts);
 	}
@@ -454,6 +455,7 @@ main(int argc, char* argv[])
 						      opts.kabi_whitelist_paths,
 						      opts.read_time_supprs,
 						      opts.verbose,
+						      false /*merge_translation_units*/,
 						      env);
 	  print_kernel_dist_binary_paths_under(opts.kernel_dist_root2, opts);
 	}
