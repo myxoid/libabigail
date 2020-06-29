@@ -12,6 +12,7 @@
     <elf-symbol name='_init' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
   <abi-instr address-size='64' path='test23-first-tu.cc' comp-dir-path='/home/dodji/git/libabigail/PR20369/tests/data/test-read-dwarf' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[] -->
     <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <type-decl name='char' size-in-bits='8' id='type-id-2'/>
     <class-decl name='__anonymous_struct__' is-struct='yes' is-anonymous='yes' visibility='default' id='type-id-3'/>

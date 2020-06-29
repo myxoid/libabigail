@@ -347,6 +347,7 @@
     <elf-symbol name='_ZTVN5boost6system14error_categoryE' size='72' type='object-type' binding='weak-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-variable-symbols>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/codecvt_error_category.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[4] -->
     <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <type-decl name='char' size-in-bits='8' id='type-id-2'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='32' id='type-id-3'>
@@ -1782,6 +1783,7 @@
     <type-decl name='void' id='type-id-110'/>
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/operations.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[] -->
     <array-type-def dimensions='1' type-id='type-id-133' size-in-bits='infinite' id='type-id-134'>
       <subrange length='infinite' type-id='type-id-4' id='type-id-135'/>
     </array-type-def>

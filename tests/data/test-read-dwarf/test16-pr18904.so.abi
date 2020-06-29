@@ -1618,6 +1618,9 @@
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/cean_util.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/coi/coi_client.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[1024] -->
+    <!-- <anonymous range>[255] -->
+    <!-- <anonymous range>[2] -->
     <type-decl name='unsigned char' size-in-bits='8' id='type-id-1'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='32768' id='type-id-3'>
       <subrange length='1024' type-id='type-id-4' id='type-id-5'/>
@@ -2162,6 +2165,13 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/compiler_if_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[104] -->
+    <!-- <anonymous range>[24] -->
+    <!-- <anonymous range>[32] -->
+    <!-- <anonymous range>[7] -->
+    <!-- <anonymous range>[8] -->
+    <!-- <anonymous range>[9] -->
+    <!-- <anonymous range>[] -->
     <array-type-def dimensions='1' type-id='type-id-155' size-in-bits='128' id='type-id-156'>
       <subrange length='1' type-id='type-id-4' id='type-id-157'/>
     </array-type-def>
@@ -12276,6 +12286,8 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[128] -->
+    <!-- <anonymous range>[624] -->
     <array-type-def dimensions='1' type-id='type-id-15' size-in-bits='8192' id='type-id-1757'>
       <subrange length='128' type-id='type-id-4' id='type-id-1758'/>
     </array-type-def>
@@ -16818,6 +16830,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[512] -->
     <array-type-def dimensions='1' type-id='type-id-165' size-in-bits='4096' id='type-id-2539'>
       <subrange length='512' type-id='type-id-4' id='type-id-2540'/>
     </array-type-def>
@@ -19485,6 +19498,7 @@
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_orsl.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_table.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[40] -->
     <type-decl name='bool' size-in-bits='8' id='type-id-149'/>
     <array-type-def dimensions='1' type-id='type-id-165' size-in-bits='320' id='type-id-2963'>
       <subrange length='40' type-id='type-id-4' id='type-id-180'/>
@@ -20365,6 +20379,10 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_trace.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[16] -->
+    <!-- <anonymous range>[1] -->
+    <!-- <anonymous range>[20] -->
+    <!-- <anonymous range>[4] -->
     <array-type-def dimensions='1' type-id='type-id-165' size-in-bits='128' id='type-id-3046'>
       <subrange length='16' type-id='type-id-4' id='type-id-176'/>
     </array-type-def>

@@ -245,6 +245,9 @@
     <elf-symbol name='_ZZN5mongo7BSONObjC1EvE21kEmptyObjectPrototype' size='5' type='object-type' binding='weak-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-variable-symbols>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/block_compressor.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[21] -->
+    <!-- <anonymous range>[24] -->
+    <!-- <anonymous range>[25] -->
     <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <type-decl name='char' size-in-bits='8' id='type-id-2'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='168' id='type-id-3'>
@@ -4592,6 +4595,8 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/controller.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[104] -->
+    <!-- <anonymous range>[36] -->
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='832' id='type-id-393'>
       <subrange length='104' type-id='type-id-4' id='type-id-394'/>
     </array-type-def>
@@ -5999,6 +6004,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/file_manager.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[2] -->
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='16' id='type-id-598'>
       <subrange length='2' type-id='type-id-4' id='type-id-599'/>
     </array-type-def>
@@ -7090,6 +7096,9 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/file_reader.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[16] -->
+    <!-- <anonymous range>[19] -->
+    <!-- <anonymous range>[35] -->
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='128' id='type-id-768'>
       <subrange length='16' type-id='type-id-4' id='type-id-769'/>
     </array-type-def>
@@ -7545,6 +7554,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/file_writer.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[79] -->
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='632' id='type-id-888'>
       <subrange length='79' type-id='type-id-4' id='type-id-889'/>
     </array-type-def>
@@ -7774,6 +7784,11 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/ftdc/util.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[5] -->
+    <!-- <anonymous range>[6] -->
+    <!-- <anonymous range>[7] -->
+    <!-- <anonymous range>[8] -->
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='56' id='type-id-953'>
       <subrange length='7' type-id='type-id-4' id='type-id-954'/>
     </array-type-def>

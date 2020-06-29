@@ -2209,14 +2209,19 @@ write_canonical_types_of_scope(const scope_decl	&scope,
   const type_base_sptrs_type &canonical_types =
     scope.get_sorted_canonical_types();
 
+  ostream& o = ctxt.get_ostream();
+
   for (type_base_sptrs_type::const_iterator i = canonical_types.begin();
        i != canonical_types.end();
        ++i)
     {
-      if (is_member_type)
-	write_member_type(*i, ctxt, indent);
-      else
-	write_type(*i, ctxt, indent);
+      if (!(is_member_type
+	    ? write_member_type(*i, ctxt, indent)
+	    : write_type(*i, ctxt, indent)))
+	{
+	  do_indent(o, indent);
+	  o << "<!-- " << (*i)->get_pretty_representation() << " -->\n";
+	}
     }
 
   return true;

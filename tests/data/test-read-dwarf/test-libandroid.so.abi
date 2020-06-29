@@ -303,6 +303,7 @@
     <elf-symbol name='android_setsocknetwork' version='LIBANDROID' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
   <abi-instr address-size='32' path='frameworks/base/libs/storage/IMountService.cpp' language='LANG_C_plus_plus_14'>
+    <!-- <anonymous range>[35] -->
     <array-type-def dimensions='1' type-id='801a266d' size-in-bits='560' id='5da7196d'>
       <subrange length='35' type-id='7ff19f0f' id='6e6845b5'/>
     </array-type-def>
@@ -802,6 +803,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/libs/storage/IObbActionListener.cpp' language='LANG_C_plus_plus_14'>
+    <!-- <anonymous range>[38] -->
     <array-type-def dimensions='1' type-id='801a266d' size-in-bits='608' id='19b37a54'>
       <subrange length='38' type-id='7ff19f0f' id='aa4ccdac'/>
     </array-type-def>
@@ -1020,6 +1022,16 @@
     <pointer-type-def type-id='dda33994' size-in-bits='32' id='a5f3e61a'/>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/asset_manager.cpp' language='LANG_C_plus_plus_14'>
+    <!-- <anonymous range>[11] -->
+    <!-- <anonymous range>[16] -->
+    <!-- <anonymous range>[1] -->
+    <!-- <anonymous range>[256] -->
+    <!-- <anonymous range>[2] -->
+    <!-- <anonymous range>[3] -->
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[5] -->
+    <!-- <anonymous range>[8] -->
+    <!-- <anonymous range>[] -->
     <type-decl name='__ARRAY_SIZE_TYPE__' size-in-bits='64' id='7ff19f0f'/>
     <array-type-def dimensions='1' type-id='1b3b87e1' size-in-bits='512' id='224e4514'>
       <subrange length='16' type-id='7ff19f0f' id='848d0938'/>
@@ -17908,6 +17920,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/native_window_jni.cpp' language='LANG_C_plus_plus_14'>
+    <!-- <anonymous range>[6] -->
     <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='infinite' id='1fdc7fa6'>
       <subrange length='infinite' type-id='7ff19f0f' id='031f2035'/>
     </array-type-def>
@@ -18277,6 +18290,7 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/net.c' language='LANG_C99'>
+    <!-- <anonymous range>[14] -->
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='112' id='f01a039e'>
       <subrange length='14' type-id='7ff19f0f' id='48882d96'/>
     </array-type-def>

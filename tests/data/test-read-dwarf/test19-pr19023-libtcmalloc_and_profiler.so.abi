@@ -805,6 +805,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/base/elf_mem_image.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[16] -->
     <array-type-def dimensions='1' type-id='type-id-3' size-in-bits='128' id='type-id-4'>
       <subrange length='16' type-id='type-id-5' id='type-id-6'/>
     </array-type-def>
@@ -1232,6 +1233,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/base/low_level_alloc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[30] -->
     <array-type-def dimensions='1' type-id='type-id-68' size-in-bits='1920' id='type-id-69'>
       <subrange length='30' type-id='type-id-5' id='type-id-70'/>
     </array-type-def>
@@ -1325,6 +1327,8 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/base/sysinfo.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[10] -->
+    <!-- <anonymous range>[5120] -->
     <array-type-def dimensions='1' type-id='type-id-66' size-in-bits='80' id='type-id-83'>
       <subrange length='10' type-id='type-id-5' id='type-id-84'/>
     </array-type-def>
@@ -1654,6 +1658,8 @@
     <var-decl name='heap_leak_checker_bcad_variable' type-id='type-id-56' mangled-name='heap_leak_checker_bcad_variable' visibility='default' filepath='src/heap-checker-bcad.cc' line='53' column='1' elf-symbol-id='heap_leak_checker_bcad_variable'/>
   </abi-instr>
   <abi-instr address-size='64' path='src/heap-checker.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[32] -->
+    <!-- <anonymous range>[] -->
     <array-type-def dimensions='1' type-id='type-id-66' size-in-bits='infinite' id='type-id-124'>
       <subrange length='infinite' id='type-id-125'/>
     </array-type-def>
@@ -9052,6 +9058,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/internal_logging.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[200] -->
     <array-type-def dimensions='1' type-id='type-id-66' size-in-bits='1600' id='type-id-880'>
       <subrange length='200' type-id='type-id-5' id='type-id-881'/>
     </array-type-def>
@@ -10970,6 +10977,7 @@
   <abi-instr address-size='64' path='src/profiledata.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr address-size='64' path='src/profiler.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[28] -->
     <array-type-def dimensions='1' type-id='type-id-1071' size-in-bits='4096' id='type-id-1072'>
       <subrange length='64' type-id='type-id-5' id='type-id-1073'/>
     </array-type-def>
@@ -12440,6 +12448,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/system-alloc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[2] -->
     <array-type-def dimensions='1' type-id='type-id-949' size-in-bits='128' id='type-id-1224'>
       <subrange length='2' type-id='type-id-5' id='type-id-1225'/>
     </array-type-def>
@@ -12596,6 +12605,18 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/tcmalloc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[1024] -->
+    <!-- <anonymous range>[128] -->
+    <!-- <anonymous range>[1] -->
+    <!-- <anonymous range>[20] -->
+    <!-- <anonymous range>[2169] -->
+    <!-- <anonymous range>[31] -->
+    <!-- <anonymous range>[48] -->
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[64] -->
+    <!-- <anonymous range>[65536] -->
+    <!-- <anonymous range>[88] -->
+    <!-- <anonymous range>[8] -->
     <array-type-def dimensions='1' type-id='type-id-778' size-in-bits='512' id='type-id-779'>
       <subrange length='8' type-id='type-id-5' id='type-id-1236'/>
     </array-type-def>

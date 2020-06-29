@@ -18,6 +18,8 @@
     <elf-symbol name='_init' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
   <abi-instr address-size='64' path='test24-drop-fns.cc' comp-dir-path='/home/dodji/git/libabigail.git/suppr/tests/data/test-read-dwarf' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[] -->
     <!-- bool -->
     <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <!-- char -->

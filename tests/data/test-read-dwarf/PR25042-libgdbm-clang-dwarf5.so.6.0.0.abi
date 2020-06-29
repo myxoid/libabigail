@@ -207,6 +207,9 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='gdbmclose.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
+    <!-- <anonymous range>[1] -->
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[6] -->
     <type-decl name='__ARRAY_SIZE_TYPE__' size-in-bits='64' id='type-id-21'/>
     <array-type-def dimensions='1' type-id='type-id-14' size-in-bits='128' id='type-id-22'>
       <subrange length='1' type-id='type-id-21' id='type-id-23'/>
@@ -509,6 +512,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='gdbmdump.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
+    <!-- <anonymous range>[20] -->
     <array-type-def dimensions='1' type-id='type-id-28' size-in-bits='8' id='type-id-62'>
       <subrange length='1' type-id='type-id-21' id='type-id-23'/>
     </array-type-def>
@@ -639,6 +643,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='gdbmerrno.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
+    <!-- <anonymous range>[40] -->
     <array-type-def dimensions='1' type-id='type-id-80' size-in-bits='2560' id='type-id-81'>
       <subrange length='40' type-id='type-id-21' id='type-id-82'/>
     </array-type-def>
@@ -737,6 +742,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='gdbmload.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
+    <!-- <anonymous range>[2] -->
     <array-type-def dimensions='1' type-id='type-id-85' size-in-bits='256' id='type-id-86'>
       <subrange length='2' type-id='type-id-21' id='type-id-87'/>
     </array-type-def>
@@ -1077,6 +1083,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='version.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
+    <!-- <anonymous range>[3] -->
     <array-type-def dimensions='1' type-id='type-id-83' size-in-bits='96' id='type-id-101'>
       <subrange length='3' type-id='type-id-21' id='type-id-102'/>
     </array-type-def>

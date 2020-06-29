@@ -1720,6 +1720,20 @@
     <elf-symbol name='_ZZN5mongo7BSONObjC1EvE21kEmptyObjectPrototype' size='5' type='object-type' binding='weak-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-variable-symbols>
   <abi-instr address-size='64' path='src/mongo/db/repl/replication_executor.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
+    <!-- <anonymous range>[12] -->
+    <!-- <anonymous range>[14] -->
+    <!-- <anonymous range>[15] -->
+    <!-- <anonymous range>[16] -->
+    <!-- <anonymous range>[19] -->
+    <!-- <anonymous range>[20] -->
+    <!-- <anonymous range>[22] -->
+    <!-- <anonymous range>[32] -->
+    <!-- <anonymous range>[40] -->
+    <!-- <anonymous range>[48] -->
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[7] -->
+    <!-- <anonymous range>[8] -->
+    <!-- <anonymous range>[96] -->
     <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='112' id='type-id-2'>
       <subrange length='14' type-id='type-id-3' id='type-id-4'/>
