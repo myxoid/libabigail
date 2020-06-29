@@ -1618,7 +1618,7 @@
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/cean_util.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/coi/coi_client.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <type-decl name='unsigned char' size-in-bits='8' id='type-id-1'/>
+    <!-- <anonymous range>[1024] -->    <!-- <anonymous range>[255] -->    <!-- <anonymous range>[2] -->    <type-decl name='unsigned char' size-in-bits='8' id='type-id-1'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='32768' id='type-id-3'>
       <subrange length='1024' type-id='type-id-4' id='type-id-5'/>
     </array-type-def>
@@ -2168,7 +2168,7 @@
     <class-decl name='coiprocess' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-73'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/compiler_if_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-155' size-in-bits='128' id='type-id-156'>
+    <!-- <anonymous range>[104] -->    <!-- <anonymous range>[24] -->    <!-- <anonymous range>[32] -->    <!-- <anonymous range>[7] -->    <!-- <anonymous range>[8] -->    <!-- <anonymous range>[9] -->    <!-- <anonymous range>[] -->    <array-type-def dimensions='1' type-id='type-id-155' size-in-bits='128' id='type-id-156'>
       <subrange length='1' type-id='type-id-4' id='type-id-157'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-158' size-in-bits='320' id='type-id-159'>
@@ -21056,7 +21056,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-33' size-in-bits='8192' id='type-id-1774'>
+    <!-- <anonymous range>[128] -->    <!-- <anonymous range>[624] -->    <array-type-def dimensions='1' type-id='type-id-33' size-in-bits='8192' id='type-id-1774'>
       <subrange length='128' type-id='type-id-4' id='type-id-1775'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-6' size-in-bits='39936' id='type-id-1776'>
@@ -29447,7 +29447,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='4096' id='type-id-2548'>
+    <!-- <anonymous range>[512] -->    <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='4096' id='type-id-2548'>
       <subrange length='512' type-id='type-id-4' id='type-id-2549'/>
     </array-type-def>
     <typedef-decl name='pthread_key_t' type-id='type-id-2' filepath='/usr/include/bits/pthreadtypes.h' line='163' column='1' id='type-id-2550'/>
@@ -33826,7 +33826,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_table.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <type-decl name='bool' size-in-bits='8' id='type-id-150'/>
+    <!-- <anonymous range>[40] -->    <type-decl name='bool' size-in-bits='8' id='type-id-150'/>
     <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='320' id='type-id-2972'>
       <subrange length='40' type-id='type-id-4' id='type-id-181'/>
     </array-type-def>
@@ -34706,7 +34706,7 @@
     <var-decl name='offload_report_enabled' type-id='type-id-25' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_timer.h' line='77' column='1'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_trace.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='128' id='type-id-3055'>
+    <!-- <anonymous range>[16] -->    <!-- <anonymous range>[1] -->    <!-- <anonymous range>[20] -->    <!-- <anonymous range>[4] -->    <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='128' id='type-id-3055'>
       <subrange length='16' type-id='type-id-4' id='type-id-177'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-166' size-in-bits='8' id='type-id-3056'>

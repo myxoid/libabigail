@@ -68,7 +68,7 @@
     <elf-symbol name='gluUnProject4' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
   <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glcurveval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='5120' id='type-id-2'>
+    <!-- <anonymous range>[160] -->    <!-- <anonymous range>[40] -->    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='5120' id='type-id-2'>
       <subrange length='160' type-id='type-id-3' id='type-id-4'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='1280' id='type-id-5'>
@@ -1805,7 +1805,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glrenderer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-35' size-in-bits='128' id='type-id-61'>
+    <!-- <anonymous range>[4] -->    <array-type-def dimensions='1' type-id='type-id-35' size-in-bits='128' id='type-id-61'>
       <subrange length='4' type-id='type-id-3' id='type-id-62'/>
     </array-type-def>
     <typedef-decl name='errorCallbackType' type-id='type-id-19' filepath='libnurbs/interface/glrenderer.h' line='46' column='1' id='type-id-41'/>
@@ -2306,7 +2306,7 @@
     <pointer-type-def type-id='type-id-61' size-in-bits='64' id='type-id-46'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glsurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-60' size-in-bits='64' id='type-id-50'>
+    <!-- <anonymous range>[2] -->    <!-- <anonymous range>[6400] -->    <array-type-def dimensions='1' type-id='type-id-60' size-in-bits='64' id='type-id-50'>
       <subrange length='2' type-id='type-id-3' id='type-id-88'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='64' id='type-id-89'>
@@ -2780,7 +2780,7 @@
   <abi-instr version='1.0' address-size='64' path='libnurbs/interface/insurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/internals/arc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <type-decl name='char' size-in-bits='8' id='type-id-106'/>
+    <!-- <anonymous range>[32] -->    <type-decl name='char' size-in-bits='8' id='type-id-106'/>
     <array-type-def dimensions='1' type-id='type-id-107' size-in-bits='2048' id='type-id-108'>
       <subrange length='32' type-id='type-id-3' id='type-id-109'/>
     </array-type-def>
@@ -3202,7 +3202,7 @@
     <class-decl name='BezierArc' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-129'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/internals/arcsorter.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='128' id='type-id-131'>
+    <!-- <anonymous range>[24] -->    <!-- <anonymous range>[] -->    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='128' id='type-id-131'>
       <subrange length='4' type-id='type-id-3' id='type-id-62'/>
     </array-type-def>
     <array-type-def dimensions='3' type-id='type-id-1' size-in-bits='infinite' id='type-id-132'>
@@ -5834,7 +5834,7 @@
     <pointer-type-def type-id='type-id-208' size-in-bits='64' id='type-id-209'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/internals/curve.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-216' size-in-bits='640' id='type-id-164'>
+    <!-- <anonymous range>[120] -->    <!-- <anonymous range>[5] -->    <array-type-def dimensions='1' type-id='type-id-216' size-in-bits='640' id='type-id-164'>
       <subrange length='2' type-id='type-id-3' id='type-id-88'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='3840' id='type-id-217'>
@@ -7642,7 +7642,7 @@
     <pointer-type-def type-id='type-id-63' size-in-bits='64' id='type-id-141'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/internals/patch.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-276' size-in-bits='640' id='type-id-277'>
+    <!-- <anonymous range>[2880] -->    <array-type-def dimensions='1' type-id='type-id-276' size-in-bits='640' id='type-id-277'>
       <subrange length='2' type-id='type-id-3' id='type-id-88'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='92160' id='type-id-278'>
@@ -8515,7 +8515,7 @@
     <pointer-type-def type-id='type-id-297' size-in-bits='64' id='type-id-298'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libnurbs/internals/varray.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='32000' id='type-id-300'>
+    <!-- <anonymous range>[1000] -->    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='32000' id='type-id-300'>
       <subrange length='1000' type-id='type-id-3' id='type-id-301'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-15' size-in-bits='64000' id='type-id-302'>
@@ -9276,7 +9276,7 @@
   <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampledLine.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='libtess/tess.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <array-type-def dimensions='1' type-id='type-id-318' size-in-bits='25600' id='type-id-319'>
+    <!-- <anonymous range>[100] -->    <!-- <anonymous range>[16] -->    <!-- <anonymous range>[1] -->    <!-- <anonymous range>[3] -->    <!-- <anonymous range>[8] -->    <array-type-def dimensions='1' type-id='type-id-318' size-in-bits='25600' id='type-id-319'>
       <subrange length='100' type-id='type-id-3' id='type-id-320'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-321' size-in-bits='192' id='type-id-322'>

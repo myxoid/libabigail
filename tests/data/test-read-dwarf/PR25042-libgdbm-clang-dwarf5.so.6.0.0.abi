@@ -207,7 +207,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='gdbmclose.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
-    <type-decl name='__ARRAY_SIZE_TYPE__' size-in-bits='64' id='type-id-21'/>
+    <!-- <anonymous range>[1] -->    <!-- <anonymous range>[4] -->    <!-- <anonymous range>[6] -->    <type-decl name='__ARRAY_SIZE_TYPE__' size-in-bits='64' id='type-id-21'/>
     <array-type-def dimensions='1' type-id='type-id-14' size-in-bits='128' id='type-id-22'>
       <subrange length='1' type-id='type-id-21' id='type-id-23'/>
     </array-type-def>
@@ -509,7 +509,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='gdbmdump.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
-    <array-type-def dimensions='1' type-id='type-id-28' size-in-bits='8' id='type-id-62'>
+    <!-- <anonymous range>[20] -->    <array-type-def dimensions='1' type-id='type-id-28' size-in-bits='8' id='type-id-62'>
       <subrange length='1' type-id='type-id-21' id='type-id-23'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-28' size-in-bits='160' id='type-id-63'>
@@ -727,7 +727,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='gdbmload.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
-    <array-type-def dimensions='1' type-id='type-id-80' size-in-bits='256' id='type-id-81'>
+    <!-- <anonymous range>[2] -->    <array-type-def dimensions='1' type-id='type-id-80' size-in-bits='256' id='type-id-81'>
       <subrange length='2' type-id='type-id-21' id='type-id-82'/>
     </array-type-def>
     <type-decl name='unsigned char' size-in-bits='8' id='type-id-1'/>

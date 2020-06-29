@@ -1837,7 +1837,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/libbacktrace/../../libiberty/cp-demangle.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/libbacktrace' language='LANG_C89'>
-    <array-type-def dimensions='1' type-id='type-id-36' size-in-bits='8448' id='type-id-37'>
+    <!-- <anonymous range>[33] -->    <!-- <anonymous range>[62] -->    <array-type-def dimensions='1' type-id='type-id-36' size-in-bits='8448' id='type-id-37'>
       <subrange length='33' type-id='type-id-38' id='type-id-39'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-40' size-in-bits='11904' id='type-id-41'>
@@ -2364,7 +2364,7 @@
     </function-type>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/sanitizer_common/sanitizer_common.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/sanitizer_common' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-88' size-in-bits='768' id='type-id-89'>
+    <!-- <anonymous range>[4096] -->    <array-type-def dimensions='1' type-id='type-id-88' size-in-bits='768' id='type-id-89'>
       <subrange length='6' type-id='type-id-38' id='type-id-90'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='32768' id='type-id-92'>
@@ -3461,7 +3461,7 @@
     </function-type>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/sanitizer_common/sanitizer_linux_libcdep.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/sanitizer_common' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='448' id='type-id-188'>
+    <!-- <anonymous range>[56] -->    <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='448' id='type-id-188'>
       <subrange length='56' type-id='type-id-38' id='type-id-189'/>
     </array-type-def>
     <typedef-decl name='_Unwind_Reason_Code' type-id='type-id-190' filepath='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/host-x86_64-unknown-linux-gnu/gcc/include/unwind.h' line='76' column='1' id='type-id-191'/>
@@ -4255,7 +4255,7 @@
     </function-type>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/sanitizer_common/sanitizer_stackdepot.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/sanitizer_common' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-106' size-in-bits='64' id='type-id-215'>
+    <!-- <anonymous range>[1] -->    <array-type-def dimensions='1' type-id='type-id-106' size-in-bits='64' id='type-id-215'>
       <subrange length='1' type-id='type-id-38' id='type-id-216'/>
     </array-type-def>
     <pointer-type-def type-id='type-id-217' size-in-bits='64' id='type-id-218'/>
@@ -5028,7 +5028,7 @@
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/sanitizer_common/sanitizer_thread_registry.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/sanitizer_common' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_clock.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <type-decl name='int' size-in-bits='32' id='type-id-4'/>
+    <!-- <anonymous range>[16384] -->    <type-decl name='int' size-in-bits='32' id='type-id-4'/>
     <type-decl name='long long unsigned int' size-in-bits='64' id='type-id-140'/>
     <array-type-def dimensions='1' type-id='type-id-140' size-in-bits='1048576' id='type-id-287'>
       <subrange length='16384' type-id='type-id-38' id='type-id-267'/>
@@ -5381,7 +5381,7 @@
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_ignoreset.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_interceptors.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-314' size-in-bits='16384' id='type-id-315'>
+    <!-- <anonymous range>[118] -->    <!-- <anonymous range>[14] -->    <!-- <anonymous range>[500] -->    <!-- <anonymous range>[6] -->    <!-- <anonymous range>[8] -->    <array-type-def dimensions='1' type-id='type-id-314' size-in-bits='16384' id='type-id-315'>
       <subrange length='128' type-id='type-id-38' id='type-id-316'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-317' size-in-bits='32768' id='type-id-318'>
@@ -15066,7 +15066,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_interface_atomic.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <type-decl name='__int128' size-in-bits='128' id='type-id-1242'/>
+    <!-- <anonymous range>[1009] -->    <!-- <anonymous range>[10] -->    <!-- <anonymous range>[11] -->    <!-- <anonymous range>[128] -->    <!-- <anonymous range>[16] -->    <!-- <anonymous range>[2048] -->    <!-- <anonymous range>[23] -->    <!-- <anonymous range>[256] -->    <!-- <anonymous range>[2] -->    <!-- <anonymous range>[32] -->    <!-- <anonymous range>[438] -->    <!-- <anonymous range>[48] -->    <!-- <anonymous range>[4] -->    <!-- <anonymous range>[53] -->    <type-decl name='__int128' size-in-bits='128' id='type-id-1242'/>
     <array-type-def dimensions='1' type-id='type-id-1243' size-in-bits='27136' id='type-id-1244'>
       <subrange length='53' type-id='type-id-38' id='type-id-1245'/>
     </array-type-def>
@@ -19539,7 +19539,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_mman.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-1507' size-in-bits='16777216' id='type-id-1508'>
+    <!-- <anonymous range>[262144] -->    <array-type-def dimensions='1' type-id='type-id-1507' size-in-bits='16777216' id='type-id-1508'>
       <subrange length='262144' type-id='type-id-38' id='type-id-1509'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-1510' size-in-bits='16777216' id='type-id-1511'>
@@ -21963,7 +21963,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_rtl.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='3448832' id='type-id-1659'>
+    <!-- <anonymous range>[431104] -->    <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='3448832' id='type-id-1659'>
       <subrange length='431104' type-id='type-id-38' id='type-id-1660'/>
     </array-type-def>
     <pointer-type-def type-id='type-id-1661' size-in-bits='64' id='type-id-1662'/>
@@ -22634,7 +22634,7 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='../../.././libsanitizer/tsan/tsan_rtl_thread.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-1697' size-in-bits='5062656' id='type-id-1698'>
+    <!-- <anonymous range>[64] -->    <!-- <anonymous range>[65536] -->    <array-type-def dimensions='1' type-id='type-id-1697' size-in-bits='5062656' id='type-id-1698'>
       <subrange length='256' type-id='type-id-38' id='type-id-143'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-91' size-in-bits='512' id='type-id-1487'>

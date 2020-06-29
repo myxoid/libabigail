@@ -347,7 +347,7 @@
     <elf-symbol name='_ZTVN5boost6system14error_categoryE' size='72' type='object-type' binding='weak-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-variable-symbols>
   <abi-instr version='1.0' address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/codecvt_error_category.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
-    <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
+    <!-- <anonymous range>[4] -->    <type-decl name='bool' size-in-bits='8' id='type-id-1'/>
     <type-decl name='char' size-in-bits='8' id='type-id-2'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='32' id='type-id-3'>
       <subrange length='4' type-id='type-id-4' id='type-id-5'/>
@@ -1959,7 +1959,7 @@
     <class-decl name='__anonymous_struct__4' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-38' visibility='default' is-declaration-only='yes' id='type-id-40'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/operations.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
-    <array-type-def dimensions='1' type-id='type-id-138' size-in-bits='infinite' id='type-id-139'>
+    <!-- <anonymous range>[] -->    <array-type-def dimensions='1' type-id='type-id-138' size-in-bits='infinite' id='type-id-139'>
       <subrange length='infinite' type-id='type-id-4' id='type-id-140'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-141' size-in-bits='infinite' id='type-id-142'>

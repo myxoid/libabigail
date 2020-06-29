@@ -821,7 +821,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='dbus-connection.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <!-- DBusHeaderField[10] -->
+    <!-- <anonymous range>[10] -->    <!-- DBusHeaderField[10] -->
     <array-type-def dimensions='1' type-id='type-id-33' size-in-bits='320' id='type-id-34'>
       <!-- <anonymous range>[10] -->
       <subrange length='10' type-id='type-id-26' id='type-id-35'/>
@@ -3055,7 +3055,7 @@
     </function-type>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='dbus-server.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <!-- char[16] -->
+    <!-- <anonymous range>[16] -->    <!-- <anonymous range>[4] -->    <!-- char[16] -->
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='128' id='type-id-152'>
       <!-- <anonymous range>[16] -->
       <subrange length='16' type-id='type-id-26' id='type-id-153'/>
