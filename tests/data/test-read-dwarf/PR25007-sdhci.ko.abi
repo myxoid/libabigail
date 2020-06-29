@@ -38,6 +38,23 @@
     <elf-symbol name='sdhci_suspend_host' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes' crc='0xa6de7a42'/>
   </elf-function-symbols>
   <abi-instr address-size='64' path='/ws/android/kernel/aosp/common-mainline/common/drivers/mmc/host/sdhci.c' comp-dir-path='/ws/android/kernel/aosp/common-mainline/out/android-mainline/common' language='LANG_C89'>
+    <!-- <anonymous range>[128] -->
+    <!-- <anonymous range>[16] -->
+    <!-- <anonymous range>[1] -->
+    <!-- <anonymous range>[2048] -->
+    <!-- <anonymous range>[20] -->
+    <!-- <anonymous range>[2] -->
+    <!-- <anonymous range>[32] -->
+    <!-- <anonymous range>[3] -->
+    <!-- <anonymous range>[46] -->
+    <!-- <anonymous range>[4] -->
+    <!-- <anonymous range>[56] -->
+    <!-- <anonymous range>[64] -->
+    <!-- <anonymous range>[6] -->
+    <!-- <anonymous range>[7] -->
+    <!-- <anonymous range>[8] -->
+    <!-- <anonymous range>[9] -->
+    <!-- <anonymous range>[] -->
     <type-decl name='__ARRAY_SIZE_TYPE__' size-in-bits='64' id='type-id-1'/>
     <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='64' id='type-id-3'>
       <subrange length='2' type-id='type-id-1' id='type-id-4'/>
