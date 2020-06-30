@@ -18700,11 +18700,11 @@ struct function_type::priv
   ///
   /// @param type the @ref function_type to mark as being compared.
   void
-  mark_as_being_compared(const function_type& type) const
+  mark_as_being_compared(const function_type& t1, const function_type& t2) const
   {
-    const environment* env = type.get_environment();
+    const environment* env = t1.get_environment();
     ABG_ASSERT(env);
-    env->priv_->fn_types_being_compared_.insert(&type);
+    env->priv_->fn_types_being_compared_.insert(make_pair(&t1, &t2));
   }
 
   /// If a given @ref function_type was marked as being compared, this
@@ -18713,11 +18713,11 @@ struct function_type::priv
   /// @param type the @ref function_type to mark as *NOT* being
   /// compared.
   void
-  unmark_as_being_compared(const function_type& type) const
+  unmark_as_being_compared(const function_type& t1, const function_type& t2) const
   {
-    const environment* env = type.get_environment();
+    const environment* env = t1.get_environment();
     ABG_ASSERT(env);
-    env->priv_->fn_types_being_compared_.erase(&type);
+    env->priv_->fn_types_being_compared_.erase(make_pair(&t1, &t2));
   }
 
   /// Tests if a @ref function_type is currently being compared.
@@ -21440,7 +21440,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	      if (q1 == q2)
 		// Not using RETURN(true) here, because that causes
 		// performance issues.  We don't need to do
-		// l.priv_->unmark_as_being_compared({l,r}) here because
+		// l.priv_->unmark_as_being_compared(l, r) here because
 		// we haven't marked l or r as being compared yet, and
 		// doing so has a peformance cost that shows up on
 		// performance profiles for *big* libraries.
@@ -21451,7 +21451,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 		    *k |= LOCAL_TYPE_CHANGE_KIND;
 		  // Not using RETURN(true) here, because that causes
 		  // performance issues.  We don't need to do
-		  // l.priv_->unmark_as_being_compared({l,r}) here because
+		  // l.priv_->unmark_as_being_compared(l ,r) here because
 		  // we haven't marked l or r as being compared yet, and
 		  // doing so has a peformance cost that shows up on
 		  // performance profiles for *big* libraries.

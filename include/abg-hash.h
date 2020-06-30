@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <cstddef>
 #include <string>
+#include <utility>
 
 namespace abigail
 {
@@ -21,6 +22,12 @@ namespace hashing
   /// This is copied from tree.c in GCC.
   std::size_t
   combine_hashes(std::size_t, std::size_t);
+
+  template<typename A, typename B>
+  std::size_t hash_value(const std::pair<A, B> & p)
+  {
+    return combine_hashes(std::hash<A>(p.first), std::hash<B>(p.second));
+  }
 
   uint32_t
   fnv_hash(const std::string& str);
