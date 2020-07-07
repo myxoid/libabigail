@@ -649,6 +649,33 @@ struct type_name_comp
   {return operator()(type_base_sptr(l), type_base_sptr(r));}
 }; // end struct type_name_comp
 
+class hold
+{
+ public:
+  hold(const void* l, const void* r)
+    : p_(std::make_pair(l, r))
+  {
+    st_.push_back(p_);
+  }
+  ~hold()
+  {
+    ABG_ASSERT(st_.size());
+    ABG_ASSERT(st_.back() == p_);
+    st_.pop_back();
+  }
+  static bool has(const void* l, const void* r)
+  {
+    return find(st_.begin(), st_.end(), std::make_pair(l, r)) != st_.end();
+  }
+ private:
+  const std::pair<const void *, const void *> p_;
+  thread_local static std::vector<std::pair<const void*, const void*>> st_;
+};
+
+thread_local std::vector<std::pair<const void*, const void*>> hold::st_;
+
+const bool debug_equality = true;
+
 /// Compare two types by comparing their canonical types if present.
 ///
 /// If the canonical types are not present (because the types have not
@@ -660,12 +687,47 @@ struct type_name_comp
 /// @param r the second type to take into account in the comparison.
 template<typename T>
 bool
-try_canonical_compare(const T *l, const T *r)
+try_canonical_compare(size_t line, const T *l, const T *r)
 {
-  if (const type_base *lc = l->get_naked_canonical_type())
-    if (const type_base *rc = r->get_naked_canonical_type())
-      return lc == rc;
-  return equals(*l, *r, 0);
+  const type_base *lc = l->get_naked_canonical_type();
+  const type_base *rc = r->get_naked_canonical_type();
+  if (debug_equality)
+    {
+      // Short cut equality with identical pointers to avoid wasteful deep
+      // comparisons.
+      if (l == r)
+	return true;
+      // Record outcome of canonical type pointer comparison.
+      char c = lc ? rc ? lc == rc ? '1' : '0' : 'L' : rc ? 'R' : 'X';
+      // If we are already holding this pair of type_base pointers we should
+      // assume they are equal in recursive calls.
+      bool held = hold::has(l, r);
+      bool eq;
+      if (held)
+	eq = true;
+      else
+	{
+	  hold it(static_cast<const void *>(l),
+		  static_cast<const void *>(r));
+	  eq = equals(*l, *r, 0);
+	}
+      // Record outcome of plain comparison.
+      char p = held ? 'H' : eq ? '1' : '0';
+      if (c + p == '0' + '1')
+	{
+	  // Avoid tearing the output.
+	  std::ostringstream os;
+	  os << line << " canon=" << c << " plain=" << p
+	     << " '" << l->get_cached_pretty_representation(true)
+	     << "' '" << r->get_cached_pretty_representation(true) << "'\n";
+	  std::cerr << os.str();
+	}
+      return lc && rc ? lc == rc : eq;
+    }
+  else
+    {
+      return lc && rc ? lc == rc : equals(*l, *r, 0);
+    }
 }
 
 /// Getter of all types types sorted by their pretty representation.
@@ -13915,7 +13977,7 @@ type_decl::operator==(const decl_base& o) const
   const type_decl* other = dynamic_cast<const type_decl*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Return true if both types equals.
@@ -14092,7 +14154,7 @@ scope_type_decl::operator==(const decl_base& o) const
   const scope_type_decl* other = dynamic_cast<const scope_type_decl*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Equality operator between two scope_type_decl.
@@ -14499,7 +14561,7 @@ qualified_type_def::operator==(const decl_base& o) const
     dynamic_cast<const qualified_type_def*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Equality operator for qualified types.
@@ -14952,7 +15014,8 @@ pointer_type_def::operator==(const decl_base& o) const
   const pointer_type_def* other = is_pointer_type(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  // Sometimes canonically distinct but compare as equal.
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Return true iff both instances of pointer_type_def are equal.
@@ -15341,7 +15404,7 @@ reference_type_def::operator==(const decl_base& o) const
     dynamic_cast<const reference_type_def*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Equality operator of the @ref reference_type_def type.
@@ -15896,7 +15959,7 @@ array_type_def::subrange_type::operator==(const decl_base& o) const
     dynamic_cast<const subrange_type*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Equality operator.
@@ -16216,7 +16279,8 @@ array_type_def::operator==(const decl_base& o) const
     dynamic_cast<const array_type_def*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  // Sometimes canonically distinct but compare as equal.
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 bool
@@ -16691,7 +16755,8 @@ enum_type_decl::operator==(const decl_base& o) const
   const enum_type_decl* op = dynamic_cast<const enum_type_decl*>(&o);
   if (!op)
     return false;
-  return try_canonical_compare(this, op);
+  // Sometimes canonically distinct but compare as equal.
+  return try_canonical_compare(__LINE__, this, op);
 }
 
 /// Equality operator.
@@ -17082,7 +17147,9 @@ typedef_decl::operator==(const decl_base& o) const
   const typedef_decl* other = dynamic_cast<const typedef_decl*>(&o);
   if (!other)
     return false;
-  return try_canonical_compare(this, other);
+  // Sometimes canonically distinct but compare as equal.
+  // Sometimes canonically equal but compare as distinct.
+  return try_canonical_compare(__LINE__, this, other);
 }
 
 /// Equality operator
@@ -18181,7 +18248,9 @@ function_type::operator==(const type_base& other) const
   const function_type* o = dynamic_cast<const function_type*>(&other);
   if (!o)
     return false;
-  return try_canonical_compare(this, o);
+  // Sometimes canonically distinct but compare as equal.
+  // Sometimes canonically equal but compare as distinct.
+  return try_canonical_compare(__LINE__, this, o);
 }
 
 /// Return a copy of the pretty representation of the current @ref
@@ -20487,7 +20556,9 @@ class_or_union::operator==(const decl_base& other) const
   if (r == 0)
     r = op;
 
-  return try_canonical_compare(l, r);
+  // Or should this just be definition_of_declaration equality?
+  // Sometimes canonically equal but compare as distinct.
+  return try_canonical_compare(__LINE__, l, r);
 }
 
 /// Equality operator.
@@ -22298,7 +22369,10 @@ class_decl::operator==(const decl_base& other) const
 
   ABG_ASSERT(r);
 
-  return try_canonical_compare(l, r);
+  // Or should this just be definition_of_declaration equality?
+  // Sometimes canonically distinct but compare as equal.
+  // Sometimes canonically equal but compare as distinct.
+  return try_canonical_compare(__LINE__, l, r);
 }
 
 /// Equality operator for class_decl.
@@ -23080,7 +23154,9 @@ union_decl::operator==(const decl_base& other) const
   const union_decl* op = dynamic_cast<const union_decl*>(&other);
   if (!op)
     return false;
-  return try_canonical_compare(this, op);
+  // Sometimes canonically distinct but compare as equal.
+  // Sometimes canonically equal but compare as distinct.
+  return try_canonical_compare(__LINE__, this, op);
 }
 
 /// Equality operator for union_decl.
