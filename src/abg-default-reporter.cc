@@ -384,17 +384,18 @@ default_reporter::report(const qualified_type_diff& d, ostream& out,
   dif->report(out, indent + "  ");
 }
 
-/// Report the @ref pointer_diff in a serialized form.
+/// For a @ref pointer_diff node, report the local changes carried by
+/// the diff node.
 ///
 /// @param d the @ref pointer_diff node to consider.
 ///
-/// @param out the stream to serialize the diff to.
+/// @param out the output stream to report to.
 ///
-/// @param indent the prefix to use for the indentation of this
-/// serialization.
+/// @param indent the white space indentation to use in the report.
 void
-default_reporter::report(const pointer_diff& d, ostream& out,
-			 const string& indent) const
+default_reporter::report_local_pointer_type_changes(const pointer_diff& d,
+						    ostream& out,
+						    const string& indent) const
 {
   if (!d.to_be_reported())
     return;
@@ -412,6 +413,23 @@ default_reporter::report(const pointer_diff& d, ostream& out,
       out << ":\n";
       dif->report(out, indent + "  ");
     }
+}
+
+/// Report a @ref pointer_diff in a serialized form.
+///
+/// @param d the @ref pointer_diff node to consider.
+///
+/// @param out the output stream to serialize the dif to.
+///
+/// @param indent the string to use for indenting the report.
+void
+default_reporter::report(const pointer_diff& d, ostream& out,
+			 const string& indent) const
+{
+  if (!d.to_be_reported())
+    return;
+
+  report_local_pointer_type_changes(d, out, indent);
 }
 
 /// For a @reference_diff node, report the local changes carried by

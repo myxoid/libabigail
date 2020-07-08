@@ -177,6 +177,11 @@ public:
   report(const qualified_type_diff& d, std::ostream& out,
 	 const std::string& indent = "") const;
 
+  void
+  report_local_pointer_type_changes(const pointer_diff& d,
+				    ostream& out,
+				    const string& indent) const;
+
   virtual void
   report(const pointer_diff& d, std::ostream& out,
 	 const std::string& indent = "") const;

@@ -223,12 +223,7 @@ leaf_reporter::report(const pointer_diff &d,
   if (!diff_to_be_reported(&d))
     return;
 
-  out << indent
-      << "pointer type changed from: '"
-      << d.first_pointer()->get_pretty_representation()
-      << "' to: '"
-      << d.second_pointer()->get_pretty_representation()
-      << "'\n";
+  report_local_pointer_type_changes(d, out, indent);
 }
 
 /// Report the changes carried by a @ref reference_diff node.
