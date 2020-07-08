@@ -14,7 +14,9 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
   type size hasn't changed
   there are data member changes:
     type 'int*' of 'ops1::x' changed:
-      pointer type changed from: 'int*' to: 'int**'
+      in pointed to type 'int':
+        entity changed from 'int' to 'int*'
+        type size changed from 32 to 64 (in bits)
 
 'struct ops2 at test-leaf-peeling-v0.cc:10:1' changed:
   type size changed from 320 to 640 (in bits)
@@ -25,7 +27,9 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
   type size hasn't changed
   there are data member changes:
     type 'void (int&)*' of 'ops3::spong' changed:
-      pointer type changed from: 'void (int&)*' to: 'void (int&&)*'
+      in pointed to type 'function type void (int&)':
+        parameter 1 of type 'int&' changed:
+          lvalue reference type 'int& became an rvalue reference type: 'int&&'
 
 'struct ops4 at test-leaf-peeling-v0.cc:18:1' changed:
   type size hasn't changed
@@ -38,4 +42,6 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
   type size hasn't changed
   there are data member changes:
     type 'int*' of 'ops5::x' changed:
-      pointer type changed from: 'int*' to: 'int***'
+      in pointed to type 'int':
+        entity changed from 'int' to 'int**'
+        type size changed from 32 to 64 (in bits)

@@ -7,4 +7,11 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
   type size hasn't changed
   there are data member changes:
     type 'void (int)*' of 'ops::munge' changed:
-      pointer type changed from: 'void (int)*' to: 'char (long int, bool)*'
+      in pointed to type 'function type void (int)':
+        parameter 2 of type 'bool' was added
+        return type changed:
+          type name changed from 'void' to 'char'
+          type size changed from 0 to 8 (in bits)
+        parameter 1 of type 'int' changed:
+          type name changed from 'int' to 'long int'
+          type size changed from 32 to 64 (in bits)
