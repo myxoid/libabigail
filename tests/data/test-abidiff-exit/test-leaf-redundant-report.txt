@@ -19,9 +19,9 @@ Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
 
   [C] 'function void fn3(sto1*)' at test-leaf-redundant-v1.c:18:1 has some sub-type changes:
     parameter 1 of type 'sto1*' changed:
-      pointer type changed from: 'sto1*' to: 'stn1*'
+      pointed to type 'struct sto1' changed at test-leaf-redundant-v0.c:2:1, as reported earlier
 
   [C] 'function void fn4(sto2*)' at test-leaf-redundant-v1.c:21:1 has some sub-type changes:
     parameter 1 of type 'sto2*' changed:
-      pointer type changed from: 'sto2*' to: 'stn2*'
+      pointed to type 'struct sto2' changed at test-leaf-redundant-v0.c:6:1, as reported earlier
 
