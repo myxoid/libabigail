@@ -25441,14 +25441,26 @@ types_have_similar_structure(const type_base* first,
   if (!first)
     return false;
 
-  // Treat typedefs purely as type aliases and ignore CV-qualifiers.
-  first = peel_qualified_or_typedef_type(first);
-  second = peel_qualified_or_typedef_type(second);
+  // Strip off typedefs.
+  while (const typedef_decl* ty1 = is_typedef(first))
+    first = ty1->get_underlying_type().get();
+  while (const typedef_decl* ty2 = is_typedef(second))
+    second = ty2->get_underlying_type().get();
 
   // Eliminate all but N of the N^2 comparison cases. This also guarantees the
   // various ty2 below cannot be null.
   if (typeid(*first) != typeid(*second))
     return false;
+
+  // Peel off matching CV-qualifiers.
+  if (const qualified_type_def* ty1 = is_qualified_type(first))
+    {
+      const qualified_type_def* ty2 = is_qualified_type(second);
+      return ty1->get_cv_quals() == ty2->get_cv_quals()
+	  && types_have_similar_structure(ty1->get_underlying_type(),
+					  ty2->get_underlying_type(),
+					  indirect_type);
+    }
 
   // Peel off matching pointers.
   if (const pointer_type_def* ty1 = is_pointer_type(first))
