@@ -735,7 +735,7 @@ leaf_reporter::report(const distinct_diff& d,
 		      ostream& out,
 		      const string& indent) const
 {
-    if (!diff_to_be_reported(&d))
+  if (!diff_to_be_reported(&d))
     return;
 
   type_or_decl_base_sptr f = d.first(), s = d.second();
