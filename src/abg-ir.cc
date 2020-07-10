@@ -2762,7 +2762,6 @@ struct environment::priv
   type_base_sptr		 void_type_;
   type_base_sptr		 variadic_marker_type_;
   vector<std::pair<const class_or_union*, const class_or_union*>>	classes_being_compared_;
-  vector<std::pair<const function_type*, const function_type*>>	fn_types_being_compared_;
   vector<type_base_sptr>	 extra_live_types_;
   interned_string_pool		 string_pool_;
   bool				 canonicalization_is_done_;
@@ -16934,67 +16933,7 @@ struct function_type::priv
   priv(type_base_sptr return_type)
     : return_type_(return_type)
   {}
-
-  /// Mark the given @ref function_type instances as being compared.
-  ///
-  /// @param left the first @ref function_type to mark as being compared.
-  ///
-  /// @param right the second @ref function_type to mark as being compared.
-  void
-  mark_as_being_compared(const function_type& left,
-			 const function_type& right) const
-  {
-    const environment* env = left.get_environment();
-    ABG_ASSERT(env);
-    ABG_ASSERT(right.get_environment() == env);
-    env->priv_->fn_types_being_compared_.push_back(std::make_pair(&left, &right));
-  }
-
-  /// If the given @ref function_type instances were previously marked
-  /// as being compared, this function unmarks them.
-  ///
-  /// @param left the first @ref function_type to mark as *NOT* being
-  /// compared.
-  ///
-  /// @param right the second @ref function_type to mark as *NOT*
-  /// being compared.
-  void
-  unmark_as_being_compared(const function_type& left,
-			   const function_type& right) const
-  {
-    const environment* env = left.get_environment();
-    ABG_ASSERT(env);
-    ABG_ASSERT(right.get_environment() == env);
-    std::pair<const function_type*, const function_type*> p(&left, &right);
-    vector<std::pair<const function_type*, const function_type*>>& v =
-      env->priv_->fn_types_being_compared_;
-    ABG_ASSERT(!v.empty());
-    ABG_ASSERT(v.back() == p);
-    v.pop_back();
-  }
-
-  /// Tests if the given @ref function_type instances are currently
-  /// being compared.
-  ///
-  /// @param left the first function type to take into account.
-  ///
-  /// @param right the second function type to take into account.
-  ///
-  /// @return true if @p left and @p right are being compared.
-  bool
-  comparison_started(const function_type& left,
-		     const function_type& right) const
-  {
-    const environment* env = left.get_environment();
-    ABG_ASSERT(env);
-    ABG_ASSERT(right.get_environment() == env);
-    std::pair<const function_type*, const function_type*> p(&left, &right);
-    vector<std::pair<const function_type*, const function_type*>>& v =
-      env->priv_->fn_types_being_compared_;
-    ++max_depth_f[v.size()];
-    return find(v.begin(), v.end(), std::make_pair(&left, &right)) != v.end();
-  }
-};// end struc function_type::priv
+};// end struct function_type::priv
 
 /// This function is automatically invoked whenever an instance of
 /// this type is canonicalized.
@@ -17227,19 +17166,6 @@ equals(const function_type& lhs,
        const function_type& rhs,
        change_kind* k)
 {
-#define RETURN(value)					\
-  do {							\
-    lhs.priv_->unmark_as_being_compared(lhs, rhs);	\
-    if (value == true)					\
-      maybe_propagate_canonical_type(lhs, rhs);		\
-    return value;					\
-  } while(0)
-
-  if (lhs.priv_->comparison_started(lhs, rhs))
-    return true;
-
-  lhs.priv_->mark_as_being_compared(lhs, rhs);
-
   bool result = true;
 
   if (!lhs.type_base::operator==(rhs))
@@ -17248,7 +17174,7 @@ equals(const function_type& lhs,
       if (k)
 	*k |= LOCAL_TYPE_CHANGE_KIND;
       else
-	RETURN(result);
+	return result;
     }
 
   class_or_union* lhs_class = 0, *rhs_class = 0;
@@ -17266,7 +17192,7 @@ equals(const function_type& lhs,
       if (k)
 	*k |= LOCAL_TYPE_CHANGE_KIND;
       else
-	RETURN(result);
+	return result;
     }
   else if (lhs_class
 	   && (lhs_class->get_qualified_name()
@@ -17276,7 +17202,7 @@ equals(const function_type& lhs,
       if (k)
 	*k |= LOCAL_TYPE_CHANGE_KIND;
       else
-	RETURN(result);
+	return result;
     }
 
   // Then compare the return type; Beware if it's t's a class type
@@ -17314,7 +17240,7 @@ equals(const function_type& lhs,
 		*k |= SUBTYPE_CHANGE_KIND;
 	    }
 	  else
-	    RETURN(result);
+	    return result;
 	}
     }
   else
@@ -17324,7 +17250,7 @@ equals(const function_type& lhs,
 	if (k)
 	  *k |= SUBTYPE_CHANGE_KIND;
 	else
-	  RETURN(result);
+	  return result;
       }
 
   vector<shared_ptr<function_decl::parameter> >::const_iterator i,j;
@@ -17344,7 +17270,7 @@ equals(const function_type& lhs,
 		*k |= SUBTYPE_CHANGE_KIND;
 	    }
 	  else
-	    RETURN(result);
+	    return result;
 	}
     }
 
@@ -17355,11 +17281,12 @@ equals(const function_type& lhs,
       if (k)
 	*k |= LOCAL_NON_TYPE_CHANGE_KIND;
       else
-	RETURN(result);
+	return result;
     }
 
-  RETURN(result);
-#undef RETURN
+  if (result)
+    maybe_propagate_canonical_type(lhs, rhs);
+  return result;
 }
 
 /// Get the first parameter of the function.
@@ -20109,10 +20036,6 @@ types_are_being_compared(const type_base& lhs_type,
   if (class_or_union *l_cou = is_class_or_union_type(l))
     if (class_or_union *r_cou = is_class_or_union_type(r))
       return (l_cou->priv_->comparison_started(*l_cou, *r_cou));
-
-  if (function_type *l_fn_type = is_function_type(l))
-    if (function_type *r_fn_type = is_function_type(r))
-      return (l_fn_type->priv_->comparison_started(*l_fn_type, *r_fn_type));
 
   return false;
 }
