@@ -2761,8 +2761,8 @@ struct environment::priv
   mutable vector<type_base_sptr> sorted_canonical_types_;
   type_base_sptr		 void_type_;
   type_base_sptr		 variadic_marker_type_;
-  unordered_set<const class_or_union*>	classes_being_compared_;
-  unordered_set<const function_type*>	fn_types_being_compared_;
+  vector<std::pair<const class_or_union*, const class_or_union*>>	classes_being_compared_;
+  vector<std::pair<const function_type*, const function_type*>>	fn_types_being_compared_;
   vector<type_base_sptr>	 extra_live_types_;
   interned_string_pool		 string_pool_;
   bool				 canonicalization_is_done_;
@@ -16947,8 +16947,7 @@ struct function_type::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    env->priv_->fn_types_being_compared_.insert(&left);
-    env->priv_->fn_types_being_compared_.insert(&right);
+    env->priv_->fn_types_being_compared_.push_back(std::make_pair(&left, &right));
   }
 
   /// If the given @ref function_type instances were previously marked
@@ -16966,8 +16965,12 @@ struct function_type::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    env->priv_->fn_types_being_compared_.erase(&left);
-    env->priv_->fn_types_being_compared_.erase(&right);
+    std::pair<const function_type*, const function_type*> p(&left, &right);
+    vector<std::pair<const function_type*, const function_type*>>& v =
+      env->priv_->fn_types_being_compared_;
+    ABG_ASSERT(!v.empty());
+    ABG_ASSERT(v.back() == p);
+    v.pop_back();
   }
 
   /// Tests if the given @ref function_type instances are currently
@@ -16985,9 +16988,11 @@ struct function_type::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    ++max_depth_f[env->priv_->fn_types_being_compared_.size()];
-    return env->priv_->fn_types_being_compared_.count(&left)
-	|| env->priv_->fn_types_being_compared_.count(&right);
+    std::pair<const function_type*, const function_type*> p(&left, &right);
+    vector<std::pair<const function_type*, const function_type*>>& v =
+      env->priv_->fn_types_being_compared_;
+    ++max_depth_f[v.size()];
+    return find(v.begin(), v.end(), std::make_pair(&left, &right)) != v.end();
   }
 };// end struc function_type::priv
 
@@ -18753,8 +18758,7 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    env->priv_->classes_being_compared_.insert(&left);
-    env->priv_->classes_being_compared_.insert(&right);
+    env->priv_->classes_being_compared_.push_back(std::make_pair(&left, &right));
   }
 
   /// Mark the two given class or union instances as currently being
@@ -18814,8 +18818,12 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    env->priv_->classes_being_compared_.erase(&left);
-    env->priv_->classes_being_compared_.erase(&right);
+    std::pair<const class_or_union*, const class_or_union*> p(&left, &right);
+    vector<std::pair<const class_or_union*, const class_or_union*>>& v =
+      env->priv_->classes_being_compared_;
+    ABG_ASSERT(!v.empty());
+    ABG_ASSERT(v.back() == p);
+    v.pop_back();
   }
 
   /// If the given class_or_union instances were previously marked as
@@ -18848,9 +18856,10 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    ++max_depth_c[env->priv_->classes_being_compared_.size()];
-    return env->priv_->classes_being_compared_.count(&left)
-	|| env->priv_->classes_being_compared_.count(&right);
+    vector<std::pair<const class_or_union*, const class_or_union*>>& v =
+      env->priv_->classes_being_compared_;
+    ++max_depth_c[v.size()];
+    return find(v.begin(), v.end(), std::make_pair(&left, &right)) != v.end();
   }
 
   /// Test if the given class_or_union instances are currently being
