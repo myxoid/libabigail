@@ -16908,41 +16908,58 @@ struct function_type::priv
     : return_type_(return_type)
   {}
 
-  /// Mark a given @ref function_type as being compared.
+  /// Mark the given @ref function_type instances as being compared.
   ///
-  /// @param type the @ref function_type to mark as being compared.
+  /// @param left the first @ref function_type to mark as being compared.
+  ///
+  /// @param right the second @ref function_type to mark as being compared.
   void
-  mark_as_being_compared(const function_type& type) const
+  mark_as_being_compared(const function_type& left,
+			 const function_type& right) const
   {
-    const environment* env = type.get_environment();
+    const environment* env = left.get_environment();
     ABG_ASSERT(env);
-    env->priv_->fn_types_being_compared_.insert(&type);
+    ABG_ASSERT(right.get_environment() == env);
+    env->priv_->fn_types_being_compared_.insert(&left);
+    env->priv_->fn_types_being_compared_.insert(&right);
   }
 
-  /// If a given @ref function_type was marked as being compared, this
-  /// function unmarks it.
+  /// If the given @ref function_type instances were previously marked
+  /// as being compared, this function unmarks them.
   ///
-  /// @param type the @ref function_type to mark as *NOT* being
+  /// @param left the first @ref function_type to mark as *NOT* being
   /// compared.
+  ///
+  /// @param right the second @ref function_type to mark as *NOT*
+  /// being compared.
   void
-  unmark_as_being_compared(const function_type& type) const
+  unmark_as_being_compared(const function_type& left,
+			   const function_type& right) const
   {
-    const environment* env = type.get_environment();
+    const environment* env = left.get_environment();
     ABG_ASSERT(env);
-    env->priv_->fn_types_being_compared_.erase(&type);
+    ABG_ASSERT(right.get_environment() == env);
+    env->priv_->fn_types_being_compared_.erase(&left);
+    env->priv_->fn_types_being_compared_.erase(&right);
   }
 
-  /// Tests if a @ref function_type is currently being compared.
+  /// Tests if the given @ref function_type instances are currently
+  /// being compared.
   ///
-  /// @param type the function type to take into account.
+  /// @param left the first function type to take into account.
   ///
-  /// @return true if @p type is being compared.
+  /// @param right the second function type to take into account.
+  ///
+  /// @return true if @p left and @p right are being compared.
   bool
-  comparison_started(const function_type& type) const
+  comparison_started(const function_type& left,
+		     const function_type& right) const
   {
-    const environment* env = type.get_environment();
+    const environment* env = left.get_environment();
     ABG_ASSERT(env);
-    return env->priv_->fn_types_being_compared_.count(&type);
+    ABG_ASSERT(right.get_environment() == env);
+    return env->priv_->fn_types_being_compared_.count(&left)
+	|| env->priv_->fn_types_being_compared_.count(&right);
   }
 };// end struc function_type::priv
 
@@ -17171,27 +17188,24 @@ function_type::is_variadic() const
 /// equal, the function keeps up the comparison in order to determine
 /// the different kinds of ways in which they are different.
 ///
-///@return true if lhs == rhs, false otherwise.
+/// @return true if lhs == rhs, false otherwise.
 bool
 equals(const function_type& lhs,
        const function_type& rhs,
        change_kind* k)
 {
-#define RETURN(value)				\
-  do {						\
-    lhs.priv_->unmark_as_being_compared(lhs);	\
-    lhs.priv_->unmark_as_being_compared(rhs);	\
-    if (value == true)				\
-      maybe_propagate_canonical_type(lhs, rhs); \
-    return value;				\
+#define RETURN(value)					\
+  do {							\
+    lhs.priv_->unmark_as_being_compared(lhs, rhs);	\
+    if (value == true)					\
+      maybe_propagate_canonical_type(lhs, rhs);		\
+    return value;					\
   } while(0)
 
-  if (lhs.priv_->comparison_started(lhs)
-      || lhs.priv_->comparison_started(rhs))
+  if (lhs.priv_->comparison_started(lhs, rhs))
     return true;
 
-  lhs.priv_->mark_as_being_compared(lhs);
-  lhs.priv_->mark_as_being_compared(rhs);
+  lhs.priv_->mark_as_being_compared(lhs, rhs);
 
   bool result = true;
 
@@ -18690,111 +18704,140 @@ struct class_or_union::priv
 	non_static_data_members_.push_back(*i);
   }
 
-  /// Mark a class or union or union as being currently compared using
-  /// the class_or_union== operator.
+  /// Mark the given class or union instances as currently being
+  /// compared using the class_or_union== operator.
   ///
-  /// Note that is marking business is to avoid infinite loop when
-  /// comparing a class or union or union. If via the comparison of a
+  /// Note that the marking business is to avoid infinite loops when
+  /// comparing class or union instances. If via the comparison of a
   /// data member or a member function a recursive re-comparison of
-  /// the class or union is attempted, the marking business help to
-  /// detect that infinite loop possibility and avoid it.
+  /// the class or union is attempted, the marking business detects
+  /// that infinite loop possibility and avoids it.
   ///
-  /// @param klass the class or union or union to mark as being
-  /// currently compared.
+  /// @param left the first class or union or union to mark as
+  /// currently being compared.
+  ///
+  /// @param right the second class or union or union to mark as
+  /// currently being compared.
   void
-  mark_as_being_compared(const class_or_union& klass) const
+  mark_as_being_compared(const class_or_union& left,
+			 const class_or_union& right) const
   {
-    const environment* env = klass.get_environment();
+    const environment* env = left.get_environment();
     ABG_ASSERT(env);
-    env->priv_->classes_being_compared_.insert(&klass);
+    ABG_ASSERT(right.get_environment() == env);
+    env->priv_->classes_being_compared_.insert(&left);
+    env->priv_->classes_being_compared_.insert(&right);
   }
 
-  /// Mark a class or union as being currently compared using the
-  /// class_or_union== operator.
+  /// Mark the two given class or union instances as currently being
+  /// compared using the class_or_union== operator.
   ///
-  /// Note that is marking business is to avoid infinite loop when
-  /// comparing a class or union. If via the comparison of a data
-  /// member or a member function a recursive re-comparison of the
-  /// class or union is attempted, the marking business help to detect
-  /// that infinite loop possibility and avoid it.
+  /// Note that the marking business is to avoid infinite loops when
+  /// comparing class or union instances. If via the comparison of a
+  /// data member or a member function a recursive re-comparison of
+  /// the class or union is attempted, the marking business detects
+  /// that infinite loop possibility and avoids it.
   ///
-  /// @param klass the class or union to mark as being currently
-  /// compared.
+  /// @param left the first class or union or union to mark as
+  /// currently being compared.
+  ///
+  /// @param right the second class or union or union to mark as
+  /// currently being compared.
   void
-  mark_as_being_compared(const class_or_union* klass) const
-  {mark_as_being_compared(*klass);}
+  mark_as_being_compared(const class_or_union* left,
+			 const class_or_union* right) const
+  {mark_as_being_compared(*left, *right);}
 
-  /// Mark a class or union as being currently compared using the
-  /// class_or_union== operator.
+  /// Mark the given class or union instances as currently being
+  /// compared using the class_or_union== operator.
   ///
-  /// Note that is marking business is to avoid infinite loop when
-  /// comparing a class or union. If via the comparison of a data
-  /// member or a member function a recursive re-comparison of the
-  /// class or union is attempted, the marking business help to detect
-  /// that infinite loop possibility and avoid it.
+  /// Note that the marking business is to avoid infinite loops when
+  /// comparing class or union instances. If via the comparison of a
+  /// data member or a member function a recursive re-comparison of
+  /// the class or union is attempted, the marking business detects
+  /// that infinite loop possibility and avoids it.
   ///
-  /// @param klass the class or union to mark as being currently
-  /// compared.
+  /// @param left the first class or union or union to mark as
+  /// currently being compared.
+  ///
+  /// @param right the second class or union or union to mark as
+  /// currently being compared.
   void
-  mark_as_being_compared(const class_or_union_sptr& klass) const
-  {mark_as_being_compared(*klass);}
+  mark_as_being_compared(const class_or_union_sptr& left,
+			 const class_or_union_sptr& right) const
+  {mark_as_being_compared(*left, *right);}
 
-  /// If the instance of class_or_union has been previously marked as
-  /// being compared -- via an invocation of mark_as_being_compared()
-  /// this method unmarks it.  Otherwise is has no effect.
+  /// If the given class_or_union instances were previously marked as
+  /// being compared -- via an invocation of mark_as_being_compared --
+  /// this method unmarks them.  Otherwise it has no effect.
   ///
   /// This method is not thread safe because it uses the static data
   /// member classes_being_compared_.  If you wish to use it in a
   /// multi-threaded environment you should probably protect the
   /// access to that static data member with a mutex or somesuch.
   ///
-  /// @param klass the instance of class_or_union to unmark.
-  void
-  unmark_as_being_compared(const class_or_union& klass) const
-  {
-    const environment* env = klass.get_environment();
-    ABG_ASSERT(env);
-    env->priv_->classes_being_compared_.erase(&klass);
-  }
-
-  /// If the instance of class_or_union has been previously marked as
-  /// being compared -- via an invocation of mark_as_being_compared()
-  /// this method unmarks it.  Otherwise is has no effect.
+  /// @param left the first class_or_union instance to unmark.
   ///
-  /// @param klass the instance of class_or_union to unmark.
+  /// @param right the second class_or_union instance to unmark.
   void
-  unmark_as_being_compared(const class_or_union* klass) const
+  unmark_as_being_compared(const class_or_union& left,
+			   const class_or_union& right) const
   {
-    if (klass)
-      return unmark_as_being_compared(*klass);
+    const environment* env = left.get_environment();
+    ABG_ASSERT(env);
+    ABG_ASSERT(right.get_environment() == env);
+    env->priv_->classes_being_compared_.erase(&left);
+    env->priv_->classes_being_compared_.erase(&right);
   }
 
-  /// Test if a given instance of class_or_union is being currently
+  /// If the given class_or_union instances were previously marked as
+  /// being compared -- via an invocation of mark_as_being_compared --
+  /// this method unmarks them.  Otherwise it has no effect.
+  ///
+  /// @param left the first class_or_union instance to unmark.
+  ///
+  /// @param right the second class_or_union instance to unmark.
+  void
+  unmark_as_being_compared(const class_or_union* left,
+			   const class_or_union* right) const
+  {
+    ABG_ASSERT(left && right);
+    unmark_as_being_compared(*left, *right);
+  }
+
+  /// Test if the given class_or_union instances are currently being
   /// compared.
   ///
-  ///@param klass the class or union to test.
+  /// @param left the first class or union to test.
+  ///
+  /// @param right the second class or union to test.
   ///
   /// @return true if @p klass is being compared, false otherwise.
   bool
-  comparison_started(const class_or_union& klass) const
+  comparison_started(const class_or_union& left,
+		     const class_or_union& right) const
   {
-    const environment* env = klass.get_environment();
+    const environment* env = left.get_environment();
     ABG_ASSERT(env);
-    return env->priv_->classes_being_compared_.count(&klass);
+    ABG_ASSERT(right.get_environment() == env);
+    return env->priv_->classes_being_compared_.count(&left)
+	|| env->priv_->classes_being_compared_.count(&right);
   }
 
-  /// Test if a given instance of class_or_union is being currently
+  /// Test if the given class_or_union instances are currently being
   /// compared.
   ///
-  ///@param klass the class or union to test.
+  /// @param left the first class or union to test.
+  ///
+  /// @param right the second class or union to test.
   ///
   /// @return true if @p klass is being compared, false otherwise.
   bool
-  comparison_started(const class_or_union* klass) const
+  comparison_started(const class_or_union* left,
+		     const class_or_union* right) const
   {
-    if (klass)
-      return comparison_started(*klass);
-    return false;
+    ABG_ASSERT(left && right);
+    return comparison_started(*left, *right);
   }
 }; // end struct class_or_union::priv
 
@@ -19719,8 +19762,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
 #define RETURN(value)				\
   do {						\
-    l.priv_->unmark_as_being_compared(l);	\
-    l.priv_->unmark_as_being_compared(r);	\
+    l.priv_->unmark_as_being_compared(l, r);	\
     return value;				\
   } while(0)
 
@@ -19760,7 +19802,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	      if (q1 == q2)
 		// Not using RETURN(true) here, because that causes
 		// performance issues.  We don't need to do
-		// l.priv_->unmark_as_being_compared({l,r}) here because
+		// l.priv_->unmark_as_being_compared(l, r) here because
 		// we haven't marked l or r as being compared yet, and
 		// doing so has a peformance cost that shows up on
 		// performance profiles for *big* libraries.
@@ -19771,7 +19813,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 		    *k |= LOCAL_TYPE_CHANGE_KIND;
 		  // Not using RETURN(true) here, because that causes
 		  // performance issues.  We don't need to do
-		  // l.priv_->unmark_as_being_compared({l,r}) here because
+		  // l.priv_->unmark_as_being_compared(l, r) here because
 		  // we haven't marked l or r as being compared yet, and
 		  // doing so has a peformance cost that shows up on
 		  // performance profiles for *big* libraries.
@@ -19801,12 +19843,10 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	    }
 	}
 
-      if (l.priv_->comparison_started(l)
-	  || l.priv_->comparison_started(r))
+      if (l.priv_->comparison_started(l, r))
 	return true;
 
-      l.priv_->mark_as_being_compared(l);
-      l.priv_->mark_as_being_compared(r);
+      l.priv_->mark_as_being_compared(l, r);
 
       bool val = *def1 == *def2;
       if (!val)
@@ -19827,12 +19867,10 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
   if (types_defined_same_linux_kernel_corpus_public(l, r))
     return true;
 
-  if (l.priv_->comparison_started(l)
-      || l.priv_->comparison_started(r))
+  if (l.priv_->comparison_started(l, r))
     return true;
 
-  l.priv_->mark_as_being_compared(l);
-  l.priv_->mark_as_being_compared(r);
+  l.priv_->mark_as_being_compared(l, r);
 
   bool result = true;
 
@@ -20032,13 +20070,11 @@ types_are_being_compared(const type_base& lhs_type,
 
   if (class_or_union *l_cou = is_class_or_union_type(l))
     if (class_or_union *r_cou = is_class_or_union_type(r))
-      return (l_cou->priv_->comparison_started(*l_cou)
-	      || l_cou->priv_->comparison_started(*r_cou));
+      return (l_cou->priv_->comparison_started(*l_cou, *r_cou));
 
   if (function_type *l_fn_type = is_function_type(l))
     if (function_type *r_fn_type = is_function_type(r))
-      return (l_fn_type->priv_->comparison_started(*l_fn_type)
-	      || l_fn_type->priv_->comparison_started(*r_fn_type));
+      return (l_fn_type->priv_->comparison_started(*l_fn_type, *r_fn_type));
 
   return false;
 }
@@ -21277,8 +21313,7 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 		  static_cast<const class_or_union&>(r),
 		  k);
 
-  if (l.class_or_union::priv_->comparison_started(l)
-      || l.class_or_union::priv_->comparison_started(r))
+  if (l.class_or_union::priv_->comparison_started(l, r))
     return true;
 
   bool result = true;
@@ -21291,13 +21326,11 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 	return result;
     }
 
-  l.class_or_union::priv_->mark_as_being_compared(l);
-  l.class_or_union::priv_->mark_as_being_compared(r);
+  l.class_or_union::priv_->mark_as_being_compared(l, r);
 
 #define RETURN(value)						\
   do {								\
-    l.class_or_union::priv_->unmark_as_being_compared(l);	\
-    l.class_or_union::priv_->unmark_as_being_compared(r);	\
+    l.class_or_union::priv_->unmark_as_being_compared(l, r);	\
     if (value == true)						\
       maybe_propagate_canonical_type(l, r);			\
     return value;						\
