@@ -28,6 +28,7 @@
 #include <cstdint>
 #include <cxxabi.h>
 #include <iterator>
+#include <map>
 #include <sstream>
 #include <typeinfo>
 #include <utility>
@@ -130,6 +131,7 @@ namespace abigail
 // Inject.
 using std::string;
 using std::list;
+using std::map;
 using std::vector;
 using abg_compat::unordered_map;
 using abg_compat::dynamic_pointer_cast;
@@ -2773,6 +2775,31 @@ struct environment::priv
       decl_only_class_equals_definition_(false)
   {}
 };// end struct environment::priv
+
+static map<size_t, size_t> max_depth_f;
+static map<size_t, size_t> max_depth_c;
+struct mdp {
+  void dump(std::string name, const map<size_t, size_t>& sizes) {
+    std::ostringstream os;
+    os << "MAX DEPTH " << name << " =";
+    size_t n = 0;
+    size_t nx = 0;
+    for (const auto& kv : sizes) {
+      os << ' ' << kv.first << ':' << kv.second;
+      n += kv.second;
+      nx += kv.first * kv.second;
+    }
+    os << "\n";
+    if (n)
+      os << "MAX DEPTH MEAN " << name << " = " << (nx*1.0/n) << "\n";
+    std::cerr << os.str();
+  }
+  ~mdp() {
+    dump("funs", max_depth_f);
+    dump("classes", max_depth_c);
+  }
+};
+mdp temp;
 
 /// Default constructor of the @ref environment type.
 environment::environment()
@@ -16958,6 +16985,7 @@ struct function_type::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
+    ++max_depth_f[env->priv_->fn_types_being_compared_.size()];
     return env->priv_->fn_types_being_compared_.count(&left)
 	|| env->priv_->fn_types_being_compared_.count(&right);
   }
@@ -18820,6 +18848,7 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
+    ++max_depth_c[env->priv_->classes_being_compared_.size()];
     return env->priv_->classes_being_compared_.count(&left)
 	|| env->priv_->classes_being_compared_.count(&right);
   }
