@@ -20868,6 +20868,27 @@ class_or_union::operator==(const class_or_union& other) const
   return class_or_union::operator==(o);
 }
 
+class compare_lock
+{
+ public:
+  compare_lock(const class_or_union& cou1, const class_or_union& cou2)
+    : cou1_(cou1), cou2_(cou2), locked_(!cou1.priv_->comparison_started(cou1, cou2))
+  {
+    if (locked_)
+      cou1.priv_->mark_as_being_compared(cou1_, cou2_);
+  }
+  ~compare_lock()
+  {
+    if (locked_)
+      cou1_.priv_->unmark_as_being_compared(cou1_, cou2_);
+  }
+  operator bool() const { return locked_; }
+ private:
+  const class_or_union& cou1_;
+  const class_or_union& cou2_;
+  bool locked_;
+};
+
 /// Compares two instances of @ref class_or_union.
 ///
 /// If the two intances are different, set a bitfield to give some
@@ -20890,12 +20911,6 @@ class_or_union::operator==(const class_or_union& other) const
 bool
 equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
-#define RETURN(value)				\
-  do {						\
-    l.priv_->unmark_as_being_compared(l, r);	\
-    ABG_RETURN(value);				\
-  } while(0)
-
   // if one of the classes is declaration-only, look through it to
   // get its definition.
   bool l_is_decl_only = l.get_is_declaration_only();
@@ -20930,23 +20945,11 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	      const interned_string& q1 = l.get_scoped_name();
 	      const interned_string& q2 = r.get_scoped_name();
 	      if (q1 == q2)
-		// Not using RETURN(true) here, because that causes
-		// performance issues.  We don't need to do
-		// l.priv_->unmark_as_being_compared(l, r) here because
-		// we haven't marked l or r as being compared yet, and
-		// doing so has a peformance cost that shows up on
-		// performance profiles for *big* libraries.
 		return true;
 	      else
 		{
 		  if (k)
 		    *k |= LOCAL_TYPE_CHANGE_KIND;
-		  // Not using RETURN(true) here, because that causes
-		  // performance issues.  We don't need to do
-		  // l.priv_->unmark_as_being_compared(l, r) here because
-		  // we haven't marked l or r as being compared yet, and
-		  // doing so has a peformance cost that shows up on
-		  // performance profiles for *big* libraries.
 		  ABG_RETURN_FALSE;
 		}
 	    }
@@ -20973,16 +20976,16 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	    }
 	}
 
-      if (l.priv_->comparison_started(l, r))
-	return true;
-
-      l.priv_->mark_as_being_compared(l, r);
+      // protect against infinite recursion during equality test
+      compare_lock lock(l, r);
+      if (!lock)
+        return true;
 
       bool val = *def1 == *def2;
       if (!val)
 	if (k)
 	  *k |= LOCAL_TYPE_CHANGE_KIND;
-      RETURN(val);
+      return val;
     }
 
   // No need to go further if the classes have different names or
@@ -20997,10 +21000,10 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
   if (types_defined_same_linux_kernel_corpus_public(l, r))
     return true;
 
-  if (l.priv_->comparison_started(l, r))
+  // protect against infinite recursion during equality test
+  compare_lock lock(l, r);
+  if (!lock)
     return true;
-
-  l.priv_->mark_as_being_compared(l, r);
 
   bool result = true;
 
@@ -21013,7 +21016,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	if (k)
 	  *k |= LOCAL_TYPE_CHANGE_KIND;
 	else
-	  RETURN(result);
+	  return result;
       }
 
     for (class_or_union::data_members::const_iterator
@@ -21036,7 +21039,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 		*k |= SUBTYPE_CHANGE_KIND;
 	    }
 	  else
-	    RETURN(result);
+	    return result;
 	}
   }
 
@@ -21054,7 +21057,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	if (k)
 	  *k |= LOCAL_NON_TYPE_CHANGE_KIND;
 	else
-	  RETURN(result);
+	  return result;
       }
 
     for (member_function_templates::const_iterator
@@ -21072,7 +21075,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	      break;
 	    }
 	  else
-	    RETURN(result);
+	    return result;
 	}
   }
 
@@ -21085,7 +21088,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	if (k)
 	  *k |= LOCAL_NON_TYPE_CHANGE_KIND;
 	else
-	  RETURN(result);
+	  return result;
       }
 
     for (member_class_templates::const_iterator
@@ -21103,12 +21106,11 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	      break;
 	    }
 	  else
-	    RETURN(result);
+	    return result;
 	}
   }
 
-  RETURN(result);
-#undef RETURN
+  return result;
 }
 
 
