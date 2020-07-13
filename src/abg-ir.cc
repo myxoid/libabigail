@@ -18304,7 +18304,13 @@ function_type::is_variadic() const
 ///
 /// @return true if lhs == rhs, false otherwise.
 bool
-equals(const function_type& l,
+
+    idea2: compare the types, assuming the type_decls are equal? AND
+    idea1: then assume the types are equal and check the type_decls?
+
+    idea3: just protect infinite recursion at the type_decl level
+
+    equals(const function_type& l,
        const function_type& r,
        change_kind* k)
 {
@@ -20911,6 +20917,9 @@ class compare_lock
 bool
 equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
+      compare_lock lock(l, r);
+      if (!lock)
+        return true;
   // if one of the classes is declaration-only, look through it to
   // get its definition.
   bool l_is_decl_only = l.get_is_declaration_only();
@@ -20977,9 +20986,9 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	}
 
       // protect against infinite recursion during equality test
-      compare_lock lock(l, r);
-      if (!lock)
-        return true;
+      // compare_lock lock(l, r);
+      // if (!lock)
+      //   return true;
 
       bool val = *def1 == *def2;
       if (!val)
@@ -21001,9 +21010,9 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
     return true;
 
   // protect against infinite recursion during equality test
-  compare_lock lock(l, r);
-  if (!lock)
-    return true;
+  // compare_lock lock(l, r);
+  // if (!lock)
+  //   return true;
 
   bool result = true;
 
@@ -22445,8 +22454,8 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 		  static_cast<const class_or_union&>(r),
 		  k);
 
-  if (l.class_or_union::priv_->comparison_started(l, r))
-    return true;
+  // if (l.class_or_union::priv_->comparison_started(l, r))
+  //   return true;
 
   bool result = true;
   if (!equals(static_cast<const class_or_union&>(l),
@@ -22458,11 +22467,11 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 	return result;
     }
 
-  l.class_or_union::priv_->mark_as_being_compared(l, r);
+  //l.class_or_union::priv_->mark_as_being_compared(l, r);
 
 #define RETURN(value)						\
   do {								\
-    l.class_or_union::priv_->unmark_as_being_compared(l, r);	\
+    /*l.class_or_union::priv_->unmark_as_being_compared(l, r);*/	\
     if (value == true)						\
       maybe_propagate_canonical_type(l, r);			\
     ABG_RETURN(value);						\
