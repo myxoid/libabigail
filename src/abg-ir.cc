@@ -21214,6 +21214,11 @@ copy_member_function(const class_or_union_sptr& t, const method_decl* method)
 
 // </class_or_union definitions>
 
+bool no_types_are_being_compared(const environment* env) {
+  return env->priv_->fn_types_being_compared_.empty()
+    && env->priv_->classes_being_compared_.empty();
+}
+
 /// Test if two @ref class_decl or @ref function_type are already
 /// being compared.
 ///
@@ -21228,6 +21233,8 @@ static bool
 types_are_being_compared(const type_base& lhs_type,
 			 const type_base& rhs_type)
 {
+  return !no_types_are_being_compared(lhs_type.get_environment());
+
   type_base *l = &const_cast<type_base&>(lhs_type);
   type_base *r = &const_cast<type_base&>(rhs_type);
 

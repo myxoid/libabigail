@@ -244,6 +244,7 @@ public:
   friend class function_type;
 
   friend void keep_type_alive(type_base_sptr);
+  friend bool no_types_are_being_compared(const environment*);
 }; // end class environment
 
 class location_manager;
