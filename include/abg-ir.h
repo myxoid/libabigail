@@ -239,11 +239,13 @@ public:
   get_canonical_type_from_type_id(const char*);
 #endif
 
+  template <typename T> friend class compare_lock;
   friend class class_or_union;
   friend class class_decl;
   friend class function_type;
 
   friend void keep_type_alive(type_base_sptr);
+  friend bool any_types_are_being_compared(const environment*);
 }; // end class environment
 
 class location_manager;

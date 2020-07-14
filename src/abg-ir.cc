@@ -37,6 +37,8 @@ ABG_END_EXPORT_DECLARATIONS
 #include "abg-comp-filter.h"
 #include "abg-ir-priv.h"
 
+#define COMPARE 1
+
 namespace
 {
 /// This internal type is a tree walker that walks the sub-tree of a
@@ -2860,7 +2862,8 @@ struct environment::priv
   mutable vector<type_base_sptr> sorted_canonical_types_;
   type_base_sptr		 void_type_;
   type_base_sptr		 variadic_marker_type_;
-  vector<std::pair<const class_or_union*, const class_or_union*>>	classes_being_compared_;
+  vector<std::tuple<std::string, const void*, const void*>> things_being_compared_;
+  vector<std::string>		 which_;
   vector<type_base_sptr>	 extra_live_types_;
   interned_string_pool		 string_pool_;
 #ifdef WITH_DEBUG_SELF_COMPARISON
@@ -2901,6 +2904,82 @@ struct environment::priv
       self_comparison_debug_on_(false)
 #endif
   {}
+
+  bool any_types_are_being_compared() const
+  {
+    return !things_being_compared_.empty();
+  }
+
+  /// Test if the given things are currently being compared.
+  ///
+  /// @param left the first thing to test.
+  ///
+  /// @param right the second thing to test.
+  ///
+  /// @return true if @p klass is being compared, false otherwise.
+  template <typename T> bool
+  comparison_started(std::string which, const T& left, const T& right) const
+  {
+    std::pair<const void*, const void*> p(static_cast<const void*>(&left),
+                                          static_cast<const void*>(&right));
+    auto it = find(things_being_compared_.begin(), things_being_compared_.end(),
+                   std::make_tuple(which,
+                                   static_cast<const void*>(&left),
+                                   static_cast<const void*>(&right)));
+    if (false && it != things_being_compared_.end()) {
+      std::ostringstream os;
+      for (auto it2 = things_being_compared_.begin(); it2 != things_being_compared_.end(); ++it2)
+        os << std::get<0>(*it2) << "->";
+      os << which << "\n";
+      std::cerr << os.str();
+    }
+    return it != things_being_compared_.end();
+  }
+
+  /// Mark the given things as currently being compared using
+  /// T::operator==.
+  ///
+  /// Note that the marking business is to avoid infinite loops when
+  /// comparing class_or_union and class_decl instances. If via the
+  /// comparison of a data member or a member function a recursive
+  /// re-comparison of the class or union is attempted, the marking
+  /// business detects that infinite loop possibility and avoids it.
+  ///
+  /// @param left the first thing to mark as currently being compared.
+  ///
+  /// @param right the second thing to mark as currently being
+  /// compared.
+  template <typename T> void
+  mark_as_being_compared(std::string which, const T& left, const T& right)
+  {
+    things_being_compared_.push_back(
+      std::make_tuple(which,
+                      static_cast<const void*>(&left),
+                      static_cast<const void*>(&right)));
+    which_.push_back(which);
+  }
+
+  /// Mark a given thing as no longer being compared.
+  ///
+  /// This method is not thread safe because it uses the static data
+  /// member classes_being_compared_.  If you wish to use it in a
+  /// multi-threaded environment you should probably protect the
+  /// access to that static data member with a mutex or somesuch.
+  ///
+  /// @param left the first thing to unmark.
+  ///
+  /// @param right the second thing to unmark.
+  template <typename T> void
+  unmark_as_being_compared(std::string which, const T& left, const T& right)
+  {
+    ABG_ASSERT(!things_being_compared_.empty());
+    ABG_ASSERT(things_being_compared_.back()
+               == std::make_tuple(which,
+                                  static_cast<const void*>(&left),
+                                  static_cast<const void*>(&right)));
+    things_being_compared_.pop_back();
+    which_.pop_back();
+  }
 };// end struct environment::priv
 
 /// Default constructor of the @ref environment type.
@@ -4724,6 +4803,30 @@ maybe_compare_as_member_decls(const decl_base& l,
   return result;
 }
 
+template<typename T>
+class compare_lock
+{
+ public:
+  compare_lock(std::string which, const environment* env, const T& l, const T& r)
+    : which_(which), env_(env), l_(l), r_(r), locked_(!env->priv_->comparison_started(which, l, r))
+  {
+    if (locked_)
+      env_->priv_->mark_as_being_compared(which_, l_, r_);
+  }
+  ~compare_lock()
+  {
+    if (locked_)
+      env_->priv_->unmark_as_being_compared(which_, l_, r_);
+  }
+  operator bool() const { return locked_; }
+ private:
+  const std::string which_;
+  const environment* env_;
+  const T& l_;
+  const T& r_;
+  bool locked_;
+};
+
 /// Compares two instances of @ref decl_base.
 ///
 /// If the two intances are different, set a bitfield to give some
@@ -4746,6 +4849,11 @@ maybe_compare_as_member_decls(const decl_base& l,
 bool
 equals(const decl_base& l, const decl_base& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<decl_base> lock("decl_base", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
   const interned_string &l_linkage_name = l.get_linkage_name();
   const interned_string &r_linkage_name = r.get_linkage_name();
@@ -7215,6 +7323,11 @@ scope_decl::get_hash() const
 bool
 equals(const scope_decl& l, const scope_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<scope_decl> lock("scope_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   if (!l.decl_base::operator==(r))
@@ -13666,6 +13779,11 @@ type_base::get_cached_pretty_representation(bool internal) const
 bool
 equals(const type_base& l, const type_base& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<type_base> lock("type_base", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = (l.get_size_in_bits() == r.get_size_in_bits()
 		 && l.get_alignment_in_bits() == r.get_alignment_in_bits());
   if (!result)
@@ -14128,6 +14246,11 @@ type_decl::type_decl(const environment* env,
 bool
 equals(const type_decl& l, const type_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<type_decl> lock("type_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = equals(static_cast<const decl_base&>(l),
 		       static_cast<const decl_base&>(r),
 		       k);
@@ -14318,6 +14441,11 @@ scope_type_decl::scope_type_decl(const environment*	env,
 bool
 equals(const scope_type_decl& l, const scope_type_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<scope_type_decl> lock("scope_type_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = equals(static_cast<const scope_decl&>(l),
 		  static_cast<const scope_decl&>(r),
 		  k);
@@ -14702,6 +14830,11 @@ qualified_type_def::get_size_in_bits() const
 bool
 equals(const qualified_type_def& l, const qualified_type_def& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<qualified_type_def> lock("qualified_type_def", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
   if (l.get_cv_quals() != r.get_cv_quals())
     {
@@ -15177,6 +15310,11 @@ pointer_type_def::set_pointed_to_type(const type_base_sptr& t)
 bool
 equals(const pointer_type_def& l, const pointer_type_def& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<pointer_type_def> lock("pointer_type_def", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   // Compare the pointed-to-types modulo the typedefs they might have
   bool result = (peel_typedef_type(l.get_pointed_to_type())
 		 == peel_typedef_type(r.get_pointed_to_type()));
@@ -15560,6 +15698,11 @@ reference_type_def::set_pointed_to_type(type_base_sptr& pointed_to_type)
 bool
 equals(const reference_type_def& l, const reference_type_def& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<reference_type_def> lock("reference_type_def", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   if (l.is_lvalue() != r.is_lvalue())
     {
       if (k)
@@ -16101,6 +16244,11 @@ equals(const array_type_def::subrange_type& l,
        const array_type_def::subrange_type& r,
        change_kind* k)
 {
+#if COMPARE
+  compare_lock<array_type_def::subrange_type> lock("array_type_def::subrange_type", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   if (l.get_lower_bound() != r.get_lower_bound()
@@ -16428,6 +16576,11 @@ array_type_def::get_pretty_representation(bool internal,
 bool
 equals(const array_type_def& l, const array_type_def& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<array_type_def> lock("array_type_def", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   std::vector<array_type_def::subrange_sptr > this_subs = l.get_subranges();
   std::vector<array_type_def::subrange_sptr > other_subs = r.get_subranges();
 
@@ -16961,6 +17114,11 @@ is_enumerator_present_in_enum(const enum_type_decl::enumerator &enr,
 bool
 equals(const enum_type_decl& l, const enum_type_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<enum_type_decl> lock("enum_type_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
   if (*l.get_underlying_type() != *r.get_underlying_type())
     {
@@ -17420,6 +17578,11 @@ typedef_decl::get_alignment_in_bits() const
 bool
 equals(const typedef_decl& l, const typedef_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<typedef_decl> lock("typedef_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
   // Compare the properties of the 'is-a-member-decl" relation of this
   // decl.  For typedefs of a C program, this always return true as
@@ -17733,6 +17896,11 @@ var_decl::set_scope(scope_decl* scope)
 bool
 equals(const var_decl& l, const var_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<var_decl> lock("var_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   // First test types of variables.  This should be fast because in
@@ -18304,16 +18472,13 @@ function_type::is_variadic() const
 ///
 /// @return true if lhs == rhs, false otherwise.
 bool
-
-    idea2: compare the types, assuming the type_decls are equal? AND
-    idea1: then assume the types are equal and check the type_decls?
-
-    idea3: just protect infinite recursion at the type_decl level
-
-    equals(const function_type& l,
-       const function_type& r,
-       change_kind* k)
+equals(const function_type& l, const function_type& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<function_type> lock("function_type", lhs.get_environment(), lhs, rhs);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   if (!l.type_base::operator==(r))
@@ -19173,6 +19338,11 @@ function_decl::clone() const
 bool
 equals(const function_decl& l, const function_decl& r, change_kind* k)
 {
+#if COMPARE
+  compare_lock<function_decl> lock("function_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   // Compare function types
@@ -19626,6 +19796,11 @@ equals(const function_decl::parameter& l,
        const function_decl::parameter& r,
        change_kind* k)
 {
+#if COMPARE
+  compare_lock<function_decl::parameter> lock("function_decl::parameter", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = true;
 
   if ((l.get_variadic_marker() != r.get_variadic_marker())
@@ -19849,8 +20024,7 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    std::pair<const class_or_union*, const class_or_union*> lr(&left, &right);
-    env->priv_->classes_being_compared_.push_back(lr);
+    env->priv_->mark_as_being_compared("legacy", left, right);
   }
 
   /// Mark the two given class or union instances as currently being
@@ -19908,12 +20082,7 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    std::pair<const class_or_union*, const class_or_union*> p(&left, &right);
-    vector<std::pair<const class_or_union*, const class_or_union*>>& v =
-      env->priv_->classes_being_compared_;
-    ABG_ASSERT(!v.empty());
-    ABG_ASSERT(v.back() == p);
-    v.pop_back();
+    env->priv_->unmark_as_being_compared("legacy", left, right);
   }
 
   /// Mark a given @ref class_or_union as no longer being compared.
@@ -19941,9 +20110,7 @@ struct class_or_union::priv
     const environment* env = left.get_environment();
     ABG_ASSERT(env);
     ABG_ASSERT(right.get_environment() == env);
-    vector<std::pair<const class_or_union*, const class_or_union*>>& v =
-      env->priv_->classes_being_compared_;
-    return find(v.begin(), v.end(), std::make_pair(&left, &right)) != v.end();
+    return env->priv_->comparison_started("legacy",left, right);
   }
 
   /// Test if the given class_or_union instances are currently being
@@ -20874,27 +21041,6 @@ class_or_union::operator==(const class_or_union& other) const
   return class_or_union::operator==(o);
 }
 
-class compare_lock
-{
- public:
-  compare_lock(const class_or_union& cou1, const class_or_union& cou2)
-    : cou1_(cou1), cou2_(cou2), locked_(!cou1.priv_->comparison_started(cou1, cou2))
-  {
-    if (locked_)
-      cou1.priv_->mark_as_being_compared(cou1_, cou2_);
-  }
-  ~compare_lock()
-  {
-    if (locked_)
-      cou1_.priv_->unmark_as_being_compared(cou1_, cou2_);
-  }
-  operator bool() const { return locked_; }
- private:
-  const class_or_union& cou1_;
-  const class_or_union& cou2_;
-  bool locked_;
-};
-
 /// Compares two instances of @ref class_or_union.
 ///
 /// If the two intances are different, set a bitfield to give some
@@ -20917,9 +21063,11 @@ class compare_lock
 bool
 equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
-      compare_lock lock(l, r);
-      if (!lock)
-        return true;
+#if COMPARE
+  compare_lock<class_or_union> lock("class_or_union", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   // if one of the classes is declaration-only, look through it to
   // get its definition.
   bool l_is_decl_only = l.get_is_declaration_only();
@@ -21205,16 +21353,22 @@ copy_member_function(const class_or_union_sptr& t, const method_decl* method)
 /// @return true iff @p lhs_type and @p rhs_type are being compared.
 static bool
 types_are_being_compared(const type_base& lhs_type,
-			 const type_base& rhs_type)
+                         const type_base& rhs_type)
 {
-  type_base *l = &const_cast<type_base&>(lhs_type);
-  type_base *r = &const_cast<type_base&>(rhs_type);
+    type_base *l = &const_cast<type_base&>(lhs_type);
+    type_base *r = &const_cast<type_base&>(rhs_type);
 
-  if (class_or_union *l_cou = is_class_or_union_type(l))
-    if (class_or_union *r_cou = is_class_or_union_type(r))
-      return l_cou->priv_->comparison_started(*l_cou, *r_cou);
+    if (class_or_union *l_cou = is_class_or_union_type(l))
+      if (class_or_union *r_cou = is_class_or_union_type(r))
+        return l_cou->priv_->comparison_started(*l_cou, *r_cou);
 
-  return false;
+    return false;
+}
+
+bool
+any_types_are_being_compared(const environment* env)
+{
+  return env->priv_->any_types_are_being_compared();
 }
 
 /// @defgroup OnTheFlyCanonicalization On-the-fly Canonicalization
@@ -21254,9 +21408,9 @@ static void
 maybe_propagate_canonical_type(const type_base& lhs_type,
 			       const type_base& rhs_type)
 {
-
   if (const environment *env = lhs_type.get_environment())
-    if (env->do_on_the_fly_canonicalization())
+    if (env->do_on_the_fly_canonicalization()
+        /*&& !any_types_are_being_compared(env)*/)
       if (type_base_sptr canonical_type = lhs_type.get_canonical_type())
 	if (!rhs_type.get_canonical_type()
 	    && !types_are_being_compared(lhs_type, rhs_type))
@@ -21829,6 +21983,11 @@ equals(const class_decl::base_spec& l,
        const class_decl::base_spec& r,
        change_kind* k)
 {
+#if COMPARE
+  compare_lock<class_decl::base_spec> lock("class_decl::base_spec", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   if (!l.member_base::operator==(r))
     {
       if (k)
@@ -22447,6 +22606,17 @@ method_matches_at_least_one_in_vector(const method_decl_sptr& method,
 bool
 equals(const class_decl& l, const class_decl& r, change_kind* k)
 {
+  /*
+    idea2: compare the types, assuming the type_decls are equal? AND
+    idea1: then assume the types are equal and check the type_decls?
+    idea3: just protect infinite recursion at the type_decl level
+  */
+#if 1
+  compare_lock<class_decl> lock("class_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
+
   // if one of the classes is declaration-only then we take a fast
   // path here.
   if (l.get_is_declaration_only() || r.get_is_declaration_only())
@@ -23568,6 +23738,11 @@ union_decl::~union_decl()
 bool
 equals(const union_decl& l, const union_decl& r, change_kind* k)
 {
+#if 1
+  compare_lock<union_decl> lock("union_decl", l.get_environment(), l, r);
+  if (!lock)
+    return true;
+#endif
   bool result = equals(static_cast<const class_or_union&>(l),
 		       static_cast<const class_or_union&>(r),
 		       k);
