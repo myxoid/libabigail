@@ -14521,6 +14521,9 @@ read_debug_info_into_corpus(read_context& ctxt)
       bool operator<(const dwarf_cu_info& other) const {
 	return compare(other) < 0;
       }
+      std::string key() const {
+        return comp_dir + ':' + name;
+      }
       string comp_dir;
       string name;
       int index;
@@ -14555,7 +14558,22 @@ read_debug_info_into_corpus(read_context& ctxt)
 	cus.push_back(info);
       }
 
+    std::vector<std::string> before;
+    std::vector<std::string> after;
+    for (const auto& c : cus) {
+      before.push_back(c.key());
+    }
     std::sort(cus.begin(), cus.end());
+    for (const auto& c : cus) {
+      after.push_back(c.key());
+    }
+    std::ostringstream os;
+    for (size_t i = 0; i < cus.size(); ++i)
+      if (before[i] != after[i])
+        os << i << "\t" << before[i] << "\t" << after[i] << "\n";
+    std::string out = os.str();
+    if (!out.empty())
+      std::cerr << "SORT:\n" << out << std::endl;
     for (std::vector<dwarf_cu_info>::iterator it = cus.begin(); it != cus.end(); ++it)
       {
 	dwarf_cu_info& info = *it;
