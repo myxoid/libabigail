@@ -5,91 +5,91 @@
   </elf-function-symbols>
   <abi-instr address-size='64' path='test7.cc' comp-dir-path='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf' language='LANG_C_plus_plus'>
     <!-- char -->
-    <type-decl name='char' size-in-bits='8' id='type-id-1'/>
+    <type-decl name='char' size-in-bits='8' id='a84c031d'/>
     <!-- char*[7] -->
-    <array-type-def dimensions='1' type-id='type-id-2' size-in-bits='448' id='type-id-3'>
+    <array-type-def dimensions='1' type-id='26a90f95' size-in-bits='448' id='0626c76e'>
       <!-- <anonymous range>[7] -->
-      <subrange length='7' type-id='type-id-4' id='type-id-5'/>
+      <subrange length='7' type-id='4c87fef4' id='16fc326e'/>
     </array-type-def>
     <!-- char[1] -->
-    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='8' id='type-id-6'>
+    <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='8' id='89feb1ec'>
       <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='type-id-4' id='type-id-7'/>
+      <subrange length='1' type-id='4c87fef4' id='52f813b4'/>
     </array-type-def>
     <!-- char[] -->
-    <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='infinite' id='type-id-8'>
+    <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='infinite' id='e84913bd'>
       <!-- <anonymous range>[] -->
-      <subrange length='infinite' type-id='type-id-4' id='type-id-9'/>
+      <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
     </array-type-def>
     <!-- double -->
-    <type-decl name='double' size-in-bits='64' id='type-id-10'/>
+    <type-decl name='double' size-in-bits='64' id='a0eb0f08'/>
     <!-- double[5][3] -->
-    <array-type-def dimensions='2' type-id='type-id-10' size-in-bits='960' id='type-id-11'>
+    <array-type-def dimensions='2' type-id='a0eb0f08' size-in-bits='960' id='9ba86d8c'>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='type-id-4' id='type-id-12'/>
+      <subrange length='5' type-id='4c87fef4' id='53010e10'/>
       <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='type-id-4' id='type-id-13'/>
+      <subrange length='3' type-id='4c87fef4' id='56f209d2'/>
     </array-type-def>
     <!-- int -->
-    <type-decl name='int' size-in-bits='32' id='type-id-14'/>
+    <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
     <!-- int*[4] -->
-    <array-type-def dimensions='1' type-id='type-id-15' size-in-bits='256' id='type-id-16'>
+    <array-type-def dimensions='1' type-id='7292109c' size-in-bits='256' id='5abcdf1a'>
       <!-- <anonymous range>[4] -->
-      <subrange length='4' type-id='type-id-4' id='type-id-17'/>
+      <subrange length='4' type-id='4c87fef4' id='16fe7105'/>
     </array-type-def>
     <!-- int*[4]*[10] -->
-    <array-type-def dimensions='1' type-id='type-id-18' size-in-bits='640' id='type-id-19'>
+    <array-type-def dimensions='1' type-id='07535890' size-in-bits='640' id='bea34bd7'>
       <!-- <anonymous range>[10] -->
-      <subrange length='10' type-id='type-id-4' id='type-id-20'/>
+      <subrange length='10' type-id='4c87fef4' id='487da03a'/>
     </array-type-def>
     <!-- int[5] -->
-    <array-type-def dimensions='1' type-id='type-id-14' size-in-bits='160' id='type-id-21'>
+    <array-type-def dimensions='1' type-id='95e97e5e' size-in-bits='160' id='e41e1db9'>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='type-id-4' id='type-id-12'/>
+      <subrange length='5' type-id='4c87fef4' id='53010e10'/>
     </array-type-def>
     <!-- sizetype -->
-    <type-decl name='sizetype' size-in-bits='64' id='type-id-4'/>
+    <type-decl name='sizetype' size-in-bits='64' id='4c87fef4'/>
     <!-- struct S -->
-    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='type-id-22'>
+    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='50d9a3fa'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int S::a[5] -->
-        <var-decl name='a' type-id='type-id-21' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='3' column='1'/>
+        <var-decl name='a' type-id='e41e1db9' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='3' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='192'>
         <!-- char* S::b[7] -->
-        <var-decl name='b' type-id='type-id-3' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='4' column='1'/>
+        <var-decl name='b' type-id='0626c76e' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='4' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='640'>
         <!-- double S::c[5][3] -->
-        <var-decl name='c' type-id='type-id-11' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='5' column='1'/>
+        <var-decl name='c' type-id='9ba86d8c' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='5' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='1600'>
         <!-- int*[4]* S::d[10] -->
-        <var-decl name='d' type-id='type-id-19' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='6' column='1'/>
+        <var-decl name='d' type-id='bea34bd7' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='6' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='2240'>
         <!-- char S::e[1] -->
-        <var-decl name='e' type-id='type-id-6' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='7' column='1'/>
+        <var-decl name='e' type-id='89feb1ec' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='7' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='2248'>
         <!-- char S::f[] -->
-        <var-decl name='f' type-id='type-id-8' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='8' column='1'/>
+        <var-decl name='f' type-id='e84913bd' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='8' column='1'/>
       </data-member>
     </class-decl>
     <!-- S& -->
-    <reference-type-def kind='lvalue' type-id='type-id-22' size-in-bits='64' id='type-id-23'/>
+    <reference-type-def kind='lvalue' type-id='50d9a3fa' size-in-bits='64' id='f901ef4c'/>
     <!-- char* -->
-    <pointer-type-def type-id='type-id-1' size-in-bits='64' id='type-id-2'/>
+    <pointer-type-def type-id='a84c031d' size-in-bits='64' id='26a90f95'/>
     <!-- int* -->
-    <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-15'/>
+    <pointer-type-def type-id='95e97e5e' size-in-bits='64' id='7292109c'/>
     <!-- int*[4]* -->
-    <pointer-type-def type-id='type-id-16' size-in-bits='64' id='type-id-18'/>
+    <pointer-type-def type-id='5abcdf1a' size-in-bits='64' id='07535890'/>
     <!-- int foo(S&) -->
     <function-decl name='foo' mangled-name='_Z3fooR1S' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='11' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_Z3fooR1S'>
       <!-- parameter of type 'S&' -->
-      <parameter type-id='type-id-23'/>
+      <parameter type-id='f901ef4c'/>
       <!-- int -->
-      <return type-id='type-id-14'/>
+      <return type-id='95e97e5e'/>
     </function-decl>
   </abi-instr>
 </abi-corpus>
