@@ -961,7 +961,6 @@
     <typedef-decl name='text_info' type-id='7f1a2b28' filepath='../.././gcc/pretty-print.h' line='40' column='1' id='33fec2a0'/>
     <typedef-decl name='va_list' type-id='262941ea' filepath='/tmp/legendre/spack-stage/spack-stage-wfh0ig/gcc-4.7.4/host-x86_64-unknown-linux-gnu/prev-gcc/include/stdarg.h' line='102' column='1' id='2aee9912'/>
     <typedef-decl name='__gnuc_va_list' type-id='1caa07cb' filepath='/tmp/legendre/spack-stage/spack-stage-wfh0ig/gcc-4.7.4/host-x86_64-unknown-linux-gnu/prev-gcc/include/stdarg.h' line='40' column='1' id='262941ea'/>
-    <typedef-decl name='location_t' type-id='a4ae40b1' filepath='../.././gcc/input.h' line='44' column='1' id='801326d8'/>
     <class-decl name='line_map' size-in-bits='320' is-struct='yes' visibility='default' filepath='../.././libcpp/include/line-map.h' line='204' column='1' id='c06dbdd6'>
       <member-type access='public'>
         <union-decl name='map_u' size-in-bits='256' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='210' column='1' id='f9833753'>
@@ -983,6 +982,7 @@
         <var-decl name='d' type-id='f9833753' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='213' column='1'/>
       </data-member>
     </class-decl>
+    <typedef-decl name='location_t' type-id='a4ae40b1' filepath='../.././gcc/input.h' line='44' column='1' id='801326d8'/>
     <typedef-decl name='source_location' type-id='f0981eeb' filepath='../.././gcc/../libcpp/include/line-map.h' line='51' column='1' id='a4ae40b1'/>
     <typedef-decl name='diagnostic_t' type-id='3fed383f' filepath='../.././gcc/diagnostic-core.h' line='40' column='1' id='f1ca66d0'/>
     <enum-decl name='__anonymous_enum__2' is-anonymous='yes' linkage-name='12diagnostic_t' filepath='../.././gcc/diagnostic-core.h' line='32' column='1' id='3fed383f'>
