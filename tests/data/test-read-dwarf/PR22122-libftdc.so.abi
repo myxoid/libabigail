@@ -2820,7 +2820,7 @@
           </function-decl>
         </member-function>
         <member-function access='public'>
-          <function-decl name='operator&lt;&lt;' mangled-name='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEElsENS_10StringDataE' filepath='src/mongo/bson/util/builder.h' line='439' column='1' visibility='default' binding='global' size-in-bits='64'>
+          <function-decl name='operator&lt;&lt;' mangled-name='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEElsENS_8BSONTypeE' filepath='src/mongo/bson/util/builder.h' line='439' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='8567d8b0' is-artificial='yes'/>
             <parameter type-id='e7f43f92'/>
             <return type-id='9167eb94'/>
@@ -8447,27 +8447,12 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='__anonymous_struct__25' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='e7f4420d'>
-        <member-function access='public'>
-          <function-decl name='StatusWith' mangled-name='_ZN5mongo10StatusWithINS_12FTDCBSONUtil8FTDCTypeEEC2ES2_' filepath='src/mongo/base/status_with.h' line='92' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='8567d8b0' is-artificial='yes'/>
-            <parameter type-id='08f5ca17'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
+      <class-decl name='__anonymous_struct__25' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='e7f4420d'/>
       <class-decl name='__anonymous_struct__26' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='e7f4420e'>
         <member-function access='public'>
           <function-decl name='operator&lt;&lt;' mangled-name='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEElsEx' filepath='src/mongo/bson/util/builder.h' line='412' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='8567d8b0' is-artificial='yes'/>
             <parameter type-id='1eb56b1e'/>
-            <return type-id='9167eb94'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='operator&lt;&lt;' mangled-name='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEElsENS_8BSONTypeE' filepath='src/mongo/bson/util/builder.h' line='443' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='8567d8b0' is-artificial='yes'/>
-            <parameter type-id='08f5ca17'/>
             <return type-id='9167eb94'/>
           </function-decl>
         </member-function>

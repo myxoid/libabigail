@@ -3330,7 +3330,8 @@ public:
 	int tag = dwarf_tag(const_cast<Dwarf_Die*>(die));
 	if ((tag == DW_TAG_structure_type
 	     || tag == DW_TAG_class_type
-	     || tag == DW_TAG_union_type)
+	     || tag == DW_TAG_union_type
+	     || tag == DW_TAG_enumeration_type)
 	    && die_is_anonymous(die))
 	  {
 	    location l = die_location(*this, die);
@@ -4717,15 +4718,13 @@ public:
   void
   schedule_type_for_late_canonicalization(const Dwarf_Die *die)
   {
-    Dwarf_Off o;
-
     Dwarf_Die equiv_die;
     ABG_ASSERT(get_canonical_die(die, equiv_die,
 				  /*where=*/0,
 				 /*die_as_type=*/true));
 
     const die_source source = get_die_source(&equiv_die);
-    o = dwarf_dieoffset(&equiv_die);
+    Dwarf_Off o = dwarf_dieoffset(&equiv_die);
 
     const die_artefact_map_type& m =
       type_die_artefact_maps().get_container(*this, die);
