@@ -5748,15 +5748,7 @@
         </member-function>
       </class-decl>
       <class-decl name='__anonymous_struct__23' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='cdd897b3'/>
-      <class-decl name='__anonymous_struct__24' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='cdd897b3'>
-        <member-function access='public'>
-          <function-decl name='StatusWith' mangled-name='_ZN5mongo10StatusWithINS_12FTDCBSONUtil8FTDCTypeEEC2ES2_' filepath='src/mongo/base/status_with.h' line='92' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='ec4f579e' is-artificial='yes'/>
-            <parameter type-id='00851616'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
+      <class-decl name='__anonymous_struct__24' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='cdd897b3'/>
       <class-decl name='__anonymous_struct__25' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='cdd897b3'>
         <member-function access='private'>
           <function-decl name='appendIntegral&lt;long long&gt;' mangled-name='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEE14appendIntegralIxEERS2_T_i' filepath='src/mongo/bson/util/builder.h' line='498' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN5mongo17StringBuilderImplINS_21SharedBufferAllocatorEE14appendIntegralIxEERS2_T_i'>
