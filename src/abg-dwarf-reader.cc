@@ -2784,10 +2784,12 @@ public:
       ? get_die_pretty_type_representation(&die, /*where=*/0)
       : get_die_pretty_representation(&die, /*where=*/0);
 
+    std::cerr << "computing canonical die for name = '" << name << "'\n";
     Dwarf_Off canonical_die_offset = 0;
     istring_dwarf_offsets_map_type::iterator i = map.find(name);
     if (i == map.end())
       {
+        std::cerr << " not found, adding new singleton offset " << die_offset << "\n";
 	dwarf_offsets_type offsets;
 	offsets.push_back(die_offset);
 	map[name] = offsets;
@@ -2795,6 +2797,7 @@ public:
 	get_die_from_offset(source, die_offset, &canonical_die);
 	return;
       }
+    std::cerr << " found\n";
 
     if (odr_is_relevant(&die))
       {
@@ -2857,6 +2860,9 @@ public:
 		    size_t where,
 		    bool die_as_type) const
   {
+    std::cerr << "get_canonical_die "
+              << dwarf_dieoffset(const_cast<Dwarf_Die*>(die))
+              << std::endl;
     const die_source source = get_die_source(die);
 
     offset_offset_map_type &canonical_dies =
@@ -2871,6 +2877,9 @@ public:
 	get_canonical_die_offset(canonical_dies, die_offset))
       {
 	get_die_from_offset(source, canonical_die_offset, &canonical_die);
+        std::cerr << " returning "
+                  << canonical_die_offset
+                  << std::endl;
 	return true;
       }
 
@@ -2894,6 +2903,7 @@ public:
       ? get_die_pretty_type_representation(die, where)
       : get_die_pretty_representation(die, where);
 
+    std::cerr << "looking up canonical die with name = '" << name << "'\n";
     istring_dwarf_offsets_map_type::iterator i = map.find(name);
     if (i == map.end())
       return false;
@@ -3004,9 +3014,11 @@ public:
       ? get_die_pretty_type_representation(die, where)
       : get_die_pretty_representation(die, where);
 
+    std::cerr << "get/computing canonical die for name = '" << name << "'\n";
     istring_dwarf_offsets_map_type::iterator i = map.find(name);
     if (i == map.end())
       {
+        std::cerr << " not found, adding new singleton offset " << initial_die_offset << "\n";
 	dwarf_offsets_type offsets;
 	offsets.push_back(initial_die_offset);
 	map[name] = offsets;
@@ -3016,6 +3028,7 @@ public:
 				 initial_die_offset);
 	return false;
       }
+    std::cerr << " found\n";
 
     if (odr_is_relevant(die))
       {
@@ -3794,6 +3807,10 @@ public:
       : const_cast<read_context*>(this)->canonical_decl_die_offsets_.
       get_container(source);
 
+    std::cerr << "set_canonical_die_offset source=" << source
+              << " offset=" << die_offset
+              << " canonical_offset=" << canonical_die_offset
+              << std::endl;
     set_canonical_die_offset(canonical_dies,
 			     die_offset,
 			     canonical_die_offset);
@@ -4719,6 +4736,11 @@ public:
 
     const die_source source = get_die_source(&equiv_die);
     Dwarf_Off o = dwarf_dieoffset(&equiv_die);
+    std::cerr << " sched die=" << die << "\n"
+	      << "  sched equiv_die=" << &equiv_die << "\n"
+	      << "  sched source(equiv_die)=" << source << "\n"
+	      << "  sched offset(die)=" << dwarf_dieoffset(const_cast<Dwarf_Die*>(die)) << "\n"
+	      << "  sched offset(equiv_die)=" << o << std::endl;
 
     const die_artefact_map_type& m =
       type_die_artefact_maps().get_container(*this, die);
