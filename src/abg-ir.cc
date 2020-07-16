@@ -7330,6 +7330,10 @@ scope_decl::get_canonical_types() const
 const type_base_sptrs_type&
 scope_decl::get_sorted_canonical_types() const
 {
+  std::cerr << "getting canonical types for"
+            << get_pretty_representation(true)
+            << ": " << get_canonical_types().size()
+            << std::endl;
   if (priv_->sorted_canonical_types_.empty())
     {
       for (canonical_type_sptr_set_type::const_iterator e =
@@ -20711,6 +20715,11 @@ class_or_union::insert_member_type(type_base_sptr t,
   decl_base_sptr d = get_type_declaration(t);
   ABG_ASSERT(d);
   ABG_ASSERT(!has_scope(d));
+  std::cerr << get_cached_pretty_representation(true)
+            << ".insert_member_type("
+            << t->get_cached_pretty_representation(true)
+            << ")"
+            << std::endl;
 
   priv_->member_types_.push_back(t);
   scope_decl::insert_member_decl(d, before);
@@ -20748,6 +20757,11 @@ class_or_union::add_member_type(type_base_sptr t, access_specifier a)
 void
 class_or_union::remove_member_type(type_base_sptr t)
 {
+  std::cerr << get_cached_pretty_representation(true)
+            << ".remove_member_type("
+            << t->get_cached_pretty_representation(true)
+            << ")"
+            << std::endl;
   for (member_types::iterator i = priv_->member_types_.begin();
        i != priv_->member_types_.end();
        ++i)
