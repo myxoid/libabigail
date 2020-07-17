@@ -9613,14 +9613,14 @@ fn_die_equal_by_linkage_name(const read_context &ctxt,
 ///
 /// @param l the left-hand-side argument of this comparison operator.
 ///
-/// @param r the righ-hand-side argument of this comparison operator.
+/// @param r the right-hand-side argument of this comparison operator.
 ///
-/// @param aggregates_being_compared this holds the names of the set
-/// of aggregates being compared.  It's used by the comparison
-/// function to avoid recursing infinitely when faced with types
-/// referencing themselves through pointers or references.  By
-/// default, just pass an empty instance of @ref istring_set_type to
-/// it.
+/// @param comparisons_visited this holds the names of the set of
+/// pairs of DIEs encountered so far during the comparison.  This is
+/// used to avoid wasteful recompuation and even infinite recursion
+/// when faced with types referencing themselves through pointers or
+/// references.  By default, just pass an empty set of @ref
+/// comparison_t to it.
 ///
 /// @param update_canonical_dies_on_the_fly if true, when two
 /// sub-types compare equal (during the comparison of @p l and @p r)
@@ -9630,14 +9630,22 @@ fn_die_equal_by_linkage_name(const read_context &ctxt,
 /// only happen once.
 ///
 /// @return true iff @p l equals @p r.
+typedef std::pair<void *, void *> comparison_t;
 static bool
 compare_dies(const read_context& ctxt,
 	     const Dwarf_Die *l, const Dwarf_Die *r,
-	     istring_set_type& aggregates_being_compared,
+	     std::set<comparison_t>& comparisons_visited,
 	     bool update_canonical_dies_on_the_fly)
 {
   ABG_ASSERT(l);
   ABG_ASSERT(r);
+
+  if (l == r)
+    return true;
+
+  const comparison_t hold = std::make_pair(l->addr, r->addr);
+  if (!comparisons_visited.insert(hold).second)
+    return true;
 
   int l_tag = dwarf_tag(const_cast<Dwarf_Die*>(l)),
     r_tag = dwarf_tag(const_cast<Dwarf_Die*>(r));
@@ -9647,6 +9655,7 @@ compare_dies(const read_context& ctxt,
 
   Dwarf_Off l_offset = dwarf_dieoffset(const_cast<Dwarf_Die*>(l)),
     r_offset = dwarf_dieoffset(const_cast<Dwarf_Die*>(r));
+
   Dwarf_Off l_canonical_die_offset = 0, r_canonical_die_offset = 0;
   const die_source l_die_source = ctxt.get_die_source(l);
   const die_source r_die_source = ctxt.get_die_source(r);
@@ -9663,8 +9672,9 @@ compare_dies(const read_context& ctxt,
      ctxt.get_canonical_die_offset(r_offset, r_die_source,
 				   /*die_as_type=*/true));
 
-  if (l_has_canonical_die_offset && r_has_canonical_die_offset)
+  if (l_has_canonical_die_offset && r_has_canonical_die_offset) {
     return l_canonical_die_offset == r_canonical_die_offset;
+  }
 
   bool result = true;
 
@@ -9723,7 +9733,7 @@ compare_dies(const read_context& ctxt,
 	  result = false;
 	else
 	  result = compare_dies(ctxt, &lu_type_die, &ru_type_die,
-				aggregates_being_compared,
+				comparisons_visited,
 				update_canonical_dies_on_the_fly);
       }
       break;
@@ -9778,23 +9788,12 @@ compare_dies(const read_context& ctxt,
     case DW_TAG_structure_type:
     case DW_TAG_union_type:
       {
-	interned_string ln = ctxt.get_die_pretty_type_representation(l, 0);
-	interned_string rn = ctxt.get_die_pretty_type_representation(r, 0);
-
-	if ((aggregates_being_compared.find(ln)
-	     != aggregates_being_compared.end())
-	    || (aggregates_being_compared.find(rn)
-		!= aggregates_being_compared.end()))
-	  result = true;
-	else if (!compare_as_decl_dies(l, r))
+	if (!compare_as_decl_dies(l, r))
 	  result = false;
 	else if (!compare_as_type_dies(l, r))
 	  result = false;
 	else
 	  {
-	    aggregates_being_compared.insert(ln);
-	    aggregates_being_compared.insert(rn);
-
 	    Dwarf_Die l_member, r_member;
 	    bool found_l_member, found_r_member;
 	    for (found_l_member = dwarf_child(const_cast<Dwarf_Die*>(l),
@@ -9816,7 +9815,7 @@ compare_dies(const read_context& ctxt,
 		  continue;
 
 		if (!compare_dies(ctxt, &l_member, &r_member,
-				  aggregates_being_compared,
+				  comparisons_visited,
 				  update_canonical_dies_on_the_fly))
 		  {
 		    result = false;
@@ -9825,9 +9824,6 @@ compare_dies(const read_context& ctxt,
 	      }
 	    if (found_l_member != found_r_member)
 	      result = false;
-
-	    aggregates_being_compared.erase(ln);
-	    aggregates_being_compared.erase(rn);
 	  }
       }
       break;
@@ -9849,7 +9845,7 @@ compare_dies(const read_context& ctxt,
 	    if (l_child_tag == DW_TAG_subrange_type
 		|| r_child_tag == DW_TAG_subrange_type)
 	      if (!compare_dies(ctxt, &l_child, &r_child,
-				aggregates_being_compared,
+				comparisons_visited,
 				update_canonical_dies_on_the_fly))
 		{
 		  result = false;
@@ -9899,18 +9895,7 @@ compare_dies(const read_context& ctxt,
     case DW_TAG_subroutine_type:
     case DW_TAG_subprogram:
       {
-	interned_string ln = ctxt.get_die_pretty_type_representation(l, 0);
-	interned_string rn = ctxt.get_die_pretty_type_representation(r, 0);
-
-	if ((aggregates_being_compared.find(ln)
-	     != aggregates_being_compared.end())
-	    || (aggregates_being_compared.find(rn)
-		!= aggregates_being_compared.end()))
-	  {
-	    result = true;
-	    break;
-	  }
-	else if (l_tag == DW_TAG_subroutine_type)
+	if (l_tag == DW_TAG_subroutine_type)
 	  {
 	    // So, we are looking at types that are pointed to by a
 	    // function pointer.  These are not real concrete function
@@ -9918,7 +9903,9 @@ compare_dies(const read_context& ctxt,
 	    //
 	    // If the textual representations are different, then
 	    // obviously they are different DIEs.
-	    if (ln != rn)
+	    interned_string ln = ctxt.get_die_pretty_type_representation(l, 0);
+	    interned_string rn = ctxt.get_die_pretty_type_representation(r, 0);
+            if (ln != rn)
 	      {
 		result = false;
 		break;
@@ -9964,7 +9951,7 @@ compare_dies(const read_context& ctxt,
 		|| (!l_return_type_is_void
 		    && !compare_dies(ctxt,
 				     &l_return_type, &r_return_type,
-				     aggregates_being_compared,
+				     comparisons_visited,
 				     update_canonical_dies_on_the_fly)))
 	      result = false;
 	    else
@@ -9986,7 +9973,7 @@ compare_dies(const read_context& ctxt,
 		    if (l_child_tag != r_child_tag
 			|| (l_child_tag == DW_TAG_formal_parameter
 			    && !compare_dies(ctxt, &l_child, &r_child,
-					     aggregates_being_compared,
+					     comparisons_visited,
 					     update_canonical_dies_on_the_fly)))
 		      {
 			result = false;
@@ -9997,9 +9984,6 @@ compare_dies(const read_context& ctxt,
 		  result = false;
 	      }
 	  }
-
-	aggregates_being_compared.erase(ln);
-	aggregates_being_compared.erase(rn);
       }
       break;
 
@@ -10010,7 +9994,7 @@ compare_dies(const read_context& ctxt,
 	bool r_type_is_void = !die_die_attribute(r, DW_AT_type, r_type);
 	if ((l_type_is_void != r_type_is_void)
 	    || !compare_dies(ctxt, &l_type, &r_type,
-			     aggregates_being_compared,
+			     comparisons_visited,
 			     update_canonical_dies_on_the_fly))
 	  result = false;
       }
@@ -10035,19 +10019,10 @@ compare_dies(const read_context& ctxt,
 	      Dwarf_Die l_type, r_type;
 	      ABG_ASSERT(die_die_attribute(l, DW_AT_type, l_type));
 	      ABG_ASSERT(die_die_attribute(r, DW_AT_type, r_type));
-	      if (aggregates_being_compared.size () < 5)
-		{
-		  if (!compare_dies(ctxt, &l_type, &r_type,
-				    aggregates_being_compared,
-				    update_canonical_dies_on_the_fly))
-		    result = false;
-		}
-	      else
-		{
-		  if (!compare_as_type_dies(&l_type, &r_type)
-		      ||!compare_as_decl_dies(&l_type, &r_type))
-		    return false;
-		}
+	      if (!compare_dies(ctxt, &l_type, &r_type,
+				comparisons_visited,
+				update_canonical_dies_on_the_fly))
+		result = false;
 	    }
 	}
       else
@@ -10161,8 +10136,8 @@ compare_dies(const read_context& ctxt,
 	     const Dwarf_Die *r,
 	     bool update_canonical_dies_on_the_fly)
 {
-  istring_set_type aggregates_being_compared;
-  return compare_dies(ctxt, l, r, aggregates_being_compared,
+  std::set<comparison_t> comparisons_visited;
+  return compare_dies(ctxt, l, r, comparisons_visited,
 		      update_canonical_dies_on_the_fly);
 }
 
