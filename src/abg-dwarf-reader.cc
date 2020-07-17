@@ -10201,7 +10201,7 @@ erase_offset_pair(dwarf_offset_pair_set_type& set, Dwarf_Off p1, Dwarf_Off p2)
 static bool
 compare_dies(const read_context& ctxt,
 	     const Dwarf_Die *l, const Dwarf_Die *r,
-	     dwarf_offset_pair_set_type& aggregates_being_compared,
+	     std::vector<std::pair<void *, void *>>& aggregates_being_compared,
 	     bool update_canonical_dies_on_the_fly)
 {
   ABG_ASSERT(l);
@@ -10233,6 +10233,11 @@ compare_dies(const read_context& ctxt,
 
   if (l_has_canonical_die_offset && r_has_canonical_die_offset)
     return l_canonical_die_offset == r_canonical_die_offset;
+
+  if (std::find(aggregates_being_compared.begin(), aggregates_being_compared.end(), std::make_pair(l->addr, r->addr))
+      != aggregates_being_compared.end())
+    return true;
+  aggregates_being_compared.push_back(std::make_pair(l->addr, r->addr));
 
   bool result = true;
   bool aggregate_redundancy_detected = false;
@@ -10347,19 +10352,12 @@ compare_dies(const read_context& ctxt,
     case DW_TAG_structure_type:
     case DW_TAG_union_type:
       {
-	if (has_offset_pair(aggregates_being_compared,
-			    die_offset(l), die_offset(r)))
-	  {
-	    result = true;
-	    aggregate_redundancy_detected = true;
-	    break;
-	  }
-	else if (!compare_as_decl_dies(l, r) || !compare_as_type_dies(l, r))
+	if (!compare_as_decl_dies(l, r))
+	  result = false;
+	else if (!compare_as_type_dies(l, r))
 	  result = false;
 	else
 	  {
-	    insert_offset_pair(aggregates_being_compared,
-			       die_offset(l), die_offset(r));
 	    Dwarf_Die l_member, r_member;
 	    bool found_l_member, found_r_member;
 	    for (found_l_member = dwarf_child(const_cast<Dwarf_Die*>(l),
@@ -10390,9 +10388,6 @@ compare_dies(const read_context& ctxt,
 	      }
 	    if (found_l_member != found_r_member)
 	      result = false;
-
-	    erase_offset_pair(aggregates_being_compared,
-			      die_offset(l), die_offset(r));
 	  }
       }
       break;
@@ -10474,17 +10469,7 @@ compare_dies(const read_context& ctxt,
     case DW_TAG_subroutine_type:
     case DW_TAG_subprogram:
       {
-	interned_string ln = ctxt.get_die_pretty_type_representation(l, 0);
-	interned_string rn = ctxt.get_die_pretty_type_representation(r, 0);
-
-	if (has_offset_pair(aggregates_being_compared, die_offset(l),
-			    die_offset(r)))
-	  {
-	    result = true;
-	    aggregate_redundancy_detected = true;
-	    break;
-	  }
-	else if (l_tag == DW_TAG_subroutine_type)
+	if (l_tag == DW_TAG_subroutine_type)
 	  {
 	    // So, we are looking at types that are pointed to by a
 	    // function pointer.  These are not real concrete function
@@ -10702,6 +10687,10 @@ compare_dies(const read_context& ctxt,
 					/*die_as_type=*/true);
 	}
     }
+
+  ABG_ASSERT(!aggregates_being_compared.empty() && aggregates_being_compared.back() == std::make_pair(l->addr, r->addr));
+  aggregates_being_compared.pop_back();
+
   return result;
 }
 
@@ -10727,7 +10716,7 @@ compare_dies(const read_context& ctxt,
 	     const Dwarf_Die *r,
 	     bool update_canonical_dies_on_the_fly)
 {
-  dwarf_offset_pair_set_type aggregates_being_compared;
+  std::vector<std::pair<void *, void *>> aggregates_being_compared;
   return compare_dies(ctxt, l, r, aggregates_being_compared,
 		      update_canonical_dies_on_the_fly);
 }
