@@ -1,3 +1,4 @@
+#include <unistd.h>
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- mode: C++ -*-
 //
@@ -689,6 +690,19 @@ template<typename T>
 bool
 try_canonical_compare(size_t line, const T *l, const T *r)
 {
+  interned_string pretty1 = l->get_cached_pretty_representation(true);
+  interned_string pretty2 = r->get_cached_pretty_representation(true);
+  size_t hash1 = hashing::fnv_hash(*pretty1.raw());
+  size_t hash2 = hashing::fnv_hash(*pretty2.raw());
+  bool jeff = hash1 == 0xccf88c3b || hash2 == 0xccf88c3b;
+  //jeff = jeff && pretty2 == "'class boost::optional_detail::__anonymous_struct__'";
+  if (jeff)
+    std::cerr << "\ncomparing<" << typeid(*l).name() << "> "
+              << pretty1 << " with " << pretty2 << std::endl;
+
+  if (jeff)
+    sleep(0);
+
   const type_base *lc = l->get_naked_canonical_type();
   const type_base *rc = r->get_naked_canonical_type();
   if (debug_equality)
@@ -713,7 +727,7 @@ try_canonical_compare(size_t line, const T *l, const T *r)
 	}
       // Record outcome of plain comparison.
       char p = held ? 'H' : eq ? '1' : '0';
-      if (c + p == '0' + '1')
+      if (jeff || c + p == '0' + '1')
 	{
 	  // Avoid tearing the output.
 	  std::ostringstream os;
@@ -722,11 +736,19 @@ try_canonical_compare(size_t line, const T *l, const T *r)
 	     << "' '" << r->get_cached_pretty_representation(true) << "'\n";
 	  std::cerr << os.str();
 	}
-      return lc && rc ? lc == rc : eq;
+      bool steve_II = lc && rc ? lc == rc : eq;
+      if (jeff)
+        std::cerr << "\ncomparison<" << typeid(*l).name() << "> "
+                  << pretty1 << " with " << pretty2 << " = " << steve_II << std::endl;
+      return steve_II;
     }
   else
     {
-      return lc && rc ? lc == rc : equals(*l, *r, 0);
+      bool steve = lc && rc ? lc == rc : equals(*l, *r, 0);
+      if (jeff)
+        std::cerr << "\ncomparison<" << typeid(*l).name() << "> "
+                  << pretty1 << " with " << pretty2 << " = " << steve << std::endl;
+      return steve;
     }
 }
 
@@ -4201,7 +4223,13 @@ decl_base::get_is_anonymous() const
 /// @param f the new value of the flag.
 void
 decl_base::set_is_anonymous(bool f)
-{priv_->is_anonymous_ = f;}
+{
+  priv_->is_anonymous_ = f;
+  if (f && get_is_declaration_only())
+    {
+      ABG_ASSERT_NOT_REACHED;
+    }
+}
 
 /// Getter of the flag that says if the declaration is artificial.
 ///
@@ -4462,6 +4490,11 @@ decl_base::set_is_declaration_only(bool f)
   bool update_types_lookup_map = !f && priv_->is_declaration_only_;
 
   priv_->is_declaration_only_ = f;
+  if (f && get_is_anonymous())
+    {
+      sleep(0);
+      ABG_ASSERT_NOT_REACHED;
+    }
 
   if (update_types_lookup_map)
     if (scope_decl* s = get_scope())
@@ -20619,6 +20652,13 @@ class_or_union::operator==(const class_or_union& other) const
 bool
 equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
+  interned_string pretty1 = l.get_cached_pretty_representation(true);
+  interned_string pretty2 = r.get_cached_pretty_representation(true);
+  size_t hash1 = hashing::fnv_hash(*pretty1.raw());
+  size_t hash2 = hashing::fnv_hash(*pretty2.raw());
+  bool jeff = hash1 == 0xccf88c3b || hash2 == 0xccf88c3b;
+  if (jeff)
+    std::cerr << __LINE__ << " " << &l << " " << &r << std::endl;
 #define RETURN(value)				\
   do {						\
     l.priv_->unmark_as_being_compared(l);	\
@@ -20640,6 +20680,8 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	? is_class_or_union_type(r.get_naked_definition_of_declaration())
 	: &r;
 
+      if (jeff)
+        std::cerr << __LINE__ << " " << def1 << " " << def2 << std::endl;
       if (!def1 || !def2)
 	{
 	  if (!l.get_is_anonymous()
@@ -20653,6 +20695,8 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	    // change.
 	    return true;
 
+          if (jeff)
+            std::cerr << __LINE__ << std::endl;
 	  if (l.get_environment()->decl_only_class_equals_definition()
 	      && !l.get_is_anonymous()
 	      && !r.get_is_anonymous())
@@ -20683,6 +20727,8 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	  else // A decl-only class is considered different from a
 	       // class definition of the same name.
 	    {
+              if (jeff)
+                std::cerr << __LINE__ << std::endl;
 	      if (!!def1 != !!def2)
 		{
 		  if (k)
@@ -20690,23 +20736,32 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 		  return false;
 		}
 
+              if (jeff)
+                std::cerr << __LINE__ << std::endl;
+              if (jeff)
+                sleep(0);
 	      // both definitions are empty
-	      if (!(l.decl_base::operator==(r)
-		       && l.type_base::operator==(r)))
+	      if (!(l.decl_base::operator==(r) && l.type_base::operator==(r)))
 		{
 		  if (k)
 		    *k |= LOCAL_TYPE_CHANGE_KIND;
 		  return false;
 		}
 
+              if (jeff)
+                std::cerr << __LINE__ << std::endl;
 	      return true;
 	    }
 	}
 
+      if (jeff)
+        std::cerr << __LINE__ << std::endl;
       if (l.priv_->comparison_started(l)
 	  || l.priv_->comparison_started(r))
 	return true;
 
+      if (jeff)
+        std::cerr << __LINE__ << std::endl;
       l.priv_->mark_as_being_compared(l);
       l.priv_->mark_as_being_compared(r);
 
@@ -21565,6 +21620,11 @@ equals(const class_decl::base_spec& l,
       return false;
     }
 
+  const auto& ll = *l.get_base_class();
+  const auto& rr = *r.get_base_class();
+  std::cerr << typeid(ll).name() << std::endl;
+  return ll == rr;
+
   return (*l.get_base_class() == *r.get_base_class());
 }
 
@@ -22176,17 +22236,31 @@ method_matches_at_least_one_in_vector(const method_decl_sptr& method,
 bool
 equals(const class_decl& l, const class_decl& r, change_kind* k)
 {
+  interned_string pretty1 = l.get_cached_pretty_representation(true);
+  interned_string pretty2 = r.get_cached_pretty_representation(true);
+  size_t hash1 = hashing::fnv_hash(*pretty1.raw());
+  size_t hash2 = hashing::fnv_hash(*pretty2.raw());
+  bool jeff = hash1 == 0xccf88c3b || hash2 == 0xccf88c3b;
   // if one of the classes is declaration-only then we take a fast
   // path here.
+  if (jeff) {
+    std::cerr << __LINE__
+              << " decl_only1=" << l.get_is_declaration_only()
+              << " decl_only2=" << r.get_is_declaration_only() << std::endl;
+  }
   if (l.get_is_declaration_only() || r.get_is_declaration_only())
     return equals(static_cast<const class_or_union&>(l),
 		  static_cast<const class_or_union&>(r),
 		  k);
 
+  if (jeff)
+    std::cerr << __LINE__ << std::endl;
   if (l.class_or_union::priv_->comparison_started(l)
       || l.class_or_union::priv_->comparison_started(r))
     return true;
 
+  if (jeff)
+    std::cerr << __LINE__ << std::endl;
   bool result = true;
   if (!equals(static_cast<const class_or_union&>(l),
 	      static_cast<const class_or_union&>(r),
@@ -22197,6 +22271,8 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 	return result;
     }
 
+  if (jeff)
+    std::cerr << __LINE__ << std::endl;
   l.class_or_union::priv_->mark_as_being_compared(l);
   l.class_or_union::priv_->mark_as_being_compared(r);
 
@@ -22209,117 +22285,121 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
     return value;						\
   } while(0)
 
+  if (jeff)
+    std::cerr << __LINE__ << std::endl;
   // Compare bases.
-    if (l.get_base_specifiers().size() != r.get_base_specifiers().size())
+  if (l.get_base_specifiers().size() != r.get_base_specifiers().size())
+    {
+      result = false;
+      if (k)
+        *k |= LOCAL_TYPE_CHANGE_KIND;
+      else
+        RETURN(result);
+    }
+
+  if (jeff)
+    std::cerr << __LINE__ << std::endl;
+  for (class_decl::base_specs::const_iterator
+         b0 = l.get_base_specifiers().begin(),
+         b1 = r.get_base_specifiers().begin();
+       (b0 != l.get_base_specifiers().end()
+       && b1 != r.get_base_specifiers().end());
+       ++b0, ++b1)
+    if (*b0 != *b1)
       {
-	result = false;
-	if (k)
-	  *k |= LOCAL_TYPE_CHANGE_KIND;
-	else
-	  RETURN(result);
+        result = false;
+        if (k)
+          {
+            if (!types_have_similar_structure((*b0)->get_base_class().get(),
+                                              (*b1)->get_base_class().get()))
+              *k |= LOCAL_TYPE_CHANGE_KIND;
+            else
+              *k |= SUBTYPE_CHANGE_KIND;
+            break;
+          }
+        RETURN(result);
       }
 
-    for (class_decl::base_specs::const_iterator
-	   b0 = l.get_base_specifiers().begin(),
-	   b1 = r.get_base_specifiers().begin();
-	 (b0 != l.get_base_specifiers().end()
-	 && b1 != r.get_base_specifiers().end());
-	 ++b0, ++b1)
-      if (*b0 != *b1)
-	{
-	  result = false;
-	  if (k)
-	    {
-	      if (!types_have_similar_structure((*b0)->get_base_class().get(),
-						(*b1)->get_base_class().get()))
-		*k |= LOCAL_TYPE_CHANGE_KIND;
-	      else
-		*k |= SUBTYPE_CHANGE_KIND;
-	      break;
-	    }
-	  RETURN(result);
-	}
+  // Compare virtual member functions
 
-    // Compare virtual member functions
+  // We look at the map that associates a given vtable offset to a
+  // vector of virtual member functions that point to that offset.
+  //
+  // This is because there are cases where several functions can
+  // point to the same virtual table offset.
+  //
+  // This is usually the case for virtual destructors.  Even though
+  // there can be only one virtual destructor declared in source
+  // code, there are actually potentially up to three generated
+  // functions for that destructor.  Some of these generated
+  // functions can be clones of other functions that are among those
+  // generated ones.  In any cases, they all have the same
+  // properties, including the vtable offset property.
 
-    // We look at the map that associates a given vtable offset to a
-    // vector of virtual member functions that point to that offset.
-    //
-    // This is because there are cases where several functions can
-    // point to the same virtual table offset.
-    //
-    // This is usually the case for virtual destructors.  Even though
-    // there can be only one virtual destructor declared in source
-    // code, there are actually potentially up to three generated
-    // functions for that destructor.  Some of these generated
-    // functions can be clones of other functions that are among those
-    // generated ones.  In any cases, they all have the same
-    // properties, including the vtable offset property.
+  // So, there should be the same number of different vtable
+  // offsets, the size of two maps must be equals.
+  if (l.get_virtual_mem_fns_map().size()
+      != r.get_virtual_mem_fns_map().size())
+    {
+      result = false;
+      if (k)
+        *k |= LOCAL_NON_TYPE_CHANGE_KIND;
+      else
+        RETURN(result);
+    }
 
-    // So, there should be the same number of different vtable
-    // offsets, the size of two maps must be equals.
-    if (l.get_virtual_mem_fns_map().size()
-	!= r.get_virtual_mem_fns_map().size())
-      {
-	result = false;
-	if (k)
-	  *k |= LOCAL_NON_TYPE_CHANGE_KIND;
-	else
-	  RETURN(result);
-      }
+  // Then, each virtual member function of a given vtable offset in
+  // the first class type, must match an equivalent virtual member
+  // function of a the same vtable offset in the second class type.
+  //
+  // By "match", I mean that the two virtual member function should
+  // be equal if we don't take into account their symbol name or
+  // their linkage name.  This is because two destructor functions
+  // clones (for instance) might have different linkage name, but
+  // are still equivalent if their other properties are the same.
+  for (class_decl::virtual_mem_fn_map_type::const_iterator first_v_fn_entry =
+         l.get_virtual_mem_fns_map().begin();
+       first_v_fn_entry != l.get_virtual_mem_fns_map().end();
+       ++first_v_fn_entry)
+    {
+      unsigned voffset = first_v_fn_entry->first;
+      const class_decl::member_functions& first_vfns =
+        first_v_fn_entry->second;
 
-    // Then, each virtual member function of a given vtable offset in
-    // the first class type, must match an equivalent virtual member
-    // function of a the same vtable offset in the second class type.
-    //
-    // By "match", I mean that the two virtual member function should
-    // be equal if we don't take into account their symbol name or
-    // their linkage name.  This is because two destructor functions
-    // clones (for instance) might have different linkage name, but
-    // are still equivalent if their other properties are the same.
-    for (class_decl::virtual_mem_fn_map_type::const_iterator first_v_fn_entry =
-	   l.get_virtual_mem_fns_map().begin();
-	 first_v_fn_entry != l.get_virtual_mem_fns_map().end();
-	 ++first_v_fn_entry)
-      {
-	unsigned voffset = first_v_fn_entry->first;
-	const class_decl::member_functions& first_vfns =
-	  first_v_fn_entry->second;
+      const class_decl::virtual_mem_fn_map_type::const_iterator
+        second_v_fn_entry = r.get_virtual_mem_fns_map().find(voffset);
 
-	const class_decl::virtual_mem_fn_map_type::const_iterator
-	  second_v_fn_entry = r.get_virtual_mem_fns_map().find(voffset);
+      if (second_v_fn_entry == r.get_virtual_mem_fns_map().end())
+        {
+          result = false;
+          if (k)
+            *k |= LOCAL_NON_TYPE_CHANGE_KIND;
+          RETURN(result);
+        }
 
-	if (second_v_fn_entry == r.get_virtual_mem_fns_map().end())
-	  {
-	    result = false;
-	    if (k)
-	      *k |= LOCAL_NON_TYPE_CHANGE_KIND;
-	    RETURN(result);
-	  }
+      const class_decl::member_functions& second_vfns =
+        second_v_fn_entry->second;
 
-	const class_decl::member_functions& second_vfns =
-	  second_v_fn_entry->second;
+      bool matches = false;
+      for (class_decl::member_functions::const_iterator i =
+             first_vfns.begin();
+           i != first_vfns.end();
+           ++i)
+        if (method_matches_at_least_one_in_vector(*i, second_vfns))
+          {
+            matches = true;
+            break;
+          }
 
-	bool matches = false;
-	for (class_decl::member_functions::const_iterator i =
-	       first_vfns.begin();
-	     i != first_vfns.end();
-	     ++i)
-	  if (method_matches_at_least_one_in_vector(*i, second_vfns))
-	    {
-	      matches = true;
-	      break;
-	    }
-
-	if (!matches)
-	  {
-	    result = false;
-	    if (k)
-	      *k |= SUBTYPE_CHANGE_KIND;
-	    else
-	      RETURN(result);
-	  }
-      }
+      if (!matches)
+        {
+          result = false;
+          if (k)
+            *k |= SUBTYPE_CHANGE_KIND;
+          else
+            RETURN(result);
+        }
+    }
 
   RETURN(result);
 #undef RETURN
