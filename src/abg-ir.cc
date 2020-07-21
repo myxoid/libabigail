@@ -4628,8 +4628,9 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
   /// Otherwise, let's just compare their name, the obvious way.
   /// That's the fast path because in that case the names are
   /// interned_string and comparing them is much faster.
-  bool decls_are_same = (ln == rn);
-  if (!decls_are_same
+  bool decls_are_same1 = (ln == rn);
+  bool decls_are_same2 = decls_are_same1;
+  if (!decls_are_same1
       && l.get_is_anonymous()
       && !l.get_has_anonymous_parent()
       && r.get_is_anonymous()
@@ -4638,24 +4639,33 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
     // Both decls are anonymous and their scope are *NOT* anonymous.
     // So we consider the decls to have equivalent names (both
     // anonymous, remember).  We are still in the fast path here.
-    decls_are_same = true;
+    decls_are_same2 = true;
 
-  if (!decls_are_same
+  bool decls_are_same3 = decls_are_same2;
+  if (!decls_are_same2
       && l.get_has_anonymous_parent()
       && r.get_has_anonymous_parent())
     // This is the slow path as we are comparing the decl qualified
     // names component by component, properly handling anonymous
     // scopes.
-    decls_are_same = tools_utils::decl_names_equal(ln, rn);
+    decls_are_same3 = tools_utils::decl_names_equal(ln, rn);
 
-  if (!tools_utils::decl_names_equal(ln, rn))
-    {
-      result = false;
-      if (k)
-	*k |= LOCAL_NON_TYPE_CHANGE_KIND;
-      else
-	return false;
-    }
+  bool decl_names_same = tools_utils::decl_names_equal(ln, rn);
+
+  std::cerr << "DECL " << ln << " " << rn
+            << " 1=" << decls_are_same1
+            << " 2=" << decls_are_same2
+            << " 3=" << decls_are_same3
+            << " DN=" << decl_names_same << std::endl;
+
+  if (!decl_names_same)
+  {
+    result = false;
+    if (k)
+      *k |= LOCAL_NON_TYPE_CHANGE_KIND;
+    else
+      return false;
+  }
 
   result &= maybe_compare_as_member_decls(l, r, k);
 
