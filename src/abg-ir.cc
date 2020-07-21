@@ -4223,9 +4223,14 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
       && !l.get_has_anonymous_parent()
       && r.get_is_anonymous()
       && !r.get_has_anonymous_parent())
-    // Both decls are anonymous and their scope are *NOT* anonymous.
+    // Both decls are anonymous and their scopes are *NOT* anonymous.
     // So we consider the decls to have equivalent names (both
     // anonymous, remember).  We are still in the fast path here.
+    //
+    // TODO: Don't conflate anonymous structs, unions and enums!
+    //
+    // TODO: Should we really be conflating all foo1::..::fooM::anon
+    // with all bar1::..::barN::anon?
     decls_are_same = true;
 
   if (!decls_are_same
