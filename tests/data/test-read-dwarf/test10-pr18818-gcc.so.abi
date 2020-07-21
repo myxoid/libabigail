@@ -5658,24 +5658,6 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/path_traits.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='83' column='1' id='4acf6290'>
-      <member-type access='public'>
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='86' column='1' id='ac5e8fad'>
-          <data-member access='public'>
-            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
-          </data-member>
-          <data-member access='public'>
-            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
-          </data-member>
-        </union-decl>
-      </member-type>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='__count' type-id='95e97e5e' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='__value' type-id='ac5e8fad' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
-      </data-member>
-    </class-decl>
     <reference-type-def kind='lvalue' type-id='665f1722' size-in-bits='64' id='e10a1484'/>
     <pointer-type-def type-id='665f1722' size-in-bits='64' id='d50a01a0'/>
     <qualified-type-def type-id='665f1722' const='yes' id='df420823'/>

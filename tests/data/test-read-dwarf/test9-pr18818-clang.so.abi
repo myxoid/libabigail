@@ -441,25 +441,7 @@
         <var-decl name='tm_zone' type-id='80f4b756' visibility='default' filepath='/usr/include/time.h' line='147' column='1'/>
       </data-member>
     </class-decl>
-    <class-decl name='__anonymous_struct__3' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='55e5b2b5' visibility='default' filepath='/usr/include/wchar.h' line='82' column='1' id='4acf6290'>
-      <member-type access='public'>
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='85' column='1' id='ac5e8fac'>
-          <data-member access='public'>
-            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
-          </data-member>
-          <data-member access='public'>
-            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
-          </data-member>
-        </union-decl>
-      </member-type>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='__count' type-id='95e97e5e' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='__value' type-id='ac5e8fac' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
-      </data-member>
-    </class-decl>
-    <typedef-decl name='__mbstate_t' type-id='4acf6290' filepath='/usr/include/wchar.h' line='94' column='1' id='55e5b2b5'/>
+    <typedef-decl name='__mbstate_t' type-id='4acf628f' filepath='/usr/include/wchar.h' line='94' column='1' id='55e5b2b5'/>
     <typedef-decl name='mbstate_t' type-id='55e5b2b5' filepath='/usr/include/wchar.h' line='106' column='1' id='3d7d8cbf'/>
     <typedef-decl name='wctype_t' type-id='7359adad' filepath='/usr/include/wctype.h' line='52' column='1' id='ba50424d'/>
     <typedef-decl name='wctrans_t' type-id='a0de50cd' filepath='/usr/include/wctype.h' line='186' column='1' id='183c72c3'/>
@@ -1782,21 +1764,11 @@
       </class-decl>
     </namespace-decl>
     <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='1fa125e9' visibility='default' filepath='/usr/include/wchar.h' line='82' column='1' id='4acf628f'>
-      <member-type access='public'>
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='85' column='1' id='ac5e8fad'>
-          <data-member access='public'>
-            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
-          </data-member>
-          <data-member access='public'>
-            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
-          </data-member>
-        </union-decl>
-      </member-type>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__count' type-id='95e97e5e' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='__value' type-id='ac5e8fad' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
+        <var-decl name='__value' type-id='ac5e8fac' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
       </data-member>
     </class-decl>
     <class-decl name='__anonymous_struct__4' is-struct='yes' is-anonymous='yes' naming-typedef-id='b7152aa8' visibility='default' is-declaration-only='yes' id='cdd897ad'/>
@@ -1830,6 +1802,18 @@
     <namespace-decl name='std'>
       <typedef-decl name='size_t' type-id='7359adad' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++config.h' line='188' column='1' id='7a51dc7f'/>
     </namespace-decl>
+    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='1fa125e9' visibility='default' filepath='/usr/include/wchar.h' line='82' column='1' id='4acf628f'>
+      <member-type access='public'>
+        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='85' column='1' id='ac5e8fac'>
+          <data-member access='public'>
+            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
+          </data-member>
+          <data-member access='public'>
+            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
+          </data-member>
+        </union-decl>
+      </member-type>
+    </class-decl>
     <namespace-decl name='std'>
       <class-decl name='allocator&lt;char&gt;' visibility='default' is-declaration-only='yes' id='eb166b35'>
         <member-type access='private'>
@@ -5006,21 +4990,11 @@
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/path_traits.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
     <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='1fa125e9' visibility='default' filepath='/usr/include/wchar.h' line='82' column='1' id='4acf628f'>
-      <member-type access='public'>
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='85' column='1' id='ac5e8fad'>
-          <data-member access='public'>
-            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
-          </data-member>
-          <data-member access='public'>
-            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
-          </data-member>
-        </union-decl>
-      </member-type>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__count' type-id='95e97e5e' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='__value' type-id='ac5e8fad' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
+        <var-decl name='__value' type-id='ac5e8fac' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
       </data-member>
     </class-decl>
     <reference-type-def kind='lvalue' type-id='665f1722' size-in-bits='64' id='e10a1484'/>

@@ -4586,7 +4586,7 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
     // scopes.
     decls_are_same = tools_utils::decl_names_equal(ln, rn);
 
-  if (!decls_are_same)
+  if (!tools_utils::decl_names_equal(ln, rn))
     {
       result = false;
       if (k)

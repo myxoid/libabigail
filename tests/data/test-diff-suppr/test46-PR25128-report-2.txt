@@ -1,5 +1,5 @@
-Leaf changes summary: 1 artifact changed
-Changed leaf types summary: 1 leaf type changed
+Leaf changes summary: 1 artifact changed (1 filtered out)
+Changed leaf types summary: 1 (1 filtered out) leaf types changed
 Removed/Changed/Added functions summary: 0 Removed, 0 Changed, 0 Added function (1 filtered out)
 Removed/Changed/Added variables summary: 0 Removed, 0 Changed, 0 Added variable
 

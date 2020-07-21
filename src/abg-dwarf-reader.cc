@@ -10250,7 +10250,7 @@ compare_dies(const read_context& ctxt,
 	ABG_ASSERT(found_ltype && found_rtype);
 
 	if (!compare_dies(ctxt, &ltype_die, &rtype_die,
-			  aggregates_being_compared,
+			  comparisons_visited,
 			  update_canonical_dies_on_the_fly))
 	  return false;
       }
@@ -10296,6 +10296,8 @@ compare_dies(const read_context& ctxt,
       {
 	if (l_tag == DW_TAG_subroutine_type)
 	  {
+	    interned_string ln = ctxt.get_die_pretty_type_representation(l, 0);
+	    interned_string rn = ctxt.get_die_pretty_type_representation(r, 0);
 	    // So, we are looking at types that are pointed to by a
 	    // function pointer.  These are not real concrete function
 	    // types, rather, they denote interfaces of functions.
@@ -10381,9 +10383,6 @@ compare_dies(const read_context& ctxt,
 		  result = false;
 	      }
 	  }
-
-	comparisons_visited.erase(ln);
-	comparisons_visited.erase(rn);
       }
       break;
 
