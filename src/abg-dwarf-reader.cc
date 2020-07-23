@@ -11970,7 +11970,7 @@ add_or_update_union_type(read_context&	 ctxt,
 			 scope_decl*	 scope,
 			 union_decl_sptr union_type,
 			 bool		 called_from_public_decl,
-			 size_t	 where_offset,
+			 size_t		 where_offset,
 			 bool		 is_declaration_only)
 {
   union_decl_sptr result;
