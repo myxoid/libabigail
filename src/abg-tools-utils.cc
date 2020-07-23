@@ -510,6 +510,10 @@ get_anonymous_enum_internal_name_prefix()
 bool
 decl_names_equal(const string& l, const string& r)
 {
+  // Try a short cut comparison first.
+  if (l == r)
+    return true;
+
   string::size_type l_pos1 = 0, r_pos1 = 0;
   const string::size_type l_length = l.length(), r_length = r.length();
 

@@ -4210,38 +4210,9 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
   // This is the name of the decls that we want to compare.
   interned_string ln = l.get_qualified_name(), rn = r.get_qualified_name();
 
-  /// If both of the current decls have an anonymous scope then let's
-  /// compare their name component by component by properly handling
-  /// anonymous scopes. That's the slow path.
-  ///
-  /// Otherwise, let's just compare their name, the obvious way.
-  /// That's the fast path because in that case the names are
-  /// interned_string and comparing them is much faster.
-  bool decls_are_same = (ln == rn);
-  if (!decls_are_same
-      && l.get_is_anonymous()
-      && !l.get_has_anonymous_parent()
-      && r.get_is_anonymous()
-      && !r.get_has_anonymous_parent())
-    // Both decls are anonymous and their scopes are *NOT* anonymous.
-    // So we consider the decls to have equivalent names (both
-    // anonymous, remember).  We are still in the fast path here.
-    //
-    // TODO: Don't conflate anonymous structs, unions and enums!
-    //
-    // TODO: Should we really be conflating all foo1::..::fooM::anon
-    // with all bar1::..::barN::anon?
-    decls_are_same = true;
-
-  if (!decls_are_same
-      && l.get_has_anonymous_parent()
-      && r.get_has_anonymous_parent())
-    // This is the slow path as we are comparing the decl qualified
-    // names component by component, properly handling anonymous
-    // scopes.
-    decls_are_same = tools_utils::decl_names_equal(ln, rn);
-
-  if (!decls_are_same)
+  /// Compare names component by component, properly handling
+  /// anonymous scopes.
+  if (!tools_utils::decl_names_equal(ln, rn))
     {
       result = false;
       if (k)
