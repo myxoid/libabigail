@@ -602,8 +602,8 @@ if test x$ABIGAIL_DEVEL != x; then
 fi
 
 if test x$ABIGAIL_DEBUG != x; then
-    CFLAGS="$CFLAGS -O0 -g3 -ggdb"
-    CXXFLAGS="$CXXFLAGS -O0 -g3 -ggdb"
+    CFLAGS="$CFLAGS -O0 -g3 -ggdb --coverage"
+    CXXFLAGS="$CXXFLAGS -O0 -g3 -ggdb --coverage"
 fi
 
 if test x$ABIGAIL_NO_OPTIMIZATION_DEBUG != x; then
