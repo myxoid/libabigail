@@ -1300,13 +1300,15 @@ operator|=(change_kind&, change_kind);
 change_kind&
 operator&=(change_kind&, change_kind);
 
+typedef std::set<std::pair<const type_base *, const type_base *>> visited_t;
+
 bool
 maybe_compare_as_member_decls(const decl_base& l,
 			      const decl_base& r,
 			      change_kind* k);
 
 bool
-equals(const decl_base&, const decl_base&, change_kind*);
+equals(const decl_base&, const decl_base&, change_kind*, visited_t*);
 
 /// The base class of both types and declarations.
 class type_or_decl_base : public ir_traversable_base
@@ -1689,10 +1691,10 @@ public:
   canonicalize(type_base_sptr);
 
   friend bool
-  equals(const decl_base&, const decl_base&, change_kind*);
+  equals(const decl_base&, const decl_base&, change_kind*, visited_t*);
 
   friend bool
-  equals(const var_decl&, const var_decl&, change_kind*);
+  equals(const var_decl&, const var_decl&, change_kind*, visited_t*);
 
   friend bool
   maybe_compare_as_member_decls(const decl_base& l,
@@ -1762,7 +1764,7 @@ std::ostream&
 operator<<(std::ostream&, decl_base::binding);
 
 bool
-equals(const scope_decl&, const scope_decl&, change_kind*);
+equals(const scope_decl&, const scope_decl&, change_kind*, visited_t*);
 
 /// A declaration that introduces a scope.
 class scope_decl : public virtual decl_base
@@ -1911,7 +1913,7 @@ public:
 };
 
 bool
-equals(const type_base&, const type_base&, change_kind*);
+equals(const type_base&, const type_base&, change_kind*, visited_t*);
 
 /// An abstraction helper for type declarations
 class type_base : public virtual type_or_decl_base
@@ -2046,7 +2048,7 @@ struct type_shared_ptr_equal
 };
 
 bool
-equals(const type_decl&, const type_decl&, change_kind*);
+equals(const type_decl&, const type_decl&, change_kind*, visited_t*);
 
 /// A basic type declaration that introduces no scope.
 class type_decl : public virtual decl_base, public virtual type_base
@@ -2089,7 +2091,7 @@ public:
 };// end class type_decl.
 
 bool
-equals(const scope_type_decl&, const scope_type_decl&, change_kind*);
+equals(const scope_type_decl&, const scope_type_decl&, change_kind*, visited_t*);
 
 bool
 operator==(const type_decl_sptr&, const type_decl_sptr&);
@@ -2147,7 +2149,7 @@ public:
 };// end class namespace_decl
 
 bool
-equals(const qualified_type_def&, const qualified_type_def&, change_kind*);
+equals(const qualified_type_def&, const qualified_type_def&, change_kind*, visited_t*);
 
 /// The abstraction of a qualified type.
 class qualified_type_def : public virtual type_base, public virtual decl_base
@@ -2256,7 +2258,7 @@ lookup_qualified_type(const type_base_sptr&,
 		      qualified_type_def::CV,
 		      const translation_unit&);
 bool
-equals(const pointer_type_def&, const pointer_type_def&, change_kind*);
+equals(const pointer_type_def&, const pointer_type_def&, change_kind*, visited_t*);
 
 /// The abstraction of a pointer type.
 class pointer_type_def : public virtual type_base, public virtual decl_base
@@ -2321,7 +2323,7 @@ bool
 operator!=(const pointer_type_def_sptr&, const pointer_type_def_sptr&);
 
 bool
-equals(const reference_type_def&, const reference_type_def&, change_kind*);
+equals(const reference_type_def&, const reference_type_def&, change_kind*, visited_t*);
 
 
 /// Abstracts a reference type.
@@ -2386,7 +2388,7 @@ bool
 operator!=(const reference_type_def_sptr&, const reference_type_def_sptr&);
 
 bool
-equals(const array_type_def&, const array_type_def&, change_kind*);
+equals(const array_type_def&, const array_type_def&, change_kind*, visited_t*);
 
 /// The abstraction of an array type.
 class array_type_def : public virtual type_base, public virtual decl_base
@@ -2608,7 +2610,7 @@ array_type_def::subrange_sptr
 is_subrange_type(const type_or_decl_base_sptr &type);
 
 bool
-equals(const enum_type_decl&, const enum_type_decl&, change_kind*);
+equals(const enum_type_decl&, const enum_type_decl&, change_kind*, visited_t*);
 
 /// Abstracts a declaration for an enum type.
 class enum_type_decl : public virtual type_base, public virtual decl_base
@@ -2749,7 +2751,7 @@ public:
 }; // end class enum_type_def::enumerator
 
 bool
-equals(const typedef_decl&, const typedef_decl&, change_kind*);
+equals(const typedef_decl&, const typedef_decl&, change_kind*, visited_t*);
 
 /// The abstraction of a typedef declaration.
 class typedef_decl : public virtual type_base, public virtual decl_base
@@ -2859,7 +2861,7 @@ public:
 };// end class class_decl::dm_context_rel
 
 bool
-equals(const var_decl&, const var_decl&, change_kind*);
+equals(const var_decl&, const var_decl&, change_kind*, visited_t*);
 
 bool
 equals_modulo_cv_qualifier(const array_type_def*, const array_type_def*);
@@ -2962,7 +2964,7 @@ public:
 }; // end class var_decl
 
 bool
-equals(const function_decl&, const function_decl&, change_kind*);
+equals(const function_decl&, const function_decl&, change_kind*, visited_t*);
 
 /// Abstraction for a function declaration.
 class function_decl : public virtual decl_base
@@ -3238,7 +3240,7 @@ function_decl::parameter_sptr
 is_function_parameter(const type_or_decl_base_sptr tod);
 
 bool
-equals(const function_type&, const function_type&, change_kind*);
+equals(const function_type&, const function_type&, change_kind*, visited_t*);
 
 /// Abstraction of a function type.
 class function_type : public virtual type_base
@@ -3322,7 +3324,7 @@ public:
   virtual ~function_type();
 
   friend bool
-  equals(const function_type&, const function_type&, change_kind*);
+  equals(const function_type&, const function_type&, change_kind*, visited_t*);
 };//end class function_type
 
 /// The hashing functor for @ref function_type.
@@ -4077,10 +4079,10 @@ public:
   set_member_is_static(decl_base& d, bool s);
 
   friend bool
-  equals(const class_or_union&, const class_or_union&, change_kind*);
+  equals(const class_or_union&, const class_or_union&, change_kind*, visited_t*);
 
   friend bool
-  equals(const class_decl&, const class_decl&, change_kind*);
+  equals(const class_decl&, const class_decl&, change_kind*, visited_t*);
 
   friend class method_decl;
   friend class class_decl;
@@ -4246,14 +4248,14 @@ public:
   set_member_is_static(decl_base& d, bool s);
 
   friend bool
-  equals(const class_decl&, const class_decl&, change_kind*);
+  equals(const class_decl&, const class_decl&, change_kind*, visited_t*);
 
   friend class method_decl;
   friend class class_or_union;
 };// end class class_decl
 
 bool
-equals(const class_decl&, const class_decl&, change_kind*);
+equals(const class_decl&, const class_decl&, change_kind*, visited_t*);
 
 method_decl_sptr
 copy_member_function(const class_decl_sptr& clazz,
@@ -4412,7 +4414,7 @@ public:
 }; // union_decl
 
 bool
-equals(const union_decl&, const union_decl&, change_kind*);
+equals(const union_decl&, const union_decl&, change_kind*, visited_t*);
 
 method_decl_sptr
 copy_member_function(const union_decl_sptr& union_type,

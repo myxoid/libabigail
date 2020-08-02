@@ -659,12 +659,12 @@ class_diff_has_harmless_odr_violation_change(const diff* dif)
   class_decl_sptr first = d->first_class_decl();
   class_decl_sptr second = d->second_class_decl();
 
-  if (equals(*first, *second, 0))
+  if (equals(*first, *second, 0, 0))
     {
       class_decl_sptr fc = is_class_type(first->get_canonical_type());
       class_decl_sptr sc = is_class_type(second->get_canonical_type());
 
-      if (!equals(*fc, *sc, 0))
+      if (!equals(*fc, *sc, 0, 0))
 	return true;
     }
 
@@ -1530,7 +1530,7 @@ has_var_type_cv_qual_change(const diff* dif)
   {
     // Make sure the variable diff does carry a type change at least
     change_kind ch_kind = NO_CHANGE_KIND;
-    if (equals(*var_dif->first_var(), *var_dif->second_var(), &ch_kind))
+    if (equals(*var_dif->first_var(), *var_dif->second_var(), &ch_kind, 0))
       return false;
 
     if (!(ch_kind & LOCAL_TYPE_CHANGE_KIND || ch_kind & SUBTYPE_CHANGE_KIND))

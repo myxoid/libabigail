@@ -739,12 +739,16 @@ notify_equality_failed(const type_or_decl_base *l __attribute__((unused)),
 /// @param r the second type to take into account in the comparison.
 template<typename T>
 bool
-try_canonical_compare(const T *l, const T *r)
+try_canonical_compare(const T *l, const T *r, visited_t* visited = 0)
 {
+  if (visited
+      && !visited->insert(std::make_pair(static_cast<const type_base *>(l),
+                                         static_cast<const type_base *>(r))).second)
+    return true;
   if (const type_base *lc = l->get_naked_canonical_type())
     if (const type_base *rc = r->get_naked_canonical_type())
       ABG_RETURN_EQUAL(lc, rc);
-  return equals(*l, *r, 0);
+  return equals(*l, *r, 0, visited);
 }
 
 /// Getter of all types types sorted by their pretty representation.
@@ -4745,7 +4749,7 @@ maybe_compare_as_member_decls(const decl_base& l,
 ///
 /// @return true if @p l equals @p r, false otherwise.
 bool
-equals(const decl_base& l, const decl_base& r, change_kind* k)
+    equals(const decl_base& l, const decl_base& r, change_kind* k, visited_t* visited)
 {
   bool result = true;
   const interned_string &l_linkage_name = l.get_linkage_name();
@@ -4826,7 +4830,7 @@ equals(const decl_base& l, const decl_base& r, change_kind* k)
 /// that extend the \p decl_base class.
 bool
 decl_base::operator==(const decl_base& other) const
-{return equals(*this, other, 0);}
+{return equals(*this, other, 0, 0);}
 
 /// Inequality operator.
 ///
@@ -4950,11 +4954,9 @@ operator<<(std::ostream& o, decl_base::binding b)
 bool
 operator==(const decl_base_sptr& l, const decl_base_sptr& r)
 {
+  ABG_ASSERT(l && r);
   if (l.get() == r.get())
     return true;
-  if (!!l != !!r)
-    return false;
-
   return *l == *r;
 }
 
@@ -4986,11 +4988,9 @@ operator!=(const decl_base_sptr& l, const decl_base_sptr& r)
 bool
 operator==(const type_base_sptr& l, const type_base_sptr& r)
 {
-    if (l.get() == r.get())
+  ABG_ASSERT(l && r);
+  if (l.get() == r.get())
     return true;
-  if (!!l != !!r)
-    return false;
-
   return *l == *r;
 }
 
@@ -14127,17 +14127,17 @@ type_decl::type_decl(const environment* env,
 ///
 /// @return true if @p l equals @p r, false otherwise.
 bool
-equals(const type_decl& l, const type_decl& r, change_kind* k)
+equals(const type_decl& l, const type_decl& r, change_kind* k, visited_t* visited)
 {
   bool result = equals(static_cast<const decl_base&>(l),
 		       static_cast<const decl_base&>(r),
-		       k);
+		       k, visited);
   if (!k && !result)
     ABG_RETURN_FALSE;
 
   result &= equals(static_cast<const type_base&>(l),
 		   static_cast<const type_base&>(r),
-		   k);
+		   k, visited);
   ABG_RETURN(result);
 }
 
@@ -14165,6 +14165,7 @@ type_decl::operator==(const type_base& o) const
 bool
 type_decl::operator==(const decl_base& o) const
 {
+  ABG_ASSERT_NOT_REACHED;
   const type_decl* other = dynamic_cast<const type_decl*>(&o);
   if (!other)
     return false;
@@ -17732,7 +17733,7 @@ var_decl::set_scope(scope_decl* scope)
 ///
 /// @return true if @p l equals @p r, false otherwise.
 bool
-equals(const var_decl& l, const var_decl& r, change_kind* k)
+equals(const var_decl& l, const var_decl& r, change_kind* k, visited_t* visited)
 {
   bool result = true;
 
@@ -19739,9 +19740,8 @@ bool
 operator==(const function_decl::parameter_sptr& l,
 	   const function_decl::parameter_sptr& r)
 {
-  if (!!l != !!r)
-    return false;
-  if (!l)
+  ABG_ASSERT(l && r);
+  if (l.get() == r.get())
     return true;
   return *l == *r;
 }

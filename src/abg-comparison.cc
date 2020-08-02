@@ -3296,7 +3296,7 @@ enum change_kind
 var_diff::has_local_changes() const
 {
   ir::change_kind k = ir::NO_CHANGE_KIND;
-  if (!equals(*first_var(), *second_var(), &k))
+  if (!equals(*first_var(), *second_var(), &k, 0))
     return k & ir::ALL_LOCAL_CHANGES_MASK;
   return ir::NO_CHANGE_KIND;
 }
