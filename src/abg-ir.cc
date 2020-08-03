@@ -13679,7 +13679,7 @@ equals(const type_base& l, const type_base& r, change_kind* k)
 ///
 /// Note that this doesn't test if the scopes of both types are equal.
 bool
-type_base::operator==(const type_base& other) const
+type_base::opeq(const type_base& other) const
 {return equals(*this, other, 0);}
 
 /// Inequality operator.
@@ -13689,8 +13689,8 @@ type_base::operator==(const type_base& other) const
 ///
 /// @return true iff the current instance is different from @p other.
 bool
-type_base::operator!=(const type_base& other) const
-{return !operator==(other);}
+type_base::opne(const type_base& other) const
+{return !opeq(other);}
 
 /// Setter for the size of the type.
 ///
@@ -14151,10 +14151,10 @@ equals(const type_decl& l, const type_decl& r, change_kind* k)
 bool
 type_decl::operator==(const type_base& o) const
 {
-  const decl_base* other = dynamic_cast<const decl_base*>(&o);
+  const type_decl* other = dynamic_cast<const type_decl*>(&o);
   if (!other)
     return false;
-  return *this == *other;
+  return try_canonical_compare(this, other);
 }
 
 /// Return true if both types equals.
@@ -16510,7 +16510,7 @@ equals_modulo_cv_qualifier(const array_type_def* l, const array_type_def* r)
   type_base *second_element_type =
     peel_qualified_or_typedef_type(r->get_element_type().get());
 
-  if (*first_element_type != *second_element_type)
+  if (!(*first_element_type).opeq(*second_element_type))
     ABG_RETURN_FALSE;
 
   return true;
@@ -16855,7 +16855,7 @@ enum_has_non_name_change(const enum_type_decl& l,
 			 change_kind* k)
 {
   bool result = false;
-  if (*l.get_underlying_type() != *r.get_underlying_type())
+  if (!(*l.get_underlying_type()).opeq(*r.get_underlying_type()))
     {
       result = true;
       if (k)
@@ -16897,14 +16897,14 @@ enum_has_non_name_change(const enum_type_decl& l,
   local_r.set_qualified_name(qn_l);
   local_r.set_name(n_l);
 
-  if (!(l.decl_base::operator==(r) && l.type_base::operator==(r)))
+  if (!(l.decl_base::operator==(r) && l.type_base::opeq(r)))
     {
       result = true;
       if (k)
 	{
 	  if (!l.decl_base::operator==(r))
 	    *k |= LOCAL_NON_TYPE_CHANGE_KIND;
-	  if (!l.type_base::operator==(r))
+	  if (!l.type_base::opeq(r))
 	    *k |= LOCAL_TYPE_CHANGE_KIND;
 	}
       else
@@ -16963,7 +16963,7 @@ bool
 equals(const enum_type_decl& l, const enum_type_decl& r, change_kind* k)
 {
   bool result = true;
-  if (*l.get_underlying_type() != *r.get_underlying_type())
+  if (!(*l.get_underlying_type()).opeq(*r.get_underlying_type()))
     {
       result = false;
       if (k)
@@ -16972,14 +16972,14 @@ equals(const enum_type_decl& l, const enum_type_decl& r, change_kind* k)
 	ABG_RETURN_FALSE;
     }
 
-  if (!(l.decl_base::operator==(r) && l.type_base::operator==(r)))
+  if (!(l.decl_base::operator==(r) && l.type_base::opeq(r)))
     {
       result = false;
       if (k)
 	{
 	  if (!l.decl_base::operator==(r))
 	    *k |= LOCAL_NON_TYPE_CHANGE_KIND;
-	  if (!l.type_base::operator==(r))
+	  if (!l.type_base::opeq(r))
 	    *k |= LOCAL_TYPE_CHANGE_KIND;
 	}
       else
@@ -17438,7 +17438,7 @@ equals(const typedef_decl& l, const typedef_decl& r, change_kind* k)
 	ABG_RETURN_FALSE;
     }
 
-  if (*l.get_underlying_type() != *r.get_underlying_type())
+  if (!(*l.get_underlying_type()).opeq(*r.get_underlying_type()))
     {
       // Changes to the underlying type of a typedef are considered
       // local, a bit like for pointers.
@@ -17738,7 +17738,7 @@ equals(const var_decl& l, const var_decl& r, change_kind* k)
 
   // First test types of variables.  This should be fast because in
   // the general case, most types should be canonicalized.
-  if (*l.get_naked_type() != *r.get_naked_type())
+  if (!(*l.get_naked_type()).opeq(*r.get_naked_type()))
     {
       result = false;
       if (k)
@@ -18364,7 +18364,7 @@ equals(const function_type& l,
 
   bool result = true;
 
-  if (!l.type_base::operator==(r))
+  if (!l.type_base::opeq(r))
     {
       result = false;
       if (k)
@@ -18555,7 +18555,7 @@ function_type::get_cached_name(bool internal) const
 ///
 /// @return true iff the two function_type are equal.
 bool
-function_type::operator==(const type_base& other) const
+function_type::opeq(const type_base& other) const
 {
   const function_type* o = dynamic_cast<const function_type*>(&other);
   if (!o)
@@ -20990,7 +20990,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 
 	      // both definitions are empty
 	      if (!(l.decl_base::operator==(r)
-		       && l.type_base::operator==(r)))
+		       && l.type_base::opeq(r)))
 		{
 		  if (k)
 		    *k |= LOCAL_TYPE_CHANGE_KIND;
@@ -21017,7 +21017,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 
   // No need to go further if the classes have different names or
   // different size / alignment.
-  if (!(l.decl_base::operator==(r) && l.type_base::operator==(r)))
+  if (!(l.decl_base::operator==(r) && l.type_base::opeq(r)))
     {
       if (k)
 	*k |= LOCAL_TYPE_CHANGE_KIND;
@@ -24072,7 +24072,7 @@ template_tparameter::operator==(const template_decl& o) const
     {
       const template_tparameter& other =
 	dynamic_cast<const template_tparameter&>(o);
-      return type_base::operator==(other);
+      return type_base::opeq(other);
     }
   catch(...)
     {return false;}

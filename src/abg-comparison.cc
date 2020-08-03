@@ -6968,7 +6968,7 @@ function_type_diff::get_pretty_representation() const
 /// @return true iff the current diff node carries changes.
 bool
 function_type_diff::has_changes() const
-{return *first_function_type() != *second_function_type();}
+{return !(*first_function_type()).opeq(*second_function_type());}
 
 /// Test if the current diff node carries local changes.
 ///

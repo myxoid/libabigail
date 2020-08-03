@@ -1969,10 +1969,10 @@ public:
   get_cached_pretty_representation(bool internal = false) const;
 
   virtual bool
-  operator==(const type_base&) const;
+  opeq(const type_base&) const;
 
   virtual bool
-  operator!=(const type_base&) const;
+  opne(const type_base&) const;
 
   virtual bool
   traverse(ir_node_visitor&);
@@ -3310,7 +3310,7 @@ public:
   get_cached_name(bool internal = false) const;
 
   virtual bool
-  operator==(const type_base&) const;
+  opeq(const type_base&) const;
 
   virtual string
   get_pretty_representation(bool internal = false,
