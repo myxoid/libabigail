@@ -107,30 +107,15 @@ public:
   }
 };
 
-/// A hashing functor that should be as fast as possible.
-struct type_hasher
-{
-  size_t
-  operator()(const type_base* t) const
-  {return hash_type(t);}
-}; // end struct type_hasher
-
 /// A convenience typedef for a map that associates a pointer to type
-/// to a string.  The pointer to type is hashed as fast as possible.
-typedef unordered_map<type_base*,
-		      interned_string,
-		      type_hasher,
-		      abigail::diff_utils::deep_ptr_eq_functor> type_ptr_map;
+/// to a string.
+typedef unordered_map<type_base*, interned_string> type_ptr_map;
 
 // A convenience typedef for a set of type_base*.
-typedef unordered_set<const type_base*, type_hasher,
-		      abigail::diff_utils::deep_ptr_eq_functor>
-type_ptr_set_type;
+typedef unordered_set<const type_base*> type_ptr_set_type;
 
 /// A convenience typedef for a set of function type*.
-typedef unordered_set<function_type*, type_hasher,
-		      abigail::diff_utils::deep_ptr_eq_functor>
-fn_type_ptr_set_type;
+typedef unordered_set<function_type*> fn_type_ptr_set_type;
 
 typedef unordered_map<function_tdecl_sptr,
 		      string,
@@ -710,7 +695,10 @@ public:
   bool
   type_is_emitted(const type_base *t)
   {
-    return m_emitted_type_set.find(t) != m_emitted_type_set.end();
+    type_base *c = t->get_naked_canonical_type();
+    if (c == 0)
+      c = const_cast<type_base*>(t);
+    return m_emitted_type_set.find(c) != m_emitted_type_set.end();
   }
 
   /// Test if a given type has been written out to the XML output.
