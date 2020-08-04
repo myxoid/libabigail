@@ -109,7 +109,7 @@ public:
 
 /// A convenience typedef for a map that associates a pointer to type
 /// to a string.
-typedef unordered_map<type_base*, interned_string> type_ptr_map;
+typedef std::unordered_map<type_base*, interned_string> type_ptr_map;
 
 // A convenience typedef for a set of type_base*.
 typedef std::unordered_set<const type_base*> type_ptr_set_type;
