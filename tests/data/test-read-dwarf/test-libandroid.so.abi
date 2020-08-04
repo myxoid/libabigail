@@ -14941,7 +14941,7 @@
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/choreographer.cpp' language='LANG_C_plus_plus_14'>
     <typedef-decl name='pthread_t' type-id='bd54fe1a' filepath='bionic/libc/include/bits/pthread_types.h' line='104' column='1' id='4051f5e7'/>
-    <typedef-decl name='imaxdiv_t' type-id='cdd897ad' filepath='bionic/libc/include/inttypes.h' line='255' column='1' id='5c0b4dc9'/>
+    <typedef-decl name='imaxdiv_t' type-id='cdd897ae' filepath='bionic/libc/include/inttypes.h' line='255' column='1' id='5c0b4dc9'/>
     <typedef-decl name='__uint64_t' type-id='3a47d82b' filepath='bionic/libc/include/stdint.h' line='47' column='1' id='8910171f'/>
     <typedef-decl name='uint64_t' type-id='8910171f' filepath='bionic/libc/include/stdint.h' line='68' column='1' id='9c313c2d'/>
     <typedef-decl name='uintmax_t' type-id='9c313c2d' filepath='bionic/libc/include/stdint.h' line='103' column='1' id='f8b828c9'/>
@@ -15090,7 +15090,7 @@
     <pointer-type-def type-id='09ecfd6f' size-in-bits='32' id='b877ce2b'/>
     <pointer-type-def type-id='29abfa21' size-in-bits='32' id='938a712d'/>
     <class-decl name='AChoreographer' is-struct='yes' visibility='default' is-declaration-only='yes' id='d1af9805'/>
-    <class-decl name='__anonymous_struct__' is-struct='yes' is-anonymous='yes' naming-typedef-id='5c0b4dc9' visibility='default' is-declaration-only='yes' id='cdd897ad'/>
+    <class-decl name='__anonymous_struct__' is-struct='yes' is-anonymous='yes' naming-typedef-id='5c0b4dc9' visibility='default' is-declaration-only='yes' id='cdd897ae'/>
     <namespace-decl name='android'>
       <class-decl name='FrameCallback' size-in-bits='192' is-struct='yes' visibility='default' filepath='frameworks/base/native/android/choreographer.cpp' line='38' column='1' id='a78ceb8e'>
         <data-member access='public' layout-offset-in-bits='0'>
@@ -17685,7 +17685,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/sharedmem.cpp' language='LANG_C_plus_plus_14'>
-    <class-decl name='__anonymous_struct__' size-in-bits='8' is-anonymous='yes' visibility='default' filepath='frameworks/base/native/android/sharedmem.cpp' line='37' column='1' id='cdd897ae'>
+    <class-decl name='__anonymous_struct__' size-in-bits='8' is-anonymous='yes' visibility='default' filepath='frameworks/base/native/android/sharedmem.cpp' line='37' column='1' id='cdd897af'>
       <member-function access='public'>
         <function-decl name='operator()' mangled-name='_ZZL7jniInitP7_JNIEnvENK3$_0clES0_' filepath='frameworks/base/native/android/sharedmem.cpp' line='37' column='1' visibility='default' binding='global' size-in-bits='32'>
           <parameter type-id='8e8a1547' is-artificial='yes'/>
@@ -17695,9 +17695,9 @@
       </member-function>
     </class-decl>
     <reference-type-def kind='lvalue' type-id='71bed232' size-in-bits='32' id='2364b57c'/>
-    <reference-type-def kind='lvalue' type-id='cdd897ae' size-in-bits='32' id='9167eb94'/>
-    <reference-type-def kind='rvalue' type-id='cdd897ae' size-in-bits='32' id='98980936'/>
-    <qualified-type-def type-id='cdd897ae' const='yes' id='a585bdd7'/>
+    <reference-type-def kind='lvalue' type-id='cdd897af' size-in-bits='32' id='9167eb94'/>
+    <reference-type-def kind='rvalue' type-id='cdd897af' size-in-bits='32' id='98980936'/>
+    <qualified-type-def type-id='cdd897af' const='yes' id='a585bdd7'/>
     <pointer-type-def type-id='a585bdd7' size-in-bits='32' id='8e8a1547'/>
     <qualified-type-def type-id='0e01d3be' const='yes' id='7bd176f7'/>
     <reference-type-def kind='lvalue' type-id='7bd176f7' size-in-bits='32' id='bbbe0b03'/>

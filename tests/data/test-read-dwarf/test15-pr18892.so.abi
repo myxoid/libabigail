@@ -1701,6 +1701,7 @@
       <return type-id='48b5725f'/>
     </function-type>
     <pointer-type-def type-id='96ee24a5' size-in-bits='64' id='585e1de9'/>
+    <pointer-type-def type-id='48b5725f' size-in-bits='64' id='eaa32e2f'/>
     <function-type size-in-bits='64' id='d1f0cc1a'>
       <parameter type-id='eaa32e2f'/>
       <parameter type-id='e475ab95'/>

@@ -7104,6 +7104,8 @@
       <!-- void -->
       <return type-id='48b5725f'/>
     </function-type>
+    <!-- void* -->
+    <pointer-type-def type-id='48b5725f' size-in-bits='64' id='eaa32e2f'/>
     <!-- void () -->
     <function-type size-in-bits='64' id='ee076206'>
       <!-- void -->
