@@ -66,10 +66,10 @@ namespace xml_writer
 class id_manager
 {
   const environment* m_env;
-  mutable unsigned long long m_cur_id;
+  unsigned long long m_cur_id;
 
   unsigned long long
-  get_new_id() const
+  get_new_id()
   { return ++m_cur_id; }
 
 public:
@@ -83,7 +83,7 @@ public:
 
   /// Return a unique string representing a numerical id.
   interned_string
-  get_id() const
+  get_id()
   {
     ostringstream o;
     o << get_new_id();
@@ -97,7 +97,7 @@ public:
   ///
   /// @param prefix the prefix of the returned unique id.
   interned_string
-  get_id_with_prefix(const string& prefix) const
+  get_id_with_prefix(const string& prefix)
   {
     ostringstream o;
     o << prefix << get_new_id();
@@ -140,9 +140,9 @@ class write_context
   bool					m_short_locs;
   bool					m_write_default_sizes;
   type_id_style_kind			m_type_id_style;
-  mutable type_ptr_map			m_type_id_map;
-  mutable unordered_set<uint32_t>	m_used_type_id_hashes;
-  mutable type_ptr_set_type		m_emitted_type_set;
+  type_ptr_map				m_type_id_map;
+  unordered_set<uint32_t>		m_used_type_id_hashes;
+  type_ptr_set_type			m_emitted_type_set;
   type_ptr_set_type			m_emitted_decl_only_set;
   // A map of types that are referenced by emitted pointers,
   // references or typedefs
@@ -773,12 +773,7 @@ public:
   /// emitted.
   bool
   decl_only_type_is_emitted(const type_base* t) const
-  {
-    type_ptr_set_type::const_iterator i = m_emitted_decl_only_set.find(t);
-    if (i == m_emitted_decl_only_set.end())
-      return false;
-    return true;
-  }
+  {return m_emitted_decl_only_set.count(t);}
 
   /// Test if a declaration-only class has been emitted.
   ///
