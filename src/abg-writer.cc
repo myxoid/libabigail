@@ -142,7 +142,7 @@ class write_context
   type_id_style_kind			m_type_id_style;
   mutable type_ptr_map			m_type_id_map;
   mutable unordered_set<uint32_t>	m_used_type_id_hashes;
-  mutable type_ptr_set_type		m_emitted_type_set;
+  type_ptr_set_type			m_emitted_type_set;
   type_ptr_set_type			m_emitted_decl_only_set;
   // A map of types that are referenced by emitted pointers,
   // references or typedefs
@@ -541,13 +541,11 @@ public:
   {
     type_base* t = get_exemplar_type(type.get());
     if (function_type* f = is_function_type(t))
-      return (m_referenced_fn_types_set.find(f)
-	      != m_referenced_fn_types_set.end());
+      return m_referenced_fn_types_set.count(f);
     else if (!t->get_naked_canonical_type())
-      return (m_referenced_non_canonical_types_set.find(t)
-	      != m_referenced_non_canonical_types_set.end());
+      return m_referenced_non_canonical_types_set.count(t);
     else
-      return m_referenced_types_set.find(t) != m_referenced_types_set.end();
+      return m_referenced_types_set.count(t);
   }
 
   /// A comparison functor to compare pointers to @ref type_base.
@@ -773,12 +771,7 @@ public:
   /// emitted.
   bool
   decl_only_type_is_emitted(const type_base* t) const
-  {
-    type_ptr_set_type::const_iterator i = m_emitted_decl_only_set.find(t);
-    if (i == m_emitted_decl_only_set.end())
-      return false;
-    return true;
-  }
+  {return m_emitted_decl_only_set.count(t);}
 
   /// Test if a declaration-only class has been emitted.
   ///
