@@ -1,2 +1,1 @@
-==== SELF CHECK SUCCEEDED for 'nmap' ====
-==== SELF CHECK SUCCEEDED for 'nping' ====
+abipkgdiff: ../../src/abg-ir.cc:25065: size_t abigail::ir::hash_as_canonical_type_or_constant(const abigail::ir::type_base*): Assertion `__abg_cond__' failed.

@@ -1,3 +1,1 @@
-==== SELF CHECK SUCCEEDED for 'libcogl.so.20.4.3' ====
-==== SELF CHECK SUCCEEDED for 'libcogl-path.so.20.4.3' ====
-==== SELF CHECK SUCCEEDED for 'libcogl-pango.so.20.4.3' ====
+abipkgdiff: ../../src/abg-ir.cc:25065: size_t abigail::ir::hash_as_canonical_type_or_constant(const abigail::ir::type_base*): Assertion `__abg_cond__' failed.

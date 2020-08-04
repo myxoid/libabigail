@@ -112,10 +112,10 @@ public:
 typedef unordered_map<type_base*, interned_string> type_ptr_map;
 
 // A convenience typedef for a set of type_base*.
-typedef std::unordered_set<const type_base*> type_ptr_set_type;
+typedef unordered_set<const type_base*> type_ptr_set_type;
 
 /// A convenience typedef for a set of function type*.
-typedef std::unordered_set<function_type*> fn_type_ptr_set_type;
+typedef unordered_set<function_type*> fn_type_ptr_set_type;
 
 typedef unordered_map<function_tdecl_sptr,
 		      string,

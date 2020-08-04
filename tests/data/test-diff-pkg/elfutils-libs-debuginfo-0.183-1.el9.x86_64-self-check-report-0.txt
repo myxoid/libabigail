@@ -1,2 +1,1 @@
-==== SELF CHECK SUCCEEDED for 'libdw-0.183.so' ====
-==== SELF CHECK SUCCEEDED for 'libasm-0.183.so' ====
+abipkgdiff: ../../src/abg-ir.cc:25065: size_t abigail::ir::hash_as_canonical_type_or_constant(const abigail::ir::type_base*): Assertion `__abg_cond__' failed.

@@ -14841,6 +14841,8 @@
       <!-- void -->
       <return type-id='type-id-14'/>
     </function-type>
+    <!-- void* -->
+    <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-36'/>
     <!-- void () -->
     <function-type size-in-bits='64' id='type-id-393'>
       <!-- void -->
