@@ -142,7 +142,7 @@ class write_context
   type_id_style_kind			m_type_id_style;
   mutable type_ptr_map			m_type_id_map;
   mutable unordered_set<uint32_t>	m_used_type_id_hashes;
-  mutable type_ptr_set_type		m_emitted_type_set;
+  type_ptr_set_type			m_emitted_type_set;
   type_ptr_set_type			m_emitted_decl_only_set;
   // A map of types that are referenced by emitted pointers,
   // references or typedefs
@@ -153,9 +153,9 @@ class write_context
   class_tmpl_shared_ptr_map		m_class_tmpl_id_map;
   string_elf_symbol_sptr_map_type	m_fun_symbol_map;
   string_elf_symbol_sptr_map_type	m_var_symbol_map;
-  mutable unordered_map<interned_string,
-			bool,
-			hash_interned_string> m_emitted_decls_map;
+  unordered_map<interned_string,
+		bool,
+		hash_interned_string> m_emitted_decls_map;
 
   write_context();
 
@@ -518,17 +518,14 @@ public:
   /// @return true if the type has been referenced, false
   /// otherwise.
   bool
-  type_is_referenced(const type_base_sptr& t)
+  type_is_referenced(const type_base_sptr& t) const
   {
     if (function_type *f = is_function_type(t.get()))
-      return (m_referenced_fn_types_set.find(f)
-	      != m_referenced_fn_types_set.end());
+      return m_referenced_fn_types_set.count(f);
     else if (!t->get_naked_canonical_type())
-      return (m_referenced_non_canonical_types_set.find(t.get())
-	      != m_referenced_non_canonical_types_set.end());
+      return m_referenced_non_canonical_types_set.count(t.get());
     else
-      return m_referenced_types_set.find
-	(t.get()) != m_referenced_types_set.end();
+      return m_referenced_types_set.count(t.get());
   }
 
   /// A comparison functor to compare pointers to @ref type_base.
@@ -680,9 +677,9 @@ public:
   void
   record_type_as_emitted(const type_base *t)
   {
-    type_base *c = t->get_naked_canonical_type();
-    if (c == 0)
-      c = const_cast<type_base*>(t);
+    const type_base *c = t->get_naked_canonical_type();
+    if (!c)
+      c = t;
     m_emitted_type_set.insert(c);
   }
 
@@ -693,12 +690,12 @@ public:
   /// @return true if the type has already been emitted, false
   /// otherwise.
   bool
-  type_is_emitted(const type_base *t)
+  type_is_emitted(const type_base *t) const
   {
-    type_base *c = t->get_naked_canonical_type();
-    if (c == 0)
-      c = const_cast<type_base*>(t);
-    return m_emitted_type_set.find(c) != m_emitted_type_set.end();
+    const type_base *c = t->get_naked_canonical_type();
+    if (!c)
+      c = t;
+    return m_emitted_type_set.count(c);
   }
 
   /// Test if a given type has been written out to the XML output.
@@ -708,7 +705,7 @@ public:
   /// @return true if the type has already been emitted, false
   /// otherwise.
   bool
-  type_is_emitted(const type_base_sptr& t)
+  type_is_emitted(const type_base_sptr& t) const
   {return type_is_emitted(t.get());}
 
   /// Test if the name of a given decl has been written out to the XML
@@ -720,7 +717,7 @@ public:
   /// otherwise.
   bool
   decl_name_is_emitted(const interned_string& name) const
-  {return m_emitted_decls_map.find(name) != m_emitted_decls_map.end();}
+  {return m_emitted_decls_map.count(name);}
 
   /// Test if a given decl has been written out to the XML output.
   ///
@@ -736,8 +733,7 @@ public:
 
     string repr = get_pretty_representation(decl, true);
     interned_string irepr = decl->get_environment()->intern(repr);
-    bool is_emitted = decl_name_is_emitted(irepr);
-    return is_emitted;
+    return decl_name_is_emitted(irepr);
   }
 
   /// Record a declaration-only class as being emitted.
@@ -771,13 +767,8 @@ public:
   /// @return true iff the declaration-only class @p t has been
   /// emitted.
   bool
-  decl_only_type_is_emitted(const type_base* t)
-  {
-    type_ptr_set_type::const_iterator i = m_emitted_decl_only_set.find(t);
-    if (i == m_emitted_decl_only_set.end())
-      return false;
-    return true;
-  }
+  decl_only_type_is_emitted(const type_base* t) const
+  {return m_emitted_decl_only_set.count(t);}
 
   /// Test if a declaration-only class has been emitted.
   ///
@@ -786,14 +777,14 @@ public:
   /// @return true iff the declaration-only class @p t has been
   /// emitted.
   bool
-  decl_only_type_is_emitted(const type_base_sptr& t)
+  decl_only_type_is_emitted(const type_base_sptr& t) const
   {return decl_only_type_is_emitted(t.get());}
 
   /// Record a declaration as emitted in the abixml output.
   ///
   /// @param decl the decl to consider.
   void
-  record_decl_as_emitted(const decl_base_sptr &decl)const
+  record_decl_as_emitted(const decl_base_sptr &decl)
   {
     string repr = get_pretty_representation(decl, true);
     interned_string irepr = decl->get_environment()->intern(repr);
