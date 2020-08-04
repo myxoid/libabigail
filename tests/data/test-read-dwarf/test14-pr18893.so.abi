@@ -4690,6 +4690,7 @@
       <parameter type-id='type-id-36'/>
       <return type-id='type-id-14'/>
     </function-type>
+    <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-36'/>
     <function-type size-in-bits='64' id='type-id-460'>
       <return type-id='type-id-14'/>
     </function-type>

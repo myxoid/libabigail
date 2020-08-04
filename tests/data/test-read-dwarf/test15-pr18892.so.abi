@@ -1701,6 +1701,7 @@
       <return type-id='type-id-25'/>
     </function-type>
     <pointer-type-def type-id='type-id-29' size-in-bits='64' id='type-id-13'/>
+    <pointer-type-def type-id='type-id-25' size-in-bits='64' id='type-id-1'/>
     <function-type size-in-bits='64' id='type-id-30'>
       <parameter type-id='type-id-1'/>
       <parameter type-id='type-id-23'/>

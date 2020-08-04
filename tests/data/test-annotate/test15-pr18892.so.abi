@@ -3336,6 +3336,8 @@
     </function-type>
     <!-- int (void*, void*)* -->
     <pointer-type-def type-id='type-id-29' size-in-bits='64' id='type-id-13'/>
+    <!-- void* -->
+    <pointer-type-def type-id='type-id-25' size-in-bits='64' id='type-id-1'/>
     <!-- int (void*, uintptr_t, const char*, int, const char*) -->
     <function-type size-in-bits='64' id='type-id-30'>
       <!-- parameter of type 'void*' -->
