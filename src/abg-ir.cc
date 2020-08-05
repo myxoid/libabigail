@@ -25194,25 +25194,6 @@ hash_type_or_decl(const type_or_decl_base *tod)
   return result;
 }
 
-/// Hash an ABI artifact that is either a type.
-///
-/// This function intends to provides the fastest possible hashing for
-/// types while being completely correct.
-///
-/// Note that if the type artifact has a canonical type, the hash
-/// value is going to be the pointer value of the canonical type.
-/// Otherwise, this function computes a hash value for the type by
-/// recursively walking the type members.  This last code path is
-/// possibly *very* slow and should only be used when only handful of
-/// types are going to be hashed.
-///
-/// @param t the type or decl to hash.
-///
-/// @return the resulting hash value.
-size_t
-hash_type(const type_base *t)
-{return hash_as_canonical_type_or_constant(t);}
-
 /// Hash an ABI artifact that is either a type of a decl.
 ///
 /// @param tod the ABI artifact to hash.
