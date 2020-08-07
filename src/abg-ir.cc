@@ -4232,7 +4232,12 @@ operator==(const type_or_decl_base_sptr& l, const type_or_decl_base_sptr& r)
   if (!l)
     return true;
 
-  return *r == *l;
+  bool result = *r == *l;
+  if (result)
+    {
+      ABG_ASSERT(hash_type_or_decl(l) == hash_type_or_decl(r));
+    }
+  return result;
 }
 
 /// Non-member inequality operator for the @type_or_decl_base type.
