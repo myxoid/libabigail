@@ -955,8 +955,7 @@ operator()(const class_tdecl& t) const
 }
 
 size_t
-class_tdecl::shared_ptr_hash::
-operator()(const shared_ptr<class_tdecl> t) const
+class_tdecl::shared_ptr_hash::operator()(const class_tdecl_sptr t) const
 {
   class_tdecl::hash hash_class_tmpl_decl;
 
