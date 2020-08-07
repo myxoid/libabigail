@@ -79,6 +79,15 @@ typedef unordered_map<types_or_decls_type, diff_sptr,
 
 /// A hashing functor for using @ref diff_sptr and @ref diff* in a
 /// hash map or set.
+///
+/// Note that if assertions are disabled:
+///
+///  d1 == d2  iff
+///  d1.get_canonical_diff() == d2.get_canonical_diff()  implies
+///  hash(d1) == hash(d2)
+///
+/// With assertions enabled correctness still holds as both
+/// equalities are either well-defined or result in termination.
 struct diff_hash
 {
   /// The function-call operator to hash a @ref diff node.
