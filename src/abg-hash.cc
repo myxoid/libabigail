@@ -928,8 +928,7 @@ operator()(const function_tdecl& t) const
 }
 
 size_t
-function_tdecl::shared_ptr_hash::
-operator()(const shared_ptr<function_tdecl> f) const
+function_tdecl::shared_ptr_hash::operator()(const function_tdecl_sptr f) const
 {
   function_tdecl::hash hash_fn_tmpl_decl;
   if (f)
