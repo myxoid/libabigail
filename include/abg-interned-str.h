@@ -202,9 +202,10 @@ struct hash_interned_string
   /// The hash operator.
   ///
   /// It's super fast because hashing an interned string amounts to
-  /// hashing the pointer to it's underlying string.  It's because
+  /// hashing the pointer to its underlying string.  It's because
   /// every distinct string is present only in one copy in the
-  /// environment.
+  /// environment.  Note that s1 == s2 iff s1.raw == s2.raw implies
+  /// hash(s1) == hash(s2).
   ///
   /// @param s the instance of @ref interned_string to hash.
   ///
