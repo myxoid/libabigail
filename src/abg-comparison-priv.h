@@ -52,6 +52,18 @@ typedef std::pair<const type_or_decl_base_sptr,
 		  const type_or_decl_base_sptr> types_or_decls_type;
 
 /// A hashing functor for @ref types_or_decls_type.
+///
+/// This is well-behaved w.r.t. types_or_decls_equal so long as
+/// type_or_decl_hash is well-behaved w.r.t. type_or_decl::operator==.
+///
+/// If
+///   type_or_decl_base1 == type_or_decl_base2
+///   implies  hash(type_or_decl_base1) == hash(type_or_decl_base2)
+/// Then
+///   tods1 == tods2
+///   iff  tods1.first == tods2.first && tods1.second == tods2.second
+///   implies  hash(tods1.first) == hash(tods2.first) && ...
+///   implies  hash(tods1) == hash(tods2)
 struct types_or_decls_hash
 {
   size_t
