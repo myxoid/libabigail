@@ -4737,7 +4737,13 @@ struct function_decl::ptr_equal
       return true;
     if (!!l != !!r)
       return false;
-    return (*l == *r);
+    bool result = *l == *r;
+    if (result)
+      {
+	function_decl::hash h;
+	ABG_ASSERT(h(l) == h(r));
+      }
+    return result;
   }
 };// function_decl::ptr_equal
 
