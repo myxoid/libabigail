@@ -528,11 +528,6 @@ location_manager::expand_location(const location&	location,
   column = l.column_;
 }
 
-typedef unordered_map<function_type_sptr,
-		      bool,
-		      function_type::hash,
-		      type_shared_ptr_equal> fn_type_ptr_map;
-
 // <type_maps stuff>
 
 struct type_maps::priv
