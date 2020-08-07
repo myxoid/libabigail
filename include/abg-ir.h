@@ -4518,7 +4518,7 @@ class member_function_template : public member_base, public virtual decl_base
 {
   bool is_constructor_;
   bool is_const_;
-  shared_ptr<function_tdecl> fn_tmpl_;
+  function_tdecl_sptr fn_tmpl_;
 
   // Forbiden
   member_function_template();
@@ -4729,7 +4729,7 @@ struct function_tdecl::hash
 struct function_tdecl::shared_ptr_hash
 {
   size_t
-  operator()(const shared_ptr<function_tdecl> f) const;
+  operator()(const function_tdecl_sptr f) const;
 };
 
 struct class_tdecl::hash

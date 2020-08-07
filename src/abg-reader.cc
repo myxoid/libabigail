@@ -91,7 +91,7 @@ public:
   types_map_it;
 
   typedef unordered_map<string,
-			shared_ptr<function_tdecl> >::const_iterator
+			function_tdecl_sptr >::const_iterator
   const_fn_tmpl_map_it;
 
   typedef unordered_map<string,
@@ -112,7 +112,7 @@ private:
   string						m_path;
   environment*						m_env;
   unordered_map<string, vector<type_base_sptr> >	m_types_map;
-  unordered_map<string, shared_ptr<function_tdecl> >	m_fn_tmpl_map;
+  unordered_map<string, function_tdecl_sptr >		m_fn_tmpl_map;
   unordered_map<string, shared_ptr<class_tdecl> >	m_class_tmpl_map;
   vector<type_base_sptr>				m_types_to_canonicalize;
   string_xml_node_map					m_id_xml_node_map;
@@ -372,12 +372,12 @@ public:
   /// @return the function template identified by id, or a null
   /// pointer if no function template has ever been associated with
   /// id before.
-  shared_ptr<function_tdecl>
+  function_tdecl_sptr
   get_fn_tmpl_decl(const string& id) const
   {
     const_fn_tmpl_map_it i = m_fn_tmpl_map.find(id);
     if (i == m_fn_tmpl_map.end())
-      return shared_ptr<function_tdecl>();
+      return function_tdecl_sptr();
     return i->second;
   }
 
@@ -581,8 +581,7 @@ public:
   /// that the function returns false if an ID was previously
   /// associated to the function template.
   bool
-  key_fn_tmpl_decl(shared_ptr<function_tdecl> fn_tmpl_decl,
-		   const string& id)
+  key_fn_tmpl_decl(function_tdecl_sptr fn_tmpl_decl, const string& id)
   {
     ABG_ASSERT(fn_tmpl_decl);
 
@@ -1340,7 +1339,7 @@ build_class_decl(read_context&, const xmlNodePtr, bool);
 static union_decl_sptr
 build_union_decl(read_context&, const xmlNodePtr, bool);
 
-static shared_ptr<function_tdecl>
+static function_tdecl_sptr
 build_function_tdecl(read_context&, const xmlNodePtr, bool);
 
 static shared_ptr<class_tdecl>
@@ -5151,7 +5150,7 @@ build_class_decl(read_context&		ctxt,
 	       p;
 	       p = xmlNextElementSibling(p))
 	    {
-	      if (shared_ptr<function_tdecl> f =
+	      if (function_tdecl_sptr f =
 		  build_function_tdecl(ctxt, p,
 				       /*add_to_current_scope=*/true))
 		{
@@ -5540,12 +5539,12 @@ build_union_decl(read_context& ctxt,
 ///
 /// @return the newly built function_tdecl upon successful
 /// completion, a null pointer otherwise.
-static shared_ptr<function_tdecl>
+static function_tdecl_sptr
 build_function_tdecl(read_context& ctxt,
 		     const xmlNodePtr node,
 		     bool add_to_current_scope)
 {
-  shared_ptr<function_tdecl> nil, result;
+  function_tdecl_sptr nil, result;
 
   if (!xmlStrEqual(node->name, BAD_CAST("function-template-decl")))
     return nil;

@@ -117,7 +117,7 @@ typedef std::unordered_set<const type_base*> type_ptr_set_type;
 /// A convenience typedef for a set of function type*.
 typedef std::unordered_set<function_type*> fn_type_ptr_set_type;
 
-typedef unordered_map<shared_ptr<function_tdecl>,
+typedef unordered_map<function_tdecl_sptr,
 		      string,
 		      function_tdecl::shared_ptr_hash> fn_tmpl_shared_ptr_map;
 
@@ -915,7 +915,7 @@ static bool write_template_parameter(const shared_ptr<template_parameter>,
 static void write_template_parameters(const shared_ptr<template_decl>,
 				      write_context&, unsigned);
 static bool write_function_tdecl
-(const shared_ptr<function_tdecl>,
+(const function_tdecl_sptr,
  write_context&, unsigned);
 static bool write_class_tdecl
 (const shared_ptr<class_tdecl>,
@@ -4321,7 +4321,7 @@ write_template_parameters(const shared_ptr<template_decl> tmpl,
 ///
 /// @param indent the initial indentation.
 static bool
-write_function_tdecl(const shared_ptr<function_tdecl> decl,
+write_function_tdecl(const function_tdecl_sptr decl,
 		     write_context& ctxt, unsigned indent)
 {
   if (!decl)
