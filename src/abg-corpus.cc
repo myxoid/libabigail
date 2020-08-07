@@ -186,12 +186,6 @@ typedef unordered_map<const function_decl*,
 /// function_decl.
 typedef unordered_map<string, const function_decl*> str_fn_ptr_map_type;
 
-/// Convenience typedef for a hash map of pointer to var_decl and boolean.
-typedef unordered_map<const var_decl*,
-		      bool,
-		      var_decl::hash,
-		      var_decl::ptr_equal> var_ptr_map_type;
-
 /// This is a comparison functor for comparing pointers to @ref
 /// function_decl.
 struct func_comp
