@@ -95,7 +95,7 @@ public:
   const_fn_tmpl_map_it;
 
   typedef unordered_map<string,
-			shared_ptr<class_tdecl> >::const_iterator
+			class_tdecl_sptr >::const_iterator
   const_class_tmpl_map_it;
 
   typedef unordered_map<string, xmlNodePtr> string_xml_node_map;
@@ -113,7 +113,7 @@ private:
   environment*						m_env;
   unordered_map<string, vector<type_base_sptr> >	m_types_map;
   unordered_map<string, function_tdecl_sptr >		m_fn_tmpl_map;
-  unordered_map<string, shared_ptr<class_tdecl> >	m_class_tmpl_map;
+  unordered_map<string, class_tdecl_sptr >		m_class_tmpl_map;
   vector<type_base_sptr>				m_types_to_canonicalize;
   string_xml_node_map					m_id_xml_node_map;
   xml_node_decl_base_sptr_map				m_xml_node_decl_map;
@@ -391,12 +391,12 @@ public:
   ///
   /// @return the class template identified by id, or a null pointer
   /// if no class template has ever been associated with id before.
-  shared_ptr<class_tdecl>
+  class_tdecl_sptr
   get_class_tmpl_decl(const string& id) const
   {
     const_class_tmpl_map_it i = m_class_tmpl_map.find(id);
     if (i == m_class_tmpl_map.end())
-      return shared_ptr<class_tdecl>();
+      return class_tdecl_sptr();
     return i->second;
   }
 
@@ -603,8 +603,7 @@ public:
   /// that the function returns false if an ID was previously
   /// associated to the class template.
   bool
-  key_class_tmpl_decl(shared_ptr<class_tdecl> class_tmpl_decl,
-		      const string& id)
+  key_class_tmpl_decl(class_tdecl_sptr class_tmpl_decl, const string& id)
   {
     ABG_ASSERT(class_tmpl_decl);
 
@@ -1342,7 +1341,7 @@ build_union_decl(read_context&, const xmlNodePtr, bool);
 static function_tdecl_sptr
 build_function_tdecl(read_context&, const xmlNodePtr, bool);
 
-static shared_ptr<class_tdecl>
+static class_tdecl_sptr
 build_class_tdecl(read_context&, const xmlNodePtr, bool);
 
 static type_tparameter_sptr
@@ -5160,7 +5159,7 @@ build_class_decl(read_context&		ctxt,
 		  ABG_ASSERT(f->get_scope());
 		  decl->add_member_function_template(m);
 		}
-	      else if (shared_ptr<class_tdecl> c =
+	      else if (class_tdecl_sptr c =
 		       build_class_tdecl(ctxt, p,
 					 /*add_to_current_scope=*/true))
 		{
@@ -5606,12 +5605,12 @@ build_function_tdecl(read_context& ctxt,
 ///
 /// @return the newly built function_tdecl upon successful
 /// completion, a null pointer otherwise.
-static shared_ptr<class_tdecl>
+static class_tdecl_sptr
 build_class_tdecl(read_context&	ctxt,
 		  const xmlNodePtr	node,
 		  bool			add_to_current_scope)
 {
-  shared_ptr<class_tdecl> nil, result;
+  class_tdecl_sptr nil, result;
 
   if (!xmlStrEqual(node->name, BAD_CAST("class-template-decl")))
     return nil;

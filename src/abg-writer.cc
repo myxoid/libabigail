@@ -121,7 +121,7 @@ typedef unordered_map<function_tdecl_sptr,
 		      string,
 		      function_tdecl::shared_ptr_hash> fn_tmpl_shared_ptr_map;
 
-typedef unordered_map<shared_ptr<class_tdecl>,
+typedef unordered_map<class_tdecl_sptr,
 		      string,
 		      class_tdecl::shared_ptr_hash> class_tmpl_shared_ptr_map;
 
@@ -918,7 +918,7 @@ static bool write_function_tdecl
 (const function_tdecl_sptr,
  write_context&, unsigned);
 static bool write_class_tdecl
-(const shared_ptr<class_tdecl>,
+(const class_tdecl_sptr,
  write_context&, unsigned);
 static void	do_indent(ostream&, unsigned);
 static void	do_indent_to_level(write_context&, unsigned, unsigned);
@@ -4366,7 +4366,7 @@ write_function_tdecl(const function_tdecl_sptr decl,
 ///
 /// @return true upon successful completion, false otherwise.
 static bool
-write_class_tdecl(const shared_ptr<class_tdecl> decl,
+write_class_tdecl(const class_tdecl_sptr decl,
 		  write_context& ctxt, unsigned indent)
 {
   if (!decl)

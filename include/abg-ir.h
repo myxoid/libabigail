@@ -4571,7 +4571,7 @@ class member_class_template
   : public member_base,
     public virtual decl_base
 {
-  shared_ptr<class_tdecl> class_tmpl_;
+  class_tdecl_sptr class_tmpl_;
 
   // Forbidden
   member_class_template();
@@ -4741,7 +4741,7 @@ struct class_tdecl::hash
 struct class_tdecl::shared_ptr_hash
 {
   size_t
-  operator()(const shared_ptr<class_tdecl> t) const;
+  operator()(const class_tdecl_sptr t) const;
 };
 
 /// The base class for the visitor type hierarchy used for traversing
