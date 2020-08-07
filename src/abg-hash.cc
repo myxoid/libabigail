@@ -925,6 +925,8 @@ function_tdecl::hash::operator()(const function_tdecl& t) const
   return v;
 }
 
+// TODO: This is apparently only used with plain equality on
+// shared_ptr so doing a deep hash is pointless.
 size_t
 function_tdecl::shared_ptr_hash::operator()(const function_tdecl_sptr f) const
 {
@@ -951,6 +953,8 @@ class_tdecl::hash::operator()(const class_tdecl& t) const
   return v;
 }
 
+// TODO: This is apparently only used with plain equality on
+// shared_ptr so doing a deep hash is pointless.
 size_t
 class_tdecl::shared_ptr_hash::operator()(const class_tdecl_sptr t) const
 {
