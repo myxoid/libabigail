@@ -106,8 +106,15 @@ struct canonical_type_hash
 }; //end struct canonical_type_hash
 
 /// Helper typedef for an unordered set of type_base_sptr which uses
-/// pointer value to tell its members appart, because the members are
+/// pointer value to tell its members apart, because the members are
 /// canonical types.
+///
+/// TODO: This set uses a hash which just returns the held pointer
+/// value. The equality operator for type_base_sptr is overloaded to
+/// do a deep comparison. In practice, if these are canonical types,
+/// this should be safe, but it's not guaranteed. It would be better
+/// to either define a shallow canonical_type_equals function or just
+/// store raw pointers!
 typedef unordered_set<type_base_sptr,
 		      canonical_type_hash> canonical_type_sptr_set_type;
 
