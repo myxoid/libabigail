@@ -58,6 +58,9 @@ typedef weak_ptr<diff> diff_wptr;
 struct diff_sptr_hasher
 {
   /// The actual hashing functor.
+  ///
+  /// Note that ds1 == ds1 iff ds1.get() == ds2.get() implies
+  /// hash(ds1) == hash(ds2).
   size_t
   operator()(const diff_sptr& t) const
   {return reinterpret_cast<size_t>(t.get());}
@@ -69,7 +72,7 @@ typedef vector<diff_sptr> diff_sptrs_type;
 /// Convenience typedef for a vector of @ref diff*.
 typedef vector<diff*> diff_ptrs_type;
 
-/// Convenience typedef for an unoredered set of @ref diff_sptr
+/// Convenience typedef for an unordered set of @ref diff_sptr
 typedef unordered_set<diff_sptr, diff_sptr_hasher> unordered_diff_sptr_set;
 
 class decl_diff_base;
