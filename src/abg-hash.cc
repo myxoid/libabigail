@@ -866,8 +866,7 @@ struct template_tparameter::hash
 };
 
 size_t
-template_parameter::dynamic_hash::
-operator()(const template_parameter* t) const
+template_parameter::dynamic_hash::operator()(const template_parameter* t) const
 {
   if (const template_tparameter* p =
       dynamic_cast<const template_tparameter*>(t))
@@ -909,8 +908,7 @@ type_composition::hash::operator()(const type_composition* t) const
 {return t ? operator()(*t): 0;}
 
 size_t
-function_tdecl::hash::
-operator()(const function_tdecl& t) const
+function_tdecl::hash::operator()(const function_tdecl& t) const
 {
   std::hash<string> hash_string;
   decl_base::hash hash_decl_base;
@@ -937,8 +935,7 @@ function_tdecl::shared_ptr_hash::operator()(const function_tdecl_sptr f) const
 }
 
 size_t
-class_tdecl::hash::
-operator()(const class_tdecl& t) const
+class_tdecl::hash::operator()(const class_tdecl& t) const
 {
   std::hash<string> hash_string;
   decl_base::hash hash_decl_base;
