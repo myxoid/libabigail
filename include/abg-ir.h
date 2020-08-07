@@ -2020,26 +2020,6 @@ struct type_ptr_equal
   }
 };
 
-/// A predicate for deep equality of instances of
-/// shared_ptr<type_base>
-struct type_shared_ptr_equal
-{
-  bool
-  operator()(const type_base_sptr l, const type_base_sptr r) const
-  {
-    if (!!l != !!r)
-      return false;
-
-    if (l.get() == r.get())
-      return true;
-
-    if (l)
-      return *l == *r;
-
-    return true;
-  }
-};
-
 bool
 equals(const type_decl&, const type_decl&, change_kind*);
 
