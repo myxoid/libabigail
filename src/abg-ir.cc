@@ -1928,11 +1928,20 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
     return;
   ABG_ASSERT(check_alias_invariants());
 
+  std::string name = get_name();
+  std::string alias_name = alias->get_name();
+  bool debug = name.substr(0, 9) == "sigaction"
+               || alias_name.substr(0, 9) == "sigaction"
+               || name == "$x.0"
+               || alias_name == "$x.0";
+
   ABG_ASSERT(!alias->has_aliases());
   ABG_ASSERT(is_main_symbol());
 
   if (has_aliases())
     {
+      if (debug)
+        std::cerr << name << "has aliases\n";
       elf_symbol_sptr last_alias;
       for (elf_symbol_sptr a = get_next_alias();
 	   a && !a->is_main_symbol();
@@ -1945,11 +1954,17 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
 	    }
 	}
       ABG_ASSERT(last_alias);
+      if (debug)
+        std::cerr << last_alias->get_name() << " is last alias\n";
 
       last_alias->priv_->next_alias_ = alias;
     }
   else
-    priv_->next_alias_ = alias;
+    {
+      if (debug)
+        std::cerr << name << " has no aliases\n";
+      priv_->next_alias_ = alias;
+    }
 
   alias->priv_->next_alias_ = get_main_symbol();
   alias->priv_->main_symbol_ = get_main_symbol();

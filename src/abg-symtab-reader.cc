@@ -296,9 +296,15 @@ symtab::load_(Elf*	       elf_handle,
 	    update_function_entry_address_symbol_map(elf_handle, sym,
 						     symbol_sptr);
 
+          bool debug = symbol_value == 0x0000000000059c68;
+          if (debug) {
+            std::cerr << "attempting to insert symbol " << symbol_sptr->get_name() << "\n";
+          }
 	  const std::pair<addr_symbol_map_type::const_iterator, bool> result =
 	      addr_symbol_map_.insert(
 		  std::make_pair(symbol_value, symbol_sptr));
+          if (debug)
+            std::cerr << "attempt succeeded = " << result.second << "\n";
 	  if (!result.second)
 	    result.first->second->get_main_symbol()->add_alias(symbol_sptr);
 	}
