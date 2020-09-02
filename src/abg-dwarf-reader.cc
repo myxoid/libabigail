@@ -12148,6 +12148,8 @@ add_or_update_union_type(read_context&	 ctxt,
 	      if (!t)
 		continue;
 
+	      if (!n.empty() && lookup_var_decl_in_scope(n, result))
+		continue;
 	      // We have a non-static data member.  So this class
 	      // cannot be a declaration-only class anymore, even if
 	      // some DWARF emitters might consider it otherwise.
