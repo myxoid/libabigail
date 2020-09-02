@@ -5281,7 +5281,7 @@ build_union_decl(read_context& ctxt,
   ABG_ASSERT(env);
 
   if (!is_decl_only && previous_definition)
-    // We are in the case where we've read this class definition
+    // We are in the case where we've read this union definition
     // before, but we might need to update it to add some new stuff to
     // it; we might thus find the new stuff to add in the current
     // (new) incarnation of that definition that we are currently
@@ -5415,7 +5415,7 @@ build_union_decl(read_context& ctxt,
 		  if (decl->find_data_member(v))
 		    {
 		      // We are in updating mode and the current
-		      // version of this class already has this data
+		      // version of this union already has this data
 		      // member, so we are not going to add it again.
 		      // So we need to discard the data member we have
 		      // built (and that was pushed to the current
