@@ -1780,7 +1780,7 @@ create_private_types_suppressions(const package& pkg, const options &opts)
 {
   suppressions_type supprs;
 
-  package_sptr devel_pkg = pkg.devel_package();
+  const package_sptr& devel_pkg = pkg.devel_package();
   if (!devel_pkg
       || !file_exists(devel_pkg->extracted_dir_path())
       || !is_dir(devel_pkg->extracted_dir_path()))

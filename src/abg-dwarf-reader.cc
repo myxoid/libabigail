@@ -6606,7 +6606,7 @@ die_location(const read_context& ctxt, const Dwarf_Die* die)
 
   if (!file.empty() && line != 0)
     {
-      translation_unit_sptr tu = ctxt.cur_transl_unit();
+      const translation_unit_sptr& tu = ctxt.cur_transl_unit();
       location l = tu->get_loc_mgr().create_new_location(file, line, 1);
       return l;
     }

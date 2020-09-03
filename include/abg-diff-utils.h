@@ -1608,7 +1608,7 @@ compute_diff(RandomAccessOutputIterator a_base,
 
       if (snak.has_vertical_edge())
 	{
-	  point p = snak.intermediate();
+	  const point& p = snak.intermediate();
 	  insertion ins(p.x());
 	  ins.inserted_indexes().push_back(p.y());
 	  ses.insertions().push_back(ins);

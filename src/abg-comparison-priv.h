@@ -966,7 +966,8 @@ struct elf_symbol_comp
   bool
   operator()(const elf_symbol& l, const elf_symbol& r)
   {
-    string name1 = l.get_id_string(), name2 = r.get_id_string();
+    const string& name1 = l.get_id_string();
+    const string& name2 = r.get_id_string();
     return name1 < name2;
   }
 

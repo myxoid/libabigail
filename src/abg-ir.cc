@@ -20027,7 +20027,8 @@ function_decl::get_id() const
 bool
 function_decls_alias(const function_decl& f1, const function_decl& f2)
 {
-  elf_symbol_sptr s1 = f1.get_symbol(), s2 = f2.get_symbol();
+  const elf_symbol_sptr& s1 = f1.get_symbol();
+  const elf_symbol_sptr& s2 = f2.get_symbol();
 
   if (!s1 || !s2)
     return false;
@@ -22645,7 +22646,8 @@ struct virtual_member_function_less_than
     /// too.
     string fn_filepath, sn_filepath;
     unsigned line = 0, column = 0;
-    location fn_loc = f.get_location(), sn_loc = s.get_location();
+    const location& fn_loc = f.get_location();
+    const location& sn_loc = s.get_location();
     if (fn_loc)
       fn_loc.expand(fn_filepath, line, column);
     if (sn_loc)
@@ -22857,10 +22859,9 @@ class_decl::get_hash() const
 /// @return true iff @p f equals @p s without taking their linkage
 /// name or symbol into account.
 static bool
-methods_equal_modulo_elf_symbol(const method_decl_sptr& f,
-				const method_decl_sptr& s)
+methods_equal_modulo_elf_symbol(const method_decl_sptr& first,
+				const method_decl_sptr& second)
 {
-  method_decl_sptr first = f, second = s;
   elf_symbol_sptr saved_first_elf_symbol =
     first->get_symbol();
   elf_symbol_sptr saved_second_elf_symbol =

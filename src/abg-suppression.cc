@@ -2532,7 +2532,7 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // function only if the suppression condition matches the
 	  // names of all aliases.
 	  string symbol_name;
-	  elf_symbol_sptr sym = fn->get_symbol();
+	  const elf_symbol_sptr& sym = fn->get_symbol();
 	  ABG_ASSERT(sym);
 	  symbol_name = sym->get_name();
 	  if (sym->has_aliases() && sym->get_alias_from_name(fname))
@@ -2566,7 +2566,7 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // function only if the suppression condition matches *all*
 	  // the aliases.
 	  string symbol_name;
-	  elf_symbol_sptr sym = fn->get_symbol();
+	  const elf_symbol_sptr& sym = fn->get_symbol();
 	  ABG_ASSERT(sym);
 	  symbol_name = sym->get_name();
 	  if (sym->has_aliases())
@@ -2597,7 +2597,7 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // function only if the suppression condition matches *all*
 	  // the aliases.
 	  string symbol_name;
-	  elf_symbol_sptr sym = fn->get_symbol();
+	  const elf_symbol_sptr& sym = fn->get_symbol();
 	  ABG_ASSERT(sym);
 	  symbol_name = sym->get_name();
 	  if (sym->has_aliases())
@@ -2636,7 +2636,7 @@ function_suppression::suppresses_function(const function_decl* fn,
   // Check if the "symbol_name", "symbol_name_regexp", and
   // "symbol_name_not_regexp" properties match.
   string fn_sym_name, fn_sym_version;
-  elf_symbol_sptr sym = fn->get_symbol();
+  const elf_symbol_sptr& sym = fn->get_symbol();
   if (sym)
     {
       fn_sym_name = sym->get_name();

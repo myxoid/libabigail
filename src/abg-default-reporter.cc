@@ -478,7 +478,7 @@ default_reporter::report(const reference_diff& d, ostream& out,
     report_local_reference_type_changes(d, out, indent);
 
   if (k & SUBTYPE_CHANGE_KIND)
-    if (diff_sptr dif = d.underlying_type_diff())
+    if (const diff_sptr& dif = d.underlying_type_diff())
       {
 	RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER2(dif,
 							  "referenced type");
@@ -671,7 +671,7 @@ default_reporter::report(const array_diff& d, ostream& out,
 						    d.second_array(),
 						    "array type");
 
-  diff_sptr dif = d.element_type_diff();
+  const diff_sptr& dif = d.element_type_diff();
   if (dif->to_be_reported())
     {
       string fn = ir::get_pretty_representation(is_type(dif->first_subject()));
