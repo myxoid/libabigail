@@ -400,7 +400,7 @@ main(int argc, char* argv[])
       file_type ftype = guess_file_type(opts.kernel_dist_root1);
       if (ftype == FILE_TYPE_DIR)
 	{
-	  debug_info_root_dir = opts.di_root_path1.get()
+	  debug_info_root_dir = opts.di_root_path1
 	    ? opts.di_root_path1.get()
 	    : "";
 
@@ -427,7 +427,7 @@ main(int argc, char* argv[])
       file_type ftype = guess_file_type(opts.kernel_dist_root2);
       if (ftype == FILE_TYPE_DIR)
 	{
-	  debug_info_root_dir = opts.di_root_path2.get()
+	  debug_info_root_dir = opts.di_root_path2
 	    ? opts.di_root_path2.get()
 	    : "";
 	  group2 =
