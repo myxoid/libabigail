@@ -14,6 +14,7 @@
 #ifndef __ABG_CORPUS_PRIV_H__
 #define __ABG_CORPUS_PRIV_H__
 
+#include "abg-corpus.h"
 #include "abg-internal.h"
 #include "abg-ir.h"
 #include "abg-regex.h"
