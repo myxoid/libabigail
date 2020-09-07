@@ -2924,7 +2924,7 @@ public:
 	get_die_from_offset(source, cur_die_offset, &canonical_die);
 	// compare die and canonical_die.
 	if (compare_dies(*this, die, &canonical_die,
-			 /*update_canonical_dies_on_the_fly=*/true))
+			 /*update_canonical_dies_on_the_fly=*/false))
 	  {
 	    set_canonical_die_offset(canonical_dies,
 				     die_offset,
@@ -3044,7 +3044,7 @@ public:
 	get_die_from_offset(source, die_offset, &canonical_die);
 	// compare die and canonical_die.
 	if (compare_dies(*this, die, &canonical_die,
-			 /*update_canonical_dies_on_the_fly=*/true))
+			 /*update_canonical_dies_on_the_fly=*/false))
 	  {
 	    set_canonical_die_offset(canonical_dies,
 				     initial_die_offset,
@@ -14514,7 +14514,7 @@ maybe_canonicalize_type(const Dwarf_Die *die, read_context& ctxt)
     return;
 
   type_base_sptr peeled_type = peel_typedef_pointer_or_reference_type(t);
-  if (is_class_type(peeled_type)
+  if (true || is_class_type(peeled_type)
       || is_union_type(peeled_type)
       || is_function_type(peeled_type)
       || is_array_type(peeled_type)
@@ -14568,7 +14568,7 @@ maybe_canonicalize_type(const type_base_sptr& t,
     return;
 
   type_base_sptr peeled_type = peel_typedef_pointer_or_reference_type(t);
-  if (is_class_type(peeled_type)
+  if (true || is_class_type(peeled_type)
       || is_union_type(peeled_type)
       || is_function_type(peeled_type)
       || is_array_type(peeled_type)

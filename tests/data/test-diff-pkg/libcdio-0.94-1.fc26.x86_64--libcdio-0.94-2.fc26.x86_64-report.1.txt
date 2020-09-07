@@ -1,10 +1,76 @@
 ================ changes of 'libcdio.so.16.0.0'===============
-  Functions changes summary: 0 Removed, 2 Changed, 0 Added functions
+  Functions changes summary: 0 Removed, 29 Changed, 0 Added functions
   Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
 
-  2 functions with some indirect sub-type change:
+  29 functions with some indirect sub-type change:
+
+    [C] 'function CdIo_t* cdio_open_am_bincue(const char*, const char*)' at bincue.c:1217:1 has some indirect sub-type changes:
+      return type changed:
+        in pointed to type 'typedef CdIo_t' at cdio.h:47:1:
+          underlying type 'struct _CdIo' at cdio_private.h:463:1 changed:
+            type size hasn't changed
+            1 data member change:
+              type of 'cdio_funcs_t op' changed:
+                underlying type 'struct {typedef driver_return_code_t (void*, cdio_audio_volume_t*)* audio_get_volume; typedef driver_return_code_t (void*)* audio_pause; typedef driver_return_code_t (void*, msf_t*, msf_t*)* audio_play_msf; typedef driver_return_code_t (void*, cdio_track_index_t*)* audio_play_track_index; typedef driver_return_code_t (void*, cdio_subchannel_t*)* audio_read_subchannel; typedef driver_return_code_t (void*)* audio_resume; typedef driver_return_code_t (void*, cdio_audio_volume_t*)* audio_set_volume; typedef driver_return_code_t (void*)* audio_stop; typedef driver_return_code_t (void*)* eject_media; void (void*)* free; const char* (void*, const char*)* get_arg; int (void*)* get_blocksize; cdtext_t* (void*)* get_cdtext; uint8_t* (void*)* get_cdtext_raw; char** ()* get_devices; char* ()* get_default_device; typedef lsn_t (void*)* get_disc_last_lsn; typedef discmode_t (void*)* get_discmode; void (void*, cdio_drive_read_cap_t*, cdio_drive_write_cap_t*, cdio_drive_misc_cap_t*)* get_drive_cap; typedef track_t (void*)* get_first_track_num; bool (const CdIo_t*, cdio_hwinfo_t*)* get_hwinfo; typedef driver_return_code_t (void*, lsn_t*)* get_last_session; int (void*)* get_media_changed; char* (void*)* get_mcn; typedef track_t (void*)* get_num_tracks; int (void*, typedef track_t)* get_track_channels; typedef track_flag_t (void*, typedef track_t)* get_track_copy_permit; typedef lba_t (void*, typedef track_t)* get_track_lba; typedef lba_t (void*, typedef track_t)* get_track_pregap_lba; char* (void*, typedef track_t)* get_track_isrc; typedef track_format_t (void*, typedef track_t)* get_track_format; bool (void*, typedef track_t)* get_track_green; bool (void*, typedef track_t, msf_t*)* get_track_msf; typedef track_flag_t (void*, typedef track_t)* get_track_preemphasis; typedef off_t (void*, typedef off_t, int)* lseek; typedef ssize_t (void*, void*, typedef size_t)* read; int (void*, void*, typedef lsn_t, unsigned int)* read_audio_sectors; typedef driver_return_code_t (void*, void*, typedef lsn_t, typedef uint16_t, typedef uint32_t)* read_data_sectors; int (void*, void*, typedef lsn_t, bool)* read_mode2_sector; int (void*, void*, typedef lsn_t, bool, unsigned int)* read_mode2_sectors; int (void*, void*, typedef lsn_t, bool)* read_mode1_sector; int (void*, void*, typedef lsn_t, bool, unsigned int)* read_mode1_sectors; bool (void*)* read_toc; mmc_run_cmd_fn_t run_mmc_cmd; int (void*, const char*, const char*)* set_arg; typedef driver_return_code_t (void*, typedef uint16_t)* set_blocksize; int (void*, int)* set_speed;}' at cdio_private.h:82:1 changed:
+                  type size hasn't changed
+                  1 data member change:
+                    type of 'bool (const CdIo_t*, cdio_hwinfo_t*)* get_hwinfo' changed:
+                      in pointed to type 'function type bool (const CdIo_t*, cdio_hwinfo_t*)':
+                        parameter 1 of type 'const CdIo_t*' has sub-type changes:
+                          in pointed to type 'const CdIo_t':
+                            in unqualified underlying type 'typedef CdIo_t' at cdio.h:47:1:
+                              underlying type 'struct _CdIo' changed, as being reported
+
+    [C] 'function CdIo_t* cdio_open_am_nrg(const char*, const char*)' at nrg.c:1303:1 has some indirect sub-type changes:
+      return type changed:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function CdIo_t* cdio_open_bincue(const char*)' at bincue.c:1231:1 has some indirect sub-type changes:
+      return type changed:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function CdIo_t* cdio_open_cue(const char*)' at bincue.c:1247:1 has some indirect sub-type changes:
+      return type changed:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function CdIo_t* cdio_open_nrg(const char*)' at nrg.c:1313:1 has some indirect sub-type changes:
+      return type changed:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_audio_get_volume(CdIo_t*, mmc_audio_volume_t*)' at mmc.c:427:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_audio_read_subchannel(CdIo_t*, cdio_subchannel_t*)' at mmc.c:626:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function int mmc_get_blocksize(CdIo_t*)' at mmc.c:704:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function lsn_t mmc_get_disc_last_lsn(const CdIo_t*)' at mmc.c:760:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function discmode_t mmc_get_discmode(const CdIo_t*)' at mmc.c:806:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function void mmc_get_drive_cap(CdIo_t*, cdio_drive_read_cap_t*, cdio_drive_write_cap_t*, cdio_drive_misc_cap_t*)' at mmc.c:842:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function cdio_mmc_level_t mmc_get_drive_mmc_cap(CdIo_t*)' at mmc.c:917:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
 
     [C] 'function discmode_t mmc_get_dvd_struct_physical(const CdIo_t*, cdio_dvd_struct_t*)' at mmc.c:949:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
       parameter 2 of type 'cdio_dvd_struct_t*' has sub-type changes:
         in pointed to type 'typedef cdio_dvd_struct_t' at dvd.h:130:1:
           underlying type 'union {uint8_t type; cdio_dvd_physical_t physical; cdio_dvd_copyright_t copyright; cdio_dvd_disckey_t disckey; cdio_dvd_bca_t bca; cdio_dvd_manufact_t manufact;}' at dvd.h:122:1 changed:
@@ -37,6 +103,78 @@
     [C] 'function discmode_t mmc_get_dvd_struct_physical_private(void*, mmc_run_cmd_fn_t, cdio_dvd_struct_t*)' at mmc.c:450:1 has some indirect sub-type changes:
       parameter 3 of type 'cdio_dvd_struct_t*' has sub-type changes:
         pointed to type 'typedef cdio_dvd_struct_t' changed at dvd.h:130:1, as reported earlier
+
+    [C] 'function bool mmc_get_hwinfo(const CdIo_t*, cdio_hwinfo_t*)' at mmc.c:967:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function char* mmc_get_mcn(const CdIo_t*)' at mmc.c:1030:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function char* mmc_get_mcn_isrc_private(const CdIo_t*, track_t, unsigned char)' at mmc.c:518:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function int mmc_get_media_changed(const CdIo_t*)' at mmc.c:1007:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function char* mmc_get_track_isrc(const CdIo_t*, track_t)' at mmc.c:1048:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function int mmc_get_tray_status(const CdIo_t*)' at mmc.c:1108:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function bool_3way_t mmc_have_interface(CdIo_t*, cdio_mmc_feature_interface_t)' at mmc.c:1220:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_isrc_track_read_subchannel(CdIo_t*, const track_t, char*)' at mmc.c:677:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function int mmc_last_cmd_sense(const CdIo_t*, cdio_mmc_request_sense_t**)' at mmc.c:1138:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function uint8_t* mmc_read_cdtext(const CdIo_t*)' at mmc.c:1064:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_read_data_sectors(CdIo_t*, void*, lsn_t, uint16_t, uint32_t)' at mmc.c:353:1 has some indirect sub-type changes:
+      parameter 1 of type 'CdIo_t*' has sub-type changes:
+        pointed to type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_read_sectors(const CdIo_t*, void*, lsn_t, int, uint32_t)' at mmc.c:1266:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_run_cmd(const CdIo_t*, unsigned int, const mmc_cdb_t*, cdio_mmc_direction_t, unsigned int, void*)' at mmc.c:1169:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_run_cmd_len(const CdIo_t*, unsigned int, const mmc_cdb_t*, unsigned int, cdio_mmc_direction_t, unsigned int, void*)' at mmc.c:1203:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
+
+    [C] 'function driver_return_code_t mmc_set_blocksize(const CdIo_t*, uint16_t)' at mmc.c:1293:1 has some indirect sub-type changes:
+      parameter 1 of type 'const CdIo_t*' has sub-type changes:
+        in pointed to type 'const CdIo_t':
+          unqualified underlying type 'typedef CdIo_t' changed at cdio.h:47:1, as reported earlier
 
 ================ end of changes of 'libcdio.so.16.0.0'===============
 

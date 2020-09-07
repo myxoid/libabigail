@@ -45,12 +45,12 @@
     <!-- int[5] -->
     <array-type-def dimensions='1' type-id='type-id-14' size-in-bits='160' id='type-id-21'>
       <!-- <anonymous range>[5] -->
-      <subrange length='5' type-id='type-id-4' id='type-id-12'/>
+      <subrange length='5' type-id='type-id-4' id='type-id-22'/>
     </array-type-def>
     <!-- sizetype -->
     <type-decl name='sizetype' size-in-bits='64' id='type-id-4'/>
     <!-- struct S -->
-    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='type-id-22'>
+    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='type-id-23'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int S::a[5] -->
         <var-decl name='a' type-id='type-id-21' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='3' column='1'/>
@@ -77,9 +77,9 @@
       </data-member>
     </class-decl>
     <!-- S& -->
-    <qualified-type-def type-id='type-id-23' id='type-id-24'/>
+    <qualified-type-def type-id='type-id-24' id='type-id-25'/>
     <!-- S& -->
-    <reference-type-def kind='lvalue' type-id='type-id-22' size-in-bits='64' id='type-id-23'/>
+    <reference-type-def kind='lvalue' type-id='type-id-23' size-in-bits='64' id='type-id-24'/>
     <!-- char* -->
     <pointer-type-def type-id='type-id-1' size-in-bits='64' id='type-id-2'/>
     <!-- int* -->
@@ -89,7 +89,7 @@
     <!-- int foo(S&) -->
     <function-decl name='foo' mangled-name='_Z3fooR1S' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='11' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_Z3fooR1S'>
       <!-- parameter of type 'S&' -->
-      <parameter type-id='type-id-24'/>
+      <parameter type-id='type-id-25'/>
       <!-- int -->
       <return type-id='type-id-14'/>
     </function-decl>

@@ -295,7 +295,11 @@ Variables changes summary: 0 Removed, 0 Changed, 3 Added variables
 
   [C] 'function lttng_condition_type lttng_evaluation_get_type(const lttng_evaluation*)' has some indirect sub-type changes:
     return type changed:
-      enum type 'enum lttng_condition_type' changed, as reported earlier
+      type size hasn't changed
+      3 enumerator insertions:
+        'lttng_condition_type::LTTNG_CONDITION_TYPE_SESSION_CONSUMED_SIZE' value '100'
+        'lttng_condition_type::LTTNG_CONDITION_TYPE_SESSION_ROTATION_ONGOING' value '103'
+        'lttng_condition_type::LTTNG_CONDITION_TYPE_SESSION_ROTATION_COMPLETED' value '104'
     parameter 1 of type 'const lttng_evaluation*' has sub-type changes:
       in pointed to type 'const lttng_evaluation':
         unqualified underlying type 'struct lttng_evaluation' changed, as reported earlier

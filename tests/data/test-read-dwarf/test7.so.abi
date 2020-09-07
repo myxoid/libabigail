@@ -26,10 +26,10 @@
       <subrange length='10' type-id='type-id-4' id='type-id-20'/>
     </array-type-def>
     <array-type-def dimensions='1' type-id='type-id-14' size-in-bits='160' id='type-id-21'>
-      <subrange length='5' type-id='type-id-4' id='type-id-12'/>
+      <subrange length='5' type-id='type-id-4' id='type-id-22'/>
     </array-type-def>
     <type-decl name='sizetype' size-in-bits='64' id='type-id-4'/>
-    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='type-id-22'>
+    <class-decl name='S' size-in-bits='2304' is-struct='yes' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='1' column='1' id='type-id-23'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='a' type-id='type-id-21' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='3' column='1'/>
       </data-member>
@@ -49,13 +49,13 @@
         <var-decl name='f' type-id='type-id-8' visibility='default' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='8' column='1'/>
       </data-member>
     </class-decl>
-    <qualified-type-def type-id='type-id-23' id='type-id-24'/>
-    <reference-type-def kind='lvalue' type-id='type-id-22' size-in-bits='64' id='type-id-23'/>
+    <qualified-type-def type-id='type-id-24' id='type-id-25'/>
+    <reference-type-def kind='lvalue' type-id='type-id-23' size-in-bits='64' id='type-id-24'/>
     <pointer-type-def type-id='type-id-1' size-in-bits='64' id='type-id-2'/>
     <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-15'/>
     <pointer-type-def type-id='type-id-16' size-in-bits='64' id='type-id-18'/>
     <function-decl name='foo' mangled-name='_Z3fooR1S' filepath='/home/ooprala/rh/u/libabigail/tests/data/test-read-dwarf/test7.cc' line='11' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_Z3fooR1S'>
-      <parameter type-id='type-id-24'/>
+      <parameter type-id='type-id-25'/>
       <return type-id='type-id-14'/>
     </function-decl>
   </abi-instr>
