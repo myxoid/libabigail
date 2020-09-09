@@ -4776,7 +4776,8 @@ public:
 	    ABG_ASSERT(t);
 	    if (do_log())
 	      {
-		cerr << "canonicalizing type "
+		cerr << "canonicalizing type @" << t << " (canon="
+                     << t->get_canonical_type() << ") "
 		     << get_pretty_representation(t, false)
 		     << " [" << i + 1 << "/" << total << "]";
 		if (corpus_sptr c = current_corpus())
@@ -4787,7 +4788,7 @@ public:
 	    canonicalize(t);
 	    if (do_log())
 	      {
-		cerr << " DONE";
+		cerr << " DONE (canon=" << t->get_canonical_type() << ")";
 		single_type_cn_timer.stop();
 		cerr << ":" <<single_type_cn_timer << "\n";
 	      }
@@ -14256,6 +14257,7 @@ read_debug_info_into_corpus(read_context& ctxt)
   // First set some mundane properties of the corpus gathered from
   // ELF.
   ctxt.current_corpus()->set_path(ctxt.elf_path());
+  sleep(0);
   if (is_linux_kernel(ctxt.elf_handle()))
     ctxt.current_corpus()->set_origin(corpus::LINUX_KERNEL_BINARY_ORIGIN);
   else
