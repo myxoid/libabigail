@@ -9,6 +9,8 @@
 ///
 /// Definitions for the Internal Representation artifacts of libabigail.
 
+#include <unistd.h>
+
 #include <cxxabi.h>
 #include <algorithm>
 #include <cstdint>
@@ -13488,7 +13490,7 @@ maybe_propagate_canonical_type(const type_base& lhs_type,
 ///
 /// @return true iff t1 and t2 are eligible to the LKFTCO.
 static bool
-types_defined_same_linux_kernel_corpus_public(const type_base& t1,
+types_defined_same_linux_kernel_corpus_public(bool debug, const type_base& t1,
 					      const type_base& t2)
 {
   const corpus *t1_corpus = t1.get_corpus(), *t2_corpus = t2.get_corpus();
@@ -13496,6 +13498,12 @@ types_defined_same_linux_kernel_corpus_public(const type_base& t1,
 
   /// If the t1 (and t2) are classes/unions/enums from the same linux
   /// kernel corpus, let's move on.  Otherwise bail out.
+  bool same_corpus = t1_corpus && t2_corpus && t1_corpus == t2_corpus;
+  bool linux_corpus = t1_corpus->get_origin() == corpus::LINUX_KERNEL_BINARY_ORIGIN;
+  bool user_defined = is_class_or_union_type(&t1) || is_enum_type(&t1);
+  if (false) {
+    std::cerr << same_corpus << " " << linux_corpus << " " << user_defined << "\n";
+  }
   if (!(t1_corpus && t2_corpus
 	&& t1_corpus == t2_corpus
 	&& (t1_corpus->get_origin() & corpus::LINUX_KERNEL_BINARY_ORIGIN)
@@ -13770,7 +13778,8 @@ type_base::get_canonical_type_for(type_base_sptr t)
 	  // Compare types by considering that decl-only classes don't
 	  // equal their definition.
 	  env->decl_only_class_equals_definition(false);
-	  bool equal = (types_defined_same_linux_kernel_corpus_public(**it, *t)
+          bool debug = abigail::ir::get_pretty_representation(t, false) == "struct net";
+	  bool equal = (types_defined_same_linux_kernel_corpus_public(debug, **it, *t)
 			|| compare_types_during_canonicalization(*it, t));
 	  // Restore the state of the on-the-fly-canonicalization and
 	  // the decl-only-class-being-equal-to-a-matching-definition
@@ -13956,6 +13965,9 @@ canonicalize(type_base_sptr t)
 {
   if (!t)
     return t;
+
+  if (get_pretty_representation(t, false) == "struct net")
+    sleep(0);
 
   if (t->get_canonical_type())
     return t->get_canonical_type();
@@ -21445,7 +21457,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
       ABG_RETURN_FALSE;
     }
 
-  if (types_defined_same_linux_kernel_corpus_public(l, r))
+  if (types_defined_same_linux_kernel_corpus_public(false, l, r))
     return true;
 
   RETURN_TRUE_IF_COMPARISON_CYCLE_DETECTED(l, r);
