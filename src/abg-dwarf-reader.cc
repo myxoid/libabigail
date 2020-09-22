@@ -4767,6 +4767,22 @@ public:
 	cn_timer.start();
       }
 
+    {
+      // first let's "sort" the types so that definitions appear before
+      // declarations
+      vector<Dwarf_Off> replacement, incomplete;
+      for (const auto& doff : types_to_canonicalize(source))
+	{
+	  const type_base_sptr& t = lookup_type_from_die_offset(doff, source);
+	  decl_base* db = dynamic_cast<decl_base*>(t.get());
+	  (db && db->get_is_declaration_only() ? incomplete : replacement)
+	    .push_back(doff);
+	}
+      replacement.insert(replacement.end(), incomplete.begin(),
+			 incomplete.end());
+      std::swap(types_to_canonicalize(source), replacement);
+    }
+
     if (!types_to_canonicalize(source).empty()
 	|| !extra_types_to_canonicalize().empty())
       {
