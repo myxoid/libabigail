@@ -4761,6 +4761,23 @@ public:
 	cn_timer.start();
       }
 
+    {
+      // Partition the types so that definitions appear before declarations.
+      struct Partition {
+	read_context * ctxt;
+	die_source source;
+	bool operator()(Dwarf_Off off) const
+	{
+	  type_base_sptr t = ctxt->lookup_type_from_die_offset(off, source);
+	  decl_base * db = dynamic_cast<decl_base *>(t.get());
+	  return !db || !db->get_is_declaration_only();
+	}
+      };
+      Partition partition { this, source };
+      std::vector<Dwarf_Off>& types = types_to_canonicalize(source);
+      std::partition(types.begin(), types.end(), partition);
+    }
+
     if (!types_to_canonicalize(source).empty()
 	|| !extra_types_to_canonicalize().empty())
       {
