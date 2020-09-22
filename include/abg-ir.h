@@ -1845,7 +1845,7 @@ private:
   type_base();
 
   static type_base_sptr
-  get_canonical_type_for(type_base_sptr);
+  get_canonical_type_for(bool debug, type_base_sptr);
 
 protected:
   virtual void

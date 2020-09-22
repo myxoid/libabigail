@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 // -*- mode: C++ -*-
 //
 // Copyright (C) 2013-2020 Red Hat, Inc.
@@ -12456,10 +12458,13 @@ types_defined_same_linux_kernel_corpus_public(const type_base& t1,
 /// @return the canonical type for the current instance of @ref
 /// type_base.
 type_base_sptr
-type_base::get_canonical_type_for(type_base_sptr t)
+type_base::get_canonical_type_for(bool debug, type_base_sptr t)
 {
   if (!t)
     return t;
+
+  if (debug) std::cerr << "get_canonical_type_for(" << t << ")\n";
+  if (debug) sleep(0);
 
   environment* env = t->get_environment();
   ABG_ASSERT(env);
@@ -12743,10 +12748,15 @@ canonicalize(type_base_sptr t)
   if (!t)
     return t;
 
-  if (t->get_canonical_type())
+  bool debug = get_pretty_representation(t, false) == "struct dma_fence";
+  if (debug) std::cerr << "canonicalize(" << t << ")\n";
+  if (t->get_canonical_type()) {
+    if (debug) std::cerr << " already has canonical type " << t->get_canonical_type() << "\n";
     return t->get_canonical_type();
+  }
 
-  type_base_sptr canonical = type_base::get_canonical_type_for(t);
+  if (debug) std::cerr << " looking for canonical type\n";
+  type_base_sptr canonical = type_base::get_canonical_type_for(debug, t);
   maybe_adjust_canonical_type(canonical, t);
 
   t->priv_->canonical_type = canonical;

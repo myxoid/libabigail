@@ -4124,10 +4124,13 @@ public:
   void
   maybe_schedule_declaration_only_class_for_resolution(class_decl_sptr& klass)
   {
+    bool debug = klass->get_qualified_name() == "dma_fence";
+    if (debug) std::cerr << " scheduling? " << klass << "\n";
     if (klass->get_is_declaration_only()
 	&& klass->get_definition_of_declaration() == 0)
       {
 	string qn = klass->get_qualified_name();
+        if (debug) std::cerr << " scheduled! " << klass << "\n";
 	string_classes_map::iterator record =
 	  declaration_only_classes().find(qn);
 	if (record == declaration_only_classes().end())
@@ -11610,6 +11613,14 @@ add_or_update_class_type(read_context&	 ctxt,
   if (!die)
     return result;
 
+  bool debug;
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    debug = name == "dma_fence";
+  }
+
   const die_source source = ctxt.get_die_source(die);
 
   unsigned tag = dwarf_tag(die);
@@ -11624,6 +11635,7 @@ add_or_update_class_type(read_context&	 ctxt,
       {
 	class_decl_sptr class_type = is_class_type(i->second);
 	ABG_ASSERT(class_type);
+        if (debug) std::cerr << "found WIP\n";
 	return class_type;
       }
   }
@@ -11638,12 +11650,23 @@ add_or_update_class_type(read_context&	 ctxt,
     // (like in C) we can re-use a class definition verbatim.
     if (class_decl_sptr class_type =
 	is_class_type(ctxt.lookup_type_from_die(die)))
-      if (!class_type->get_is_declaration_only())
+      if (!class_type->get_is_declaration_only()) {
+        if (debug) std::cerr << " found defn " << class_type << "\n";
 	return class_type;
+      }
 
   string name, linkage_name;
   location loc;
   die_loc_and_name(ctxt, die, loc, name, linkage_name);
+
+  static size_t ix = 0;
+  if (debug) {
+    auto offset = dwarf_dieoffset(die);
+    std::cerr << "got " << ix << ": klass=" << klass
+              << " die=" << die
+              << " offset=" << offset << "\n";
+    ++ix;
+  }
 
   bool is_anonymous = false;
   if (name.empty())
@@ -11663,15 +11686,18 @@ add_or_update_class_type(read_context&	 ctxt,
     {
       if (corpus_sptr corp = ctxt.should_reuse_type_from_corpus_group())
 	{
-	  if (loc)
+	  if (loc) {
+            if (debug) std::cerr << ' ' << __LINE__ << "\n";
 	    // TODO: if there is only one class defined in the corpus
 	    // for this location, then re-use it.  But if there are
 	    // more than one, then do not re-use it, for now.
 	    result = lookup_class_type_per_location(loc.expand(), *corp);
-	  else
+	  } else {
+            if (debug) std::cerr << ' ' << __LINE__ << "\n";
 	    // TODO: if there is just one class for that name defined,
 	    // then re-use it.  Otherwise, don't.
 	    result = lookup_class_type(name, *corp);
+          }
 	  if (result
 	      // If we are seeing a declaration of a definition we
 	      // already had, or if we are seing a type with the same
@@ -11681,14 +11707,17 @@ add_or_update_class_type(read_context&	 ctxt,
 		  || (!result->get_is_declaration_only()
 		      && is_declaration_only)))
 	    {
+              if (debug) std::cerr << ' ' << __LINE__ << "\n";
 	      ctxt.associate_die_to_type(die, result, where_offset);
 	      return result;
 	    }
-	  else
+	  else {
+            if (debug) std::cerr << ' ' << __LINE__ << "\n";
 	    // We might be seeing the definition of a declaration we
 	    // already had.  In that case, keep the definition and
 	    // drop the declaration.
 	    result.reset();
+          }
 	}
     }
 
@@ -11699,8 +11728,10 @@ add_or_update_class_type(read_context&	 ctxt,
   // when they do have a naming typedef.
   if (!is_anonymous)
     if (class_decl_sptr pre_existing_class =
-	is_class_type(ctxt.lookup_type_artifact_from_die(die)))
+	is_class_type(ctxt.lookup_type_artifact_from_die(die))) {
       klass = pre_existing_class;
+      if (debug) std::cerr << " found pre-existing class " << klass << "\n";
+    }
 
   uint64_t size = 0;
   die_size_in_bits(die, size);
@@ -11712,6 +11743,7 @@ add_or_update_class_type(read_context&	 ctxt,
   decl_base_sptr res;
   if (klass)
     {
+      if (debug) std::cerr << " setting result to given klass " << klass << "\n";
       res = result = klass;
       if (loc)
 	result->set_location(loc);
@@ -11725,13 +11757,23 @@ add_or_update_class_type(read_context&	 ctxt,
 
       result->set_is_declaration_only(is_declaration_only);
 
+      if (debug) std::cerr << " created new class_decl " << result
+                           << " name=" << name
+                           << " size=" << size
+                           << " is_struct=" << is_struct
+                           << " is_anonymous=" << is_anonymous
+                           << " is_declaration_only=" << is_declaration_only
+                           << "\n";
+
       res = add_decl_to_scope(result, scope);
       result = dynamic_pointer_cast<class_decl>(res);
       ABG_ASSERT(result);
     }
 
-  if (size)
+  if (size) {
+    if (debug) std::cerr << " setting size\n";
     result->set_size_in_bits(size);
+  }
 
   if (klass)
     // We are amending a class that was built before.  So let's check
@@ -11762,6 +11804,8 @@ add_or_update_class_type(read_context&	 ctxt,
     // here.
     return result;
 
+  if (debug) std::cerr << " inserting WIP " << dwarf_dieoffset(die) << ":" << result << "\n";
+  ABG_ASSERT(ctxt.die_wip_classes_map(source).count(dwarf_dieoffset(die)) == 0);
   ctxt.die_wip_classes_map(source)[dwarf_dieoffset(die)] = result;
 
   scope_decl_sptr scop =
@@ -11955,6 +11999,7 @@ add_or_update_class_type(read_context&	 ctxt,
       ctxt.die_wip_classes_map(source).find(dwarf_dieoffset(die));
     if (i != ctxt.die_wip_classes_map(source).end())
       {
+        if (debug) std::cerr << " erasing WIP " << i->first << ":" << i->second << "\n";
 	if (is_member_type(i->second))
 	  set_member_access_specifier(res,
 				      get_member_access_specifier(i->second));
@@ -14001,6 +14046,14 @@ read_debug_info_into_corpus(read_context& ctxt)
 static void
 maybe_canonicalize_type(const Dwarf_Die *die, read_context& ctxt)
 {
+  bool debug;
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, const_cast<Dwarf_Die*>(die), loc, name, linkage_name);
+    debug = name == "dma_fence";
+  }
+  if (debug) std::cerr << "maybe canon Y\n";
   const die_source source = ctxt.get_die_source(die);
 
   size_t die_offset = dwarf_dieoffset(const_cast<Dwarf_Die*>(die));
@@ -14024,7 +14077,9 @@ maybe_canonicalize_type(const Dwarf_Die *die, read_context& ctxt)
     // side.  We also delay canonicalization for array and qualified
     // types because they can be edited (in particular by
     // maybe_strip_qualification) after they are initially built.
-    ctxt.schedule_type_for_late_canonicalization(die);
+  {
+      if (debug) std::cerr << "taking the late train\n";
+    ctxt.schedule_type_for_late_canonicalization(die); }
   else if ((is_function_type(t)
 	    && ctxt.is_wip_function_type_die_offset(die_offset, source))
 	   || type_has_non_canonicalized_subtype(t))
@@ -14119,6 +14174,14 @@ maybe_canonicalize_type(const Dwarf_Die	*die,
 			const type_base_sptr&	t,
 			read_context&		ctxt)
 {
+  bool debug;
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, const_cast<Dwarf_Die*>(die), loc, name, linkage_name);
+    debug = name == "dma_fence";
+  }
+  if (debug) std::cerr << "maybe canon X\n";
   if (const function_type_sptr ft = is_function_type(t))
     {
       maybe_canonicalize_type(ft, ctxt);
@@ -14355,10 +14418,18 @@ build_ir_node_from_die(read_context&	ctxt,
     case DW_TAG_class_type:
     case DW_TAG_structure_type:
       {
+        bool debug;
+        {
+          string name, linkage_name;
+          location loc;
+          die_loc_and_name(ctxt, die, loc, name, linkage_name);
+          debug = name == "dma_fence";
+        }
 	bool type_is_private = false;
 	bool type_suppressed=
 	  type_is_suppressed(ctxt, scope, die, type_is_private);
 
+        if (debug) std::cerr << "priv=" << type_is_private << " supp=" << type_suppressed << "\n";
 	if (type_suppressed && type_is_private)
 	  // The type is suppressed because it's private.  If other
 	  // non-suppressed and declaration-only instances of this
@@ -14374,6 +14445,7 @@ build_ir_node_from_die(read_context&	ctxt,
 	    class_decl_sptr klass;
 	    if (die_die_attribute(die, DW_AT_specification, spec_die))
 	      {
+                if (debug) std::cerr << __LINE__ << "\n";
 		scope_decl_sptr skope =
 		  get_scope_for_die(ctxt, &spec_die,
 				    called_from_public_decl,
@@ -14399,7 +14471,8 @@ build_ir_node_from_die(read_context&	ctxt,
 					   where_offset,
 					   is_declaration_only);
 	      }
-	    else
+	    else {
+              if (debug) std::cerr << "about to add " << die << "\n";
 	      klass =
 		add_or_update_class_type(ctxt, die, scope,
 					 tag == DW_TAG_structure_type,
@@ -14407,9 +14480,11 @@ build_ir_node_from_die(read_context&	ctxt,
 					 called_from_public_decl,
 					 where_offset,
 					 is_declaration_only);
+            }
 	    result = klass;
 	    if (klass)
 	      {
+                if (debug) std::cerr << "about to set and canon " << die << " " << klass << "\n";
 		maybe_set_member_type_access_specifier(klass, die);
 		maybe_canonicalize_type(die, klass, ctxt);
 	      }
