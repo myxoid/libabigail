@@ -4592,13 +4592,13 @@
     <array-type-def dimensions='1' type-id='type-id-10' size-in-bits='288' id='type-id-403'>
       <subrange length='36' type-id='type-id-4' id='type-id-404'/>
     </array-type-def>
-    <reference-type-def kind='rvalue' type-id='type-id-68' size-in-bits='64' id='type-id-405'/>
-    <reference-type-def kind='lvalue' type-id='type-id-401' size-in-bits='64' id='type-id-406'/>
-    <reference-type-def kind='lvalue' type-id='type-id-403' size-in-bits='64' id='type-id-407'/>
+    <reference-type-def kind='lvalue' type-id='type-id-401' size-in-bits='64' id='type-id-405'/>
+    <reference-type-def kind='lvalue' type-id='type-id-403' size-in-bits='64' id='type-id-406'/>
     <reference-type-def kind='lvalue' type-id='type-id-92' size-in-bits='64' id='type-id-156'/>
-    <qualified-type-def type-id='type-id-408' const='yes' id='type-id-409'/>
-    <reference-type-def kind='lvalue' type-id='type-id-409' size-in-bits='64' id='type-id-410'/>
-    <pointer-type-def type-id='type-id-409' size-in-bits='64' id='type-id-411'/>
+    <qualified-type-def type-id='type-id-407' const='yes' id='type-id-408'/>
+    <reference-type-def kind='lvalue' type-id='type-id-408' size-in-bits='64' id='type-id-409'/>
+    <pointer-type-def type-id='type-id-408' size-in-bits='64' id='type-id-410'/>
+    <reference-type-def kind='rvalue' type-id='type-id-68' size-in-bits='64' id='type-id-411'/>
     <reference-type-def kind='lvalue' type-id='type-id-412' size-in-bits='64' id='type-id-413'/>
     <pointer-type-def type-id='type-id-414' size-in-bits='64' id='type-id-415'/>
     <reference-type-def kind='lvalue' type-id='type-id-416' size-in-bits='64' id='type-id-417'/>
@@ -4885,7 +4885,7 @@
           <function-decl name='_Bind&lt;mongo::FTDCController *&gt;' mangled-name='_ZNSt5_BindIFSt7_Mem_fnIMN5mongo14FTDCControllerEFvvEEPS2_EEC2IJS6_EEEOS5_DpOT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/functional' line='1113' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
             <parameter type-id='type-id-66'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <return type-id='type-id-28'/>
           </function-decl>
         </member-function>
@@ -4918,7 +4918,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='_Head_base&lt;mongo::FTDCController *&gt;' mangled-name='_ZNSt10_Head_baseILm0EPN5mongo14FTDCControllerELb0EEC2IS2_EEOT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='114' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <return type-id='type-id-28'/>
           </function-decl>
         </member-function>
@@ -4927,7 +4927,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='_Tuple_impl&lt;mongo::FTDCController *&gt;' mangled-name='_ZNSt11_Tuple_implILm0EJPN5mongo14FTDCControllerEEEC2IS2_EEOT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='361' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <return type-id='type-id-28'/>
           </function-decl>
         </member-function>
@@ -4936,7 +4936,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='tuple&lt;mongo::FTDCController *, void&gt;' mangled-name='_ZNSt5tupleIJPN5mongo14FTDCControllerEEEC2IJS2_EvEEDpOT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='479' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <return type-id='type-id-28'/>
           </function-decl>
         </member-function>
@@ -5085,7 +5085,7 @@
         <member-function access='public' static='yes' vtable-offset='4'>
           <function-decl name='_M_get_deleter' mangled-name='_ZNSt23_Sp_counted_ptr_inplaceINSt6thread5_ImplISt12_Bind_simpleIFSt5_BindIFSt7_Mem_fnIMN5mongo14FTDCControllerEFvvEEPS6_EEvEEEESaISF_ELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/shared_ptr_base.h' line='545' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt23_Sp_counted_ptr_inplaceINSt6thread5_ImplISt12_Bind_simpleIFSt5_BindIFSt7_Mem_fnIMN5mongo14FTDCControllerEFvvEEPS6_EEvEEEESaISF_ELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-410'/>
+            <parameter type-id='type-id-409'/>
             <return type-id='type-id-132'/>
           </function-decl>
         </member-function>
@@ -5096,11 +5096,11 @@
         </member-type>
       </class-decl>
       <typedef-decl name='__alloc_rebind&lt;std::allocator&lt;std::thread::_Impl&lt;std::_Bind_simple&lt;std::_Bind&lt;std::_Mem_fn&lt;void (mongo::FTDCController::*)()&gt; (mongo::FTDCController *)&gt; ()&gt; &gt; &gt;, std::_Sp_counted_ptr_inplace&lt;std::thread::_Impl&lt;std::_Bind_simple&lt;std::_Bind&lt;std::_Mem_fn&lt;void (mongo::FTDCController::*)()&gt; (mongo::FTDCController *)&gt; ()&gt; &gt;, std::allocator&lt;std::thread::_Impl&lt;std::_Bind_simple&lt;std::_Bind&lt;std::_Mem_fn&lt;void (mongo::FTDCController::*)()&gt; (mongo::FTDCController *)&gt; ()&gt; &gt; &gt;, __gnu_cxx::_Lock_policy::_S_atomic&gt; &gt;' type-id='type-id-490' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/alloc_traits.h' line='76' column='1' id='type-id-488'/>
-      <class-decl name='type_info' visibility='default' is-declaration-only='yes' id='type-id-408'>
+      <class-decl name='type_info' visibility='default' is-declaration-only='yes' id='type-id-407'>
         <member-function access='public'>
           <function-decl name='operator==' mangled-name='_ZNKSt9type_infoeqERKS_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/typeinfo' line='120' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-411' is-artificial='yes'/>
-            <parameter type-id='type-id-410'/>
+            <parameter type-id='type-id-410' is-artificial='yes'/>
+            <parameter type-id='type-id-409'/>
             <return type-id='type-id-1'/>
           </function-decl>
         </member-function>
@@ -5420,14 +5420,14 @@
           <member-function access='public'>
             <function-decl name='operator&lt;&lt;&lt;char [104]&gt;' mangled-name='_ZN10mongoutils3str6streamlsIA104_cEERS1_RKT_' filepath='src/mongo/util/mongoutils/str.h' line='61' column='1' visibility='default' binding='global' size-in-bits='64'>
               <parameter type-id='type-id-68' is-artificial='yes'/>
-              <parameter type-id='type-id-406'/>
+              <parameter type-id='type-id-405'/>
               <return type-id='type-id-64'/>
             </function-decl>
           </member-function>
           <member-function access='public'>
             <function-decl name='operator&lt;&lt;&lt;char [36]&gt;' mangled-name='_ZN10mongoutils3str6streamlsIA36_cEERS1_RKT_' filepath='src/mongo/util/mongoutils/str.h' line='61' column='1' visibility='default' binding='global' size-in-bits='64'>
               <parameter type-id='type-id-68' is-artificial='yes'/>
-              <parameter type-id='type-id-407'/>
+              <parameter type-id='type-id-406'/>
               <return type-id='type-id-64'/>
             </function-decl>
           </member-function>
@@ -6369,7 +6369,7 @@
         <class-decl name='__anonymous_struct__6' is-struct='yes' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='type-id-659'/>
       </namespace-decl>
       <namespace-decl name='core'>
-        <typedef-decl name='typeinfo' type-id='type-id-408' filepath='src/third_party/boost-1.60.0/boost/core/typeinfo.hpp' line='134' column='1' id='type-id-650'/>
+        <typedef-decl name='typeinfo' type-id='type-id-407' filepath='src/third_party/boost-1.60.0/boost/core/typeinfo.hpp' line='134' column='1' id='type-id-650'/>
       </namespace-decl>
       <class-decl name='__anonymous_struct__' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='type-id-660'/>
       <class-decl name='__anonymous_struct__1' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='type-id-661'/>
@@ -6617,7 +6617,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='_Head_base&lt;mongo::FTDCFileManager *&gt;' mangled-name='_ZNSt10_Head_baseILm0EPN5mongo15FTDCFileManagerELb0EEC2IS2_EEOT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='114' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <return type-id='type-id-28'/>
           </function-decl>
         </member-function>
@@ -6626,7 +6626,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='_Tuple_impl&lt;mongo::FTDCFileManager *, std::default_delete&lt;mongo::FTDCFileManager&gt; , void&gt;' mangled-name='_ZNSt11_Tuple_implILm0EJPN5mongo15FTDCFileManagerESt14default_deleteIS1_EEEC2IS2_JS4_EvEEOT_DpOT0_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='211' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <parameter type-id='type-id-66'/>
             <return type-id='type-id-28'/>
           </function-decl>
@@ -6636,7 +6636,7 @@
         <member-function access='public' static='yes'>
           <function-decl name='tuple&lt;mongo::FTDCFileManager *, std::default_delete&lt;mongo::FTDCFileManager&gt;, void&gt;' mangled-name='_ZNSt5tupleIJPN5mongo15FTDCFileManagerESt14default_deleteIS1_EEEC2IS2_S4_vEEOT_OT0_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/tuple' line='612' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-68' is-artificial='yes'/>
-            <parameter type-id='type-id-405'/>
+            <parameter type-id='type-id-411'/>
             <parameter type-id='type-id-66'/>
             <return type-id='type-id-28'/>
           </function-decl>

@@ -17740,7 +17740,9 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <class-decl name='ProfileHandlerToken' size-in-bits='128' is-struct='yes' visibility='default' filepath='src/profile-handler.cc' line='69' column='1' id='type-id-1096'>
+    <typedef-decl name='time_t' type-id='type-id-1096' filepath='/usr/include/time.h' line='76' column='1' id='type-id-1086'/>
+    <typedef-decl name='__time_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='149' column='1' id='type-id-1096'/>
+    <class-decl name='ProfileHandlerToken' size-in-bits='128' is-struct='yes' visibility='default' filepath='src/profile-handler.cc' line='69' column='1' id='type-id-1097'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='callback' type-id='type-id-1000' visibility='default' filepath='src/profile-handler.cc' line='77' column='1'/>
       </data-member>
@@ -17756,8 +17758,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <typedef-decl name='time_t' type-id='type-id-1097' filepath='/usr/include/time.h' line='76' column='1' id='type-id-1086'/>
-    <typedef-decl name='__time_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='149' column='1' id='type-id-1097'/>
     <class-decl name='siginfo' size-in-bits='1024' is-struct='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='52' column='1' id='type-id-1098'>
       <member-type access='public'>
         <union-decl name='__anonymous_union__' size-in-bits='896' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='59' column='1' id='type-id-1099'>
@@ -17996,7 +17996,7 @@
     <pointer-type-def type-id='type-id-1072' size-in-bits='64' id='type-id-1089'/>
     <pointer-type-def type-id='type-id-1082' size-in-bits='64' id='type-id-1083'/>
     <pointer-type-def type-id='type-id-1085' size-in-bits='64' id='type-id-1093'/>
-    <pointer-type-def type-id='type-id-1096' size-in-bits='64' id='type-id-1013'/>
+    <pointer-type-def type-id='type-id-1097' size-in-bits='64' id='type-id-1013'/>
     <pointer-type-def type-id='type-id-1115' size-in-bits='64' id='type-id-1113'/>
     <qualified-type-def type-id='type-id-1081' const='yes' id='type-id-1119'/>
     <reference-type-def kind='lvalue' type-id='type-id-1119' size-in-bits='64' id='type-id-1095'/>
@@ -19955,35 +19955,27 @@
       </member-function>
     </class-decl>
     <typedef-decl name='__compar_fn_t' type-id='type-id-1280' filepath='/usr/include/stdlib.h' line='742' column='1' id='type-id-1281'/>
-    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-1282'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='quot' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='rem' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
-      </data-member>
-    </class-decl>
     <class-decl name='SpinLock' size-in-bits='32' visibility='default' filepath='./src/base/spinlock.h' line='48' column='1' id='type-id-176'>
       <member-type access='private'>
-        <enum-decl name='__anonymous_enum__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1283'>
+        <enum-decl name='__anonymous_enum__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1282'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockSleeper' value='2'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1284'>
+        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1283'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockFree' value='0'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1285'>
+        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1284'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockHeld' value='1'/>
         </enum-decl>
       </member-type>
       <data-member access='private' static='yes'>
-        <var-decl name='LINKER_INITIALIZED' type-id='type-id-1286' mangled-name='_ZN8SpinLock18LINKER_INITIALIZEDE' visibility='default' filepath='src/base/spinlock.h' line='112' column='1' elf-symbol-id='_ZN8SpinLock18LINKER_INITIALIZEDE'/>
+        <var-decl name='LINKER_INITIALIZED' type-id='type-id-1285' mangled-name='_ZN8SpinLock18LINKER_INITIALIZEDE' visibility='default' filepath='src/base/spinlock.h' line='112' column='1' elf-symbol-id='_ZN8SpinLock18LINKER_INITIALIZEDE'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
         <var-decl name='lockword_' type-id='type-id-980' visibility='default' filepath='src/base/spinlock.h' line='118' column='1'/>
@@ -19997,7 +19989,7 @@
       <member-function access='private' constructor='yes'>
         <function-decl name='SpinLock' filepath='src/base/spinlock.h' line='61' column='1' visibility='default' binding='global' size-in-bits='64'>
           <parameter type-id='type-id-254' is-artificial='yes'/>
-          <parameter type-id='type-id-1287'/>
+          <parameter type-id='type-id-1286'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
@@ -20021,7 +20013,7 @@
       </member-function>
       <member-function access='private'>
         <function-decl name='IsHeld' mangled-name='_ZNK8SpinLock6IsHeldEv' filepath='src/base/spinlock.h' line='108' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1288' is-artificial='yes'/>
+          <parameter type-id='type-id-1287' is-artificial='yes'/>
           <return type-id='type-id-55'/>
         </function-decl>
       </member-function>
@@ -20042,7 +20034,7 @@
         <function-decl name='SpinLoop' mangled-name='_ZN8SpinLock8SpinLoopElPi' filepath='src/base/spinlock.h' line='122' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN8SpinLock8SpinLoopElPi'>
           <parameter type-id='type-id-254' is-artificial='yes'/>
           <parameter type-id='type-id-76'/>
-          <parameter type-id='type-id-1289'/>
+          <parameter type-id='type-id-1288'/>
           <return type-id='type-id-82'/>
         </function-decl>
       </member-function>
@@ -20056,27 +20048,27 @@
       <member-function access='private' constructor='yes'>
         <function-decl name='SpinLock' filepath='src/base/spinlock.h' line='125' column='1' visibility='default' binding='global' size-in-bits='64'>
           <parameter type-id='type-id-254' is-artificial='yes'/>
-          <parameter type-id='type-id-1290'/>
+          <parameter type-id='type-id-1289'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <function-decl name='operator=' mangled-name='_ZN8SpinLockaSERKS_' filepath='src/base/spinlock.h' line='125' column='1' visibility='default' binding='global' size-in-bits='64'>
           <parameter type-id='type-id-254' is-artificial='yes'/>
-          <parameter type-id='type-id-1290'/>
+          <parameter type-id='type-id-1289'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
     </class-decl>
-    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-1291'>
+    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-1290'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='quot' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
+        <var-decl name='quot' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
       </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='rem' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
+      <data-member access='public' layout-offset-in-bits='32'>
+        <var-decl name='rem' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
       </data-member>
     </class-decl>
-    <class-decl name='TCMalloc_Printer' size-in-bits='128' visibility='default' filepath='src/internal_logging.h' line='126' column='1' id='type-id-1292'>
+    <class-decl name='TCMalloc_Printer' size-in-bits='128' visibility='default' filepath='src/internal_logging.h' line='126' column='1' id='type-id-1291'>
       <data-member access='private' layout-offset-in-bits='0'>
         <var-decl name='buf_' type-id='type-id-90' visibility='default' filepath='src/internal_logging.h' line='128' column='1'/>
       </data-member>
@@ -20085,7 +20077,7 @@
       </data-member>
       <member-function access='private' constructor='yes'>
         <function-decl name='TCMalloc_Printer' filepath='src/internal_logging.h' line='133' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1293' is-artificial='yes'/>
+          <parameter type-id='type-id-1292' is-artificial='yes'/>
           <parameter type-id='type-id-90'/>
           <parameter type-id='type-id-1'/>
           <return type-id='type-id-56'/>
@@ -20093,15 +20085,22 @@
       </member-function>
       <member-function access='private'>
         <function-decl name='printf' mangled-name='_ZN16TCMalloc_Printer6printfEPKcz' filepath='src/internal_logging.h' line='137' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN16TCMalloc_Printer6printfEPKcz'>
-          <parameter type-id='type-id-1293' is-artificial='yes'/>
+          <parameter type-id='type-id-1292' is-artificial='yes'/>
           <parameter type-id='type-id-52'/>
           <parameter is-variadic='yes'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
     </class-decl>
-    <typedef-decl name='wint_t' type-id='type-id-1117' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h' line='352' column='1' id='type-id-1294'/>
-    <class-decl name='PackedCache&lt;35, long unsigned int&gt;' size-in-bits='4194304' visibility='default' filepath='src/packed-cache-inl.h' line='135' column='1' id='type-id-1295'>
+    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-1293'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <var-decl name='quot' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='64'>
+        <var-decl name='rem' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
+      </data-member>
+    </class-decl>
+    <class-decl name='PackedCache&lt;35, long unsigned int&gt;' size-in-bits='4194304' visibility='default' filepath='src/packed-cache-inl.h' line='135' column='1' id='type-id-1294'>
       <data-member access='private' static='yes'>
         <var-decl name='kHashbits' type-id='type-id-112' visibility='default' filepath='src/packed-cache-inl.h' line='143' column='1'/>
       </data-member>
@@ -20131,14 +20130,14 @@
       </data-member>
       <member-function access='private'>
         <function-decl name='PackedCache' filepath='src/packed-cache-inl.h' line='148' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <parameter type-id='type-id-5'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <function-decl name='Put' mangled-name='_ZN11PackedCacheILi35EmE3PutEmm' filepath='src/packed-cache-inl.h' line='157' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <parameter type-id='type-id-5'/>
           <parameter type-id='type-id-5'/>
           <return type-id='type-id-56'/>
@@ -20146,14 +20145,14 @@
       </member-function>
       <member-function access='private'>
         <function-decl name='Has' mangled-name='_ZNK11PackedCacheILi35EmE3HasEm' filepath='src/packed-cache-inl.h' line='163' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1297' is-artificial='yes'/>
+          <parameter type-id='type-id-1296' is-artificial='yes'/>
           <parameter type-id='type-id-5'/>
           <return type-id='type-id-55'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <function-decl name='GetOrDefault' mangled-name='_ZNK11PackedCacheILi35EmE12GetOrDefaultEmm' filepath='src/packed-cache-inl.h' line='168' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1297' is-artificial='yes'/>
+          <parameter type-id='type-id-1296' is-artificial='yes'/>
           <parameter type-id='type-id-5'/>
           <parameter type-id='type-id-5'/>
           <return type-id='type-id-57'/>
@@ -20161,7 +20160,7 @@
       </member-function>
       <member-function access='private'>
         <function-decl name='Clear' mangled-name='_ZN11PackedCacheILi35EmE5ClearEm' filepath='src/packed-cache-inl.h' line='178' column='1' visibility='default' binding='global' size-in-bits='64'>
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <parameter type-id='type-id-5'/>
           <return type-id='type-id-56'/>
         </function-decl>
@@ -20192,10 +20191,10 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <typedef-decl name='__FILE' type-id='type-id-1298' filepath='/usr/include/stdio.h' line='65' column='1' id='type-id-1299'/>
+    <typedef-decl name='wint_t' type-id='type-id-1117' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h' line='352' column='1' id='type-id-1297'/>
     <class-decl name='MallocExtension' size-in-bits='64' visibility='default' filepath='src/gperftools/malloc_extension.h' line='90' column='1' id='type-id-894'>
       <member-type access='private'>
-        <enum-decl name='Ownership' filepath='./src/gperftools/malloc_extension.h' line='315' column='1' id='type-id-1300'>
+        <enum-decl name='Ownership' filepath='./src/gperftools/malloc_extension.h' line='315' column='1' id='type-id-1298'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kUnknownOwnership' value='0'/>
           <enumerator name='kOwned' value='1'/>
@@ -20203,7 +20202,7 @@
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <class-decl name='FreeListInfo' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='333' column='1' id='type-id-1301'>
+        <class-decl name='FreeListInfo' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='333' column='1' id='type-id-1299'>
           <data-member access='public' layout-offset-in-bits='0'>
             <var-decl name='min_object_size' type-id='type-id-57' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='334' column='1'/>
           </data-member>
@@ -20219,7 +20218,7 @@
         </class-decl>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='RangeFunction' type-id='type-id-1302' filepath='src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-895'/>
+        <typedef-decl name='RangeFunction' type-id='type-id-1300' filepath='src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-895'/>
       </member-type>
       <member-function access='private' static='yes'>
         <function-decl name='Initialize' mangled-name='_ZN15MallocExtension10InitializeEv' filepath='src/malloc_extension.cc' line='79' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MallocExtension10InitializeEv'>
@@ -20291,14 +20290,14 @@
       <member-function access='private' vtable-offset='8'>
         <function-decl name='GetHeapSample' mangled-name='_ZN15MallocExtension13GetHeapSampleEPSs' filepath='src/malloc_extension.cc' line='292' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MallocExtension13GetHeapSampleEPSs'>
           <parameter type-id='type-id-259' is-artificial='yes'/>
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
       <member-function access='private' vtable-offset='9'>
         <function-decl name='GetHeapGrowthStacks' mangled-name='_ZN15MallocExtension19GetHeapGrowthStacksEPSs' filepath='src/malloc_extension.cc' line='316' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MallocExtension19GetHeapGrowthStacksEPSs'>
           <parameter type-id='type-id-259' is-artificial='yes'/>
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
@@ -20395,13 +20394,13 @@
         <function-decl name='GetOwnership' mangled-name='_ZN15MallocExtension12GetOwnershipEPKv' filepath='src/malloc_extension.cc' line='187' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MallocExtension12GetOwnershipEPKv'>
           <parameter type-id='type-id-259' is-artificial='yes'/>
           <parameter type-id='type-id-53'/>
-          <return type-id='type-id-1300'/>
+          <return type-id='type-id-1298'/>
         </function-decl>
       </member-function>
       <member-function access='private' vtable-offset='24'>
         <function-decl name='GetFreeListSizes' mangled-name='_ZN15MallocExtension16GetFreeListSizesEPSt6vectorINS_12FreeListInfoESaIS1_EE' filepath='src/malloc_extension.cc' line='191' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MallocExtension16GetFreeListSizesEPSt6vectorINS_12FreeListInfoESaIS1_EE'>
           <parameter type-id='type-id-259' is-artificial='yes'/>
-          <parameter type-id='type-id-1304'/>
+          <parameter type-id='type-id-1302'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
@@ -20419,7 +20418,8 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <class-decl name='_IO_FILE' size-in-bits='1728' is-struct='yes' visibility='default' filepath='/usr/include/libio.h' line='271' column='1' id='type-id-1298'>
+    <typedef-decl name='__FILE' type-id='type-id-1303' filepath='/usr/include/stdio.h' line='65' column='1' id='type-id-1304'/>
+    <class-decl name='_IO_FILE' size-in-bits='1728' is-struct='yes' visibility='default' filepath='/usr/include/libio.h' line='271' column='1' id='type-id-1303'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='_flags' type-id='type-id-1' visibility='default' filepath='/usr/include/libio.h' line='272' column='1'/>
       </data-member>
@@ -20519,6 +20519,8 @@
         <var-decl name='_pos' type-id='type-id-1' visibility='default' filepath='/usr/include/libio.h' line='192' column='1'/>
       </data-member>
     </class-decl>
+    <typedef-decl name='__off_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='141' column='1' id='type-id-287'/>
+    <typedef-decl name='_IO_lock_t' type-id='type-id-56' filepath='/usr/include/libio.h' line='180' column='1' id='type-id-1309'/>
     <class-decl name='SysAllocator' size-in-bits='64' visibility='default' filepath='src/gperftools/malloc_extension.h' line='75' column='1' id='type-id-951'>
       <member-function access='private' constructor='yes'>
         <function-decl name='SysAllocator' filepath='./src/gperftools/malloc_extension.h' line='77' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -20543,8 +20545,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <typedef-decl name='__off_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='141' column='1' id='type-id-287'/>
-    <typedef-decl name='_IO_lock_t' type-id='type-id-56' filepath='/usr/include/libio.h' line='180' column='1' id='type-id-1309'/>
     <typedef-decl name='__off64_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='142' column='1' id='type-id-945'/>
     <typedef-decl name='mbstate_t' type-id='type-id-1310' filepath='/usr/include/wchar.h' line='106' column='1' id='type-id-1311'/>
     <class-decl name='__mbstate_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1' id='type-id-1310'>
@@ -20703,6 +20703,7 @@
         </function-decl>
       </member-function>
     </class-decl>
+    <typedef-decl name='uint32_t' type-id='type-id-1117' filepath='/usr/include/stdint.h' line='52' column='1' id='type-id-12'/>
     <class-decl name='MallocHook' size-in-bits='8' visibility='default' filepath='./src/gperftools/malloc_hook.h' line='98' column='1' id='type-id-1318'>
       <member-type access='private'>
         <typedef-decl name='PreMmapHook' type-id='type-id-899' filepath='./src/gperftools/malloc_hook.h' line='126' column='1' id='type-id-1319'/>
@@ -21051,7 +21052,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <typedef-decl name='uint32_t' type-id='type-id-1117' filepath='/usr/include/stdint.h' line='52' column='1' id='type-id-12'/>
     <typedef-decl name='pthread_key_t' type-id='type-id-1117' filepath='/usr/include/bits/pthreadtypes.h' line='140' column='1' id='type-id-946'/>
     <typedef-decl name='ssize_t' type-id='type-id-1329' filepath='/usr/include/stdio.h' line='103' column='1' id='type-id-255'/>
     <typedef-decl name='__ssize_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='180' column='1' id='type-id-1329'/>
@@ -21078,7 +21078,7 @@
     <class-decl name='TCMallocImplementation' size-in-bits='128' visibility='default' filepath='src/tcmalloc.cc' line='562' column='1' id='type-id-1332'>
       <base-class access='public' layout-offset-in-bits='0' type-id='type-id-894'/>
       <member-type access='private'>
-        <typedef-decl name='RangeFunction' type-id='type-id-1302' filepath='./src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-1333'/>
+        <typedef-decl name='RangeFunction' type-id='type-id-1300' filepath='./src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-1333'/>
       </member-type>
       <data-member access='private' layout-offset-in-bits='64'>
         <var-decl name='extra_bytes_released_' type-id='type-id-57' visibility='default' filepath='src/tcmalloc.cc' line='570' column='1'/>
@@ -21100,7 +21100,7 @@
       <member-function access='private' vtable-offset='8'>
         <function-decl name='GetHeapSample' mangled-name='_ZN22TCMallocImplementation13GetHeapSampleEPSs' filepath='src/tcmalloc.cc' line='590' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN22TCMallocImplementation13GetHeapSampleEPSs'>
           <parameter type-id='type-id-1334' is-artificial='yes'/>
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
@@ -21191,13 +21191,13 @@
         <function-decl name='GetOwnership' mangled-name='_ZN22TCMallocImplementation12GetOwnershipEPKv' filepath='src/tcmalloc.cc' line='794' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN22TCMallocImplementation12GetOwnershipEPKv'>
           <parameter type-id='type-id-1334' is-artificial='yes'/>
           <parameter type-id='type-id-53'/>
-          <return type-id='type-id-1300'/>
+          <return type-id='type-id-1298'/>
         </function-decl>
       </member-function>
       <member-function access='private' vtable-offset='24'>
         <function-decl name='GetFreeListSizes' mangled-name='_ZN22TCMallocImplementation16GetFreeListSizesEPSt6vectorIN15MallocExtension12FreeListInfoESaIS2_EE' filepath='src/tcmalloc.cc' line='810' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN22TCMallocImplementation16GetFreeListSizesEPSt6vectorIN15MallocExtension12FreeListInfoESaIS2_EE'>
           <parameter type-id='type-id-1334' is-artificial='yes'/>
-          <parameter type-id='type-id-1304'/>
+          <parameter type-id='type-id-1302'/>
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
@@ -21263,13 +21263,13 @@
         <var-decl name='keepcost' type-id='type-id-1' visibility='default' filepath='/usr/include/malloc.h' line='104' column='1'/>
       </data-member>
     </class-decl>
-    <pointer-type-def type-id='type-id-82' size-in-bits='64' id='type-id-1289'/>
-    <reference-type-def kind='lvalue' type-id='type-id-1301' size-in-bits='64' id='type-id-1340'/>
-    <pointer-type-def type-id='type-id-1301' size-in-bits='64' id='type-id-1341'/>
+    <pointer-type-def type-id='type-id-82' size-in-bits='64' id='type-id-1288'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1299' size-in-bits='64' id='type-id-1340'/>
+    <pointer-type-def type-id='type-id-1299' size-in-bits='64' id='type-id-1341'/>
     <qualified-type-def type-id='type-id-1341' const='yes' id='type-id-1342'/>
     <reference-type-def kind='lvalue' type-id='type-id-1342' size-in-bits='64' id='type-id-1343'/>
-    <pointer-type-def type-id='type-id-1336' size-in-bits='64' id='type-id-1303'/>
-    <pointer-type-def type-id='type-id-1295' size-in-bits='64' id='type-id-1296'/>
+    <pointer-type-def type-id='type-id-1336' size-in-bits='64' id='type-id-1301'/>
+    <pointer-type-def type-id='type-id-1294' size-in-bits='64' id='type-id-1295'/>
     <pointer-type-def type-id='type-id-176' size-in-bits='64' id='type-id-254'/>
     <pointer-type-def type-id='type-id-1316' size-in-bits='64' id='type-id-1317'/>
     <pointer-type-def type-id='type-id-951' size-in-bits='64' id='type-id-952'/>
@@ -21278,11 +21278,11 @@
     <pointer-type-def type-id='type-id-1333' size-in-bits='64' id='type-id-1335'/>
     <pointer-type-def type-id='type-id-1274' size-in-bits='64' id='type-id-1278'/>
     <pointer-type-def type-id='type-id-1275' size-in-bits='64' id='type-id-1277'/>
-    <pointer-type-def type-id='type-id-1292' size-in-bits='64' id='type-id-1293'/>
-    <pointer-type-def type-id='type-id-1298' size-in-bits='64' id='type-id-1306'/>
+    <pointer-type-def type-id='type-id-1291' size-in-bits='64' id='type-id-1292'/>
+    <pointer-type-def type-id='type-id-1303' size-in-bits='64' id='type-id-1306'/>
     <pointer-type-def type-id='type-id-1309' size-in-bits='64' id='type-id-1307'/>
     <pointer-type-def type-id='type-id-1308' size-in-bits='64' id='type-id-1305'/>
-    <pointer-type-def type-id='type-id-1299' size-in-bits='64' id='type-id-1344'/>
+    <pointer-type-def type-id='type-id-1304' size-in-bits='64' id='type-id-1344'/>
     <reference-type-def kind='lvalue' type-id='type-id-1345' size-in-bits='64' id='type-id-1346'/>
     <pointer-type-def type-id='type-id-1345' size-in-bits='64' id='type-id-1347'/>
     <pointer-type-def type-id='type-id-1348' size-in-bits='64' id='type-id-1349'/>
@@ -21293,14 +21293,14 @@
     <reference-type-def kind='lvalue' type-id='type-id-66' size-in-bits='64' id='type-id-283'/>
     <pointer-type-def type-id='type-id-66' size-in-bits='64' id='type-id-90'/>
     <pointer-type-def type-id='type-id-90' size-in-bits='64' id='type-id-97'/>
-    <qualified-type-def type-id='type-id-1301' const='yes' id='type-id-1356'/>
+    <qualified-type-def type-id='type-id-1299' const='yes' id='type-id-1356'/>
     <reference-type-def kind='lvalue' type-id='type-id-1356' size-in-bits='64' id='type-id-1357'/>
     <pointer-type-def type-id='type-id-1356' size-in-bits='64' id='type-id-1358'/>
-    <qualified-type-def type-id='type-id-1295' const='yes' id='type-id-1359'/>
-    <pointer-type-def type-id='type-id-1359' size-in-bits='64' id='type-id-1297'/>
+    <qualified-type-def type-id='type-id-1294' const='yes' id='type-id-1359'/>
+    <pointer-type-def type-id='type-id-1359' size-in-bits='64' id='type-id-1296'/>
     <qualified-type-def type-id='type-id-176' const='yes' id='type-id-1360'/>
-    <reference-type-def kind='lvalue' type-id='type-id-1360' size-in-bits='64' id='type-id-1290'/>
-    <pointer-type-def type-id='type-id-1360' size-in-bits='64' id='type-id-1288'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1360' size-in-bits='64' id='type-id-1289'/>
+    <pointer-type-def type-id='type-id-1360' size-in-bits='64' id='type-id-1287'/>
     <qualified-type-def type-id='type-id-1274' const='yes' id='type-id-1361'/>
     <pointer-type-def type-id='type-id-1361' size-in-bits='64' id='type-id-1279'/>
     <qualified-type-def type-id='type-id-1345' const='yes' id='type-id-1362'/>
@@ -21312,7 +21312,7 @@
     <qualified-type-def type-id='type-id-1350' const='yes' id='type-id-1368'/>
     <reference-type-def kind='lvalue' type-id='type-id-1368' size-in-bits='64' id='type-id-1369'/>
     <pointer-type-def type-id='type-id-1368' size-in-bits='64' id='type-id-1370'/>
-    <qualified-type-def type-id='type-id-1287' const='yes' id='type-id-1286'/>
+    <qualified-type-def type-id='type-id-1286' const='yes' id='type-id-1285'/>
     <qualified-type-def type-id='type-id-1352' const='yes' id='type-id-1371'/>
     <pointer-type-def type-id='type-id-1371' size-in-bits='64' id='type-id-1372'/>
     <qualified-type-def type-id='type-id-942' const='yes' id='type-id-1373'/>
@@ -21389,7 +21389,7 @@
     <pointer-type-def type-id='type-id-562' size-in-bits='64' id='type-id-1444'/>
     <pointer-type-def type-id='type-id-1445' size-in-bits='64' id='type-id-1446'/>
     <reference-type-def kind='lvalue' type-id='type-id-1401' size-in-bits='64' id='type-id-1447'/>
-    <pointer-type-def type-id='type-id-1401' size-in-bits='64' id='type-id-1304'/>
+    <pointer-type-def type-id='type-id-1401' size-in-bits='64' id='type-id-1302'/>
     <pointer-type-def type-id='type-id-1448' size-in-bits='64' id='type-id-1449'/>
     <pointer-type-def type-id='type-id-1257' size-in-bits='64' id='type-id-1450'/>
     <pointer-type-def type-id='type-id-886' size-in-bits='64' id='type-id-1451'/>
@@ -21638,20 +21638,20 @@
         <base-class access='protected' layout-offset-in-bits='0' type-id='type-id-1382'/>
         <member-function access='private'>
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='207' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='215' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1387'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='227' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
             <parameter type-id='type-id-1387'/>
@@ -21660,28 +21660,28 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='241' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1403'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private' destructor='yes'>
           <function-decl name='~vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='312' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1' is-artificial='yes'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='operator=' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EEaSERKS3_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='156' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1403'/>
             <return type-id='type-id-1447'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='assign' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6assignEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='374' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-56'/>
@@ -21689,7 +21689,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='begin' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5beginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='425' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1345'/>
           </function-decl>
         </member-function>
@@ -21701,7 +21701,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='end' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE3endEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='443' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1345'/>
           </function-decl>
         </member-function>
@@ -21713,7 +21713,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='rbegin' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6rbeginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='461' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1490'/>
           </function-decl>
         </member-function>
@@ -21725,7 +21725,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='rend' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4rendEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='479' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1490'/>
           </function-decl>
         </member-function>
@@ -21749,9 +21749,9 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='resize' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6resizeEmS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='552' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
-            <parameter type-id='type-id-1301'/>
+            <parameter type-id='type-id-1299'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
@@ -21769,14 +21769,14 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='reserve' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE7reserveEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='64' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='operator[]' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EEixEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='610' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <return type-id='type-id-1340'/>
           </function-decl>
@@ -21797,7 +21797,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='at' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE2atEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='650' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <return type-id='type-id-1340'/>
           </function-decl>
@@ -21811,7 +21811,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='front' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5frontEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='679' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1340'/>
           </function-decl>
         </member-function>
@@ -21823,7 +21823,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4backEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='695' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1340'/>
           </function-decl>
         </member-function>
@@ -21835,7 +21835,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='data' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4dataEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='714' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-1341'/>
           </function-decl>
         </member-function>
@@ -21847,20 +21847,20 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='push_back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE9push_backERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='733' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='pop_back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE8pop_backEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='764' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='106' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-1345'/>
@@ -21868,7 +21868,7 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='850' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
@@ -21877,14 +21877,14 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='erase' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5eraseEN9__gnu_cxx17__normal_iteratorIPS1_S3_EE' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='133' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <return type-id='type-id-1345'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='erase' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5eraseEN9__gnu_cxx17__normal_iteratorIPS1_S3_EES7_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='145' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <parameter type-id='type-id-1345'/>
             <return type-id='type-id-1345'/>
@@ -21892,20 +21892,20 @@
         </member-function>
         <member-function access='private'>
           <function-decl name='swap' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4swapERS3_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='929' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1447'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='clear' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5clearEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='950' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <return type-id='type-id-56'/>
           </function-decl>
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_fill_initialize' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE18_M_fill_initializeEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='1033' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-56'/>
@@ -21913,7 +21913,7 @@
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_fill_assign' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE14_M_fill_assignEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='195' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-56'/>
@@ -21921,7 +21921,7 @@
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_fill_insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE14_M_fill_insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='372' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <parameter type-id='type-id-5'/>
             <parameter type-id='type-id-1357'/>
@@ -21930,7 +21930,7 @@
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_insert_aux' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='295' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1345'/>
             <parameter type-id='type-id-1357'/>
             <return type-id='type-id-56'/>
@@ -21946,7 +21946,7 @@
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_erase_at_end' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE15_M_erase_at_endEPS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='1148' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <parameter type-id='type-id-1341'/>
             <return type-id='type-id-56'/>
           </function-decl>
@@ -23670,7 +23670,7 @@
     <function-decl name='div' filepath='/usr/include/stdlib.h' line='785' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1'/>
       <parameter type-id='type-id-1'/>
-      <return type-id='type-id-1282'/>
+      <return type-id='type-id-1290'/>
     </function-decl>
     <function-decl name='free' filepath='/usr/include/stdlib.h' line='488' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-53'/>
@@ -23683,7 +23683,7 @@
     <function-decl name='ldiv' filepath='/usr/include/stdlib.h' line='787' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-285'/>
       <parameter type-id='type-id-285'/>
-      <return type-id='type-id-1291'/>
+      <return type-id='type-id-1293'/>
     </function-decl>
     <function-decl name='malloc' filepath='/usr/include/stdlib.h' line='471' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-57'/>
@@ -23790,11 +23790,11 @@
     </function-decl>
     <function-decl name='btowc' filepath='/usr/include/wchar.h' line='351' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='fgetwc' filepath='/usr/include/wchar.h' line='743' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1344'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='fgetws' filepath='/usr/include/wchar.h' line='772' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1486'/>
@@ -23805,7 +23805,7 @@
     <function-decl name='fputwc' filepath='/usr/include/wchar.h' line='757' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1272'/>
       <parameter type-id='type-id-1344'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='fputws' filepath='/usr/include/wchar.h' line='779' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1426'/>
@@ -23831,10 +23831,10 @@
     </function-decl>
     <function-decl name='getwc' filepath='/usr/include/wchar.h' line='744' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1344'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='getwchar' filepath='/usr/include/wchar.h' line='750' column='1' visibility='default' binding='global' size-in-bits='64'>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='mbrlen' filepath='/usr/include/wchar.h' line='374' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-52'/>
@@ -23863,11 +23863,11 @@
     <function-decl name='putwc' filepath='/usr/include/wchar.h' line='758' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1272'/>
       <parameter type-id='type-id-1344'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='putwchar' filepath='/usr/include/wchar.h' line='764' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1272'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='swprintf' filepath='/usr/include/wchar.h' line='602' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1486'/>
@@ -23883,9 +23883,9 @@
       <return type-id='type-id-1'/>
     </function-decl>
     <function-decl name='ungetwc' filepath='/usr/include/wchar.h' line='787' column='1' visibility='default' binding='global' size-in-bits='64'>
-      <parameter type-id='type-id-1294'/>
+      <parameter type-id='type-id-1297'/>
       <parameter type-id='type-id-1344'/>
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <function-decl name='vfwprintf' filepath='/usr/include/wchar.h' line='610' column='1' visibility='default' binding='global' size-in-bits='64'>
       <parameter type-id='type-id-1344'/>
@@ -24029,7 +24029,7 @@
       <return type-id='type-id-57'/>
     </function-decl>
     <function-decl name='wctob' filepath='/usr/include/wchar.h' line='355' column='1' visibility='default' binding='global' size-in-bits='64'>
-      <parameter type-id='type-id-1294'/>
+      <parameter type-id='type-id-1297'/>
       <return type-id='type-id-1'/>
     </function-decl>
     <function-decl name='wmemcmp' filepath='/usr/include/wchar.h' line='322' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -24259,7 +24259,7 @@
           <return type-id='type-id-82'/>
         </function-decl>
       </namespace-decl>
-      <enum-decl name='LinkerInitialized' filepath='src/base/basictypes.h' line='381' column='1' id='type-id-1287'>
+      <enum-decl name='LinkerInitialized' filepath='src/base/basictypes.h' line='381' column='1' id='type-id-1286'>
         <underlying-type type-id='type-id-133'/>
         <enumerator name='LINKER_INITIALIZED' value='0'/>
       </enum-decl>
@@ -25003,7 +25003,7 @@
           <typedef-decl name='PageMap' type-id='type-id-1274' filepath='src/page_heap.h' line='224' column='1' id='type-id-1509'/>
         </member-type>
         <member-type access='private'>
-          <typedef-decl name='PageMapCache' type-id='type-id-1295' filepath='src/page_heap.h' line='225' column='1' id='type-id-1510'/>
+          <typedef-decl name='PageMapCache' type-id='type-id-1294' filepath='src/page_heap.h' line='225' column='1' id='type-id-1510'/>
         </member-type>
         <data-member access='private' static='yes'>
           <var-decl name='kPageMapBigAllocationThreshold' type-id='type-id-89' visibility='default' filepath='src/page_heap.h' line='203' column='1'/>
@@ -25892,7 +25892,7 @@
       <parameter type-id='type-id-53'/>
       <return type-id='type-id-56'/>
     </function-type>
-    <function-type size-in-bits='64' id='type-id-1302'>
+    <function-type size-in-bits='64' id='type-id-1300'>
       <parameter type-id='type-id-53'/>
       <parameter type-id='type-id-1372'/>
       <return type-id='type-id-56'/>

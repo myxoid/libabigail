@@ -28329,8 +28329,12 @@
         </function-decl>
       </member-function>
     </class-decl>
+    <!-- typedef __time_t time_t -->
+    <typedef-decl name='time_t' type-id='type-id-1096' filepath='/usr/include/time.h' line='76' column='1' id='type-id-1086'/>
+    <!-- typedef long int __time_t -->
+    <typedef-decl name='__time_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='149' column='1' id='type-id-1096'/>
     <!-- struct ProfileHandlerToken -->
-    <class-decl name='ProfileHandlerToken' size-in-bits='128' is-struct='yes' visibility='default' filepath='src/profile-handler.cc' line='69' column='1' id='type-id-1096'>
+    <class-decl name='ProfileHandlerToken' size-in-bits='128' is-struct='yes' visibility='default' filepath='src/profile-handler.cc' line='69' column='1' id='type-id-1097'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- ProfileHandlerCallback ProfileHandlerToken::callback -->
         <var-decl name='callback' type-id='type-id-1000' visibility='default' filepath='src/profile-handler.cc' line='77' column='1'/>
@@ -28353,10 +28357,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef __time_t time_t -->
-    <typedef-decl name='time_t' type-id='type-id-1097' filepath='/usr/include/time.h' line='76' column='1' id='type-id-1086'/>
-    <!-- typedef long int __time_t -->
-    <typedef-decl name='__time_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='149' column='1' id='type-id-1097'/>
     <!-- struct siginfo -->
     <class-decl name='siginfo' size-in-bits='1024' is-struct='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='52' column='1' id='type-id-1098'>
       <member-type access='public'>
@@ -28696,7 +28696,7 @@
     <!-- ProfileData::State* -->
     <pointer-type-def type-id='type-id-1085' size-in-bits='64' id='type-id-1093'/>
     <!-- ProfileHandlerToken* -->
-    <pointer-type-def type-id='type-id-1096' size-in-bits='64' id='type-id-1013'/>
+    <pointer-type-def type-id='type-id-1097' size-in-bits='64' id='type-id-1013'/>
     <!-- ProfilerState* -->
     <pointer-type-def type-id='type-id-1115' size-in-bits='64' id='type-id-1113'/>
     <!-- const ProfileData -->
@@ -31794,43 +31794,32 @@
     </class-decl>
     <!-- typedef int (void*, void*)* __compar_fn_t -->
     <typedef-decl name='__compar_fn_t' type-id='type-id-1280' filepath='/usr/include/stdlib.h' line='742' column='1' id='type-id-1281'/>
-    <!-- struct div_t -->
-    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-1282'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- int div_t::quot -->
-        <var-decl name='quot' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <!-- int div_t::rem -->
-        <var-decl name='rem' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
-      </data-member>
-    </class-decl>
     <!-- class SpinLock -->
     <class-decl name='SpinLock' size-in-bits='32' visibility='default' filepath='./src/base/spinlock.h' line='48' column='1' id='type-id-176'>
       <member-type access='private'>
         <!-- enum SpinLock::__anonymous_enum__2 -->
-        <enum-decl name='__anonymous_enum__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1283'>
+        <enum-decl name='__anonymous_enum__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1282'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockSleeper' value='2'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
         <!-- enum SpinLock::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1284'>
+        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1283'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockFree' value='0'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
         <!-- enum SpinLock::__anonymous_enum__1 -->
-        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1285'>
+        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1284'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kSpinLockHeld' value='1'/>
         </enum-decl>
       </member-type>
       <data-member access='private' static='yes'>
         <!-- static const base::LinkerInitialized SpinLock::LINKER_INITIALIZED -->
-        <var-decl name='LINKER_INITIALIZED' type-id='type-id-1286' mangled-name='_ZN8SpinLock18LINKER_INITIALIZEDE' visibility='default' filepath='src/base/spinlock.h' line='112' column='1' elf-symbol-id='_ZN8SpinLock18LINKER_INITIALIZEDE'/>
+        <var-decl name='LINKER_INITIALIZED' type-id='type-id-1285' mangled-name='_ZN8SpinLock18LINKER_INITIALIZEDE' visibility='default' filepath='src/base/spinlock.h' line='112' column='1' elf-symbol-id='_ZN8SpinLock18LINKER_INITIALIZEDE'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
         <!-- volatile Atomic32 SpinLock::lockword_ -->
@@ -31851,7 +31840,7 @@
           <!-- implicit parameter of type 'SpinLock*' -->
           <parameter type-id='type-id-254' is-artificial='yes'/>
           <!-- parameter of type 'enum base::LinkerInitialized' -->
-          <parameter type-id='type-id-1287'/>
+          <parameter type-id='type-id-1286'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -31887,7 +31876,7 @@
         <!-- bool SpinLock::IsHeld() -->
         <function-decl name='IsHeld' mangled-name='_ZNK8SpinLock6IsHeldEv' filepath='src/base/spinlock.h' line='108' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'const SpinLock*' -->
-          <parameter type-id='type-id-1288' is-artificial='yes'/>
+          <parameter type-id='type-id-1287' is-artificial='yes'/>
           <!-- bool -->
           <return type-id='type-id-55'/>
         </function-decl>
@@ -31920,7 +31909,7 @@
           <!-- parameter of type 'typedef int64' -->
           <parameter type-id='type-id-76'/>
           <!-- parameter of type 'Atomic32*' -->
-          <parameter type-id='type-id-1289'/>
+          <parameter type-id='type-id-1288'/>
           <!-- typedef Atomic32 -->
           <return type-id='type-id-82'/>
         </function-decl>
@@ -31942,7 +31931,7 @@
           <!-- implicit parameter of type 'SpinLock*' -->
           <parameter type-id='type-id-254' is-artificial='yes'/>
           <!-- parameter of type 'const SpinLock&' -->
-          <parameter type-id='type-id-1290'/>
+          <parameter type-id='type-id-1289'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -31953,25 +31942,25 @@
           <!-- implicit parameter of type 'SpinLock*' -->
           <parameter type-id='type-id-254' is-artificial='yes'/>
           <!-- parameter of type 'const SpinLock&' -->
-          <parameter type-id='type-id-1290'/>
+          <parameter type-id='type-id-1289'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- struct ldiv_t -->
-    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-1291'>
+    <!-- struct div_t -->
+    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-1290'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- long int ldiv_t::quot -->
-        <var-decl name='quot' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
+        <!-- int div_t::quot -->
+        <var-decl name='quot' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
       </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <!-- long int ldiv_t::rem -->
-        <var-decl name='rem' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
+      <data-member access='public' layout-offset-in-bits='32'>
+        <!-- int div_t::rem -->
+        <var-decl name='rem' type-id='type-id-1' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
       </data-member>
     </class-decl>
     <!-- class TCMalloc_Printer -->
-    <class-decl name='TCMalloc_Printer' size-in-bits='128' visibility='default' filepath='src/internal_logging.h' line='126' column='1' id='type-id-1292'>
+    <class-decl name='TCMalloc_Printer' size-in-bits='128' visibility='default' filepath='src/internal_logging.h' line='126' column='1' id='type-id-1291'>
       <data-member access='private' layout-offset-in-bits='0'>
         <!-- char* TCMalloc_Printer::buf_ -->
         <var-decl name='buf_' type-id='type-id-90' visibility='default' filepath='src/internal_logging.h' line='128' column='1'/>
@@ -31984,7 +31973,7 @@
         <!-- TCMalloc_Printer::TCMalloc_Printer(char*, int) -->
         <function-decl name='TCMalloc_Printer' filepath='src/internal_logging.h' line='133' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'TCMalloc_Printer*' -->
-          <parameter type-id='type-id-1293' is-artificial='yes'/>
+          <parameter type-id='type-id-1292' is-artificial='yes'/>
           <!-- parameter of type 'char*' -->
           <parameter type-id='type-id-90'/>
           <!-- parameter of type 'int' -->
@@ -31997,7 +31986,7 @@
         <!-- void TCMalloc_Printer::printf(const char*, ...) -->
         <function-decl name='printf' mangled-name='_ZN16TCMalloc_Printer6printfEPKcz' filepath='src/internal_logging.h' line='137' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN16TCMalloc_Printer6printfEPKcz'>
           <!-- implicit parameter of type 'TCMalloc_Printer*' -->
-          <parameter type-id='type-id-1293' is-artificial='yes'/>
+          <parameter type-id='type-id-1292' is-artificial='yes'/>
           <!-- parameter of type 'const char*' -->
           <parameter type-id='type-id-52'/>
           <parameter is-variadic='yes'/>
@@ -32006,10 +31995,19 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef unsigned int wint_t -->
-    <typedef-decl name='wint_t' type-id='type-id-1117' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h' line='352' column='1' id='type-id-1294'/>
+    <!-- struct ldiv_t -->
+    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-1293'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <!-- long int ldiv_t::quot -->
+        <var-decl name='quot' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='64'>
+        <!-- long int ldiv_t::rem -->
+        <var-decl name='rem' type-id='type-id-285' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
+      </data-member>
+    </class-decl>
     <!-- class PackedCache<35, long unsigned int> -->
-    <class-decl name='PackedCache&lt;35, long unsigned int&gt;' size-in-bits='4194304' visibility='default' filepath='src/packed-cache-inl.h' line='135' column='1' id='type-id-1295'>
+    <class-decl name='PackedCache&lt;35, long unsigned int&gt;' size-in-bits='4194304' visibility='default' filepath='src/packed-cache-inl.h' line='135' column='1' id='type-id-1294'>
       <data-member access='private' static='yes'>
         <!-- static const int PackedCache<35, long unsigned int>::kHashbits -->
         <var-decl name='kHashbits' type-id='type-id-112' visibility='default' filepath='src/packed-cache-inl.h' line='143' column='1'/>
@@ -32050,7 +32048,7 @@
         <!-- void PackedCache<35, long unsigned int>::PackedCache(unsigned long int) -->
         <function-decl name='PackedCache' filepath='src/packed-cache-inl.h' line='148' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'PackedCache<35, long unsigned int>*' -->
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <!-- parameter of type 'unsigned long int' -->
           <parameter type-id='type-id-5'/>
           <!-- void -->
@@ -32061,7 +32059,7 @@
         <!-- void PackedCache<35, long unsigned int>::Put(unsigned long int, unsigned long int) -->
         <function-decl name='Put' mangled-name='_ZN11PackedCacheILi35EmE3PutEmm' filepath='src/packed-cache-inl.h' line='157' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'PackedCache<35, long unsigned int>*' -->
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <!-- parameter of type 'unsigned long int' -->
           <parameter type-id='type-id-5'/>
           <!-- parameter of type 'unsigned long int' -->
@@ -32074,7 +32072,7 @@
         <!-- bool PackedCache<35, long unsigned int>::Has(unsigned long int) -->
         <function-decl name='Has' mangled-name='_ZNK11PackedCacheILi35EmE3HasEm' filepath='src/packed-cache-inl.h' line='163' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'const PackedCache<35, long unsigned int>*' -->
-          <parameter type-id='type-id-1297' is-artificial='yes'/>
+          <parameter type-id='type-id-1296' is-artificial='yes'/>
           <!-- parameter of type 'unsigned long int' -->
           <parameter type-id='type-id-5'/>
           <!-- bool -->
@@ -32085,7 +32083,7 @@
         <!-- size_t PackedCache<35, long unsigned int>::GetOrDefault(unsigned long int, unsigned long int) -->
         <function-decl name='GetOrDefault' mangled-name='_ZNK11PackedCacheILi35EmE12GetOrDefaultEmm' filepath='src/packed-cache-inl.h' line='168' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'const PackedCache<35, long unsigned int>*' -->
-          <parameter type-id='type-id-1297' is-artificial='yes'/>
+          <parameter type-id='type-id-1296' is-artificial='yes'/>
           <!-- parameter of type 'unsigned long int' -->
           <parameter type-id='type-id-5'/>
           <!-- parameter of type 'unsigned long int' -->
@@ -32098,7 +32096,7 @@
         <!-- void PackedCache<35, long unsigned int>::Clear(unsigned long int) -->
         <function-decl name='Clear' mangled-name='_ZN11PackedCacheILi35EmE5ClearEm' filepath='src/packed-cache-inl.h' line='178' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'PackedCache<35, long unsigned int>*' -->
-          <parameter type-id='type-id-1296' is-artificial='yes'/>
+          <parameter type-id='type-id-1295' is-artificial='yes'/>
           <!-- parameter of type 'unsigned long int' -->
           <parameter type-id='type-id-5'/>
           <!-- void -->
@@ -32144,13 +32142,13 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef _IO_FILE __FILE -->
-    <typedef-decl name='__FILE' type-id='type-id-1298' filepath='/usr/include/stdio.h' line='65' column='1' id='type-id-1299'/>
+    <!-- typedef unsigned int wint_t -->
+    <typedef-decl name='wint_t' type-id='type-id-1117' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h' line='352' column='1' id='type-id-1297'/>
     <!-- class MallocExtension -->
     <class-decl name='MallocExtension' size-in-bits='64' visibility='default' filepath='src/gperftools/malloc_extension.h' line='90' column='1' id='type-id-894'>
       <member-type access='private'>
         <!-- enum MallocExtension::Ownership -->
-        <enum-decl name='Ownership' filepath='./src/gperftools/malloc_extension.h' line='315' column='1' id='type-id-1300'>
+        <enum-decl name='Ownership' filepath='./src/gperftools/malloc_extension.h' line='315' column='1' id='type-id-1298'>
           <underlying-type type-id='type-id-133'/>
           <enumerator name='kUnknownOwnership' value='0'/>
           <enumerator name='kOwned' value='1'/>
@@ -32159,7 +32157,7 @@
       </member-type>
       <member-type access='private'>
         <!-- struct MallocExtension::FreeListInfo -->
-        <class-decl name='FreeListInfo' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='333' column='1' id='type-id-1301'>
+        <class-decl name='FreeListInfo' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='333' column='1' id='type-id-1299'>
           <data-member access='public' layout-offset-in-bits='0'>
             <!-- size_t MallocExtension::FreeListInfo::min_object_size -->
             <var-decl name='min_object_size' type-id='type-id-57' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='334' column='1'/>
@@ -32180,7 +32178,7 @@
       </member-type>
       <member-type access='private'>
         <!-- typedef void (void*, const base::MallocRange*) MallocExtension::RangeFunction -->
-        <typedef-decl name='RangeFunction' type-id='type-id-1302' filepath='src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-895'/>
+        <typedef-decl name='RangeFunction' type-id='type-id-1300' filepath='src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-895'/>
       </member-type>
       <member-function access='private' static='yes'>
         <!-- void MallocExtension::Initialize() -->
@@ -32292,7 +32290,7 @@
           <!-- implicit parameter of type 'MallocExtension*' -->
           <parameter type-id='type-id-259' is-artificial='yes'/>
           <!-- parameter of type 'MallocExtensionWriter*' -->
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -32303,7 +32301,7 @@
           <!-- implicit parameter of type 'MallocExtension*' -->
           <parameter type-id='type-id-259' is-artificial='yes'/>
           <!-- parameter of type 'MallocExtensionWriter*' -->
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -32455,7 +32453,7 @@
           <!-- parameter of type 'void*' -->
           <parameter type-id='type-id-53'/>
           <!-- enum MallocExtension::Ownership -->
-          <return type-id='type-id-1300'/>
+          <return type-id='type-id-1298'/>
         </function-decl>
       </member-function>
       <member-function access='private' vtable-offset='24'>
@@ -32464,7 +32462,7 @@
           <!-- implicit parameter of type 'MallocExtension*' -->
           <parameter type-id='type-id-259' is-artificial='yes'/>
           <!-- parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-          <parameter type-id='type-id-1304'/>
+          <parameter type-id='type-id-1302'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -32490,8 +32488,10 @@
         </function-decl>
       </member-function>
     </class-decl>
+    <!-- typedef _IO_FILE __FILE -->
+    <typedef-decl name='__FILE' type-id='type-id-1303' filepath='/usr/include/stdio.h' line='65' column='1' id='type-id-1304'/>
     <!-- struct _IO_FILE -->
-    <class-decl name='_IO_FILE' size-in-bits='1728' is-struct='yes' visibility='default' filepath='/usr/include/libio.h' line='271' column='1' id='type-id-1298'>
+    <class-decl name='_IO_FILE' size-in-bits='1728' is-struct='yes' visibility='default' filepath='/usr/include/libio.h' line='271' column='1' id='type-id-1303'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int _IO_FILE::_flags -->
         <var-decl name='_flags' type-id='type-id-1' visibility='default' filepath='/usr/include/libio.h' line='272' column='1'/>
@@ -32624,6 +32624,10 @@
         <var-decl name='_pos' type-id='type-id-1' visibility='default' filepath='/usr/include/libio.h' line='192' column='1'/>
       </data-member>
     </class-decl>
+    <!-- typedef long int __off_t -->
+    <typedef-decl name='__off_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='141' column='1' id='type-id-287'/>
+    <!-- typedef void _IO_lock_t -->
+    <typedef-decl name='_IO_lock_t' type-id='type-id-56' filepath='/usr/include/libio.h' line='180' column='1' id='type-id-1309'/>
     <!-- class SysAllocator -->
     <class-decl name='SysAllocator' size-in-bits='64' visibility='default' filepath='src/gperftools/malloc_extension.h' line='75' column='1' id='type-id-951'>
       <member-function access='private' constructor='yes'>
@@ -32662,10 +32666,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef long int __off_t -->
-    <typedef-decl name='__off_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='141' column='1' id='type-id-287'/>
-    <!-- typedef void _IO_lock_t -->
-    <typedef-decl name='_IO_lock_t' type-id='type-id-56' filepath='/usr/include/libio.h' line='180' column='1' id='type-id-1309'/>
     <!-- typedef long int __off64_t -->
     <typedef-decl name='__off64_t' type-id='type-id-285' filepath='/usr/include/bits/types.h' line='142' column='1' id='type-id-945'/>
     <!-- typedef __mbstate_t mbstate_t -->
@@ -32889,6 +32889,8 @@
         </function-decl>
       </member-function>
     </class-decl>
+    <!-- typedef unsigned int uint32_t -->
+    <typedef-decl name='uint32_t' type-id='type-id-1117' filepath='/usr/include/stdint.h' line='52' column='1' id='type-id-12'/>
     <!-- class MallocHook -->
     <class-decl name='MallocHook' size-in-bits='8' visibility='default' filepath='./src/gperftools/malloc_hook.h' line='98' column='1' id='type-id-1318'>
       <member-type access='private'>
@@ -33435,8 +33437,6 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef unsigned int uint32_t -->
-    <typedef-decl name='uint32_t' type-id='type-id-1117' filepath='/usr/include/stdint.h' line='52' column='1' id='type-id-12'/>
     <!-- typedef unsigned int pthread_key_t -->
     <typedef-decl name='pthread_key_t' type-id='type-id-1117' filepath='/usr/include/bits/pthreadtypes.h' line='140' column='1' id='type-id-946'/>
     <!-- typedef __ssize_t ssize_t -->
@@ -33478,7 +33478,7 @@
       <base-class access='public' layout-offset-in-bits='0' type-id='type-id-894'/>
       <member-type access='private'>
         <!-- typedef void (void*, const base::MallocRange*) TCMallocImplementation::RangeFunction -->
-        <typedef-decl name='RangeFunction' type-id='type-id-1302' filepath='./src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-1333'/>
+        <typedef-decl name='RangeFunction' type-id='type-id-1300' filepath='./src/gperftools/malloc_extension.h' line='143' column='1' id='type-id-1333'/>
       </member-type>
       <data-member access='private' layout-offset-in-bits='64'>
         <!-- size_t TCMallocImplementation::extra_bytes_released_ -->
@@ -33512,7 +33512,7 @@
           <!-- implicit parameter of type 'TCMallocImplementation*' -->
           <parameter type-id='type-id-1334' is-artificial='yes'/>
           <!-- parameter of type 'MallocExtensionWriter*' -->
-          <parameter type-id='type-id-1303'/>
+          <parameter type-id='type-id-1301'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -33655,7 +33655,7 @@
           <!-- parameter of type 'void*' -->
           <parameter type-id='type-id-53'/>
           <!-- enum MallocExtension::Ownership -->
-          <return type-id='type-id-1300'/>
+          <return type-id='type-id-1298'/>
         </function-decl>
       </member-function>
       <member-function access='private' vtable-offset='24'>
@@ -33664,7 +33664,7 @@
           <!-- implicit parameter of type 'TCMallocImplementation*' -->
           <parameter type-id='type-id-1334' is-artificial='yes'/>
           <!-- parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-          <parameter type-id='type-id-1304'/>
+          <parameter type-id='type-id-1302'/>
           <!-- void -->
           <return type-id='type-id-56'/>
         </function-decl>
@@ -33759,19 +33759,19 @@
       </data-member>
     </class-decl>
     <!-- Atomic32* -->
-    <pointer-type-def type-id='type-id-82' size-in-bits='64' id='type-id-1289'/>
+    <pointer-type-def type-id='type-id-82' size-in-bits='64' id='type-id-1288'/>
     <!-- MallocExtension::FreeListInfo& -->
-    <reference-type-def kind='lvalue' type-id='type-id-1301' size-in-bits='64' id='type-id-1340'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1299' size-in-bits='64' id='type-id-1340'/>
     <!-- MallocExtension::FreeListInfo* -->
-    <pointer-type-def type-id='type-id-1301' size-in-bits='64' id='type-id-1341'/>
+    <pointer-type-def type-id='type-id-1299' size-in-bits='64' id='type-id-1341'/>
     <!-- MallocExtension::FreeListInfo* const -->
     <qualified-type-def type-id='type-id-1341' const='yes' id='type-id-1342'/>
     <!-- MallocExtension::FreeListInfo* const& -->
     <reference-type-def kind='lvalue' type-id='type-id-1342' size-in-bits='64' id='type-id-1343'/>
     <!-- MallocExtensionWriter* -->
-    <pointer-type-def type-id='type-id-1336' size-in-bits='64' id='type-id-1303'/>
+    <pointer-type-def type-id='type-id-1336' size-in-bits='64' id='type-id-1301'/>
     <!-- PackedCache<35, long unsigned int>* -->
-    <pointer-type-def type-id='type-id-1295' size-in-bits='64' id='type-id-1296'/>
+    <pointer-type-def type-id='type-id-1294' size-in-bits='64' id='type-id-1295'/>
     <!-- SpinLock* -->
     <pointer-type-def type-id='type-id-176' size-in-bits='64' id='type-id-254'/>
     <!-- SpinLockHolder* -->
@@ -33789,15 +33789,15 @@
     <!-- TCMalloc_PageMap3<35>::Node* -->
     <pointer-type-def type-id='type-id-1275' size-in-bits='64' id='type-id-1277'/>
     <!-- TCMalloc_Printer* -->
-    <pointer-type-def type-id='type-id-1292' size-in-bits='64' id='type-id-1293'/>
+    <pointer-type-def type-id='type-id-1291' size-in-bits='64' id='type-id-1292'/>
     <!-- _IO_FILE* -->
-    <pointer-type-def type-id='type-id-1298' size-in-bits='64' id='type-id-1306'/>
+    <pointer-type-def type-id='type-id-1303' size-in-bits='64' id='type-id-1306'/>
     <!-- _IO_lock_t* -->
     <pointer-type-def type-id='type-id-1309' size-in-bits='64' id='type-id-1307'/>
     <!-- _IO_marker* -->
     <pointer-type-def type-id='type-id-1308' size-in-bits='64' id='type-id-1305'/>
     <!-- __FILE* -->
-    <pointer-type-def type-id='type-id-1299' size-in-bits='64' id='type-id-1344'/>
+    <pointer-type-def type-id='type-id-1304' size-in-bits='64' id='type-id-1344'/>
     <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1345' size-in-bits='64' id='type-id-1346'/>
     <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >* -->
@@ -33819,21 +33819,21 @@
     <!-- char** -->
     <pointer-type-def type-id='type-id-90' size-in-bits='64' id='type-id-97'/>
     <!-- const MallocExtension::FreeListInfo -->
-    <qualified-type-def type-id='type-id-1301' const='yes' id='type-id-1356'/>
+    <qualified-type-def type-id='type-id-1299' const='yes' id='type-id-1356'/>
     <!-- const MallocExtension::FreeListInfo& -->
     <reference-type-def kind='lvalue' type-id='type-id-1356' size-in-bits='64' id='type-id-1357'/>
     <!-- const MallocExtension::FreeListInfo* -->
     <pointer-type-def type-id='type-id-1356' size-in-bits='64' id='type-id-1358'/>
     <!-- const PackedCache<35, long unsigned int> -->
-    <qualified-type-def type-id='type-id-1295' const='yes' id='type-id-1359'/>
+    <qualified-type-def type-id='type-id-1294' const='yes' id='type-id-1359'/>
     <!-- const PackedCache<35, long unsigned int>* -->
-    <pointer-type-def type-id='type-id-1359' size-in-bits='64' id='type-id-1297'/>
+    <pointer-type-def type-id='type-id-1359' size-in-bits='64' id='type-id-1296'/>
     <!-- const SpinLock -->
     <qualified-type-def type-id='type-id-176' const='yes' id='type-id-1360'/>
     <!-- const SpinLock& -->
-    <reference-type-def kind='lvalue' type-id='type-id-1360' size-in-bits='64' id='type-id-1290'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1360' size-in-bits='64' id='type-id-1289'/>
     <!-- const SpinLock* -->
-    <pointer-type-def type-id='type-id-1360' size-in-bits='64' id='type-id-1288'/>
+    <pointer-type-def type-id='type-id-1360' size-in-bits='64' id='type-id-1287'/>
     <!-- const TCMalloc_PageMap3<35> -->
     <qualified-type-def type-id='type-id-1274' const='yes' id='type-id-1361'/>
     <!-- const TCMalloc_PageMap3<35>* -->
@@ -33857,7 +33857,7 @@
     <!-- const __gnu_cxx::new_allocator<char>* -->
     <pointer-type-def type-id='type-id-1368' size-in-bits='64' id='type-id-1370'/>
     <!-- const base::LinkerInitialized -->
-    <qualified-type-def type-id='type-id-1287' const='yes' id='type-id-1286'/>
+    <qualified-type-def type-id='type-id-1286' const='yes' id='type-id-1285'/>
     <!-- const base::MallocRange -->
     <qualified-type-def type-id='type-id-1352' const='yes' id='type-id-1371'/>
     <!-- const base::MallocRange* -->
@@ -34011,7 +34011,7 @@
     <!-- std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1401' size-in-bits='64' id='type-id-1447'/>
     <!-- std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >* -->
-    <pointer-type-def type-id='type-id-1401' size-in-bits='64' id='type-id-1304'/>
+    <pointer-type-def type-id='type-id-1401' size-in-bits='64' id='type-id-1302'/>
     <!-- tcmalloc::CentralFreeList* -->
     <pointer-type-def type-id='type-id-1448' size-in-bits='64' id='type-id-1449'/>
     <!-- tcmalloc::CentralFreeListPadded* -->
@@ -34434,7 +34434,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::vector() -->
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='207' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- void -->
             <return type-id='type-id-56'/>
           </function-decl>
@@ -34443,7 +34443,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::vector(const std::allocator<MallocExtension::FreeListInfo>&) -->
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='215' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'const std::allocator<MallocExtension::FreeListInfo>&' -->
             <parameter type-id='type-id-1387'/>
             <!-- void -->
@@ -34454,7 +34454,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::vector(unsigned long int, const MallocExtension::FreeListInfo&, const std::allocator<MallocExtension::FreeListInfo>&) -->
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='227' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34469,7 +34469,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::vector(const std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&) -->
           <function-decl name='vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='241' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'const std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&' -->
             <parameter type-id='type-id-1403'/>
             <!-- void -->
@@ -34480,7 +34480,7 @@
           <!-- std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::~vector(int) -->
           <function-decl name='~vector' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='312' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- artificial parameter of type 'int' -->
             <parameter type-id='type-id-1' is-artificial='yes'/>
             <!-- void -->
@@ -34491,7 +34491,7 @@
           <!-- std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >& std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::operator=(const std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&) -->
           <function-decl name='operator=' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EEaSERKS3_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='156' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'const std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&' -->
             <parameter type-id='type-id-1403'/>
             <!-- std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >& -->
@@ -34502,7 +34502,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::assign(unsigned long int, const MallocExtension::FreeListInfo&) -->
           <function-decl name='assign' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6assignEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='374' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34515,7 +34515,7 @@
           <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::begin() -->
           <function-decl name='begin' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5beginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='425' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > -->
             <return type-id='type-id-1345'/>
           </function-decl>
@@ -34533,7 +34533,7 @@
           <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::end() -->
           <function-decl name='end' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE3endEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='443' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > -->
             <return type-id='type-id-1345'/>
           </function-decl>
@@ -34551,7 +34551,7 @@
           <!-- std::reverse_iterator<__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::rbegin() -->
           <function-decl name='rbegin' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6rbeginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='461' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- class std::reverse_iterator<__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > > -->
             <return type-id='type-id-1490'/>
           </function-decl>
@@ -34569,7 +34569,7 @@
           <!-- std::reverse_iterator<__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::rend() -->
           <function-decl name='rend' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4rendEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='479' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- class std::reverse_iterator<__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > > -->
             <return type-id='type-id-1490'/>
           </function-decl>
@@ -34605,11 +34605,11 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::resize(unsigned long int, MallocExtension::FreeListInfo) -->
           <function-decl name='resize' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6resizeEmS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='552' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- parameter of type 'struct MallocExtension::FreeListInfo' -->
-            <parameter type-id='type-id-1301'/>
+            <parameter type-id='type-id-1299'/>
             <!-- void -->
             <return type-id='type-id-56'/>
           </function-decl>
@@ -34636,7 +34636,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::reserve(unsigned long int) -->
           <function-decl name='reserve' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE7reserveEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='64' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- void -->
@@ -34647,7 +34647,7 @@
           <!-- MallocExtension::FreeListInfo& std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::operator[](unsigned long int) -->
           <function-decl name='operator[]' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EEixEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='610' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- MallocExtension::FreeListInfo& -->
@@ -34680,7 +34680,7 @@
           <!-- MallocExtension::FreeListInfo& std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::at(unsigned long int) -->
           <function-decl name='at' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE2atEm' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='650' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- MallocExtension::FreeListInfo& -->
@@ -34702,7 +34702,7 @@
           <!-- MallocExtension::FreeListInfo& std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::front() -->
           <function-decl name='front' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5frontEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='679' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- MallocExtension::FreeListInfo& -->
             <return type-id='type-id-1340'/>
           </function-decl>
@@ -34720,7 +34720,7 @@
           <!-- MallocExtension::FreeListInfo& std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::back() -->
           <function-decl name='back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4backEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='695' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- MallocExtension::FreeListInfo& -->
             <return type-id='type-id-1340'/>
           </function-decl>
@@ -34738,7 +34738,7 @@
           <!-- MallocExtension::FreeListInfo* std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::data() -->
           <function-decl name='data' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4dataEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='714' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- MallocExtension::FreeListInfo* -->
             <return type-id='type-id-1341'/>
           </function-decl>
@@ -34756,7 +34756,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::push_back(const MallocExtension::FreeListInfo&) -->
           <function-decl name='push_back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE9push_backERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='733' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
             <parameter type-id='type-id-1357'/>
             <!-- void -->
@@ -34767,7 +34767,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::pop_back() -->
           <function-decl name='pop_back' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE8pop_backEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='764' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- void -->
             <return type-id='type-id-56'/>
           </function-decl>
@@ -34776,7 +34776,7 @@
           <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::insert(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >, const MallocExtension::FreeListInfo&) -->
           <function-decl name='insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='106' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34789,7 +34789,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::insert(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >, unsigned long int, const MallocExtension::FreeListInfo&) -->
           <function-decl name='insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE6insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='850' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- parameter of type 'unsigned long int' -->
@@ -34804,7 +34804,7 @@
           <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::erase(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >) -->
           <function-decl name='erase' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5eraseEN9__gnu_cxx17__normal_iteratorIPS1_S3_EE' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='133' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > -->
@@ -34815,7 +34815,7 @@
           <!-- __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > > std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::erase(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >, __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >) -->
           <function-decl name='erase' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5eraseEN9__gnu_cxx17__normal_iteratorIPS1_S3_EES7_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='145' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
@@ -34828,7 +34828,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::swap(std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&) -->
           <function-decl name='swap' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE4swapERS3_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='929' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >&' -->
             <parameter type-id='type-id-1447'/>
             <!-- void -->
@@ -34839,7 +34839,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::clear() -->
           <function-decl name='clear' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE5clearEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='950' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- void -->
             <return type-id='type-id-56'/>
           </function-decl>
@@ -34848,7 +34848,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::_M_fill_initialize(unsigned long int, const MallocExtension::FreeListInfo&) -->
           <function-decl name='_M_fill_initialize' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE18_M_fill_initializeEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='1033' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34861,7 +34861,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::_M_fill_assign(unsigned long int, const MallocExtension::FreeListInfo&) -->
           <function-decl name='_M_fill_assign' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE14_M_fill_assignEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='195' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'unsigned long int' -->
             <parameter type-id='type-id-5'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34874,7 +34874,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::_M_fill_insert(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >, unsigned long int, const MallocExtension::FreeListInfo&) -->
           <function-decl name='_M_fill_insert' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE14_M_fill_insertEN9__gnu_cxx17__normal_iteratorIPS1_S3_EEmRKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='372' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- parameter of type 'unsigned long int' -->
@@ -34889,7 +34889,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::_M_insert_aux(__gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >, const MallocExtension::FreeListInfo&) -->
           <function-decl name='_M_insert_aux' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/vector.tcc' line='295' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'class __gnu_cxx::__normal_iterator<MallocExtension::FreeListInfo*, std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> > >' -->
             <parameter type-id='type-id-1345'/>
             <!-- parameter of type 'const MallocExtension::FreeListInfo&' -->
@@ -34915,7 +34915,7 @@
           <!-- void std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >::_M_erase_at_end(MallocExtension::FreeListInfo*) -->
           <function-decl name='_M_erase_at_end' mangled-name='_ZNSt6vectorIN15MallocExtension12FreeListInfoESaIS1_EE15_M_erase_at_endEPS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_vector.h' line='1148' column='1' visibility='default' binding='global' size-in-bits='64'>
             <!-- implicit parameter of type 'std::vector<MallocExtension::FreeListInfo, std::allocator<MallocExtension::FreeListInfo> >*' -->
-            <parameter type-id='type-id-1304' is-artificial='yes'/>
+            <parameter type-id='type-id-1302' is-artificial='yes'/>
             <!-- parameter of type 'MallocExtension::FreeListInfo*' -->
             <parameter type-id='type-id-1341'/>
             <!-- void -->
@@ -37642,7 +37642,7 @@
       <!-- parameter of type 'int' -->
       <parameter type-id='type-id-1'/>
       <!-- struct div_t -->
-      <return type-id='type-id-1282'/>
+      <return type-id='type-id-1290'/>
     </function-decl>
     <!-- void free(void*) -->
     <function-decl name='free' filepath='/usr/include/stdlib.h' line='488' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -37665,7 +37665,7 @@
       <!-- parameter of type 'long int' -->
       <parameter type-id='type-id-285'/>
       <!-- struct ldiv_t -->
-      <return type-id='type-id-1291'/>
+      <return type-id='type-id-1293'/>
     </function-decl>
     <!-- void* malloc(size_t) -->
     <function-decl name='malloc' filepath='/usr/include/stdlib.h' line='471' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -37858,14 +37858,14 @@
       <!-- parameter of type 'int' -->
       <parameter type-id='type-id-1'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- wint_t fgetwc(__FILE*) -->
     <function-decl name='fgetwc' filepath='/usr/include/wchar.h' line='743' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type '__FILE*' -->
       <parameter type-id='type-id-1344'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- wchar_t* fgetws(wchar_t*, int, __FILE*) -->
     <function-decl name='fgetws' filepath='/usr/include/wchar.h' line='772' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -37885,7 +37885,7 @@
       <!-- parameter of type '__FILE*' -->
       <parameter type-id='type-id-1344'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- int fputws(const wchar_t*, __FILE*) -->
     <function-decl name='fputws' filepath='/usr/include/wchar.h' line='779' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -37930,12 +37930,12 @@
       <!-- parameter of type '__FILE*' -->
       <parameter type-id='type-id-1344'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- wint_t getwchar() -->
     <function-decl name='getwchar' filepath='/usr/include/wchar.h' line='750' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- size_t mbrlen(const char*, size_t, mbstate_t*) -->
     <function-decl name='mbrlen' filepath='/usr/include/wchar.h' line='374' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -37988,14 +37988,14 @@
       <!-- parameter of type '__FILE*' -->
       <parameter type-id='type-id-1344'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- wint_t putwchar(wchar_t) -->
     <function-decl name='putwchar' filepath='/usr/include/wchar.h' line='764' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type 'wchar_t' -->
       <parameter type-id='type-id-1272'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- int swprintf(wchar_t*, size_t, const wchar_t*, ...) -->
     <function-decl name='swprintf' filepath='/usr/include/wchar.h' line='602' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -38022,11 +38022,11 @@
     <!-- wint_t ungetwc(wint_t, __FILE*) -->
     <function-decl name='ungetwc' filepath='/usr/include/wchar.h' line='787' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type 'typedef wint_t' -->
-      <parameter type-id='type-id-1294'/>
+      <parameter type-id='type-id-1297'/>
       <!-- parameter of type '__FILE*' -->
       <parameter type-id='type-id-1344'/>
       <!-- typedef wint_t -->
-      <return type-id='type-id-1294'/>
+      <return type-id='type-id-1297'/>
     </function-decl>
     <!-- int vfwprintf(__FILE*, const wchar_t*, typedef __va_list_tag __va_list_tag*) -->
     <function-decl name='vfwprintf' filepath='/usr/include/wchar.h' line='610' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -38288,7 +38288,7 @@
     <!-- int wctob(wint_t) -->
     <function-decl name='wctob' filepath='/usr/include/wchar.h' line='355' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type 'typedef wint_t' -->
-      <parameter type-id='type-id-1294'/>
+      <parameter type-id='type-id-1297'/>
       <!-- int -->
       <return type-id='type-id-1'/>
     </function-decl>
@@ -38670,7 +38670,7 @@
         </function-decl>
       </namespace-decl>
       <!-- enum base::LinkerInitialized -->
-      <enum-decl name='LinkerInitialized' filepath='src/base/basictypes.h' line='381' column='1' id='type-id-1287'>
+      <enum-decl name='LinkerInitialized' filepath='src/base/basictypes.h' line='381' column='1' id='type-id-1286'>
         <underlying-type type-id='type-id-133'/>
         <enumerator name='LINKER_INITIALIZED' value='0'/>
       </enum-decl>
@@ -39756,7 +39756,7 @@
         </member-type>
         <member-type access='private'>
           <!-- typedef PackedCache<35, long unsigned int> tcmalloc::PageHeap::PageMapCache -->
-          <typedef-decl name='PageMapCache' type-id='type-id-1295' filepath='src/page_heap.h' line='225' column='1' id='type-id-1510'/>
+          <typedef-decl name='PageMapCache' type-id='type-id-1294' filepath='src/page_heap.h' line='225' column='1' id='type-id-1510'/>
         </member-type>
         <data-member access='private' static='yes'>
           <!-- static const size_t tcmalloc::PageHeap::kPageMapBigAllocationThreshold -->
@@ -41121,7 +41121,7 @@
       <return type-id='type-id-56'/>
     </function-type>
     <!-- void (void*, const base::MallocRange*) -->
-    <function-type size-in-bits='64' id='type-id-1302'>
+    <function-type size-in-bits='64' id='type-id-1300'>
       <!-- parameter of type 'void*' -->
       <parameter type-id='type-id-53'/>
       <!-- parameter of type 'const base::MallocRange*' -->

@@ -2518,11 +2518,30 @@
         <var-decl name='int_n_sign_posn' type-id='type-id-2' visibility='default' filepath='/usr/include/locale.h' line='112' column='1'/>
       </data-member>
     </class-decl>
+    <!-- typedef unsigned long int wctype_t -->
+    <typedef-decl name='wctype_t' type-id='type-id-4' filepath='/usr/include/wctype.h' line='53' column='1' id='type-id-91'/>
+    <!-- typedef const __int32_t* wctrans_t -->
+    <typedef-decl name='wctrans_t' type-id='type-id-92' filepath='/usr/include/wctype.h' line='187' column='1' id='type-id-93'/>
+    <!-- typedef int __int32_t -->
+    <typedef-decl name='__int32_t' type-id='type-id-17' filepath='/usr/include/bits/types.h' line='41' column='1' id='type-id-94'/>
+    <!-- typedef _G_fpos64_t fpos_t -->
+    <typedef-decl name='fpos_t' type-id='type-id-95' filepath='/usr/include/stdio.h' line='113' column='1' id='type-id-96'/>
+    <!-- struct _G_fpos64_t -->
+    <class-decl name='_G_fpos64_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/_G_config.h' line='28' column='1' id='type-id-95'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <!-- __off64_t _G_fpos64_t::__pos -->
+        <var-decl name='__pos' type-id='type-id-36' visibility='default' filepath='/usr/include/_G_config.h' line='29' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='64'>
+        <!-- __mbstate_t _G_fpos64_t::__state -->
+        <var-decl name='__state' type-id='type-id-86' visibility='default' filepath='/usr/include/_G_config.h' line='30' column='1'/>
+      </data-member>
+    </class-decl>
     <!-- class vtkWeakPointerBase -->
     <class-decl name='vtkWeakPointerBase' size-in-bits='64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='31' column='1' id='type-id-75'>
       <member-type access='protected'>
         <!-- class vtkWeakPointerBase::NoReference -->
-        <class-decl name='NoReference' size-in-bits='8' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='70' column='1' id='type-id-91'/>
+        <class-decl name='NoReference' size-in-bits='8' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='70' column='1' id='type-id-97'/>
       </member-type>
       <data-member access='protected' layout-offset-in-bits='0'>
         <!-- vtkObjectBase* vtkWeakPointerBase::Object -->
@@ -2532,7 +2551,7 @@
         <!-- vtkWeakPointerBase::vtkWeakPointerBase() -->
         <function-decl name='vtkWeakPointerBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='35' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- void -->
           <return type-id='type-id-26'/>
         </function-decl>
@@ -2541,7 +2560,7 @@
         <!-- vtkWeakPointerBase::vtkWeakPointerBase(vtkObjectBase*) -->
         <function-decl name='vtkWeakPointerBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='39' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- parameter of type 'vtkObjectBase*' -->
           <parameter type-id='type-id-66'/>
           <!-- void -->
@@ -2552,7 +2571,7 @@
         <!-- vtkWeakPointerBase::vtkWeakPointerBase(const vtkWeakPointerBase&) -->
         <function-decl name='vtkWeakPointerBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='43' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- parameter of type 'const vtkWeakPointerBase&' -->
           <parameter type-id='type-id-78'/>
           <!-- void -->
@@ -2563,7 +2582,7 @@
         <!-- vtkWeakPointerBase::~vtkWeakPointerBase(int) -->
         <function-decl name='~vtkWeakPointerBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='47' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- artificial parameter of type 'int' -->
           <parameter type-id='type-id-17' is-artificial='yes'/>
           <!-- void -->
@@ -2574,29 +2593,29 @@
         <!-- vtkWeakPointerBase& vtkWeakPointerBase::operator=(vtkObjectBase*) -->
         <function-decl name='operator=' mangled-name='_ZN18vtkWeakPointerBaseaSEP13vtkObjectBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='52' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- parameter of type 'vtkObjectBase*' -->
           <parameter type-id='type-id-66'/>
           <!-- vtkWeakPointerBase& -->
-          <return type-id='type-id-93'/>
+          <return type-id='type-id-99'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <!-- vtkWeakPointerBase& vtkWeakPointerBase::operator=(const vtkWeakPointerBase&) -->
         <function-decl name='operator=' mangled-name='_ZN18vtkWeakPointerBaseaSERKS_' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='53' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- parameter of type 'const vtkWeakPointerBase&' -->
           <parameter type-id='type-id-78'/>
           <!-- vtkWeakPointerBase& -->
-          <return type-id='type-id-93'/>
+          <return type-id='type-id-99'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <!-- vtkObjectBase* vtkWeakPointerBase::GetPointer() -->
         <function-decl name='GetPointer' mangled-name='_ZNK18vtkWeakPointerBase10GetPointerEv' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='57' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'const vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-94' is-artificial='yes'/>
+          <parameter type-id='type-id-100' is-artificial='yes'/>
           <!-- vtkObjectBase* -->
           <return type-id='type-id-66'/>
         </function-decl>
@@ -2605,7 +2624,7 @@
         <!-- vtkWeakPointerBase::vtkWeakPointerBase(vtkObjectBase*, const vtkWeakPointerBase::NoReference&) -->
         <function-decl name='vtkWeakPointerBase' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Common/Core/vtkWeakPointerBase.h' line='71' column='1' visibility='default' binding='global' size-in-bits='64'>
           <!-- implicit parameter of type 'vtkWeakPointerBase*' -->
-          <parameter type-id='type-id-92' is-artificial='yes'/>
+          <parameter type-id='type-id-98' is-artificial='yes'/>
           <!-- parameter of type 'vtkObjectBase*' -->
           <parameter type-id='type-id-66'/>
           <!-- parameter of type 'const vtkWeakPointerBase::NoReference&' -->
@@ -2615,30 +2634,35 @@
         </function-decl>
       </member-function>
     </class-decl>
-    <!-- typedef unsigned long int wctype_t -->
-    <typedef-decl name='wctype_t' type-id='type-id-4' filepath='/usr/include/wctype.h' line='53' column='1' id='type-id-95'/>
-    <!-- typedef const __int32_t* wctrans_t -->
-    <typedef-decl name='wctrans_t' type-id='type-id-96' filepath='/usr/include/wctype.h' line='187' column='1' id='type-id-97'/>
-    <!-- typedef int __int32_t -->
-    <typedef-decl name='__int32_t' type-id='type-id-17' filepath='/usr/include/bits/types.h' line='41' column='1' id='type-id-98'/>
-    <!-- typedef _G_fpos64_t fpos_t -->
-    <typedef-decl name='fpos_t' type-id='type-id-99' filepath='/usr/include/stdio.h' line='113' column='1' id='type-id-100'/>
-    <!-- struct _G_fpos64_t -->
-    <class-decl name='_G_fpos64_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/_G_config.h' line='28' column='1' id='type-id-99'>
+    <!-- typedef int (void*, void*)* __compar_fn_t -->
+    <typedef-decl name='__compar_fn_t' type-id='type-id-101' filepath='/usr/include/stdlib.h' line='742' column='1' id='type-id-102'/>
+    <!-- struct div_t -->
+    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-103'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- __off64_t _G_fpos64_t::__pos -->
-        <var-decl name='__pos' type-id='type-id-36' visibility='default' filepath='/usr/include/_G_config.h' line='29' column='1'/>
+        <!-- int div_t::quot -->
+        <var-decl name='quot' type-id='type-id-17' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
+      </data-member>
+      <data-member access='public' layout-offset-in-bits='32'>
+        <!-- int div_t::rem -->
+        <var-decl name='rem' type-id='type-id-17' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
+      </data-member>
+    </class-decl>
+    <!-- struct ldiv_t -->
+    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-104'>
+      <data-member access='public' layout-offset-in-bits='0'>
+        <!-- long int ldiv_t::quot -->
+        <var-decl name='quot' type-id='type-id-20' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='64'>
-        <!-- __mbstate_t _G_fpos64_t::__state -->
-        <var-decl name='__state' type-id='type-id-86' visibility='default' filepath='/usr/include/_G_config.h' line='30' column='1'/>
+        <!-- long int ldiv_t::rem -->
+        <var-decl name='rem' type-id='type-id-20' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
       </data-member>
     </class-decl>
     <!-- class vtkPixelTransfer -->
-    <class-decl name='vtkPixelTransfer' size-in-bits='8' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPixelTransfer.h' line='35' column='1' id='type-id-101'>
+    <class-decl name='vtkPixelTransfer' size-in-bits='8' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPixelTransfer.h' line='35' column='1' id='type-id-105'>
       <member-type access='private'>
         <!-- typedef double vtkPixelTransfer::VTK_TT -->
-        <typedef-decl name='VTK_TT' type-id='type-id-15' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPixelTransfer.cxx' line='19' column='1' id='type-id-102'/>
+        <typedef-decl name='VTK_TT' type-id='type-id-15' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPixelTransfer.cxx' line='19' column='1' id='type-id-106'/>
       </member-type>
       <member-function access='private' static='yes'>
         <!-- int vtkPixelTransfer::Blit(int, int, void*, int, void*) -->
@@ -2723,11 +2747,11 @@
           <!-- parameter of type 'int' -->
           <parameter type-id='type-id-17'/>
           <!-- parameter of type 'vtkPixelTransfer::VTK_TT*' -->
-          <parameter type-id='type-id-103'/>
+          <parameter type-id='type-id-107'/>
           <!-- parameter of type 'int' -->
           <parameter type-id='type-id-17'/>
           <!-- parameter of type 'vtkPixelTransfer::VTK_TT*' -->
-          <parameter type-id='type-id-103'/>
+          <parameter type-id='type-id-107'/>
           <!-- int -->
           <return type-id='type-id-17'/>
         </function-decl>
@@ -2746,7 +2770,7 @@
           <!-- parameter of type 'int' -->
           <parameter type-id='type-id-17'/>
           <!-- parameter of type 'vtkPixelTransfer::VTK_TT*' -->
-          <parameter type-id='type-id-103'/>
+          <parameter type-id='type-id-107'/>
           <!-- parameter of type 'int' -->
           <parameter type-id='type-id-17'/>
           <!-- parameter of type 'int' -->
@@ -2757,30 +2781,6 @@
           <return type-id='type-id-17'/>
         </function-decl>
       </member-function>
-    </class-decl>
-    <!-- typedef int (void*, void*)* __compar_fn_t -->
-    <typedef-decl name='__compar_fn_t' type-id='type-id-104' filepath='/usr/include/stdlib.h' line='742' column='1' id='type-id-105'/>
-    <!-- struct div_t -->
-    <class-decl name='div_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='99' column='1' id='type-id-106'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- int div_t::quot -->
-        <var-decl name='quot' type-id='type-id-17' visibility='default' filepath='/usr/include/stdlib.h' line='100' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <!-- int div_t::rem -->
-        <var-decl name='rem' type-id='type-id-17' visibility='default' filepath='/usr/include/stdlib.h' line='101' column='1'/>
-      </data-member>
-    </class-decl>
-    <!-- struct ldiv_t -->
-    <class-decl name='ldiv_t' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/include/stdlib.h' line='107' column='1' id='type-id-107'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- long int ldiv_t::quot -->
-        <var-decl name='quot' type-id='type-id-20' visibility='default' filepath='/usr/include/stdlib.h' line='108' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <!-- long int ldiv_t::rem -->
-        <var-decl name='rem' type-id='type-id-20' visibility='default' filepath='/usr/include/stdlib.h' line='109' column='1'/>
-      </data-member>
     </class-decl>
     <!-- class vtkImageDataLIC2D -->
     <class-decl name='vtkImageDataLIC2D' size-in-bits='1472' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkImageDataLIC2D.h' line='45' column='1' id='type-id-108'>
@@ -3177,9 +3177,9 @@
     <!-- const __gnu_cxx::new_allocator<vtkPixelExtent>* -->
     <pointer-type-def type-id='type-id-129' size-in-bits='64' id='type-id-131'/>
     <!-- const __int32_t -->
-    <qualified-type-def type-id='type-id-98' const='yes' id='type-id-132'/>
+    <qualified-type-def type-id='type-id-94' const='yes' id='type-id-132'/>
     <!-- const __int32_t* -->
-    <pointer-type-def type-id='type-id-132' size-in-bits='64' id='type-id-96'/>
+    <pointer-type-def type-id='type-id-132' size-in-bits='64' id='type-id-92'/>
     <!-- const char -->
     <qualified-type-def type-id='type-id-2' const='yes' id='type-id-133'/>
     <!-- const char* -->
@@ -3187,7 +3187,7 @@
     <!-- const char** -->
     <pointer-type-def type-id='type-id-68' size-in-bits='64' id='type-id-134'/>
     <!-- const fpos_t -->
-    <qualified-type-def type-id='type-id-100' const='yes' id='type-id-135'/>
+    <qualified-type-def type-id='type-id-96' const='yes' id='type-id-135'/>
     <!-- const fpos_t* -->
     <pointer-type-def type-id='type-id-135' size-in-bits='64' id='type-id-136'/>
     <!-- const int -->
@@ -3287,9 +3287,9 @@
     <!-- const vtkWeakPointerBase& -->
     <reference-type-def kind='lvalue' type-id='type-id-189' size-in-bits='64' id='type-id-78'/>
     <!-- const vtkWeakPointerBase* -->
-    <pointer-type-def type-id='type-id-189' size-in-bits='64' id='type-id-94'/>
+    <pointer-type-def type-id='type-id-189' size-in-bits='64' id='type-id-100'/>
     <!-- const vtkWeakPointerBase::NoReference -->
-    <qualified-type-def type-id='type-id-91' const='yes' id='type-id-190'/>
+    <qualified-type-def type-id='type-id-97' const='yes' id='type-id-190'/>
     <!-- const vtkWeakPointerBase::NoReference& -->
     <reference-type-def kind='lvalue' type-id='type-id-190' size-in-bits='64' id='type-id-82'/>
     <!-- const wchar_t -->
@@ -3303,9 +3303,9 @@
     <!-- float* -->
     <pointer-type-def type-id='type-id-16' size-in-bits='64' id='type-id-59'/>
     <!-- fpos_t* -->
-    <pointer-type-def type-id='type-id-100' size-in-bits='64' id='type-id-195'/>
+    <pointer-type-def type-id='type-id-96' size-in-bits='64' id='type-id-195'/>
     <!-- int (void*, void*)* -->
-    <pointer-type-def type-id='type-id-196' size-in-bits='64' id='type-id-104'/>
+    <pointer-type-def type-id='type-id-196' size-in-bits='64' id='type-id-101'/>
     <!-- int& -->
     <reference-type-def kind='lvalue' type-id='type-id-17' size-in-bits='64' id='type-id-51'/>
     <!-- int* -->
@@ -3427,9 +3427,9 @@
     <!-- vtkWeakPointer<vtkRenderWindow>* -->
     <pointer-type-def type-id='type-id-74' size-in-bits='64' id='type-id-76'/>
     <!-- vtkWeakPointerBase& -->
-    <reference-type-def kind='lvalue' type-id='type-id-75' size-in-bits='64' id='type-id-93'/>
+    <reference-type-def kind='lvalue' type-id='type-id-75' size-in-bits='64' id='type-id-99'/>
     <!-- vtkWeakPointerBase* -->
-    <pointer-type-def type-id='type-id-75' size-in-bits='64' id='type-id-92'/>
+    <pointer-type-def type-id='type-id-75' size-in-bits='64' id='type-id-98'/>
     <!-- wchar_t* -->
     <pointer-type-def type-id='type-id-27' size-in-bits='64' id='type-id-260'/>
     <!-- wchar_t** -->
@@ -7512,7 +7512,7 @@
       <!-- parameter of type 'typedef wint_t' -->
       <parameter type-id='type-id-84'/>
       <!-- parameter of type 'typedef wctype_t' -->
-      <parameter type-id='type-id-95'/>
+      <parameter type-id='type-id-91'/>
       <!-- int -->
       <return type-id='type-id-17'/>
     </function-decl>
@@ -7521,7 +7521,7 @@
       <!-- parameter of type 'typedef wint_t' -->
       <parameter type-id='type-id-84'/>
       <!-- parameter of type 'typedef wctrans_t' -->
-      <parameter type-id='type-id-97'/>
+      <parameter type-id='type-id-93'/>
       <!-- typedef wint_t -->
       <return type-id='type-id-84'/>
     </function-decl>
@@ -7530,14 +7530,14 @@
       <!-- parameter of type 'const char*' -->
       <parameter type-id='type-id-68'/>
       <!-- typedef wctrans_t -->
-      <return type-id='type-id-97'/>
+      <return type-id='type-id-93'/>
     </function-decl>
     <!-- wctype_t wctype(const char*) -->
     <function-decl name='wctype' filepath='/usr/include/wctype.h' line='172' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type 'const char*' -->
       <parameter type-id='type-id-68'/>
       <!-- typedef wctype_t -->
-      <return type-id='type-id-95'/>
+      <return type-id='type-id-91'/>
     </function-decl>
     <!-- void clearerr(FILE*) -->
     <function-decl name='clearerr' filepath='/usr/include/stdio.h' line='821' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -7792,7 +7792,7 @@
       <!-- parameter of type 'typedef size_t' -->
       <parameter type-id='type-id-37'/>
       <!-- parameter of type 'typedef __compar_fn_t' -->
-      <parameter type-id='type-id-105'/>
+      <parameter type-id='type-id-102'/>
       <!-- void* -->
       <return type-id='type-id-14'/>
     </function-decl>
@@ -7803,7 +7803,7 @@
       <!-- parameter of type 'int' -->
       <parameter type-id='type-id-17'/>
       <!-- struct div_t -->
-      <return type-id='type-id-106'/>
+      <return type-id='type-id-103'/>
     </function-decl>
     <!-- char* getenv(const char*) -->
     <function-decl name='getenv' filepath='/usr/include/stdlib.h' line='567' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -7819,7 +7819,7 @@
       <!-- parameter of type 'long int' -->
       <parameter type-id='type-id-20'/>
       <!-- struct ldiv_t -->
-      <return type-id='type-id-107'/>
+      <return type-id='type-id-104'/>
     </function-decl>
     <!-- int mblen(const char*, size_t) -->
     <function-decl name='mblen' filepath='/usr/include/stdlib.h' line='860' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -7861,7 +7861,7 @@
       <!-- parameter of type 'typedef size_t' -->
       <parameter type-id='type-id-37'/>
       <!-- parameter of type 'typedef __compar_fn_t' -->
-      <parameter type-id='type-id-105'/>
+      <parameter type-id='type-id-102'/>
       <!-- void -->
       <return type-id='type-id-26'/>
     </function-decl>
@@ -14471,7 +14471,7 @@
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkPixelTransfer.cxx' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC' language='LANG_C_plus_plus'>
     <!-- vtkPixelTransfer::VTK_TT* -->
-    <pointer-type-def type-id='type-id-102' size-in-bits='64' id='type-id-103'/>
+    <pointer-type-def type-id='type-id-106' size-in-bits='64' id='type-id-107'/>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkStructuredGridLIC2D.cxx' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Rendering/LIC' language='LANG_C_plus_plus'>
     <!-- class vtkStructuredGridLIC2D -->

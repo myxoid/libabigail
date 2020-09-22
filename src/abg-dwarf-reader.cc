@@ -4653,19 +4653,20 @@ public:
       }
 
     {
-      // first let's "sort" the types so that definitions appear before
-      // declarations
-      vector<Dwarf_Off> replacement, incomplete;
-      for (const auto& doff : types_to_canonicalize(source))
+      // Partition the types so that definitions appear before declarations.
+      struct Partition {
+	read_context * ctxt;
+	die_source source;
+	bool operator()(Dwarf_Off off) const
 	{
-	  const type_base_sptr& t = lookup_type_from_die_offset(doff, source);
-	  decl_base* db = dynamic_cast<decl_base*>(t.get());
-	  (db && db->get_is_declaration_only() ? incomplete : replacement)
-	    .push_back(doff);
+	  type_base_sptr t = ctxt->lookup_type_from_die_offset(off, source);
+	  decl_base * db = dynamic_cast<decl_base *>(t.get());
+	  return !db || !db->get_is_declaration_only();
 	}
-      replacement.insert(replacement.end(), incomplete.begin(),
-			 incomplete.end());
-      std::swap(types_to_canonicalize(source), replacement);
+      };
+      Partition partition { this, source };
+      std::vector<Dwarf_Off>& types = types_to_canonicalize(source);
+      std::stable_partition(types.begin(), types.end(), partition);
     }
 
     if (!types_to_canonicalize(source).empty())

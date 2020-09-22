@@ -3566,29 +3566,26 @@
       </member-function>
     </class-decl>
     <typedef-decl name='DynLibList' type-id='type-id-265' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='299' column='1' id='type-id-196'/>
-    <typedef-decl name='pid_t' type-id='type-id-266' filepath='/usr/include/unistd.h' line='260' column='1' id='type-id-208'/>
-    <typedef-decl name='__pid_t' type-id='type-id-25' filepath='/usr/include/bits/types.h' line='133' column='1' id='type-id-266'/>
-    <typedef-decl name='AutoSet' type-id='type-id-267' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='259' column='1' id='type-id-268'/>
     <class-decl name='PtrDataTable' size-in-bits='704' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='163' column='1' id='type-id-193'>
       <member-type access='private'>
-        <typedef-decl name='PtrSet' type-id='type-id-270' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='165' column='1' id='type-id-269'/>
+        <typedef-decl name='PtrSet' type-id='type-id-267' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='165' column='1' id='type-id-266'/>
       </member-type>
       <data-member access='private' layout-offset-in-bits='0'>
-        <var-decl name='list' type-id='type-id-269' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='203' column='1'/>
+        <var-decl name='list' type-id='type-id-266' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='203' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='384'>
         <var-decl name='m_ptr_lock' type-id='type-id-191' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='204' column='1'/>
       </data-member>
       <member-function access='private'>
         <function-decl name='find_ptr_data' mangled-name='_ZN12PtrDataTable13find_ptr_dataEPKv' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='167' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN12PtrDataTable13find_ptr_dataEPKv'>
-          <parameter type-id='type-id-271' is-artificial='yes'/>
+          <parameter type-id='type-id-268' is-artificial='yes'/>
           <parameter type-id='type-id-151'/>
           <return type-id='type-id-204'/>
         </function-decl>
       </member-function>
       <member-function access='private'>
         <function-decl name='insert_ptr_data' mangled-name='_ZN12PtrDataTable15insert_ptr_dataEPKvmRb' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='178' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN12PtrDataTable15insert_ptr_dataEPKvmRb'>
-          <parameter type-id='type-id-271' is-artificial='yes'/>
+          <parameter type-id='type-id-268' is-artificial='yes'/>
           <parameter type-id='type-id-151'/>
           <parameter type-id='type-id-56'/>
           <parameter type-id='type-id-205'/>
@@ -3597,12 +3594,15 @@
       </member-function>
       <member-function access='private'>
         <function-decl name='remove_ptr_data' mangled-name='_ZN12PtrDataTable15remove_ptr_dataEPKv' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='196' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN12PtrDataTable15remove_ptr_dataEPKv'>
-          <parameter type-id='type-id-271' is-artificial='yes'/>
+          <parameter type-id='type-id-268' is-artificial='yes'/>
           <parameter type-id='type-id-151'/>
           <return type-id='type-id-149'/>
         </function-decl>
       </member-function>
     </class-decl>
+    <typedef-decl name='pid_t' type-id='type-id-269' filepath='/usr/include/unistd.h' line='260' column='1' id='type-id-208'/>
+    <typedef-decl name='__pid_t' type-id='type-id-25' filepath='/usr/include/bits/types.h' line='133' column='1' id='type-id-269'/>
+    <typedef-decl name='AutoSet' type-id='type-id-270' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='259' column='1' id='type-id-271'/>
     <class-decl name='MemRange' size-in-bits='128' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='46' column='1' id='type-id-272'>
       <data-member access='private' layout-offset-in-bits='0'>
         <var-decl name='m_start' type-id='type-id-151' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.h' line='76' column='1'/>
@@ -4124,7 +4124,7 @@
     <pointer-type-def type-id='type-id-223' size-in-bits='64' id='type-id-261'/>
     <reference-type-def kind='lvalue' type-id='type-id-219' size-in-bits='64' id='type-id-298'/>
     <pointer-type-def type-id='type-id-219' size-in-bits='64' id='type-id-206'/>
-    <reference-type-def kind='lvalue' type-id='type-id-268' size-in-bits='64' id='type-id-209'/>
+    <reference-type-def kind='lvalue' type-id='type-id-271' size-in-bits='64' id='type-id-209'/>
     <reference-type-def kind='lvalue' type-id='type-id-60' size-in-bits='64' id='type-id-257'/>
     <pointer-type-def type-id='type-id-260' size-in-bits='64' id='type-id-235'/>
     <reference-type-def kind='lvalue' type-id='type-id-229' size-in-bits='64' id='type-id-299'/>
@@ -4146,7 +4146,7 @@
     <pointer-type-def type-id='type-id-303' size-in-bits='64' id='type-id-305'/>
     <reference-type-def kind='lvalue' type-id='type-id-204' size-in-bits='64' id='type-id-254'/>
     <pointer-type-def type-id='type-id-204' size-in-bits='64' id='type-id-306'/>
-    <pointer-type-def type-id='type-id-193' size-in-bits='64' id='type-id-271'/>
+    <pointer-type-def type-id='type-id-193' size-in-bits='64' id='type-id-268'/>
     <pointer-type-def type-id='type-id-262' size-in-bits='64' id='type-id-264'/>
     <reference-type-def kind='lvalue' type-id='type-id-210' size-in-bits='64' id='type-id-307'/>
     <pointer-type-def type-id='type-id-210' size-in-bits='64' id='type-id-211'/>
@@ -4577,7 +4577,7 @@
     <qualified-type-def type-id='type-id-863' const='yes' id='type-id-864'/>
     <reference-type-def kind='lvalue' type-id='type-id-864' size-in-bits='64' id='type-id-865'/>
     <pointer-type-def type-id='type-id-864' size-in-bits='64' id='type-id-866'/>
-    <qualified-type-def type-id='type-id-267' const='yes' id='type-id-867'/>
+    <qualified-type-def type-id='type-id-270' const='yes' id='type-id-867'/>
     <reference-type-def kind='lvalue' type-id='type-id-867' size-in-bits='64' id='type-id-868'/>
     <pointer-type-def type-id='type-id-867' size-in-bits='64' id='type-id-869'/>
     <qualified-type-def type-id='type-id-870' const='yes' id='type-id-871'/>
@@ -4586,7 +4586,7 @@
     <reference-type-def kind='lvalue' type-id='type-id-874' size-in-bits='64' id='type-id-875'/>
     <qualified-type-def type-id='type-id-876' const='yes' id='type-id-877'/>
     <reference-type-def kind='lvalue' type-id='type-id-877' size-in-bits='64' id='type-id-878'/>
-    <qualified-type-def type-id='type-id-270' const='yes' id='type-id-879'/>
+    <qualified-type-def type-id='type-id-267' const='yes' id='type-id-879'/>
     <reference-type-def kind='lvalue' type-id='type-id-879' size-in-bits='64' id='type-id-880'/>
     <pointer-type-def type-id='type-id-879' size-in-bits='64' id='type-id-881'/>
     <qualified-type-def type-id='type-id-882' const='yes' id='type-id-883'/>
@@ -4758,11 +4758,11 @@
     <pointer-type-def type-id='type-id-860' size-in-bits='64' id='type-id-1070'/>
     <reference-type-def kind='lvalue' type-id='type-id-863' size-in-bits='64' id='type-id-1071'/>
     <pointer-type-def type-id='type-id-863' size-in-bits='64' id='type-id-1072'/>
-    <reference-type-def kind='lvalue' type-id='type-id-267' size-in-bits='64' id='type-id-1073'/>
-    <pointer-type-def type-id='type-id-267' size-in-bits='64' id='type-id-1074'/>
+    <reference-type-def kind='lvalue' type-id='type-id-270' size-in-bits='64' id='type-id-1073'/>
+    <pointer-type-def type-id='type-id-270' size-in-bits='64' id='type-id-1074'/>
     <reference-type-def kind='lvalue' type-id='type-id-876' size-in-bits='64' id='type-id-1075'/>
-    <reference-type-def kind='lvalue' type-id='type-id-270' size-in-bits='64' id='type-id-1076'/>
-    <pointer-type-def type-id='type-id-270' size-in-bits='64' id='type-id-1077'/>
+    <reference-type-def kind='lvalue' type-id='type-id-267' size-in-bits='64' id='type-id-1076'/>
+    <pointer-type-def type-id='type-id-267' size-in-bits='64' id='type-id-1077'/>
     <reference-type-def kind='lvalue' type-id='type-id-888' size-in-bits='64' id='type-id-1078'/>
     <reference-type-def kind='lvalue' type-id='type-id-17' size-in-bits='64' id='type-id-256'/>
     <reference-type-def kind='lvalue' type-id='type-id-56' size-in-bits='64' id='type-id-253'/>
@@ -10153,7 +10153,7 @@
       <class-decl name='reverse_iterator&lt;std::_List_const_iterator&lt;TargetImage&gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-1145'/>
       <class-decl name='reverse_iterator&lt;std::_List_iterator&lt;TargetImage&gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-1147'/>
       <class-decl name='initializer_list&lt;TargetImage&gt;' visibility='default' is-declaration-only='yes' id='type-id-1149'/>
-      <class-decl name='set&lt;PtrData, std::less&lt;PtrData&gt;, std::allocator&lt;PtrData&gt; &gt;' size-in-bits='384' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='90' column='1' id='type-id-270'>
+      <class-decl name='set&lt;PtrData, std::less&lt;PtrData&gt;, std::allocator&lt;PtrData&gt; &gt;' size-in-bits='384' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='90' column='1' id='type-id-267'>
         <member-type access='private'>
           <typedef-decl name='_Rep_type' type-id='type-id-528' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='115' column='1' id='type-id-1355'/>
         </member-type>
@@ -16437,7 +16437,7 @@
       <class-decl name='reverse_iterator&lt;std::_List_const_iterator&lt;DynLib&gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-1163'/>
       <class-decl name='reverse_iterator&lt;std::_List_iterator&lt;DynLib&gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-1165'/>
       <class-decl name='initializer_list&lt;DynLib&gt;' visibility='default' is-declaration-only='yes' id='type-id-1166'/>
-      <class-decl name='set&lt;AutoData, std::less&lt;AutoData&gt;, std::allocator&lt;AutoData&gt; &gt;' size-in-bits='384' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='90' column='1' id='type-id-267'>
+      <class-decl name='set&lt;AutoData, std::less&lt;AutoData&gt;, std::allocator&lt;AutoData&gt; &gt;' size-in-bits='384' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='90' column='1' id='type-id-270'>
         <member-type access='private'>
           <typedef-decl name='_Rep_type' type-id='type-id-512' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_set.h' line='115' column='1' id='type-id-1601'/>
         </member-type>
@@ -21196,7 +21196,7 @@
         <var-decl name='m_addr_coipipe_counter' type-id='type-id-1791' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' line='644' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='64'>
-        <var-decl name='m_auto_vars' type-id='type-id-268' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' line='645' column='1'/>
+        <var-decl name='m_auto_vars' type-id='type-id-271' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' line='645' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='448'>
         <var-decl name='m_pipelines' type-id='type-id-1774' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' line='646' column='1'/>
