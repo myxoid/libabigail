@@ -1691,6 +1691,8 @@ write_elf_symbol_visibility(elf_symbol::visibility v, ostream& o)
 static bool
 write_elf_symbol_aliases(const elf_symbol& sym, ostream& out)
 {
+  sym.check_alias_invariants();
+
   if (!sym.is_main_symbol() || !sym.has_aliases())
     return false;
 

@@ -1819,6 +1819,7 @@ elf_symbol::has_aliases() const
 /// Get the number of aliases to this elf symbol
 ///
 /// @return the number of aliases to this elf symbol.
+// TODO: this is useless and wrong
 int
 elf_symbol::get_number_of_aliases() const
 {
@@ -1832,6 +1833,90 @@ elf_symbol::get_number_of_aliases() const
   return result;
 }
 
+// Invariant
+//
+// is_main_symbol, has_aliases, get_next_alias
+//
+// get_next_alias should form a loop or return null
+//
+// if get_next_alias is null is_main_symbol should be true and get_main_symbol
+// should refer to self
+//
+// if get_next_alias forms a loop, exactly one item should be main_symbol
+//
+// get_main_symbol should refer to that symbol
+bool elf_symbol::check_alias_invariants() const {
+  bool ok = true;
+  std::vector<const elf_symbol*> syms;
+  const elf_symbol* main = get_main_symbol().get();
+  if (!main)
+    {
+      std::cerr << get_name() << " has no main symbol\n";
+      ok = false;
+    }
+  if (!get_next_alias()) {
+    // loop of 1
+    syms.push_back(this);
+  } else {
+    const auto* next = this;
+    while (true) {
+      if (!next) {
+        std::cerr << get_name() << " is missing next alias\n";
+        ok = false;
+        break;
+      }
+      auto it = std::find(syms.begin(), syms.end(), next);
+      if (it != syms.end()) {
+        // seen already, do not insert
+        if (it != syms.begin()) {
+          // pointing not at beginning of array
+          std::cerr << get_name() << " has ill-formed alias loop\n";
+          ok = false;
+        }
+        break;
+      }
+      // not seen, insert
+      syms.push_back(next);
+      if (main != next->get_main_symbol().get()) {
+        // main discrepancy
+        std::cerr << get_name() << " and its alias "
+                  << next->get_name() << " have different main symbols\n";
+        ok = false;
+      }
+      if ((next == main) != next->is_main_symbol()) {
+        // found another main
+        std::cerr << get_name() << " is main but is not the main symbol\n";
+        ok = false;
+      }
+      next = next->get_next_alias().get();
+    }
+  }
+  if (get_next_alias()) {
+    if (std::find(syms.begin(), syms.end(), main) == syms.end()) {
+      std::cerr << get_name() << " has a main symbol which is not an alias\n";
+      ok = false;
+    }
+  } else {
+    if (!main) {
+      // this is horrible
+      std::cerr << get_name() << " unaliased symbol has no main symbol\n";
+      ok = false;
+    }
+  }
+  //if (get_number_of_aliases() != syms.size())
+  //  ok = false;
+  if (!ok) {
+    std::cerr << "sym\tname\tis_main\tmain\tnext\n";
+    for (const auto* sym : syms) {
+      std::cerr << sym << "\t" << sym->get_name()
+                << "\t" << sym->get_main_symbol().get()
+                << "\t" << sym->is_main_symbol()
+                << "\t" << sym->get_next_alias().get() << "\n";
+    }
+  }
+  return ok;
+}
+
 /// Add an alias to the current elf symbol.
 ///
 /// @param alias the new alias.  Note that this elf_symbol should *NOT*
@@ -1841,6 +1926,7 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
 {
   if (!alias)
     return;
+  ABG_ASSERT(check_alias_invariants());
 
   ABG_ASSERT(!alias->has_aliases());
   ABG_ASSERT(is_main_symbol());
@@ -1867,6 +1953,7 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
 
   alias->priv_->next_alias_ = get_main_symbol();
   alias->priv_->main_symbol_ = get_main_symbol();
+  ABG_ASSERT(check_alias_invariants());
 }
 
 /// Update the main symbol for a group of aliased symbols
@@ -1885,6 +1972,7 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
 elf_symbol_sptr
 elf_symbol::update_main_symbol(const std::string& name)
 {
+  ABG_ASSERT(check_alias_invariants());
   ABG_ASSERT(is_main_symbol());
   if (!has_aliases() || get_name() == name)
     return get_main_symbol();
@@ -1900,8 +1988,10 @@ elf_symbol::update_main_symbol(const std::string& name)
 	break;
       }
 
-  if (!new_main)
+  if (!new_main) {
+    ABG_ASSERT(check_alias_invariants());
     return get_main_symbol();
+  }
 
   // now update all main symbol references
   priv_->main_symbol_ = new_main;
@@ -1909,6 +1999,7 @@ elf_symbol::update_main_symbol(const std::string& name)
        a = a->get_next_alias())
     a->priv_->main_symbol_ = new_main;
 
+  ABG_ASSERT(check_alias_invariants());
   return new_main;
 }
 

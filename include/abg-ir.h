@@ -976,6 +976,9 @@ public:
   bool
   is_main_symbol() const;
 
+  bool
+  check_alias_invariants() const;
+
   elf_symbol_sptr
   update_main_symbol(const std::string&);
 
