@@ -2531,21 +2531,15 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // allow the removal of change reports on an aliased
 	  // function only if the suppression condition matches the
 	  // names of all aliases.
-	  string symbol_name;
 	  elf_symbol_sptr sym = fn->get_symbol();
 	  ABG_ASSERT(sym);
-	  symbol_name = sym->get_name();
-	  if (sym->has_aliases() && sym->get_alias_from_name(fname))
-	    {
-	      for (elf_symbol_sptr a = sym->get_next_alias();
-		   a && !a->is_main_symbol();
-		   a = a->get_next_alias())
-		if (a->get_name() != symbol_name)
-		  // There is an alias which name is different from
-		  // the function (symbol) name given in the
-		  // suppression condition.
-		  return false;
-	    }
+	  for (elf_symbol_sptr a = sym->get_main_symbol();
+	       a; a = a->get_next_alias())
+	    if (get_name() != a->get_name())
+	      // There is an alias which name is different from
+	      // the function (symbol) name given in the
+	      // suppression condition.
+	      return false;
 	}
     }
 
@@ -2565,18 +2559,11 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // allow the removal of change reports on an aliased
 	  // function only if the suppression condition matches *all*
 	  // the aliases.
-	  string symbol_name;
 	  elf_symbol_sptr sym = fn->get_symbol();
-	  ABG_ASSERT(sym);
-	  symbol_name = sym->get_name();
-	  if (sym->has_aliases())
-	    {
-	      for (elf_symbol_sptr a = sym->get_next_alias();
-		   a && !a->is_main_symbol();
-		   a = a->get_next_alias())
-		if (!regex::match(name_regex, a->get_name()))
-		  return false;
-	    }
+	  for (elf_symbol_sptr a = sym->get_main_symbol();
+	       a; a = a->get_next_alias())
+	    if (!regex::match(name_regex, a->get_name()))
+	      return false;
 	}
     }
 
@@ -2596,18 +2583,12 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // allow the removal of change reports on an aliased
 	  // function only if the suppression condition matches *all*
 	  // the aliases.
-	  string symbol_name;
 	  elf_symbol_sptr sym = fn->get_symbol();
 	  ABG_ASSERT(sym);
-	  symbol_name = sym->get_name();
-	  if (sym->has_aliases())
-	    {
-	      for (elf_symbol_sptr a = sym->get_next_alias();
-		   a && !a->is_main_symbol();
-		   a = a->get_next_alias())
-		if (regex::match(name_regex, a->get_name()))
-		  return false;
-	    }
+	  for (elf_symbol_sptr a = sym->get_main_symbol();
+	       a; a = a->get_next_alias())
+	    if (regex::match(name_regex, a->get_name()))
+	      return false;
 	}
     }
 
@@ -2653,14 +2634,10 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // In this case, we want to allow the suppression of change
 	  // reports about an aliased symbol only if the suppression
 	  // condition matches the name of all aliases.
-	  if (sym->has_aliases())
-	    {
-	      for (elf_symbol_sptr a = sym->get_next_alias();
-		   a && !a->is_main_symbol();
-		   a = a->get_next_alias())
-		if (a->get_name() != fn_sym_name)
-		  return false;
-	    }
+	  for (elf_symbol_sptr a = sym->get_main_symbol();
+	       a; a = a->get_next_alias())
+	    if (a->get_name() != fn_sym_name)
+	      return false;
 	}
     }
   else if (sym)
@@ -2680,20 +2657,16 @@ function_suppression::suppresses_function(const function_decl* fn,
 	  // In this case, we want to allow the suppression of change
 	  // reports about an aliased symbol only if the suppression
 	  // condition matches the name of all aliases.
-	  if (sym->has_aliases())
+	  for (elf_symbol_sptr a = sym->get_main_symbol();
+	       a; a = a->get_next_alias())
 	    {
-	      for (elf_symbol_sptr a = sym->get_next_alias();
-		   a && !a->is_main_symbol();
-		   a = a->get_next_alias())
-		{
-		  if (symbol_name_regex
-		      && !regex::match(symbol_name_regex, a->get_name()))
-		    return false;
+	      if (symbol_name_regex
+		  && !regex::match(symbol_name_regex, a->get_name()))
+		return false;
 
-		  if (symbol_name_not_regex
-		      && regex::match(symbol_name_not_regex, a->get_name()))
-		    return false;
-		}
+	      if (symbol_name_not_regex
+		  && regex::match(symbol_name_not_regex, a->get_name()))
+		return false;
 	    }
 	}
     }

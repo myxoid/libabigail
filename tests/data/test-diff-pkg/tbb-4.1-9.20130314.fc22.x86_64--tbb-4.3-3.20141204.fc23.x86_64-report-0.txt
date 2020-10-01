@@ -215,14 +215,14 @@
     [A] _Z8do_yieldv
     [A] _Z9AtomicAddRVll
     [A] _Z9AtomicAndPVvm
-    [A] _ZN11MallocMutex11scoped_lockC1ERS_
+    [A] _ZN11MallocMutex11scoped_lockC1ERS_, aliases _ZN11MallocMutex11scoped_lockC2ERS_
     [A] _ZN11MallocMutex11scoped_lockC1ERS_bPb, aliases _ZN11MallocMutex11scoped_lockC2ERS_bPb
     [A] _ZN11MallocMutex11scoped_lockC2ERS_, aliases _ZN11MallocMutex11scoped_lockC1ERS_
-    [A] _ZN11MallocMutex11scoped_lockC2ERS_bPb
+    [A] _ZN11MallocMutex11scoped_lockC2ERS_bPb, aliases _ZN11MallocMutex11scoped_lockC1ERS_bPb
     [A] _ZN11MallocMutex11scoped_lockD1Ev, aliases _ZN11MallocMutex11scoped_lockD2Ev
-    [A] _ZN11MallocMutex11scoped_lockD2Ev
+    [A] _ZN11MallocMutex11scoped_lockD2Ev, aliases _ZN11MallocMutex11scoped_lockD1Ev
     [A] _ZN11MallocMutexC1Ev, aliases _ZN11MallocMutexC2Ev
-    [A] _ZN11MallocMutexC2Ev
+    [A] _ZN11MallocMutexC2Ev, aliases _ZN11MallocMutexC1Ev
     [A] _ZdlPvS_
     [A] _ZnwmPv
     [A] __TBB_malloc_safer_aligned_msize

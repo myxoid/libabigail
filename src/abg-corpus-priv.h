@@ -349,24 +349,20 @@ public:
       fns = &(id_fns_map()[fn_id] = vector<function_decl*>());
     fns->push_back(fn);
 
-    // Now associate all aliases of the underlying symbol to the
-    // function too.
+    // Now associate the symbol and all its aliases to the function.
     elf_symbol_sptr sym = fn->get_symbol();
     ABG_ASSERT(sym);
     string sym_id;
-    do
+    for (sym = sym->get_main_symbol(); sym; sym = sym->get_next_alias())
       {
 	sym_id = sym->get_id_string();
 	if (sym_id == fn_id)
-	  goto loop;
+	  continue;
 	fns = fn_id_is_in_id_fns_map(fn_id);
 	if (!fns)
 	  fns = &(id_fns_map()[fn_id] = vector<function_decl*>());
 	fns->push_back(fn);
-      loop:
-	sym = sym->get_next_alias();
       }
-    while (sym && !sym->is_main_symbol());
   }
 
   /// Test if a given (ID of a) varialble is present in the variable

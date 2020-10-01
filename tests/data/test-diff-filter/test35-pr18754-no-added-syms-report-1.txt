@@ -99,11 +99,11 @@ Variable symbols changes summary: 0 Removed, 0 Added variable symbol not referen
 
 7 Removed function symbols not referenced by debug info:
 
-  [D] _ZN7VarListD1Ev
+  [D] _ZN7VarListD1Ev, aliases _ZN7VarListD2Ev
   [D] _ZN7VarListD2Ev, aliases _ZN7VarListD1Ev
-  [D] _ZN8FuncListD1Ev
+  [D] _ZN8FuncListD1Ev, aliases _ZN8FuncListD2Ev
   [D] _ZN8FuncListD2Ev, aliases _ZN8FuncListD1Ev
   [D] _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED0Ev
   [D] _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED1Ev, aliases _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED2Ev
-  [D] _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED2Ev
+  [D] _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED2Ev, aliases _ZNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEED1Ev
 

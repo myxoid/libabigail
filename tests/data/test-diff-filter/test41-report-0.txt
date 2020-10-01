@@ -159,5 +159,5 @@ Variable symbols changes summary: 0 Removed, 0 Added variable symbol not referen
 
 1 Removed function symbol not referenced by debug info:
 
-  [D] _ZN7abigail10xml_writer13write_contextD1Ev
+  [D] _ZN7abigail10xml_writer13write_contextD1Ev, aliases _ZN7abigail10xml_writer13write_contextD2Ev
 
