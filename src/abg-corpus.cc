@@ -402,6 +402,7 @@ corpus::priv::get_unreferenced_function_symbols() const
 	  for (const auto& function : fns)
 	    if (elf_symbol_sptr sym = function->get_symbol())
 	      {
+                // TODO assert is main alias
 		refed_funs[sym->get_id_string()] = true;
 		for (elf_symbol_sptr a = sym->get_next_alias();
 		     a && !a->is_main_symbol(); a = a->get_next_alias())
@@ -535,6 +536,7 @@ corpus::priv::get_unreferenced_variable_symbols() const
 	  for (const auto& variable : vars)
 	    if (elf_symbol_sptr sym = variable->get_symbol())
 	      {
+                // TODO assert is main alias
 		refed_vars[sym->get_id_string()] = true;
 		for (elf_symbol_sptr a = sym->get_next_alias();
 		     a && !a->is_main_symbol(); a = a->get_next_alias())

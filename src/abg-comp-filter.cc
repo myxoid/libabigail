@@ -274,20 +274,9 @@ function_name_changed_but_not_symbol(const function_decl_sptr& f,
   string fn = f->get_qualified_name(),
     sn = s->get_qualified_name();
 
-  if (fn != sn)
-    {
-      elf_symbol_sptr fs = f->get_symbol(), ss = s->get_symbol();
-      if (fs == ss)
-	return true;
-      if (!!fs != !!ss)
-	return false;
-      for (elf_symbol_sptr s = fs->get_next_alias();
-	   s && !s->is_main_symbol();
-	   s = s->get_next_alias())
-	if (*s == *ss)
-	  return true;
-    }
-  return false;
+  return fn != sn && elf_symbols_alias(*f->get_symbol().get(),
+				       *s->get_symbol().get());
+
 }
 
 /// Test if the current diff tree node carries a function name change,
