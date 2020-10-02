@@ -2449,7 +2449,7 @@ elf_symbol::get_alias_from_name(const string& name) const
 elf_symbol_sptr
 elf_symbol::get_alias_which_equals(const elf_symbol& other) const
 {
-  for (elf_symbol_sptr a = other.get_next_alias()->get_main_symbol();
+  for (elf_symbol_sptr a = other.get_main_symbol()->get_next_alias();
        a; a = a->get_next_alias())
     if (textually_equals(*this, *a))
       return a;
@@ -2655,12 +2655,12 @@ compute_aliases_for_elf_symbol(const elf_symbol& sym,
 	  if (**j == sym)
 	    for (elf_symbol_sptr s = (*j)->get_main_symbol();
 		 s; s = s->get_next_alias())
-	      if (s.get() != (*j).get())
+	      //if (s.get() != (*j).get())
 		aliases.push_back(s.get());
 	  else
 	    for (elf_symbol_sptr s = (*j)->get_main_symbol();
 		 s; s = s->get_next_alias())
-	      if (s.get() != (*j).get())
+	      //if (s.get() != (*j).get())
 		if (*s == sym)
 		  aliases.push_back(j->get());
 	}
