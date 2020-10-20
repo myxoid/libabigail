@@ -888,6 +888,10 @@ test-diff-filter/test-PR26309-v1.c           \
 test-diff-filter/test-PR26309-v0.o           \
 test-diff-filter/test-PR26309-v1.o           \
 test-diff-filter/test-PR26309-report-0.txt   \
+test-diff-filter/test-PR26684-dwarf5.o 	     \
+test-diff-filter/test-PR26684-dwarf4.o       \
+test-diff-filter/test-PR26684.c              \
+test-diff-filter/test-PR26684-report-0.txt   \
 \
 test-diff-suppr/test0-type-suppr-v0.cc	\
 test-diff-suppr/test0-type-suppr-v1.cc	\
