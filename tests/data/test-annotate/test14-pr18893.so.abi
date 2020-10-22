@@ -1,4 +1,4 @@
-<abi-corpus architecture='elf-amd-x86_64' soname='libGLU.so.1'>
+<abi-corpus version='2.0' architecture='elf-amd-x86_64' soname='libGLU.so.1'>
   <elf-needed>
     <dependency name='libGL.so.1'/>
     <dependency name='libstdc++.so.6'/>
@@ -126,7 +126,7 @@
     <!-- gluUnProject4 -->
     <elf-symbol name='gluUnProject4' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glcurveval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/interface/glcurveval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- REAL[160] -->
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='5120' id='type-id-2'>
       <!-- <anonymous range>[160] -->
@@ -966,7 +966,7 @@
     <!-- struct CurveMap -->
     <class-decl name='CurveMap' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-32'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glinterface.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/interface/glinterface.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- struct GLUnurbs -->
     <class-decl name='GLUnurbs' size-in-bits='1149440' is-struct='yes' visibility='default' filepath='libnurbs/interface/glrenderer.h' line='49' column='1' id='type-id-39'>
       <!-- class NurbsTessellator -->
@@ -2892,7 +2892,7 @@
       <return type-id='type-id-44'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glrenderer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/interface/glrenderer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- GLfloat[4] -->
     <array-type-def dimensions='1' type-id='type-id-33' size-in-bits='128' id='type-id-61'>
       <!-- <anonymous range>[4] -->
@@ -3664,7 +3664,7 @@
     <!-- GLfloat[4]* -->
     <pointer-type-def type-id='type-id-61' size-in-bits='64' id='type-id-46'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/interface/glsurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/interface/glsurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- GLint[2] -->
     <array-type-def dimensions='1' type-id='type-id-60' size-in-bits='64' id='type-id-50'>
       <!-- <anonymous range>[2] -->
@@ -4394,9 +4394,9 @@
     <!-- struct SurfaceMap -->
     <class-decl name='SurfaceMap' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-105'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/interface/insurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/interface/insurfeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/arc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/arc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- char -->
     <type-decl name='char' size-in-bits='8' id='type-id-106'/>
     <!-- char*[32] -->
@@ -5031,7 +5031,7 @@
     <!-- struct BezierArc -->
     <class-decl name='BezierArc' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-129'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/arcsorter.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/arcsorter.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- REAL[4] -->
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='128' id='type-id-131'>
       <!-- <anonymous range>[4] -->
@@ -8236,9 +8236,9 @@
     <!-- const REAL* -->
     <pointer-type-def type-id='type-id-201' size-in-bits='64' id='type-id-177'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/arctess.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/arctess.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/backend.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/backend.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- REAL[3][4] -->
     <array-type-def dimensions='2' type-id='type-id-1' size-in-bits='384' id='type-id-191'>
       <!-- <anonymous range>[3] -->
@@ -8424,9 +8424,9 @@
     <!-- GridVertex* -->
     <pointer-type-def type-id='type-id-202' size-in-bits='64' id='type-id-194'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/cachingeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/cachingeval.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/coveandtiler.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/coveandtiler.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- class Jarcloc -->
     <class-decl name='Jarcloc' size-in-bits='192' visibility='default' filepath='libnurbs/internals/jarcloc.h' line='41' column='1' id='type-id-204'>
       <data-member access='private' layout-offset-in-bits='0'>
@@ -9167,7 +9167,7 @@
     <!-- Uarray* -->
     <pointer-type-def type-id='type-id-208' size-in-bits='64' id='type-id-209'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/curve.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/curve.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- Quiltspec[2] -->
     <array-type-def dimensions='1' type-id='type-id-216' size-in-bits='640' id='type-id-164'>
       <!-- <anonymous range>[2] -->
@@ -10421,7 +10421,7 @@
     <!-- float[4]* -->
     <pointer-type-def type-id='type-id-222' size-in-bits='64' id='type-id-229'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/curvelist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/curvelist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- float[3] -->
     <array-type-def dimensions='1' type-id='type-id-30' size-in-bits='96' id='type-id-137'>
       <!-- <anonymous range>[3] -->
@@ -10430,7 +10430,7 @@
     <!-- Curvelist* -->
     <pointer-type-def type-id='type-id-135' size-in-bits='64' id='type-id-138'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/displaylist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/displaylist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- struct Dlnode -->
     <class-decl name='Dlnode' size-in-bits='384' is-struct='yes' visibility='default' filepath='libnurbs/internals/displaylist.h' line='48' column='1' id='type-id-235'>
       <!-- class PooledObj -->
@@ -10574,11 +10574,11 @@
       <return type-id='type-id-11'/>
     </function-type>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/flist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/flist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- FlistSorter* -->
     <pointer-type-def type-id='type-id-149' size-in-bits='64' id='type-id-150'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/hull.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/hull.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- class Hull -->
     <class-decl name='Hull' size-in-bits='4800' visibility='default' filepath='libnurbs/internals/hull.h' line='47' column='1' id='type-id-243'>
       <!-- class TrimRegion -->
@@ -10683,15 +10683,15 @@
     <!-- Hull* -->
     <pointer-type-def type-id='type-id-243' size-in-bits='64' id='type-id-246'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/knotvector.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/knotvector.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- Knotvector* -->
     <pointer-type-def type-id='type-id-231' size-in-bits='64' id='type-id-82'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/mapdesc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/mapdesc.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/mapdescv.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/mapdescv.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/maplist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/maplist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- class Maplist -->
     <class-decl name='Maplist' size-in-bits='2688' visibility='default' filepath='libnurbs/internals/maplist.h' line='46' column='1' id='type-id-64'>
       <data-member access='private' layout-offset-in-bits='0'>
@@ -10830,7 +10830,7 @@
     <!-- Maplist* -->
     <pointer-type-def type-id='type-id-64' size-in-bits='64' id='type-id-248'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/mesher.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/mesher.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- GridTrimVertex*[2] -->
     <array-type-def dimensions='1' type-id='type-id-193' size-in-bits='128' id='type-id-249'>
       <!-- <anonymous range>[2] -->
@@ -11109,7 +11109,7 @@
     <!-- const float -->
     <qualified-type-def type-id='type-id-30' const='yes' id='type-id-250'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/monoTriangulationBackend.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/monoTriangulationBackend.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- Real[2] -->
     <array-type-def dimensions='1' type-id='type-id-253' size-in-bits='64' id='type-id-254'>
       <!-- <anonymous range>[2] -->
@@ -11649,9 +11649,9 @@
     <!-- vertexArray* -->
     <pointer-type-def type-id='type-id-256' size-in-bits='64' id='type-id-258'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/monotonizer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/monotonizer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/nurbsinterfac.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/nurbsinterfac.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- struct O_pwlcurve -->
     <class-decl name='O_pwlcurve' size-in-bits='320' is-struct='yes' visibility='default' filepath='libnurbs/internals/reader.h' line='83' column='1' id='type-id-267'>
       <!-- class PooledObj -->
@@ -11982,7 +11982,7 @@
     <!-- Renderhints* -->
     <pointer-type-def type-id='type-id-63' size-in-bits='64' id='type-id-141'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/patch.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/patch.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- Patchspec[2] -->
     <array-type-def dimensions='1' type-id='type-id-276' size-in-bits='640' id='type-id-277'>
       <!-- <anonymous range>[2] -->
@@ -12243,7 +12243,7 @@
     <!-- Patchspec* -->
     <pointer-type-def type-id='type-id-276' size-in-bits='64' id='type-id-284'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/patchlist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/patchlist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- Pspec[2] -->
     <array-type-def dimensions='1' type-id='type-id-281' size-in-bits='512' id='type-id-180'>
       <!-- <anonymous range>[2] -->
@@ -12252,9 +12252,9 @@
     <!-- Patchlist* -->
     <pointer-type-def type-id='type-id-178' size-in-bits='64' id='type-id-181'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/quilt.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/quilt.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/slicer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/slicer.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- class rectBlock -->
     <class-decl name='rectBlock' size-in-bits='192' visibility='default' filepath='libnurbs/nurbtess/rectBlock.h' line='39' column='1' id='type-id-285'>
       <data-member access='private' layout-offset-in-bits='0'>
@@ -12920,7 +12920,7 @@
     <!-- rectBlockArray* -->
     <pointer-type-def type-id='type-id-289' size-in-bits='64' id='type-id-187'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/tobezier.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/tobezier.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- struct Knotspec -->
     <class-decl name='Knotspec' size-in-bits='1152' is-struct='yes' visibility='default' filepath='libnurbs/internals/tobezier.cc' line='54' column='1' id='type-id-292'>
       <data-member access='public' layout-offset-in-bits='0'>
@@ -13306,7 +13306,7 @@
     <!-- Splinespec* -->
     <pointer-type-def type-id='type-id-297' size-in-bits='64' id='type-id-298'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/internals/varray.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/internals/varray.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- REAL[1000] -->
     <array-type-def dimensions='1' type-id='type-id-1' size-in-bits='32000' id='type-id-300'>
       <!-- <anonymous range>[1000] -->
@@ -13417,7 +13417,7 @@
     <!-- long int* -->
     <pointer-type-def type-id='type-id-12' size-in-bits='64' id='type-id-305'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/directedLine.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/directedLine.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- short int -->
     <type-decl name='short int' size-in-bits='16' id='type-id-306'/>
     <!-- class sampledLine -->
@@ -14166,7 +14166,7 @@
     <!-- sampledLine** -->
     <pointer-type-def type-id='type-id-308' size-in-bits='64' id='type-id-314'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/monoChain.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/monoChain.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
     <!-- class monoChain -->
     <class-decl name='monoChain' size-in-bits='640' visibility='default' filepath='libnurbs/nurbtess/monoChain.h' line='41' column='1' id='type-id-315'>
       <data-member access='private' layout-offset-in-bits='0'>
@@ -14449,23 +14449,23 @@
     <!-- monoChain** -->
     <pointer-type-def type-id='type-id-316' size-in-bits='64' id='type-id-317'/>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/monoTriangulation.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/monoTriangulation.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/polyDBG.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/polyDBG.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampleComp.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampleComp.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampleCompBot.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampleCompBot.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampleCompRight.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampleCompRight.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampleCompTop.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampleCompTop.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampleMonoPoly.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampleMonoPoly.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libnurbs/nurbtess/sampledLine.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
+  <abi-instr address-size='64' path='libnurbs/nurbtess/sampledLine.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libtess/tess.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libtess/tess.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- CachedVertex[100] -->
     <array-type-def dimensions='1' type-id='type-id-318' size-in-bits='25600' id='type-id-319'>
       <!-- <anonymous range>[100] -->
@@ -15270,7 +15270,7 @@
       <return type-id='type-id-11'/>
     </function-type>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libutil/error.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libutil/error.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- unsigned char -->
     <type-decl name='unsigned char' size-in-bits='8' id='type-id-400'/>
     <!-- unsigned int -->
@@ -15291,7 +15291,7 @@
       <return type-id='type-id-403'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libutil/mipmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libutil/mipmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- int -->
     <type-decl name='int' size-in-bits='32' id='type-id-10'/>
     <!-- void -->
@@ -15458,7 +15458,7 @@
       <return type-id='type-id-60'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libutil/project.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libutil/project.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- double -->
     <type-decl name='double' size-in-bits='64' id='type-id-405'/>
     <!-- typedef double GLdouble -->
@@ -15619,7 +15619,7 @@
       <return type-id='type-id-11'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libutil/quad.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libutil/quad.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- typedef GLUquadric GLUquadric -->
     <typedef-decl name='GLUquadric' type-id='type-id-411' filepath='../../../include/GL/glu.h' line='275' column='1' id='type-id-412'/>
     <!-- struct GLUquadric -->
@@ -15791,7 +15791,7 @@
       <return type-id='type-id-11'/>
     </function-type>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='libutil/registry.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
+  <abi-instr address-size='64' path='libutil/registry.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- const GLubyte* gluGetString(GLenum) -->
     <function-decl name='gluGetString' mangled-name='gluGetString' filepath='libutil/registry.c' line='44' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluGetString'>
       <!-- parameter of type 'typedef GLenum' -->
