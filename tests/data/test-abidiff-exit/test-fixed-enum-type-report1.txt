@@ -1,0 +1,12 @@
+Functions changes summary: 0 Removed, 1 Changed, 0 Added function
+Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+1 function with some indirect sub-type change:
+
+  [C] 'function unsigned int fun(A, B)' has some indirect sub-type changes:
+    parameter 2 of type 'enum B' has sub-type changes:
+      type size changed from 8 to 64 (in bits)
+      type alignment changed from 8 to 64
+      type size changed from 8 to 64 (in bits)
+      type alignment changed from 8 to 64
+
