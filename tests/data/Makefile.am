@@ -222,6 +222,18 @@ test-abidiff/test-PR27616-squished-v0.abi \
 test-abidiff/test-PR27616-squished-v1.abi \
 test-abidiff/test-PR27616-v0.xml \
 test-abidiff/test-PR27616-v1.xml \
+test-abidiff-exit/test-unfixed-enum-type-v0.c \
+test-abidiff-exit/test-unfixed-enum-type-v0.o \
+test-abidiff-exit/test-unfixed-enum-type-v1.c \
+atest-abidiff-exit/test-unfixed-enum-type-v1.o \
+test-abidiff-exit/test-unfixed-enum-type-report0.txt \
+test-abidiff-exit/test-unfixed-enum-type-report1.txt \
+test-abidiff-exit/test-fixed-enum-type-v0.cc \
+test-abidiff-exit/test-fixed-enum-type-v0.o \
+test-abidiff-exit/test-fixed-enum-type-v1.cc \
+test-abidiff-exit/test-fixed-enum-type-v1.o \
+test-abidiff-exit/test-fixed-enum-type-report0.txt \
+test-abidiff-exit/test-fixed-enum-type-report1.txt \
 \
 test-diff-dwarf/test0-v0.cc		\
 test-diff-dwarf/test0-v0.o			\
