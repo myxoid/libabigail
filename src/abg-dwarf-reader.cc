@@ -7505,8 +7505,8 @@ die_location_expr(const Dwarf_Die* die,
   size_t len = 0;
   bool result = (dwarf_getlocation(&attr, expr, &len) == 0);
 
-  // Ignore invalid location expressions where reading them succeeded but their
-  // length is 0.
+  // Ignore location expressions where reading them succeeded but
+  // their length is 0.
   result &= len > 0;
 
   if (result)
