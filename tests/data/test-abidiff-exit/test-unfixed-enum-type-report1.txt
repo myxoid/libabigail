@@ -7,9 +7,6 @@ Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
     parameter 1 of type 'enum A' has sub-type changes:
       type size changed from 32 to 64 (in bits)
       type alignment changed from 32 to 64
-      type name changed from 'unnamed-enum-underlying-type-32' to 'unnamed-enum-underlying-type-64'
-      type size changed from 32 to 64 (in bits)
-      type alignment changed from 32 to 64
       1 enumerator change:
         'A::Ae' from value '16777216' to '281474976710656'
     parameter 2 of type 'enum B' has sub-type changes:

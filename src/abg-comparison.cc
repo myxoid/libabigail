@@ -4114,7 +4114,7 @@ compute_diff(const enum_type_decl_sptr first,
     ABG_ASSERT(first->get_environment() == second->get_environment());
 
   diff_sptr ud = compute_diff_for_types(first->get_underlying_type(),
-					second->get_underlying_type(),
+					first->get_underlying_type(),
 					ctxt);
   enum_diff_sptr d(new enum_diff(first, second, ud, ctxt));
   if (first != second)
