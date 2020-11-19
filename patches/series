@@ -30,3 +30,4 @@ Improve-and-stabilise-sort-of-member-functions.patch
 Improve-enum-synthetic-type-names.patch
 dwarf-reader-Ignore-zero-length-location-expressions-from-DW_AT_location.patch
 dwarf-reader-fix-lookup-for-repeated-translation-unit-paths.patch
+abg-ir.cc-improve-update_main_alias.patch

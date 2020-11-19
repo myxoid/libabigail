@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Giuliano Procida <gprocida@google.com>
+Date: Thu, 19 Nov 2020 14:25:59 +0000
+Subject: abg-ir.cc: improve update_main_alias
+
+This function would misbehave if called for any symbol other than the
+current main symbol. For safety, we now assert this.
+
+Also, when updating the main symbol, the loop condition performed deep
+equality on symbols which might lead to not all symbols in the chain
+being updated.
+
+	* src/abg-ir.cc (elf_symbol::update_main_symbol): Assert we
+	are called at the current main symbol; iterate over the alias
+	chain in a safer fashion.
+
+Signed-off-by: Giuliano Procida <gprocida@google.com>
+Signed-off-by: Matthias Maennich <maennich@google.com>
+---
+ src/abg-ir.cc | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/src/abg-ir.cc b/src/abg-ir.cc
+index 03a83de14067..0b3739fa5a9c 100644
+--- a/src/abg-ir.cc
++++ b/src/abg-ir.cc
+@@ -1885,12 +1885,13 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
+ elf_symbol_sptr
+ elf_symbol::update_main_symbol(const std::string& name)
+ {
+-
+-  if (!has_aliases() || (is_main_symbol() && get_name() == name))
++  ABG_ASSERT(is_main_symbol());
++  if (!has_aliases() || get_name() == name)
+     return get_main_symbol();
+ 
+   // find the new main symbol
+   elf_symbol_sptr new_main;
++  // we've already checked this; check the rest of the aliases
+   for (elf_symbol_sptr a = get_next_alias(); a.get() != this;
+        a = a->get_next_alias())
+     if (a->get_name() == name)
+@@ -1903,8 +1904,8 @@ elf_symbol::update_main_symbol(const std::string& name)
+     return get_main_symbol();
+ 
+   // now update all main symbol references
+-  for (elf_symbol_sptr a = get_next_alias();
+-       a->get_main_symbol() != new_main;
++  priv_->main_symbol_ = new_main;
++  for (elf_symbol_sptr a = get_next_alias(); a.get() != this;
+        a = a->get_next_alias())
+     a->priv_->main_symbol_ = new_main;
+ 

@@ -1885,12 +1885,13 @@ elf_symbol::add_alias(const elf_symbol_sptr& alias)
 elf_symbol_sptr
 elf_symbol::update_main_symbol(const std::string& name)
 {
-
-  if (!has_aliases() || (is_main_symbol() && get_name() == name))
+  ABG_ASSERT(is_main_symbol());
+  if (!has_aliases() || get_name() == name)
     return get_main_symbol();
 
   // find the new main symbol
   elf_symbol_sptr new_main;
+  // we've already checked this; check the rest of the aliases
   for (elf_symbol_sptr a = get_next_alias(); a.get() != this;
        a = a->get_next_alias())
     if (a->get_name() == name)
@@ -1903,8 +1904,8 @@ elf_symbol::update_main_symbol(const std::string& name)
     return get_main_symbol();
 
   // now update all main symbol references
-  for (elf_symbol_sptr a = get_next_alias();
-       a->get_main_symbol() != new_main;
+  priv_->main_symbol_ = new_main;
+  for (elf_symbol_sptr a = get_next_alias(); a.get() != this;
        a = a->get_next_alias())
     a->priv_->main_symbol_ = new_main;
 
