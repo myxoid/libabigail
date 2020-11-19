@@ -4657,6 +4657,10 @@ public:
 	}
       replacement.insert(replacement.end(), incomplete.begin(),
 			 incomplete.end());
+
+      // And undo this, just for testing.
+      std::reverse(replacement.begin(), replacement.end());
+
       std::swap(types_to_canonicalize(source), replacement);
     }
 
