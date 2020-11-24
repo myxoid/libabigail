@@ -772,10 +772,19 @@ public:
   void
   maybe_add_var_to_exported_decls(var_decl* var)
   {
-    if (var)
+    if (var && var->get_scope())
       if (corpus::exported_decls_builder* b = get_exported_decls_builder())
 	b->maybe_add_var_to_exported_vars(var);
   }
+
+  /// Add a given variable to the set of exported functions of the
+  /// current corpus, if the function satisfies the different
+  /// constraints requirements.
+  ///
+  /// @param var the variable to consider.
+  void
+  maybe_add_var_to_exported_decls(const var_decl_sptr &var)
+  {return maybe_add_var_to_exported_decls(var.get());}
 
   /// Clear all the data that must absolutely be cleared at the end of
   /// the parsing of a translation unit.
@@ -3338,8 +3347,6 @@ build_var_decl(read_context&	ctxt,
   if (decl->get_symbol() && decl->get_symbol()->is_public())
     decl->set_is_in_public_symbol_table(true);
 
-  ctxt.maybe_add_var_to_exported_decls(decl.get());
-
   return decl;
 }
 
@@ -3972,7 +3979,14 @@ build_array_type_def(read_context&	ctxt,
 	{
 	  if (array_type_def::subrange_sptr s =
 	      build_subrange_type(ctxt, n))
-	    subranges.push_back(s);
+	    {
+	      if (add_to_current_scope)
+		{
+		  add_decl_to_scope(s, ctxt.get_cur_scope());
+		  ctxt.maybe_canonicalize_type(s);
+		}
+	      subranges.push_back(s);
+	    }
 	}
     }
 
@@ -4592,12 +4606,16 @@ build_class_decl(read_context&		ctxt,
 		      ABG_ASSERT(is_var_decl(d));
 		      continue;
 		    }
-		  if (!is_static
-		      || !variable_is_suppressed(ctxt, decl.get(), *v))
-		    decl->add_data_member(v, access,
-					  is_laid_out,
-					  is_static,
-					  offset_in_bits);
+
+		  if (!variable_is_suppressed(ctxt, decl.get(), *v))
+		    {
+		      decl->add_data_member(v, access,
+					    is_laid_out,
+					    is_static,
+					    offset_in_bits);
+		      if (is_static)
+			ctxt.maybe_add_var_to_exported_decls(v.get());
+		    }
 		}
 	    }
 	}
@@ -5481,6 +5499,7 @@ build_type(read_context&	ctxt,
 	abi->record_type_as_reachable_from_public_interfaces(*t);
     }
 
+  ctxt.maybe_canonicalize_type(t);
   return t;
 }
 
@@ -5645,6 +5664,7 @@ handle_var_decl(read_context&	ctxt,
 {
   decl_base_sptr decl = build_var_decl_if_not_suppressed(ctxt, node,
 							 add_to_current_scope);
+  ctxt.maybe_add_var_to_exported_decls(is_var_decl(decl));
   return decl;
 }
 
