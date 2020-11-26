@@ -3597,7 +3597,7 @@ write_union_decl_opening_tag(const union_decl_sptr&	decl,
 
 /// Serialize a class_decl type.
 ///
-/// @param decl the pointer to class_decl to serialize.
+/// @param d the pointer to class_decl to serialize.
 ///
 /// @param id the type id identitifier to use in the serialized
 /// output.  If this is empty, the function will compute an
@@ -3611,13 +3611,15 @@ write_union_decl_opening_tag(const union_decl_sptr&	decl,
 ///
 /// @param indent the initial indentation to use.
 static bool
-write_class_decl(const class_decl_sptr& decl,
+write_class_decl(const class_decl_sptr& d,
 		 const string&		id,
 		 write_context&	ctxt,
 		 unsigned		indent)
 {
-  if (!decl)
+  if (!d)
     return false;
+
+  class_decl_sptr decl = is_class_type(look_through_decl_only_class(d));
 
   annotate(decl, ctxt, indent);
 
@@ -3816,7 +3818,7 @@ write_class_decl(const class_decl_sptr& decl,
 
 /// Serialize a @ref union_decl type.
 ///
-/// @param decl the pointer to @ref union_decl to serialize.
+/// @param d the pointer to @ref union_decl to serialize.
 ///
 /// @param ctxt the context of the serialization.
 ///
@@ -3824,13 +3826,15 @@ write_class_decl(const class_decl_sptr& decl,
 ///
 /// @return true upon successful completion.
 static bool
-write_union_decl(const union_decl_sptr& decl,
+write_union_decl(const union_decl_sptr& d,
 		 const string& id,
 		 write_context& ctxt,
 		 unsigned indent)
 {
-  if (!decl)
+  if (!d)
     return false;
+
+  union_decl_sptr decl = is_union_type(look_through_decl_only_class(d));
 
   annotate(decl, ctxt, indent);
 
