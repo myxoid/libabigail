@@ -222,7 +222,7 @@ struct imported_unit_point
   Dwarf_Off	imported_unit_child_off;
 
   /// Default constructor for @ref the type imported_unit_point.
-  imported_unit_point ()
+  imported_unit_point()
     : offset_of_import(),
       imported_unit_die_source(PRIMARY_DEBUG_INFO_DIE_SOURCE),
       imported_unit_die_off(),
@@ -234,7 +234,7 @@ struct imported_unit_point
   ///
   /// @param import_off the offset of the point at which the unit has
   /// been imported.
-  imported_unit_point (Dwarf_Off import_off)
+  imported_unit_point(Dwarf_Off import_off)
     : offset_of_import(import_off),
       imported_unit_die_source(PRIMARY_DEBUG_INFO_DIE_SOURCE),
       imported_unit_die_off(),
@@ -250,9 +250,9 @@ struct imported_unit_point
   /// @param from where the imported DIE comes from.
   ///
   /// @param imported_die the die of the unit that has been imported.
-  imported_unit_point (Dwarf_Off	import_off,
-		       const Dwarf_Die& imported_die,
-		       die_source from)
+  imported_unit_point(Dwarf_Off	import_off,
+		      const Dwarf_Die& imported_die,
+		      die_source from)
     : offset_of_import(import_off),
       imported_unit_die_source(from),
       imported_unit_die_off(dwarf_dieoffset
@@ -262,8 +262,9 @@ struct imported_unit_point
   {
     Dwarf_Die imported_unit_child;
 
-    dwarf_child(const_cast<Dwarf_Die*>(&imported_die),
-		&imported_unit_child);
+    ABG_ASSERT(dwarf_child(const_cast<Dwarf_Die*>(&imported_die),
+			   &imported_unit_child) == 0);
+
     imported_unit_child_off =
       dwarf_dieoffset(const_cast<Dwarf_Die*>(&imported_unit_child));
 
@@ -352,6 +353,9 @@ die_is_function_type(const Dwarf_Die *die);
 static bool
 die_has_object_pointer(const Dwarf_Die* die,
 		       Dwarf_Die& object_pointer);
+
+static bool
+die_has_children(const Dwarf_Die* die);
 
 static bool
 die_this_pointer_from_object_pointer(Dwarf_Die* die,
@@ -5851,7 +5855,18 @@ public:
 	if (dwarf_tag(&child) == DW_TAG_imported_unit)
 	  {
 	    Dwarf_Die imported_unit;
-	    if (die_die_attribute(&child, DW_AT_import, imported_unit))
+	    if (die_die_attribute(&child, DW_AT_import, imported_unit)
+		// If the imported_unit has a sub-tree, let's record
+		// this point at which the sub-tree is imported into
+		// the current debug info.
+		//
+		// Otherwise, if the imported_unit has no sub-tree,
+		// there is no point in recording where a non-existent
+		// sub-tree is being imported.
+		//
+		// Note that the imported_unit_points_type type below
+		// expects the imported_unit to have a sub-tree.
+		&& die_has_children(&imported_unit))
 	      {
 		die_source imported_unit_die_source = NO_DEBUG_INFO_DIE_SOURCE;
 		ABG_ASSERT(get_die_source(imported_unit, imported_unit_die_source));
@@ -7002,6 +7017,24 @@ die_has_object_pointer(const Dwarf_Die* die, Dwarf_Die& object_pointer)
     return false;
 
   if (die_die_attribute(die, DW_AT_object_pointer, object_pointer))
+    return true;
+
+  return false;
+}
+
+/// Test if a DIE has children DIEs.
+///
+/// @param die the DIE to consider.
+///
+/// @return true iff @p DIE has at least one child node.
+static bool
+die_has_children(const Dwarf_Die* die)
+{
+  if (!die)
+    return false;
+
+  Dwarf_Die child;
+  if (dwarf_child(const_cast<Dwarf_Die*>(die), &child) == 0)
     return true;
 
   return false;
