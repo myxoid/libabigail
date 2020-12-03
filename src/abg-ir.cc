@@ -16429,6 +16429,7 @@ array_type_def::get_pretty_representation(bool internal,
 bool
 equals(const array_type_def& l, const array_type_def& r, change_kind* k)
 {
+  std::cout << "comparing array types " << k << "\n";
   std::vector<array_type_def::subrange_sptr > this_subs = l.get_subranges();
   std::vector<array_type_def::subrange_sptr > other_subs = r.get_subranges();
 
@@ -16441,6 +16442,10 @@ equals(const array_type_def& l, const array_type_def& r, change_kind* k)
       else
 	ABG_RETURN_FALSE;
     }
+  if (k)
+    std::cout << "checked number of subranges: " << *k << "\n";
+  else
+    std::cout << "checked number of subranges\n";
 
   std::vector<array_type_def::subrange_sptr >::const_iterator i,j;
   for (i = this_subs.begin(), j = other_subs.begin();
@@ -16457,6 +16462,10 @@ equals(const array_type_def& l, const array_type_def& r, change_kind* k)
 	else
 	  ABG_RETURN_FALSE;
       }
+  if (k)
+    std::cout << "checked subranges: " << *k << "\n";
+  else
+    std::cout << "checked subranges\n";
 
   // Compare the element types modulo the typedefs they might have
   if (peel_typedef_type(l.get_element_type())
@@ -16468,6 +16477,10 @@ equals(const array_type_def& l, const array_type_def& r, change_kind* k)
       else
 	ABG_RETURN_FALSE;
     }
+  if (k)
+    std::cout << "checked element types: " << *k << "\n";
+  else
+    std::cout << "checked element types\n";
 
   ABG_RETURN(result);
 }
@@ -20917,6 +20930,7 @@ class_or_union::operator==(const class_or_union& other) const
 bool
 equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 {
+  std::cout << __LINE__ << '\n';
 #define RETURN(value)				\
   do {						\
     l.priv_->unmark_as_being_compared(l);	\
@@ -20940,6 +20954,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 
       if (!def1 || !def2)
 	{
+          std::cout << __LINE__ << '\n';
 	  if (!l.get_is_anonymous()
 	      && !r.get_is_anonymous()
 	      && l_is_decl_only && r_is_decl_only
@@ -21008,6 +21023,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
       l.priv_->mark_as_being_compared(l);
       l.priv_->mark_as_being_compared(r);
 
+      std::cout << __LINE__ << '\n';
       bool val = *def1 == *def2;
       if (!val)
 	if (k)
@@ -21017,6 +21033,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 
   // No need to go further if the classes have different names or
   // different size / alignment.
+  std::cout << __LINE__ << '\n';
   if (!(l.decl_base::operator==(r) && l.type_base::operator==(r)))
     {
       if (k)
@@ -21024,13 +21041,16 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
       ABG_RETURN_FALSE;
     }
 
+  std::cout << __LINE__ << '\n';
   if (types_defined_same_linux_kernel_corpus_public(l, r))
     return true;
 
+  std::cout << __LINE__ << '\n';
   if (l.priv_->comparison_started(l)
       || l.priv_->comparison_started(r))
     return true;
 
+  std::cout << __LINE__ << '\n';
   l.priv_->mark_as_being_compared(l);
   l.priv_->mark_as_being_compared(r);
 
@@ -21041,6 +21061,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
     if (l.get_non_static_data_members().size()
 	!= r.get_non_static_data_members().size())
       {
+        std::cout << __LINE__ << '\n';
 	result = false;
 	if (k)
 	  *k |= LOCAL_TYPE_CHANGE_KIND;
@@ -21048,6 +21069,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	  RETURN(result);
       }
 
+    std::cout << __LINE__ << '\n';
     for (class_or_union::data_members::const_iterator
 	   d0 = l.get_non_static_data_members().begin(),
 	   d1 = r.get_non_static_data_members().begin();
@@ -21056,6 +21078,7 @@ equals(const class_or_union& l, const class_or_union& r, change_kind* k)
 	 ++d0, ++d1)
       if (**d0 != **d1)
 	{
+          std::cout << __LINE__ << '\n';
 	  result = false;
 	  if (k)
 	    {
@@ -22474,6 +22497,7 @@ method_matches_at_least_one_in_vector(const method_decl_sptr& method,
 bool
 equals(const class_decl& l, const class_decl& r, change_kind* k)
 {
+  std::cout << " performing class_decl equality\n";
   // if one of the classes is declaration-only then we take a fast
   // path here.
   if (l.get_is_declaration_only() || r.get_is_declaration_only())
@@ -22481,18 +22505,22 @@ equals(const class_decl& l, const class_decl& r, change_kind* k)
 		  static_cast<const class_or_union&>(r),
 		  k);
 
+  std::cout << " performing class_decl equality (defined)\n";
   if (l.class_or_union::priv_->comparison_started(l)
       || l.class_or_union::priv_->comparison_started(r))
     return true;
 
   bool result = true;
+  std::cout << " performing class_decl equality class/union\n";
   if (!equals(static_cast<const class_or_union&>(l),
 	      static_cast<const class_or_union&>(r),
 	      k))
     {
       result = false;
-      if (!k)
+      if (!k) {
+        std::cout << " class/union not equal: " << k << '\n';
 	return result;
+      }
     }
 
   l.class_or_union::priv_->mark_as_being_compared(l);

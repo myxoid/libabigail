@@ -88,12 +88,17 @@ report_diffs(const reporter_base& r,
        i != sorted_diffs.end();
        ++i)
     {
-      if (const var_diff *d = is_var_diff(*i))
+      std::cout << "DDD\n";
+      if (const var_diff *d = is_var_diff(*i)) {
+        std::cout << "VVV\n";
 	if (is_data_member(d->first_var()))
 	  continue;
+      }
 
+      std::cout << "XXX\n";
       if (r.diff_to_be_reported((*i)->get_canonical_diff()))
 	{
+          std::cout << "decided to emit\n";
 	  if (started_to_emit)
 	    out << "\n";
 
@@ -109,6 +114,7 @@ report_diffs(const reporter_base& r,
 	  (*i)->get_canonical_diff()->report(out, indent + "  ");
 	  started_to_emit = true;
 	}
+      std::cout << "YYY\n";
     }
 }
 
@@ -125,31 +131,41 @@ report_type_changes_from_diff_maps(const leaf_reporter& reporter,
 				   ostream& out,
 				   const string& indent)
 {
+  size_t count = 0;
+
   // basic types
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_type_decl_diff_map(), out, indent);
 
   // enums
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_enum_diff_map(), out, indent);
 
   // classes
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_class_diff_map(), out, indent);
 
   // unions
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_union_diff_map(), out, indent);
 
   // typedefs
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_typedef_diff_map(), out, indent);
 
   // arrays
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_array_diff_map(), out, indent);
 
   // It doesn't make sense to report function type changes, does it?
   // report_diffs(reporter, maps.get_function_type_diff_map(), out, indent);
 
   // distinct diffs
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_distinct_diff_map(), out, indent);
 
   // function parameter diffs
+  std::cout << count++ << '\n';
   report_diffs(reporter, maps.get_fn_parm_diff_map(), out, indent);
 }
 
@@ -223,12 +239,14 @@ leaf_reporter::report(const pointer_diff &d,
   if (!diff_to_be_reported(&d))
     return;
 
+  out << "Bish\n";
   out << indent
       << "pointer type changed from: '"
       << d.first_pointer()->get_pretty_representation()
       << "' to: '"
       << d.second_pointer()->get_pretty_representation()
       << "'\n";
+  out << "Bosh\n";
 }
 
 /// Report the changes carried by a @ref reference_diff node.
@@ -443,6 +461,7 @@ leaf_reporter::report(const array_diff& d,
   if (!diff_to_be_reported(&d))
     return;
 
+  out << "Bish\n";
   RETURN_IF_BEING_REPORTED_OR_WAS_REPORTED_EARLIER3(d.first_array(),
 						    d.second_array(),
 						    "array type");
@@ -463,6 +482,7 @@ leaf_reporter::report(const array_diff& d,
     }
 
   maybe_report_interfaces_impacted_by_diff(&d, out, indent);
+  out << "Bosh\n";
 }
 
 /// Report the changes carried by a @ref class_or_union_diff node.
@@ -650,9 +670,14 @@ leaf_reporter::report(const class_or_union_diff& d,
 	  for (var_diff_sptrs_type::const_iterator it =
 		 d.sorted_subtype_changed_data_members().begin();
 	       it != d.sorted_subtype_changed_data_members().end();
-	       ++it)
-	    if (diff_to_be_reported((*it).get()))
-	      represent(*it, ctxt, out, indent + "  ", /*local_only=*/true);
+	       ++it) {
+            std::cout << "checking whether to report\n";
+	    if (diff_to_be_reported((*it).get())) {
+              std::cout << "will report\n";
+              represent(*it, ctxt, out, indent + "  ", /*local_only=*/true);
+              std::cout << "have reported\n";
+            }
+          }
 	}
 
       // Report about data members replaced by an anonymous union data

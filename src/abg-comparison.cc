@@ -3295,9 +3295,15 @@ var_diff::has_changes() const
 enum change_kind
 var_diff::has_local_changes() const
 {
+  std::cout << "checking var_diff\n";
   ir::change_kind k = ir::NO_CHANGE_KIND;
-  if (!equals(*first_var(), *second_var(), &k))
+  if (!equals(*first_var(), *second_var(), &k)) {
+    std::cout << "var_diff different";
+    std::cout << " " << k;
+    std::cout << '\n';
     return k & ir::ALL_LOCAL_CHANGES_MASK;
+  }
+  std::cout << "var_diff same\n";
   return ir::NO_CHANGE_KIND;
 }
 
@@ -3608,9 +3614,12 @@ array_diff::has_changes() const
 enum change_kind
 array_diff::has_local_changes() const
 {
+  std::cout << "checking for local changes\n";
   ir::change_kind k = ir::NO_CHANGE_KIND;
-  if (!equals(*first_array(), *second_array(), &k))
+  if (!equals(*first_array(), *second_array(), &k)) {
+    std::cout << "got " << k << " mask " << ir::ALL_LOCAL_CHANGES_MASK << '\n';
     return k & ir::ALL_LOCAL_CHANGES_MASK;
+  }
   return ir::NO_CHANGE_KIND;
 }
 
@@ -5160,9 +5169,13 @@ class_or_union_diff::has_changes() const
 enum change_kind
 class_or_union_diff::has_local_changes() const
 {
+  std::cout << "class_or_union_diff::has_local_changes";
   ir::change_kind k = ir::NO_CHANGE_KIND;
-  if (!equals(*first_class_or_union(), *second_class_or_union(), &k))
+  if (!equals(*first_class_or_union(), *second_class_or_union(), &k)) {
+    std::cout << " diff: " << k << "\n";
     return k & ir::ALL_LOCAL_CHANGES_MASK;
+  }
+  std::cout << " same\n";
   return ir::NO_CHANGE_KIND;
 }
 
@@ -5588,9 +5601,13 @@ class_diff::has_changes() const
 enum change_kind
 class_diff::has_local_changes() const
 {
+  std::cout << "class_diff::has_local_changes";
   ir::change_kind k = ir::NO_CHANGE_KIND;
-  if (!equals(*first_class_decl(), *second_class_decl(), &k))
+  if (!equals(*first_class_decl(), *second_class_decl(), &k)) {
+    std::cout << " diff: " << k << "\n";
     return k & ir::ALL_LOCAL_CHANGES_MASK;
+  }
+  std::cout << " same\n";
   return ir::NO_CHANGE_KIND;
 }
 
@@ -7851,6 +7868,7 @@ diff_maps::insert_diff_node(const diff *dif,
 {
   string n = get_pretty_representation(dif->first_subject(),
 				       /*internal=*/true);
+  std::cout << "inserting diff node for '" << n << "'\n";
   if (const type_decl_diff *d = is_diff_of_basic_type(dif))
     get_type_decl_diff_map()[n] = const_cast<type_decl_diff*>(d);
   else if (const enum_diff *d = is_enum_diff(dif))
@@ -10840,6 +10858,11 @@ struct leaf_diff_node_marker_visitor : public diff_node_visitor
   virtual void
   visit_begin(diff *d)
   {
+    std::cout << "considering diff " << d << " "
+              << get_pretty_representation(d->first_subject(), /*internal=*/true)
+              << " [local=...\n" << d->has_local_changes()
+              << "...]\n";
+
     if (d->has_local_changes()
 	// A leaf basic (or class/union) type name change makes no
 	// sense when showing just leaf changes.  It only makes sense
