@@ -23439,7 +23439,8 @@ hash_as_canonical_type_or_constant(const type_base *t)
   // non-canonicalized type.  It must be a decl-only class or a
   // function type, otherwise it means that for some weird reason, the
   // type hasn't been canonicalized.  It should be!
-  ABG_ASSERT(is_declaration_only_class_or_union_type(t));
+  ABG_ASSERT(is_declaration_only_class_or_union_type(t)
+	     || is_function_type(t));
 
   return 0xDEADBABE;
 }
