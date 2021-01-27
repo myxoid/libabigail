@@ -1,3 +1,31 @@
+1.8.1
+=====
+Dodji Seketeli (13):
+      configure: add --enable-rpm415 option
+      Add check-self-compare to release regression testing
+      Update the Changelog for 1.8
+      Update NEWS file for 1.8
+      ir: Add better comments to types_have_similar_structure
+      mainpage: Update web page for 1.8 release
+      Bug 26992 - Try harder to resolve declaration-only classes
+      Bug 27204 -  potential loss of some aliased ELF function symbols
+      Ignore duplicated functions and those not associated with ELF symbols
+      Bug 27236 - Pointer comparison wrongly fails because of typedef change
+      Bug 27233 - fedabipkgdiff fails on package gnupg2 from Fedora 33
+      Bug 27232 - fedabipkgdiff fails on gawk from Fedora 33
+      dwarf-reader: Support fast DW_FORM_line_strp string comparison
+      gen-changelog.py: Update call to subprocess.Popen & cleanup
+      Bug 27255 - fedabipkgdiff fails on nfs-utils on Fedora 33
+
+Giuliano Procida (3):
+      abidiff: support --dump-diff-tree with --leaf-changes-only
+      ir: Arrays are indirect types for type structure similarity purposes
+      Add qualifier / typedef / array / pointer test
+
+Matthias Maennich (2):
+      abg-ir: Optimize calls to std::string::find() for a single char.
+      abipkgdiff: Address operator precedence warning
+
 1.8
 ===
 Dodji Seketeli (62):
