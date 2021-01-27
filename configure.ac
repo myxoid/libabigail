@@ -1,8 +1,9 @@
-m4_define([version_major],   [1])
-m4_define([version_minor],   [8])
+m4_define([version_major],    [1])
+m4_define([version_minor],    [8])
+m4_define([version_revision], [1])
 
 AC_INIT([libabigail],
-	[version_major.version_minor],
+	[version_major.version_minor.version_revision],
 	[http://sourceware.org/bugzilla],
 	[libabigail],
 	[http://sourceware.org/libabigail])
@@ -36,7 +37,7 @@ AM_SILENT_RULES([yes])
 
 VERSION_MAJOR=version_major
 VERSION_MINOR=version_minor
-VERSION_REVISION=0
+VERSION_REVISION=version_revision
 
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
