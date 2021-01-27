@@ -1,3 +1,338 @@
+2021-01-27  Dodji Seketeli <dodji@redhat.com>
+
+	Bump version number to 1.8.1
+	* configure.ac: Bump version number to 1.8.1
+
+2021-01-27  Dodji Seketeli <dodji@redhat.com>
+
+	Update ChangeLog for 1.8.1
+	* ChangeLog: Udpate automatically using "make update-changelog".
+
+2021-01-27  Dodji Seketeli <dodji@redhat.com>
+
+	Update NEWS for 1.8.1
+	* NEWS: update for 1.8.1
+
+2021-01-27  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 27255 - fedabipkgdiff fails on nfs-utils on Fedora 33
+	* tools/fedabipkgdiff (RPMCollection::get_sibling_debuginfo):
+	Update comment.
+	(RPMCollection::get_matching_debuginfo): Define new function.
+	(generate_comparison_halves): Use
+	RPMCollection::get_matching_debuginfo instead of
+	RPMCollection::get_sibling_debuginfo.
+
+2021-01-27  Dodji Seketeli <dodji@redhat.com>
+
+	gen-changelog.py: Update call to subprocess.Popen & cleanup
+	* gen-changelog.py (output_commits, get_rel_tag, find_start_tag):
+	Update call to subprocess.Popen to use the parameter
+	'universal_newlines' instead of the obsolete 'text'.
+	(process_commit): Don't use the obselete construct "print()".
+
+2021-01-26  Dodji Seketeli <dodji@redhat.com>
+
+	dwarf-reader: Support fast DW_FORM_line_strp string comparison
+	* src/abg-dwarf-reader.cc (compare_dies_string_attribute_value):
+	Support DW_FORM_line_strp.
+	* tests/data/test-diff-pkg/sshpass-1.07-1.fc34.x86_64-self-check-report-0.txt:
+	New reference test output.
+	* tests/data/test-diff-pkg/sshpass-1.07-1.fc34.x86_64.rpm: New
+	test input.
+	* tests/data/test-diff-pkg/sshpass-debuginfo-1.07-1.fc34.x86_64.rpm:
+	Likewise.
+	* tests/data/Makefile.am: Add the new testing material above to
+	source distribution.
+	* tests/test-diff-pkg.cc (in_out_specs): Add the test input above
+	to this harness.
+
+2021-01-26  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 27232 - fedabipkgdiff fails on gawk from Fedora 33
+	* tools/abipkgdiff.cc (options::pkg{1,2}): Add new data members to
+	store the packages to compare and have them available for the
+	various functions that may need them down the road.
+	(package::create_abi_file_path): Add new function.
+	(compare_to_self): Use the new package::create_abi_file_path to
+	create the path to the ABI file in a directory not owned by the
+	package.  That should increase our chances of having the rights to
+	write that one.  Make sure to emit error message when the
+	comparison against self fails.
+	({compare_task, self_compare_task}::perform): During the process
+	of comparison if an internal error happens, report it.  Cleanup
+	the existing reporting a little bit.
+	(pkg_extraction_task::perform): Fix comment.
+	* tests/data/test-diff-pkg/libxfce4ui-devel-4.12.1-8.fc27.ppc64-self-report-0.txt:
+	Adjust.
+
+2021-01-26  Matthias Maennich <maennich@google.com>
+
+	abipkgdiff: Address operator precedence warning
+	* tools/abipkgdiff.cc (compare_to_self): address clang warning.
+
+2021-01-26  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 27233 - fedabipkgdiff fails on package gnupg2 from Fedora 33
+	* src/abg-dwarf-reader.cc
+	(read_context::canonicalize_types_scheduled): Don't forget to
+	canonicalize types stored in extra_types_to_canonicalize_.
+	* src/abg-ir.cc (type_base::get_canonical_type_for): Add better
+	comment.
+	(hash_as_canonical_type_or_constant): Remove crutch that is
+	useless now that we canonicalize almost all types in the system.
+
+2021-01-25  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 27236 - Pointer comparison wrongly fails because of typedef change
+	* src/abg-ir.cc (equals): In the overloads for pointer_type_def,
+	reference_type_def and array_type_def, compare the pointed-to-type
+	modulo typedefs.
+	* tests/data/test-diff-dwarf/test42-PR21296-clanggcc-report0.txt: Adjust.
+	* tests/data/test-diff-pkg/libICE-1.0.6-1.el6.x86_64.rpm--libICE-1.0.9-2.el7.x86_64.rpm-report-0.txt:
+	Adjust.
+	* tests/data/test-diff-pkg/spice-server-0.12.4-19.el7.x86_64-0.12.8-1.el7.x86_64-report-2.txt:
+	Adjust.
+
+2021-01-22  Dodji Seketeli <dodji@redhat.com>
+
+	Ignore duplicated functions and those not associated with ELF symbols
+	* include/abg-ir.h (class_or_union::string_mem_fn_sptr_map_type):
+	Add a typedef for unordered_map<string, method_decl_sptr>.
+	(class_or_union::find_member_function_sptr): Declare new function.
+	* src/abg-ir.cc (class_or_union::priv::mem_fns_map_): Change the
+	type of this to string_mem_fn_sptr_map_type, so that shared
+	pointers to functions can be stored in the map, instead of bare
+	pointers to functions.  This is useful to implement
+	class_or_union::find_member_function_sptr which returns a shared
+	pointer to function.
+	(class_or_union::find_member_function_sptr): Define new function.
+	(class_or_union::find_member_function): Adjust.
+	(method_decl::set_linkage_name): Use a non-deleting shared pointer
+	to store the current instance of member function into
+	class_or_union::priv::mem_fns_map_.
+	(hash_as_canonical_type_or_constant): As we are seeing more
+	function types, it appears that some function types are not
+	canonicalized.  I am not sure why exactly, but let's loosen the
+	assert here for now, I'll chase the root of this later.
+	* src/abg-dwarf-reader.cc (finish_member_function_reading):
+	Improve detection of member function 'static-ness' by handling
+	cases where a this pointer can be const.  Also support
+	DW_AT_object_pointer when it's present.  This fixes the occurrence
+	of spurious change reports about loss of 'static-ness' of member
+	functions.
+	(potential_member_fn_should_be_dropped): Define new static
+	function and ...
+	(build_ir_node_from_die): ... use it here.  When a function DIE
+	has the same linkage name as an existing function IR, do not
+	create a new IR for it.  Rather, re-use the existing one to
+	complete it with the properties found on the function DIE.  If a
+	new function doesn't seem to have an associated ELF symbol and is
+	not meant to be a virtual member function then drop its IR on the
+	floor as well.
+	* tests/data/test-annotate/libtest23.so.abi: Adjust.
+	* tests/data/test-annotate/libtest24-drop-fns-2.so.abi: Likewise.
+	* tests/data/test-annotate/libtest24-drop-fns.so.abi: Likewise.
+	* tests/data/test-annotate/test0.abi: Likewise.
+	* tests/data/test-annotate/test1.abi: Likewise.
+	* tests/data/test-annotate/test14-pr18893.so.abi: Likewise.
+	* tests/data/test-annotate/test15-pr18892.so.abi: Likewise.
+	* tests/data/test-annotate/test17-pr19027.so.abi: Likewise.
+	* tests/data/test-annotate/test18-pr19037-libvtkRenderingLIC-6.1.so.abi: Likewise.
+	* tests/data/test-annotate/test19-pr19023-libtcmalloc_and_profiler.so.abi: Likewise.
+	* tests/data/test-annotate/test20-pr19025-libvtkParallelCore-6.1.so.abi: Likewise.
+	* tests/data/test-annotate/test21-pr19092.so.abi: Likewise.
+	* tests/data/test-annotate/test6.so.abi: Likewise.
+	* tests/data/test-annotate/test8-qualified-this-pointer.so.abi: Likewise.
+	* tests/data/test-diff-dwarf-abixml/PR25409-librte_bus_dpaa.so.20.0.abi: Likewise.
+	* tests/data/test-diff-dwarf-abixml/test0-pr19026-libvtkIOSQL-6.1.so.1.abi: Likewise.
+	* tests/data/test-diff-dwarf/test0-report.txt: Likewise.
+	* tests/data/test-diff-dwarf/test28-vtable-changes-report-0.txt: Likewise.
+	* tests/data/test-diff-dwarf/test42-PR21296-clanggcc-report0.txt: Likewise.
+	* tests/data/test-diff-filter/test0-report.txt: Likewise.
+	* tests/data/test-diff-filter/test01-report.txt: Likewise.
+	* tests/data/test-diff-filter/test10-report.txt: Likewise.
+	* tests/data/test-diff-filter/test30-pr18904-rvalueref-report0.txt: Likewise.
+	* tests/data/test-diff-filter/test30-pr18904-rvalueref-report1.txt: Likewise.
+	* tests/data/test-diff-filter/test30-pr18904-rvalueref-report2.txt: Likewise.
+	* tests/data/test-diff-filter/test31-pr18535-libstdc++-report-0.txt: Likewise.
+	* tests/data/test-diff-filter/test31-pr18535-libstdc++-report-1.txt: Likewise.
+	* tests/data/test-diff-filter/test35-pr18754-no-added-syms-report-0.txt: Likewise.
+	* tests/data/test-diff-filter/test35-pr18754-no-added-syms-report-1.txt: Likewise.
+	* tests/data/test-diff-filter/test41-report-0.txt: Likewise.
+	* tests/data/test-diff-filter/test9-report.txt: Likewise.
+	* tests/data/test-diff-pkg/libsigc++-2.0-0c2a_2.4.0-1_amd64--libsigc++-2.0-0v5_2.4.1-1ubuntu2_amd64-report-0.txt: Likewise.
+	* tests/data/test-diff-pkg/tbb-4.1-9.20130314.fc22.x86_64--tbb-4.3-3.20141204.fc23.x86_64-report-0.txt: Likewise.
+	* tests/data/test-diff-pkg/tbb-4.1-9.20130314.fc22.x86_64--tbb-4.3-3.20141204.fc23.x86_64-report-1.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-1.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-10.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-12.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-14.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-16.txt: Likewise.
+	* tests/data/test-diff-suppr/test24-soname-report-4.txt: Likewise.
+	* tests/data/test-diff-suppr/test31-report-1.txt: Likewise.
+	* tests/data/test-read-dwarf/PR22015-libboost_iostreams.so.abi: Likewise.
+	* tests/data/test-read-dwarf/PR22122-libftdc.so.abi: Likewise.
+	* tests/data/test-read-dwarf/libtest23.so.abi: Likewise.
+	* tests/data/test-read-dwarf/libtest24-drop-fns-2.so.abi: Likewise.
+	* tests/data/test-read-dwarf/libtest24-drop-fns.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test-libandroid.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test0.abi: Likewise.
+	* tests/data/test-read-dwarf/test0.hash.abi: Likewise.
+	* tests/data/test-read-dwarf/test1.abi: Likewise.
+	* tests/data/test-read-dwarf/test1.hash.abi: Likewise.
+	* tests/data/test-read-dwarf/test10-pr18818-gcc.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test11-pr18828.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test12-pr18844.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test14-pr18893.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test15-pr18892.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test16-pr18904.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test17-pr19027.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test18-pr19037-libvtkRenderingLIC-6.1.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test19-pr19023-libtcmalloc_and_profiler.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test20-pr19025-libvtkParallelCore-6.1.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test21-pr19092.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test22-pr19097-libstdc++.so.6.0.17.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test6.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test6.so.hash.abi: Likewise.
+	* tests/data/test-read-dwarf/test8-qualified-this-pointer.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test8-qualified-this-pointer.so.hash.abi: Likewise.
+	* tests/data/test-read-dwarf/test9-pr18818-clang.so.abi: Likewise.
+	Conflicts:
+	tests/data/test-diff-dwarf-abixml/test0-pr19026-libvtkIOSQL-6.1.so.1.abi
+
+2021-01-20  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 27204 -  potential loss of some aliased ELF function symbols
+	* src/abg-ir.cc (function_decl::get_id): If the elf symbol has
+	aliases, make the function name be part of the ID so that this ID
+	differs from the one of the other functions that share a symbol
+	alias with this one.
+	* tests/data/test-abidiff/test-PR18791-report0.txt: Adjust.
+	* tests/data/test-diff-dwarf/test42-PR21296-clanggcc-report0.txt: Likewise.
+	* tests/data/test-diff-filter/test31-pr18535-libstdc++-report-0.txt: Likewise.
+	* tests/data/test-diff-filter/test31-pr18535-libstdc++-report-1.txt: Likewise.
+	* tests/data/test-diff-filter/test41-report-0.txt: Likewise.
+	* tests/data/test-read-dwarf/test10-pr18818-gcc.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test16-pr18904.so.abi: Likewise.
+	* tests/data/test-diff-pkg/glibc-2.32-3.fc33.aarch64-self-check-report-0.txt:
+	New test reference output.
+	* tests/data/test-diff-pkg/glibc-2.32-3.fc33.aarch64.rpm: New test
+	input RPM.
+	* tests/data/test-diff-pkg/glibc-debuginfo-2.32-3.fc33.aarch64.rpm:
+	Likewise.
+	* tests/data/Makefile.am: Add the new test material to source
+	distribution.
+	* tests/test-diff-pkg.cc (in_out_specs): Add the new test input
+	RPMs to this test harness.
+
+2020-12-15  Matthias Maennich <maennich@google.com>
+
+	abg-ir: Optimize calls to std::string::find() for a single char.
+	* src/abg-ir.cc (elf_symbol::get_name_and_version_from_id):
+	use character literal overload for single character string::find.
+	(parse_integral_type): Likewise.
+	Suggested-by: Chris Kennelly <ckennelly@google.com>
+
+2021-01-15  Dodji Seketeli <dodji@redhat.com>
+
+	Bug 26992 - Try harder to resolve declaration-only classes
+	* src/abg-dwarf-reader.cc
+	(read_context::compare_before_canonicalisation): Define new member
+	function.
+	(read_context::resolve_declaration_only_classes): When there are
+	more than one definition that can resolve a given declaration, if
+	all those definitions are equal, then resolve the declaration to
+	those definitions.
+	(read_context::resolve_declaration_only_enums): Add a comment to
+	update similarly update this function (or do away with it
+	completely) later.
+	* tests/data/test-annotate/test15-pr18892.so.abi: Adjust.
+	* tests/data/test-read-dwarf/test9-pr18818-clang.so.abi: Likewise.
+	* tests/data/test-read-dwarf/test15-pr18892.so.abi: Likewise.
+	* tests/data/test-diff-pkg/cogl-1.22.8-2.fc33.x86_64.rpm: Add new
+	test input.
+	* tests/data/test-diff-pkg/cogl-debuginfo-1.22.8-2.fc33.x86_64.rpm:
+	Likewise.
+	* tests/data/test-diff-pkg/cogl-1.22.8-2.fc33.x86_64.self-check-report-0.txt:
+	Likewise.
+	* tests/test-diff-pkg.cc (in_out_specs): Add the new test inputs
+	to the test harness.
+	* tests/data/Makefile.am: Add the new test input files to source
+	distribution.
+
+2021-01-11  Dodji Seketeli <dodji@redhat.com>
+
+	mainpage: Update web page for 1.8 release
+	* doc/website/mainpage.txt: Update web page for 1.8 release
+
+2020-12-04  Giuliano Procida <gprocida@google.com>
+
+	Add qualifier / typedef / array / pointer test
+	* tests/data/Makefile.am: Add new test files
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-v0.c:
+	New test file.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-v0.o:
+	New test file.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-v1.c:
+	New test file.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-v1.o:
+	New test file.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-report-0.txt:
+	Plain diff report.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-report-1.txt:
+	Harmless diff report.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-report-2.txt:
+	Leaf changes report.
+	* tests/data/test-abidiff-exit/qualifier-typedef-array-report-3.txt:
+	Harmless leaf changes report.
+	* tests/test-abidiff-exit.cc: Run new test.
+
+2020-12-03  Giuliano Procida <gprocida@google.com>
+
+	ir: Arrays are indirect types for type structure similarity purposes
+	* src/abg-ir.cc (types_have_similar_structure): When examining
+	array types, always treat element types as being underlying types
+	of an indirect type.
+	* tests/data/Makefile.am: Add new test case files.
+	* tests/data/test-abidiff-exit/test-non-leaf-array-report.txt:
+	New test case showing correct --leaf-changes-only reporting.
+	* tests/data/test-abidiff-exit/test-non-leaf-array-v0.c:
+	Likewise.
+	* tests/data/test-abidiff-exit/test-non-leaf-array-v0.o:
+	Likewise.
+	* tests/data/test-abidiff-exit/test-non-leaf-array-v1.c:
+	Likewise.
+	* tests/data/test-abidiff-exit/test-non-leaf-array-v1.o:
+	Likewise.
+	* tests/test-abidiff-exit.cc: Run new test case.
+
+2020-12-04  Dodji Seketeli <dodji@redhat.com>
+
+	ir: Add better comments to types_have_similar_structure
+	* src/abg-ir.cc (types_have_similar_structure): Arrays are also
+	indirect types, just like pointers and references, for the purpose
+	of the concept of "type similarity".  Add that to the introductory
+	comment of the function.  Add some more misc comments throughout
+	the code base.
+
+2020-12-03  Giuliano Procida <gprocida@google.com>
+
+	abidiff: support --dump-diff-tree with --leaf-changes-only
+	* src/abg-leaf-reporter.cc (leaf_reporter::report): In the
+	corpus_diff override, conclude by calling
+	maybe_dump_diff_tree.
+
+2020-12-01  Dodji Seketeli <dodji@redhat.com>
+
+	Update NEWS file for 1.8
+	* NEWS: Update for 1.8
+
+2020-12-01  Dodji Seketeli <dodji@redhat.com>
+
+	Update the Changelog for 1.8
+	* Changelog: Update automatically with "make update-changelog'
+
 2020-12-01  Dodji Seketeli <dodji@redhat.com>
 
 	Add check-self-compare to release regression testing
@@ -4154,7 +4489,6 @@
 
 	Fix typo in COMPILING.
 	* COMPILING:
-
 2020-01-29  Giuliano Procida <gprocida@google.com>
 
 	Remove redundant mention of libtool in COMPILING documentation.
@@ -6606,7 +6940,6 @@
 
 	Do not build DIE -> parent map just because we see an asm TU
 	* src/abg-dwarf-reader.cc:
-
 2019-02-19  Dodji Seketeli <dodji@redhat.com>
 
 	Avoid over-suppressing fns & vars when analysing the Kernel
@@ -6911,7 +7244,6 @@
 	* tools/abicompat.cc:
 	* tools/abidw.cc:
 	* tools/abipkgdiff.cc:
-
 2019-01-07  Dodji Seketeli <dodji@redhat.com>
 
 	Update copyright for 2019
@@ -9584,7 +9916,6 @@
 
 	Bug 22190 - crash in read_context::get_or_compute_canonical_die
 	* src/abg-dwarf-reader.cc:
-
 2017-09-27  Dodji Seketeli <dodji@redhat.com>
 
 	Remove redundant (useless) typedef declaration
@@ -13289,7 +13620,6 @@
 
 	Bump version number to 1.0.rc7
 	* configure.ac:
-
 2016-11-24  Dodji Seketeli <dodji@redhat.com>
 
 	Update website for 1.0.rc6
@@ -14253,12 +14583,10 @@
 
 	Bug 20420 - Wrong ODR-based type comparison optimization on qualified type
 	* src/abg-ir.cc:
-
 2016-08-23  Dodji Seketeli <dodji@redhat.com>
 
 	Don't walk diff trees indefinitely when applying suppressions
 	* src/abg-comparison.cc:
-
 2016-07-27  Dodji Seketeli <dodji@redhat.com>
 
 	Control symbols exported from libabigail.so
@@ -17290,7 +17618,6 @@
 	Avoid adding the same base class twice
 	* src/abg-dwarf-reader.cc:
 	* src/abg-reader.cc:
-
 2016-01-04  Dodji Seketeli <dodji@redhat.com>
 
 	Speed up class_decl::find_base_class
@@ -27503,7 +27830,6 @@
 
 	Compare class names when comparing methods
 	* src/abg-ir.cc:
-
 2014-09-10  Dodji Seketeli <dodji@redhat.com>
 
 	Slight white space fix
@@ -34541,7 +34867,6 @@
 	Regenerate build/configure.
 	* aclocal.m4:
 	* configure:
-
 2013-06-06  Benjamin Kosnik <bkoz@redhat.com>
 
 	Regenerate configure files.
@@ -34551,7 +34876,6 @@
 	* doc/Makefile.in:
 	* src/Makefile.in:
 	* tests/Makefile.in:
-
 2013-05-28  Benjamin Kosnik <bkoz@redhat.com>
 
 	Add svg generation.
@@ -35976,12 +36300,10 @@
 	Initial AUTHORS and README
 	* AUTHORS:
 	* README:
-
 2013-02-28  Dodji Seketeli <dodji@seketeli.org>
 
 	Leave license stuff for later
 	* COPYING:
-
 2013-02-28  Dodji Seketeli <dodji@seketeli.org>
 
 	Initial import Abigail
@@ -35997,4 +36319,3 @@
 	* src/Makefile.am:
 	* src/abg-ir.cc:
 	* src/abg-ir.h:
-
