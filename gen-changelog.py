@@ -74,7 +74,7 @@ def process_commit(lines, files):
 
     top_line = ' '.join(fields)
     print(top_line.strip())
-    print()
+    print
 
     if subject_line_index > 0:
         print('\t%s' % lines[subject_line_index].strip())
@@ -82,14 +82,13 @@ def process_commit(lines, files):
     if not fileincommit:
         for f in files:
             print('\t* %s:' % f.strip())
-        print()
 
     if first_cl_body_line_index > 0:
         for l in lines[first_cl_body_line_index:]:
             if l.startswith('Signed-off-by:'):
                 continue
             print('\t%s' % l.strip())
-        print()
+        print
 
 def output_commits():
     cmd = ['git', 'log', '--pretty=format:--START-COMMIT--%H%n%ai  %an <%ae>%n%n%s%n%b%n--END-COMMIT--',
@@ -104,7 +103,7 @@ def output_commits():
 
     p = subprocess.Popen(args=cmd, shell=False,
                          stdout=subprocess.PIPE,
-                         text=True)
+                         universal_newlines=True)
     buf = []
     files = []
     filemode = False
@@ -137,7 +136,7 @@ def get_rel_tags():
     cmd = ['git', 'show-ref', '--tags', '--dereference']
     p = subprocess.Popen(args=cmd, shell=False,
                          stdout=subprocess.PIPE,
-                         text=True)
+                         universal_newlines=True)
     for lin in p.stdout:
        match = reltagre.search(lin)
        if match:
@@ -149,7 +148,7 @@ def find_start_tag():
     cmd = ['git', 'show-ref', '--tags']
     p = subprocess.Popen(args=cmd, shell=False,
                          stdout=subprocess.PIPE,
-                         text=True)
+                         universal_newlines=True)
     for lin in p.stdout:
        match = starttagre.search(lin)
        if match:
