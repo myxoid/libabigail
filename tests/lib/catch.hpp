@@ -6519,6 +6519,9 @@ namespace Catch {
 
 #include <signal.h>
 
+// In newer versions of glibc, SIGSTKSZ is no more a constant.
+// So let's define one here.
+#define SIGSTKSZ_CONSTANT 32768
 namespace Catch {
 
     struct SignalDefs {
@@ -6540,7 +6543,7 @@ namespace Catch {
         static bool isSet;
         static struct sigaction oldSigActions [sizeof(signalDefs)/sizeof(SignalDefs)];
         static stack_t oldSigStack;
-        static char altStackMem[SIGSTKSZ];
+        static char altStackMem[SIGSTKSZ_CONSTANT];
 
         static void handleSignal( int sig ) {
             std::string name = "<unknown signal>";
@@ -6560,7 +6563,7 @@ namespace Catch {
             isSet = true;
             stack_t sigStack;
             sigStack.ss_sp = altStackMem;
-            sigStack.ss_size = SIGSTKSZ;
+            sigStack.ss_size = SIGSTKSZ_CONSTANT;
             sigStack.ss_flags = 0;
             sigaltstack(&sigStack, &oldSigStack);
             struct sigaction sa = { 0 };
@@ -6591,7 +6594,7 @@ namespace Catch {
     bool FatalConditionHandler::isSet = false;
     struct sigaction FatalConditionHandler::oldSigActions[sizeof(signalDefs)/sizeof(SignalDefs)] = {};
     stack_t FatalConditionHandler::oldSigStack = {};
-    char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
+    char FatalConditionHandler::altStackMem[SIGSTKSZ_CONSTANT] = {};
 
 } // namespace Catch
 
