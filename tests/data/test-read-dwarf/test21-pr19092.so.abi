@@ -1734,13 +1734,8 @@
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='src_loc' type-id='type-id-103' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='224' column='1'/>
       </data-member>
-<<<<<<< HEAD
       <data-member access='public' layout-offset-in-bits='24'>
-        <var-decl name='type' type-id='type-id-181' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='225' column='1'/>
-=======
-      <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='type' type-id='type-id-178' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='225' column='1'/>
->>>>>>> a39d2ad7 (Better sorting of (anonymous) types in ABIXML files)
       </data-member>
       <data-member access='public' layout-offset-in-bits='48'>
         <var-decl name='flags' type-id='type-id-29' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='226' column='1'/>
@@ -5421,13 +5416,8 @@
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='src_loc' type-id='type-id-103' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='224' column='1'/>
       </data-member>
-<<<<<<< HEAD
       <data-member access='public' layout-offset-in-bits='24'>
-        <var-decl name='type' type-id='type-id-181' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='225' column='1'/>
-=======
-      <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='type' type-id='type-id-178' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='225' column='1'/>
->>>>>>> a39d2ad7 (Better sorting of (anonymous) types in ABIXML files)
       </data-member>
       <data-member access='public' layout-offset-in-bits='48'>
         <var-decl name='flags' type-id='type-id-29' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='226' column='1'/>

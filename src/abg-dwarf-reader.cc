@@ -44,6 +44,7 @@
 #include <list>
 #include <ostream>
 #include <sstream>
+#include <map>
 
 #include "abg-cxx-compat.h"
 #include "abg-ir-priv.h"
@@ -84,6 +85,7 @@ using abg_compat::unordered_set;
 using std::stack;
 using std::deque;
 using std::list;
+using std::map;
 
 using namespace elf_helpers; // TODO: avoid using namespace
 
@@ -4383,7 +4385,13 @@ public:
 	if (!classes)
 	  continue;
 
-	unordered_map<string, class_decl_sptr> per_tu_class_map;
+	// This is a map that associates the translation unit path to
+	// the class (that potentially defines the declarations that
+	// we consider) that are defined in that translation unit.  It
+	// should stay ordered by using the TU path as key to ensure
+	// stability of the order of classe definitions in ABIXML
+	// output.
+	map<string, class_decl_sptr> per_tu_class_map;
 	for (type_base_wptrs_type::const_iterator c = classes->begin();
 	     c != classes->end();
 	     ++c)
@@ -4420,7 +4428,7 @@ public:
 		  {
 		    string tu_path =
 		      (*j)->get_translation_unit()->get_absolute_path();
-		    unordered_map<string, class_decl_sptr>::const_iterator e =
+		    map<string, class_decl_sptr>::const_iterator e =
 		      per_tu_class_map.find(tu_path);
 		    if (e != per_tu_class_map.end())
 		      (*j)->set_definition_of_declaration(e->second);
@@ -4435,8 +4443,8 @@ public:
 			// then the declaration resolves to the
 			// definition.  Otherwise, we are in the case
 			// 3/ described above.
-			unordered_map<string,
-				      class_decl_sptr>::const_iterator it;
+			map<string,
+			    class_decl_sptr>::const_iterator it;
 			class_decl_sptr first_class =
 			  per_tu_class_map.begin()->second;
 			bool all_class_definitions_are_equal = true;
