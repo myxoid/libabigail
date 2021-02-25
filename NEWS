@@ -1,3 +1,15 @@
+1.8.2
+=====
+Dodji Seketeli (8):
+      Define a constant for SIGSTKSZ which is no more constant glibc >= 2.33.9000
+      Bug 26992 - Try harder to resolve declaration-only classes
+      Ignore duplicated functions and those not associated with ELF symbols
+      Better sorting of (anonymous) types in ABIXML files
+      dwarf-reader: Keep stable order when de-duplicating class definitions
+      Bug 27165 - Better support multi-language binaries
+      Bug 27331 - Data member offset change not considered local
+      Bug 27267 - Better support for opaque enum types
+
 1.8.1
 =====
 Dodji Seketeli (13):
