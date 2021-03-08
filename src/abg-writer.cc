@@ -56,6 +56,8 @@ using std::stack;
 using std::unordered_map;
 using abigail::sptr_utils::noop_deleter;
 
+static const std::string NAME = "__alloc_traits<std::allocator<mongo::executor::TaskExecutor::CallbackHandle> >";
+
 /// The namespace for the native XML file format writer.
 ///
 /// It contains utilities to serialize ABI artifacts from the @ref ir
@@ -1995,6 +1997,9 @@ write_decl_in_scope(const decl_base_sptr&	decl,
       // ... or a class.
       else if (class_decl* c = is_class_type(*i))
 	{
+          bool debug = c->get_name() == NAME;
+          if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << '(' << c << ')' << std::endl;
+
 	  class_decl_sptr class_type(c, noop_deleter());
 	  write_class_decl_opening_tag(class_type, "", ctxt, indent,
 				       /*prepare_to_handle_members=*/false);
@@ -3672,6 +3677,9 @@ write_class_decl(const class_decl_sptr& d,
 {
   if (!d)
     return false;
+
+  bool debug = d->get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
 
   class_decl_sptr decl = is_class_type(look_through_decl_only_class(d));
 
