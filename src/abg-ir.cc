@@ -37,6 +37,8 @@ ABG_END_EXPORT_DECLARATIONS
 #include "abg-comp-filter.h"
 #include "abg-ir-priv.h"
 
+static const std::string NAME = "__alloc_traits<std::allocator<mongo::executor::TaskExecutor::CallbackHandle> >";
+
 namespace
 {
 /// This internal type is a tree walker that walks the sub-tree of a
@@ -21369,6 +21371,8 @@ class_decl::class_decl(const environment* env, const string& name,
 		   locus, vis, mbr_types, data_mbrs, mbr_fns),
     priv_(new priv(is_struct, bases))
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   runtime_type_instance(this);
 }
 
@@ -21428,6 +21432,8 @@ class_decl::class_decl(const environment* env, const string& name,
 		   locus, vis, mbr_types, data_mbrs, mbr_fns),
     priv_(new priv(is_struct, bases))
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   runtime_type_instance(this);
   set_is_anonymous(is_anonymous);
 }
@@ -21463,6 +21469,8 @@ class_decl::class_decl(const environment* env, const string& name,
 		   locus, vis),
     priv_(new priv(is_struct))
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   runtime_type_instance(this);
 }
 
@@ -21509,6 +21517,8 @@ class_decl:: class_decl(const environment* env, const string& name,
 		   locus, vis),
   priv_(new priv(is_struct))
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   runtime_type_instance(this);
   set_is_anonymous(is_anonymous);
 }
@@ -21535,6 +21545,8 @@ class_decl::class_decl(const environment* env, const string& name,
     class_or_union(env, name, is_declaration_only),
     priv_(new priv(is_struct))
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   runtime_type_instance(this);
 }
 
@@ -21546,6 +21558,8 @@ class_decl::class_decl(const environment* env, const string& name,
 void
 class_decl::on_canonical_type_set()
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   sort_virtual_mem_fns();
 
   for (class_decl::virtual_mem_fn_map_type::iterator i =
@@ -21575,6 +21589,8 @@ class_decl::is_struct() const
 void
 class_decl::add_base_specifier(base_spec_sptr b)
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   ABG_ASSERT(get_environment());
   ABG_ASSERT(b->get_environment() == get_environment());
   priv_->bases_.push_back(b);
@@ -21656,6 +21672,8 @@ string
 class_decl::get_pretty_representation(bool internal,
 				      bool qualified_name) const
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   string cl = "class ";
   if (!internal && is_struct())
     cl = "struct ";
@@ -21681,6 +21699,8 @@ decl_base_sptr
 class_decl::insert_member_decl(decl_base_sptr d,
 			       declarations::iterator before)
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   if (method_decl_sptr f = dynamic_pointer_cast<method_decl>(d))
     add_member_function(f, public_access,
 			/*is_virtual=*/false,
@@ -22382,6 +22402,8 @@ class_decl::get_biggest_vtable_offset() const
 size_t
 class_decl::get_hash() const
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   class_decl::hash hash_class;
   return hash_class(this);
 }
@@ -22654,6 +22676,8 @@ copy_member_function(const class_decl_sptr& clazz, const method_decl* f)
 bool
 class_decl::operator==(const decl_base& other) const
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   const class_decl* op = is_class_type(&other);
   if (!op)
     return false;
@@ -22690,6 +22714,8 @@ class_decl::operator==(const decl_base& other) const
 bool
 class_decl::operator==(const type_base& other) const
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   const decl_base* o = is_decl(&other);
   if (!o)
     return false;
@@ -22788,6 +22814,8 @@ operator!=(const class_or_union_sptr& l, const class_or_union_sptr& r)
 bool
 class_decl::traverse(ir_node_visitor& v)
 {
+  bool debug = get_name() == NAME;
+  if (debug) std::cout << __FILE__ << ':' << __LINE__ << ':' << __FUNCTION__ << std::endl;
   if (v.type_node_has_been_visited(this))
     return true;
 
