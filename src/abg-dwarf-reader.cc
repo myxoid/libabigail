@@ -5249,24 +5249,31 @@ public:
   elf_symbol_sptr
   function_symbol_is_exported(GElf_Addr symbol_address) const
   {
+    bool debug = symbol_address == 52834;
     elf_symbol_sptr symbol = symtab()->lookup_symbol(symbol_address);
+    if (debug) std::cerr << __LINE__ << '\n';
     if (!symbol)
       return symbol;
+    if (debug) std::cerr << __LINE__ << '\n';
 
     if (!symbol->is_function() || !symbol->is_public())
       return elf_symbol_sptr();
+    if (debug) std::cerr << __LINE__ << '\n';
 
     address_set_sptr set;
     bool looking_at_linux_kernel_binary =
       load_in_linux_kernel_mode() && is_linux_kernel(elf_handle());
 
+    if (debug) std::cerr << __LINE__ << '\n';
     if (looking_at_linux_kernel_binary)
       {
+	if (debug) std::cerr << __LINE__ << '\n';
 	if (symbol->is_in_ksymtab())
 	  return symbol;
 	return elf_symbol_sptr();
       }
 
+    if (debug) std::cerr << __LINE__ << '\n';
     return symbol;
   }
 
@@ -13757,14 +13764,19 @@ function_is_suppressed(const read_context& ctxt,
 		       Dwarf_Die *function_die,
 		       bool is_declaration_only)
 {
+  bool debug = die_string_attribute(function_die, DW_AT_name) == "AAssetDir_close";
+
+  if (debug) std::cerr << __LINE__ << '\n';
   if (function_die == 0
       || dwarf_tag(function_die) != DW_TAG_subprogram)
     return false;
 
+  if (debug) std::cerr << __LINE__ << '\n';
   string fname = die_string_attribute(function_die, DW_AT_name);
   string flinkage_name = die_linkage_name(function_die);
   if (flinkage_name.empty() && ctxt.die_is_in_c(function_die))
     flinkage_name = fname;
+  if (debug) std::cerr << __LINE__ << '\n';
   string qualified_name = build_qualified_name(scope, fname);
 
   // A non-member non-static function which symbol is not exported is
@@ -13776,9 +13788,11 @@ function_is_suppressed(const read_context& ctxt,
   if (!is_class_type(scope)
       && (!is_declaration_only || ctxt.drop_undefined_syms()))
     {
+      if (debug) std::cerr << __LINE__ << '\n';
       Dwarf_Addr fn_addr;
       if (!ctxt.get_function_address(function_die, fn_addr))
 	return true;
+      if (debug) std::cerr << __LINE__ << ": " << fn_addr << '\n';
 
       elf_symbol_sptr symbol = ctxt.function_symbol_is_exported(fn_addr);
       if (!symbol)
@@ -13795,8 +13809,10 @@ function_is_suppressed(const read_context& ctxt,
 	     !a->is_main_symbol(); a = a->get_next_alias())
 	  if (!a->is_suppressed())
 	    return false;
+      if (debug) std::cerr << __LINE__ << '\n';
     }
 
+  if (debug) std::cerr << __LINE__ << '\n';
   return suppr::function_is_suppressed(ctxt, qualified_name,
 				       flinkage_name,
 				       /*require_drop_property=*/true);
@@ -13841,18 +13857,25 @@ build_or_get_fn_decl_if_not_suppressed(read_context&	  ctxt,
 				       function_decl_sptr result)
 {
   function_decl_sptr fn;
-  if (function_is_suppressed(ctxt, scope, fn_die, is_declaration_only))
+  if (function_is_suppressed(ctxt, scope, fn_die, is_declaration_only)) {
+    std::cerr << "  was suppressed!\n";
     return fn;
+  }
 
-  if (!result)
+  if (!result) {
+    std::cerr << "  no result\n";
     if ((fn = is_function_decl(ctxt.lookup_artifact_from_die(fn_die))))
       {
+        std::cerr << "  finishing reading\n";
 	fn = maybe_finish_function_decl_reading(ctxt, fn_die, where_offset, fn);
 	ctxt.associate_die_to_decl(fn_die, fn, /*do_associate_by_repr=*/true);
 	ctxt.associate_die_to_type(fn_die, fn->get_type(), where_offset);
 	return fn;
       }
+    std::cerr << "  fall through\n";
+  }
 
+  std::cerr << "  building\n";
   fn = build_function_decl(ctxt, fn_die, where_offset, result);
 
   return fn;
@@ -14147,15 +14170,19 @@ build_function_decl(read_context&	ctxt,
     return result;
   ABG_ASSERT(dwarf_tag(die) == DW_TAG_subprogram);
 
-  if (!die_is_public_decl(die))
-    return result;
-
-  translation_unit_sptr tu = ctxt.cur_transl_unit();
-  ABG_ASSERT(tu);
-
   string fname, flinkage_name;
   location floc;
   die_loc_and_name(ctxt, die, floc, fname, flinkage_name);
+
+  std::cerr << " got function decl '" << fname << "' '" << flinkage_name << "'\n";
+
+  if (!die_is_public_decl(die)) {
+    std::cerr << "  but not public!\n";
+    return result;
+  }
+
+  translation_unit_sptr tu = ctxt.cur_transl_unit();
+  ABG_ASSERT(tu);
 
   size_t is_inline = die_is_declared_inline(die);
   class_or_union_sptr is_method =
@@ -15084,8 +15111,10 @@ build_ir_node_from_die(read_context&	ctxt,
 	Dwarf_Die abstract_origin_die;
 	Dwarf_Die *interface_die = 0, *origin_die = 0;
 	scope_decl_sptr interface_scope;
+        std::cerr << "got a DW_TAG_subprogram\n";
 	if (die_is_artificial(die))
 	  break;
+        std::cerr << " not artificial\n";
 
 	function_decl_sptr fn;
 	bool has_spec = die_die_attribute(die, DW_AT_specification,
@@ -15095,6 +15124,7 @@ build_ir_node_from_die(read_context&	ctxt,
 			    abstract_origin_die, true);
 	if (has_spec || has_abstract_origin)
 	  {
+            std::cerr << " chasing link...\n";
 	    interface_die =
 	      has_spec
 	      ? &spec_die
@@ -15146,10 +15176,18 @@ build_ir_node_from_die(read_context&	ctxt,
 	  ? interface_scope.get()
 	  : scope;
 
+        std::cerr << " building if not suppressed\n";
+        {
+          string fname, flinkage_name;
+          location floc;
+          die_loc_and_name(ctxt, die, floc, fname, flinkage_name);
+          std::cerr << " got subprogram '" << fname << "' '" << flinkage_name << "'\n";
+        }
 	result = build_or_get_fn_decl_if_not_suppressed(ctxt, logical_scope,
 							die, where_offset,
 							is_declaration_only,
 							fn);
+        std::cerr << " done building if not suppressed\n";
 
 	if (result && !fn)
 	  {
@@ -15157,6 +15195,7 @@ build_ir_node_from_die(read_context&	ctxt,
 						      die))
 	      {
 		result.reset();
+                std::cerr << " reset member fun\n";
 		break;
 	      }
 	    result = add_decl_to_scope(is_decl(result), logical_scope);
