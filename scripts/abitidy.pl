@@ -105,20 +105,58 @@ sub indent($indent, $node) {
   }
 }
 
+# Remove an XML element and any preceeding comment.
+sub remove_node($node) {
+  my $prev = $node->previousSibling();
+  if ($prev && $prev->nodeType == XML_COMMENT_NODE) {
+    $prev->unbindNode();
+  }
+  $node->unbindNode();
+}
+
+# These container elements can be dropped if empty.
+my %drop_if_empty = map { $_ => undef } qw(
+  elf-variable-symbols
+  elf-function-symbols
+  namespace-decl
+  abi-instr
+  abi-corpus
+  abi-corpus-group
+);
+
+# This is a XML DOM traversal as we want post-order traversal so we
+# delete nodes that become empty during the process.
+sub drop_empty;
+sub drop_empty($node) {
+  return if $node->nodeType != XML_ELEMENT_NODE;
+  for my $child ($node->childNodes()) {
+    drop_empty($child);
+  }
+  if (!$node->hasChildNodes() && exists $drop_if_empty{$node->getName()}) {
+    # Until abidiff accepts empty ABIs, avoid dropping top-level elements.
+    if ($node->parentNode->nodeType == XML_ELEMENT_NODE) {
+      remove_node($node);
+    }
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
 my $all_opt;
+my $drop_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'a|all' => sub {
-             1
+             $drop_opt = 1
            },
+           'd|drop-empty!' => \$drop_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
                         '[-i|--input file]',
                         '[-o|--output file]',
                         '[-a|--all]',
+                        '[-d|--[no-]drop-empty]',
                       ), "\n");
 
 exit 0 unless defined $input_opt;
@@ -130,6 +168,13 @@ close $input;
 
 # This simplifies DOM analysis and manipulation.
 strip_text($dom);
+
+# Drop empty elements.
+if ($drop_opt) {
+  for my $node ($dom->childNodes()) {
+    drop_empty($node);
+  }
+}
 
 exit 0 unless defined $output_opt;
 
