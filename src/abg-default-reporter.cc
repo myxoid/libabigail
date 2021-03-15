@@ -1,3 +1,4 @@
+#include <unistd.h>
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- Mode: C++ -*-
 //
@@ -1460,6 +1461,8 @@ void
 default_reporter::report(const function_decl_diff& d, ostream& out,
 			 const string& indent) const
 {
+  std::cerr << "about to report function decl differences" << std::endl;
+  sleep(0);
   if (!d.to_be_reported())
     return;
 
@@ -1624,6 +1627,8 @@ default_reporter::report(const function_decl_diff& d, ostream& out,
 
     }
 
+  std::cerr << "about to report function type differences" << std::endl;
+  sleep(0);
   // Report about function type differences.
   if (d.type_diff() && d.type_diff()->to_be_reported())
     d.type_diff()->report(out, indent);
@@ -1888,6 +1893,7 @@ default_reporter::report(const corpus_diff& d, ostream& out,
 			  << "\n";
 		    }
 		}
+              sleep(0);
 	      diff->report(out, indent + "    ");
 	      // Extra spacing.
 	      out << "\n";

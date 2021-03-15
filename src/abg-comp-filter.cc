@@ -1802,6 +1802,18 @@ categorize_harmful_diff_node(diff *d, bool pre)
   return true;
 }
 
+static size_t indent = 0;
+
+void
+harmless_harmful_filter::visit_begin(diff* d)
+{
+  std::cerr << std::string(indent++, ' ') << "visit_begin(" << d << ")"
+            << " rep=" << get_pretty_representation(d)
+            << " cat=" << d->get_category()
+            << " lct=" << d->get_local_category()
+            << std::endl;
+}
+
 /// The visiting code of the harmless_harmful_filter.
 ///
 /// @param d the diff node being visited.
@@ -1814,6 +1826,7 @@ categorize_harmful_diff_node(diff *d, bool pre)
 bool
 harmless_harmful_filter::visit(diff* d, bool pre)
 {
+  std::cerr << std::string(indent, ' ')  << "visit(" << d << ", " << pre << ")" << std::endl;
   return (categorize_harmless_diff_node(d, pre)
 	  && categorize_harmful_diff_node(d, pre));
 }
@@ -1830,6 +1843,11 @@ harmless_harmful_filter::visit(diff* d, bool pre)
 void
 harmless_harmful_filter::visit_end(diff* d)
 {
+  std::cerr << std::string(--indent, ' ')  << "visit_end(" << d << ")"
+            << " rep=" << get_pretty_representation(d)
+            << " cat=" << d->get_category()
+            << " lct=" << d->get_local_category()
+            << std::endl;
   if (d->context()->diff_has_been_visited(d))
     {
       // This node or one of its equivalent node has already been

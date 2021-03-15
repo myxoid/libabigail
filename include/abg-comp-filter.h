@@ -141,6 +141,9 @@ typedef shared_ptr<harmless_harmful_filter> harmful_harmless_filter_sptr;
 /// or harmful changes.
 class harmless_harmful_filter : public filter_base
 {
+  virtual void
+  visit_begin(diff*) override;
+
   virtual bool
   visit(diff*, bool);
 
