@@ -316,9 +316,6 @@ public:
       && (category & REDUNDANT_CATEGORY))
     return true;
 
-  if (category == NO_CHANGE_CATEGORY)
-    return false;
-
   // Ignore the REDUNDANT_CATEGORY bit when comparing allowed
   // categories and the current set of categories.
   return !((category & ~REDUNDANT_CATEGORY)
