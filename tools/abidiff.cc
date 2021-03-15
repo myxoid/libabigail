@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- Mode: C++ -*-
 //
@@ -1419,6 +1421,8 @@ main(int argc, char* argv[])
 
 	  adjust_diff_context_for_kmidiff(*ctxt);
 	  corpus_diff_sptr diff = compute_diff(g1, g2, ctxt);
+          std::cerr << "corpus diff computed" << std::endl;
+          sleep(0);
 
 	  if (diff->has_net_changes())
 	    status = abigail::tools_utils::ABIDIFF_ABI_CHANGE;

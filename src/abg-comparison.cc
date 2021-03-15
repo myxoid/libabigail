@@ -1,3 +1,4 @@
+#include <unistd.h>
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // -*- Mode: C++ -*-
 //
@@ -1365,8 +1366,27 @@ diff_context::maybe_apply_filters(diff_sptr diff)
        i != diff_filters().end();
        ++i)
     {
+      std::cerr << "applying a filter to diff"
+                << " rep=" << get_pretty_representation(diff.get())
+                << " cat=" << diff->get_category()
+                << " lct=" << diff->get_local_category()
+                << "\n";
       filtering::apply_filter(*i, diff);
+      std::cerr << "done applying a filter"
+                << " rep=" << get_pretty_representation(diff.get())
+                << " cat=" << diff->get_category()
+                << " lct=" << diff->get_local_category()
+                << "\n";
+      std::cerr << "propagating: "
+                << diff->is_filtered_out() << std::endl;
       propagate_categories(diff);
+      std::cerr << "propagated: "
+                << diff->is_filtered_out() << std::endl;
+      std::cerr << "done propagating"
+                << " rep=" << get_pretty_representation(diff.get())
+                << " cat=" << diff->get_category()
+                << " lct=" << diff->get_local_category()
+                << "\n";
     }
 
  }
@@ -7051,11 +7071,17 @@ compute_diff(const function_decl_sptr first,
 	     const function_decl_sptr second,
 	     diff_context_sptr ctxt)
 {
+  sleep(0);
   if (!first || !second)
     {
       // TODO: implement this for either first or second being NULL.
       return function_decl_diff_sptr();
     }
+
+  std::cerr << first->get_pretty_representation()
+            << ' '
+            << second->get_pretty_representation()
+            << "\n";
 
   ABG_ASSERT(first->get_environment() == second->get_environment());
 
@@ -8714,6 +8740,8 @@ corpus_diff::priv::clear_lookup_tables()
 void
 corpus_diff::priv::ensure_lookup_tables_populated()
 {
+  sleep(0);
+
   if (!lookup_tables_empty())
     return;
 
@@ -9683,6 +9711,8 @@ if (changed_unreachable_types_sorted_.empty())
 void
 corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
 {
+  std::cerr << "about to apply filters" << std::endl;
+  sleep(0);
   stat.num_func_removed(deleted_fns_.size());
   stat.num_removed_func_filtered_out(suppressed_deleted_fns_.size());
   stat.num_func_added(added_fns_.size());
@@ -9706,7 +9736,11 @@ corpus_diff::priv::apply_filters_and_compute_diff_stats(diff_stats& stat)
        ++i)
     {
       diff_sptr diff = *i;
+      std::cerr << "running maybe_apply_filters for function_decl_diff: "
+                << diff->is_filtered_out() << std::endl;
       ctxt->maybe_apply_filters(diff);
+      std::cerr << "done maybe_apply_filters for function_decl_diff: "
+                << diff->is_filtered_out() << std::endl;
     }
 
   // Walk the changed variable diff nodes to apply the categorization
@@ -10929,12 +10963,18 @@ compute_diff(const corpus_sptr	f,
   r->priv_->architectures_equal_ =
     f->get_architecture_name() == s->get_architecture_name();
 
+  std::cerr << "about to compute function diffs" << std::endl;
+  sleep(0);
+
   // Compute the diff of publicly defined and exported functions
   diff_utils::compute_diff<fns_it_type, eq_type>(f->get_functions().begin(),
 						 f->get_functions().end(),
 						 s->get_functions().begin(),
 						 s->get_functions().end(),
 						 r->priv_->fns_edit_script_);
+
+  std::cerr << "done computing function diffs" << std::endl;
+  sleep(0);
 
   // Compute the diff of publicly defined and exported variables.
   diff_utils::compute_diff<vars_it_type, eq_type>
