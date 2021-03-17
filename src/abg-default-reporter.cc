@@ -1385,7 +1385,7 @@ default_reporter::report(const union_diff& d, ostream& out,
 
   d.class_or_union_diff::report(out, indent);
 
-  if (d.context()->get_allowed_category() & HARMLESS_UNION_CHANGE_CATEGORY
+  if (false && d.context()->get_allowed_category() & HARMLESS_UNION_CHANGE_CATEGORY
       && filtering::union_diff_has_harmless_changes(&d))
     {
       // The user wants to see harmless changes and the union diff we
