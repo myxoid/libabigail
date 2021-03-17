@@ -1388,6 +1388,13 @@ default_reporter::report(const union_diff& d, ostream& out,
   if (false && d.context()->get_allowed_category() & HARMLESS_UNION_CHANGE_CATEGORY
       && filtering::union_diff_has_harmless_changes(&d))
     {
+      const union_diff * u = is_union_diff(&d);
+      auto f = u->first_class_or_union();
+      auto s = u->second_class_or_union();
+      std::cerr << u->get_pretty_representation()
+                << ':' << f->get_pretty_representation()
+                << ':' << s->get_pretty_representation()
+                << ':' << (f == s) << std::endl;
       // The user wants to see harmless changes and the union diff we
       // are looking at does carry some harmless changes.  Let's show
       // the "before" and "after" carried by the diff node.
