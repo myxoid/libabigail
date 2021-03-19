@@ -366,6 +366,16 @@ sub filter_symbols($symbols, $dom) {
   }
 }
 
+sub normalise_anonymous_type_names($) {
+  my ($doc) = @_;
+  my $name_path = new XML::LibXML::XPathExpression('//abi-instr//*[@name]');
+  for my $node ($doc->findnodes($name_path)) {
+    my $value = $node->getAttribute('name');
+    $value =~ s;^(__anonymous_[a-z]+__)\d*$;$1;;
+    $node->setAttribute('name', $value);
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
@@ -373,14 +383,16 @@ my $symbols_opt;
 my $all_opt;
 my $drop_opt;
 my $prune_opt;
+my $normalise_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
-             $drop_opt = $prune_opt = 1
+             $drop_opt = $prune_opt = $normalise_opt = 1
            },
            'd|drop-empty!' => \$drop_opt,
            'p|prune-unreachable!' => \$prune_opt,
+           'n|normalise-anonymous!' => \$normalise_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
                         '[-i|--input file]',
@@ -389,6 +401,7 @@ GetOptions('i|input=s' => \$input_opt,
                         '[-a|--all]',
                         '[-d|--[no-]drop-empty]',
                         '[-p|--[no-]prune-unreachable]',
+                        '[-n|--[no-]normalise-anonymous]',
                       ), "\n");
 
 exit 0 unless defined $input_opt;
@@ -403,6 +416,9 @@ strip_text($dom);
 
 # Remove unlisted symbols.
 filter_symbols(read_symbols($symbols_opt), $dom) if defined $symbols_opt;
+
+# Normalise anonymous type names.
+normalise_anonymous_type_names($dom) if $normalise_opt;
 
 # Prune unreachable elements.
 prune_unreachable($dom) if $prune_opt;
