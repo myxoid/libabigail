@@ -12,9 +12,11 @@ use experimental 'signatures';
 
 use autodie;
 
+use Algorithm::Diff qw(diff);
 use Data::Dumper;
 use Getopt::Long;
 use IO::File;
+use List::Util qw(any all uniq);
 use XML::LibXML;
 
 # Overview of ABI XML elements and their roles
@@ -376,6 +378,108 @@ sub normalise_anonymous_type_names($) {
   }
 }
 
+sub sub_tree;
+sub sub_tree($l, $r) {
+  # Node name must be an exact match.
+  return 0 if $l->getName() ne $r->getName();
+  # Left attributes may be missing on the left, but otherwise must match.
+  # With one exception: libabigail emits the access specifier for the
+  # type it's trying to "emit in scope" rather than what may be a
+  # containing type; so allow access to differ on member-type nodes.
+  for my $k (keys %$l) {
+    my $lv = $l->{$k};
+    my $rv = $r->{$k};
+    return 0 unless defined $rv;
+    next if $k eq 'access' && $l->getName() eq 'member-type';
+    return 0 unless $lv eq $rv;
+  }
+  # Left elements must be a subsequence of right elements.
+  my @lc = grep { $_->nodeType != XML_COMMENT_NODE } $l->childNodes();
+  my @rc = grep { $_->nodeType != XML_COMMENT_NODE } $r->childNodes();
+  unless (scalar @lc <= scalar @rc) {
+    return 0;
+  }
+  # Only handle three forms of subsequence. Otherwise need some kind
+  # of backtracking check.
+  unless (@lc) {
+    # empty
+    return 1;
+  }
+  if (scalar @lc == 1) {
+    # singleton
+    return any { $_ } map { sub_tree($lc[0], $_) } @rc;
+  }
+  if (scalar @lc == scalar @rc) {
+    # same length
+    return all { $_ } map { sub_tree($lc[$_], $rc[$_]) } (0..$#lc);
+  }
+  warn "XML elements have interestingly different subelements\n",
+    $l->toString(), "\n", $r->toString(), "\n";
+  return 0;
+}
+
+sub get_scope($node) {
+  my @names;
+  while (1) {
+    $node = $node->parentNode;
+    last unless defined $node && $node->nodeType == XML_ELEMENT_NODE;
+    my $kind = $node->getName();
+    last if $kind eq 'abi-instr';
+    # Some C++ enums introduce scope but we don't need to worry.
+    next unless $kind eq 'class-decl' || $kind eq 'union-decl' || $kind eq 'namespace-decl';
+    # Anonymous type are not permitted to contain type members (but
+    # this still works with g++ -fpermissive).
+    my $name = $node->getAttribute('name');
+    unshift @names, $name;
+  }
+  return @names;
+}
+
+sub eliminate_duplicate_types($dom) {
+  my %hash;
+  # Collect all (unnested) types and their namespace scopes.
+  for my $type ($dom->findnodes('//abi-corpus/abi-instr/*[@id] | //abi-corpus/abi-instr//namespace-decl/*[@id]')) {
+    my $id = $type->getAttribute('id');
+    my $scope = join(':', get_scope($type));
+    for my $list ($hash{$id}{$scope}) {
+      $list //= [];
+      push @$list, $type;
+    }
+  }
+  for my $id (keys %hash) {
+    my $scopes = $hash{$id};
+    if (scalar keys %$scopes > 1) {
+      warn "inconsistent scopes found for duplicate types with id $id\n";
+      next;
+    }
+    my ($ns) = keys %$scopes;
+    my $types = $scopes->{$ns};
+    next if scalar @$types == 1;
+    # Find a potential maximal candidate.
+    my $candidate = 0;
+    for my $ix (1..$#$types) {
+      $candidate = $ix if sub_tree($types->[$candidate], $types->[$ix]);
+    }
+    # Verify it is indeed maximal.
+    my @losers = grep { $_ != $candidate } (0..$#$types);
+    for my $ix (@losers) {
+      unless (sub_tree($types->[$ix], $types->[$candidate])) {
+        warn "conflicting duplicate types with id $id\n";
+        my @strs = map { $types->[$_]->toString() } ($ix, $candidate);
+        map { $_ =~ s;><;>\n<;g } @strs;
+        my @lines = map { [split("\n", $_)] } @strs;
+        warn Dumper(diff(@lines));
+        $candidate = undef;
+        last;
+      }
+    }
+    if (defined $candidate) {
+      map { remove_node($types->[$_]) } @losers;
+      warn "successfully eliminated duplicate types with id $id\n";
+    }
+  }
+}
+
 sub report_duplicate_types($dom) {
   my %hash;
   for my $type ($dom->findnodes('*[@id]')) {
@@ -400,16 +504,18 @@ my $all_opt;
 my $drop_opt;
 my $prune_opt;
 my $normalise_opt;
+my $eliminate_opt;
 my $report_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
-             $drop_opt = $prune_opt = $normalise_opt = $report_opt = 1
+             $drop_opt = $prune_opt = $normalise_opt = $eliminate_opt = $report_opt = 1
            },
            'd|drop-empty!' => \$drop_opt,
            'p|prune-unreachable!' => \$prune_opt,
            'n|normalise-anonymous!' => \$normalise_opt,
+           'e|eliminate-duplicates!' => \$eliminate_opt,
            'r|report-duplicates!' => \$report_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
@@ -420,6 +526,7 @@ GetOptions('i|input=s' => \$input_opt,
                         '[-d|--[no-]drop-empty]',
                         '[-p|--[no-]prune-unreachable]',
                         '[-n|--[no-]normalise-anonymous]',
+                        '[-e|--[no-]eliminate-duplicates]',
                         '[-r|--[no-]report-duplicates]',
                       ), "\n");
 
@@ -438,6 +545,9 @@ filter_symbols(read_symbols($symbols_opt), $dom) if defined $symbols_opt;
 
 # Normalise anonymous type names.
 normalise_anonymous_type_names($dom) if $normalise_opt;
+
+# Eliminate complete duplicates and extra fragments of types.
+eliminate_duplicate_types($dom) if $eliminate_opt;
 
 # Check for duplicate types.
 report_duplicate_types($dom) if $report_opt;
