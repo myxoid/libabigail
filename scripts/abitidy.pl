@@ -376,6 +376,22 @@ sub normalise_anonymous_type_names($) {
   }
 }
 
+sub report_duplicate_types($dom) {
+  my %hash;
+  for my $type ($dom->findnodes('*[@id]')) {
+    # subranges are not really types and shouldn't be considered
+    next if $type->getName() eq 'subrange';
+    my $id = $type->getAttribute('id');
+    for my $ids ($hash{$id}) {
+      $ids //= [];
+      push @$ids, $type;
+    }
+  }
+  for my $id (keys %hash) {
+    warn "residual duplicated types with id $id\n";
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
@@ -384,15 +400,17 @@ my $all_opt;
 my $drop_opt;
 my $prune_opt;
 my $normalise_opt;
+my $report_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
-             $drop_opt = $prune_opt = $normalise_opt = 1
+             $drop_opt = $prune_opt = $normalise_opt = $report_opt = 1
            },
            'd|drop-empty!' => \$drop_opt,
            'p|prune-unreachable!' => \$prune_opt,
            'n|normalise-anonymous!' => \$normalise_opt,
+           'r|report-duplicates!' => \$report_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
                         '[-i|--input file]',
@@ -402,6 +420,7 @@ GetOptions('i|input=s' => \$input_opt,
                         '[-d|--[no-]drop-empty]',
                         '[-p|--[no-]prune-unreachable]',
                         '[-n|--[no-]normalise-anonymous]',
+                        '[-r|--[no-]report-duplicates]',
                       ), "\n");
 
 exit 0 unless defined $input_opt;
@@ -419,6 +438,9 @@ filter_symbols(read_symbols($symbols_opt), $dom) if defined $symbols_opt;
 
 # Normalise anonymous type names.
 normalise_anonymous_type_names($dom) if $normalise_opt;
+
+# Check for duplicate types.
+report_duplicate_types($dom) if $report_opt;
 
 # Prune unreachable elements.
 prune_unreachable($dom) if $prune_opt;
