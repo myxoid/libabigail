@@ -347,14 +347,35 @@ seen = $count_seen
   remove_unwanted($dom);
 }
 
+# Read symbols from a file.
+sub read_symbols($file) {
+  my %symbols;
+  my $fh = new IO::File $file, '<';
+  while (<$fh>) {
+    chomp;
+    $symbols{$_} = undef;
+  }
+  close $fh;
+  return \%symbols;
+}
+
+# Remove unlisted ELF symbols,
+sub filter_symbols($symbols, $dom) {
+  for my $node ($dom->findnodes('elf-symbol')) {
+    remove_node($node) unless exists $symbols->{$node->getAttribute('name')};
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
+my $symbols_opt;
 my $all_opt;
 my $drop_opt;
 my $prune_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
+           'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
              $drop_opt = $prune_opt = 1
            },
@@ -364,6 +385,7 @@ GetOptions('i|input=s' => \$input_opt,
                       map { (' ', $_) } (
                         '[-i|--input file]',
                         '[-o|--output file]',
+                        '[-S|--symbols file]',
                         '[-a|--all]',
                         '[-d|--[no-]drop-empty]',
                         '[-p|--[no-]prune-unreachable]',
@@ -378,6 +400,9 @@ close $input;
 
 # This simplifies DOM analysis and manipulation.
 strip_text($dom);
+
+# Remove unlisted symbols.
+filter_symbols(read_symbols($symbols_opt), $dom) if defined $symbols_opt;
 
 # Prune unreachable elements.
 prune_unreachable($dom) if $prune_opt;
