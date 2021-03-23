@@ -464,11 +464,8 @@ sub eliminate_duplicate_types($dom) {
     my @losers = grep { $_ != $candidate } (0..$#$types);
     for my $ix (@losers) {
       unless (sub_tree($types->[$ix], $types->[$candidate])) {
-        warn "conflicting duplicate types with id $id\n";
         my @strs = map { $types->[$_]->toString() } ($ix, $candidate);
-        map { $_ =~ s;><;>\n<;g } @strs;
-        my @lines = map { [split("\n", $_)] } @strs;
-        warn Dumper(diff(@lines));
+        warn "conflicting duplicate types with id $id:\n", map { "  $_\n" } @strs, "\n";
         $candidate = undef;
         last;
       }
@@ -572,6 +569,55 @@ sub stabilise_types_and_declarations($dom) {
   }
 }
 
+# Substitute a set of type ids with another.
+sub substitute_type_ids($winner, $losers, $dom) {
+  for my $ref ($dom->findnodes('//*[@type-id]')) {
+    my $type_id = $ref->getAttribute('type-id');
+    $ref->setAttribute('type-id', $winner) if exists $losers->{$type_id};
+  }
+}
+
+# Find definitions and declarations for the same thing and replace
+# references to the latter with the former. naming-typedef-id may be
+# an added complication.
+sub resolve_forward_declarations($dom) {
+  for my $corpus ($dom->findnodes('//abi-corpus')) {
+    my %synonyms;
+    # Safe to extend to deeper-nested types? Need get_scopes.
+    for my $type ($corpus->findnodes('abi-instr/*[@id]')) {
+      my $kind = $type->getName();
+      my $name = $type->getAttribute('name');
+      next unless defined $name;
+      next if $name =~ m;^__anonymous_;;
+      my $key = "$kind:$name";
+      $synonyms{$key} //= [];
+      push @{$synonyms{$key}}, $type;
+    }
+
+    for my $key (keys %synonyms) {
+      my $types = $synonyms{$key};
+      next if scalar(@$types) == 1;
+      my @decls = grep { $_->hasAttribute('is-declaration-only') } @$types;
+      my @defns = grep { !$_->hasAttribute('is-declaration-only') } @$types;
+      next unless @decls and @defns;
+      # Have declarations and definitions, check that top-level ids
+      # are the only differences.
+      my ($kind, $name) = split(':', $key);
+      my @decl_strs = uniq map { my $str = $_->toString(); my $id = $_->getAttribute('id'); $str =~ s; id='$id';;g; $str } @decls;
+      my @defn_strs = uniq map { my $str = $_->toString(); my $id = $_->getAttribute('id'); $str =~ s; id='$id';;g; $str } @defns;
+      unless (scalar @decl_strs == 1 && scalar @defn_strs == 1) {
+        warn "cannot resolve duplicate $kind types with name $name\n";
+        next;
+      }
+      my $winner = $defns[0]->getAttribute('id');
+      my @losers = grep { $_ ne $winner } map { $_->getAttribute('id') } @$types;
+      warn "resolved $kind $name: substituting @losers with $winner\n";
+      substitute_type_ids($winner, {map { $_ => undef } @losers}, $dom);
+      map { remove_node($_) } (@defns[1..$#defns], @decls);
+    }
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
@@ -582,18 +628,20 @@ my $prune_opt;
 my $normalise_opt;
 my $eliminate_opt;
 my $stabilise_opt;
+my $forward_opt;
 my $report_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
-             $drop_opt = $prune_opt = $normalise_opt = $eliminate_opt = $stabilise_opt = $report_opt = 1
+             $drop_opt = $prune_opt = $normalise_opt = $eliminate_opt = $stabilise_opt = $forward_opt = $report_opt = 1
            },
            'd|drop-empty!' => \$drop_opt,
            'p|prune-unreachable!' => \$prune_opt,
            'n|normalise-anonymous!' => \$normalise_opt,
            'e|eliminate-duplicates!' => \$eliminate_opt,
            's|stabilise-order!' => \$stabilise_opt,
+           'f|resolve-forward!' => \$forward_opt,
            'r|report-duplicates!' => \$report_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
@@ -606,6 +654,7 @@ GetOptions('i|input=s' => \$input_opt,
                         '[-n|--[no-]normalise-anonymous]',
                         '[-e|--[no-]eliminate-duplicates]',
                         '[-s|--[no-]stabilise-order]',
+                        '[-f|--[no-]resolve-forward]',
                         '[-r|--[no-]report-duplicates]',
                       ), "\n");
 
@@ -630,6 +679,9 @@ eliminate_duplicate_types($dom) if $eliminate_opt;
 
 # Check for duplicate types.
 report_duplicate_types($dom) if $report_opt;
+
+# Check for types which are both declared and defined.
+resolve_forward_declarations($dom) if $forward_opt;
 
 # Prune unreachable elements.
 prune_unreachable($dom) if $prune_opt;
