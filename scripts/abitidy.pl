@@ -496,6 +496,82 @@ sub report_duplicate_types($dom) {
   }
 }
 
+# Stabilise types and declarations.
+sub stabilise_types_and_declarations($dom) {
+  my $corpus_path = new XML::LibXML::XPathExpression('//abi-corpus');
+  my $instr_path = new XML::LibXML::XPathExpression('abi-instr');
+  my $type_or_decl_path = new XML::LibXML::XPathExpression('*[@id]|*[@name]');
+
+  my @corpora = $dom->findnodes($corpus_path);
+  for my $corpus (@corpora) {
+    # Let's squish it. We expect its abi-instr elements to have
+    # consistent attributes, ignoring path.
+    my %attrs;
+    my @children = $corpus->findnodes($instr_path);
+    for my $child (@children) {
+      for my $attr (keys %$child) {
+        my $value = $child->{$attr};
+        $attrs{$attr}{$value} = undef;
+      }
+    }
+    next unless scalar keys %attrs;
+
+    # Create a replacement abi-instr node.
+    my $replacement = new XML::LibXML::Element('abi-instr');
+    # Original attribute ordering is lost, may as well be deterministic here.
+    for my $attr (sort keys %attrs) {
+      # Check attribute consistency.
+      for my $values ($attrs{$attr}) {
+        if (scalar keys %{$values} > 1) {
+          die "unexpected non-constant abi-instr attribute $attr\n"
+            unless $attr eq 'path' || $attr eq 'comp-dir-path' || $attr eq 'language';
+          $values = { 'various' => undef };
+        }
+        for my $value (keys %$values) {
+          $replacement->setAttribute($attr, $value);
+        }
+      }
+    }
+
+    # Gather sorted types and decls.
+    my @types_and_decls = sort {
+      my $a_id = $a->{id};
+      my $a_name = $a->{name};
+      die unless defined $a_id || defined $a_name;
+      my $b_id = $b->{id};
+      my $b_name = $b->{name};
+      die unless defined $b_id || defined $b_name;
+      # types before declarations
+      # order types by id
+      # order declarations by name
+      defined $a_id != defined $b_id ? !defined $a_id <=> !defined $b_id
+        : defined $a_id ? $a_id cmp $b_id
+        : $a_name cmp $b_name
+    } map { $_->findnodes($type_or_decl_path) } @children;
+
+    # Add them to replacement abi-instr
+    map {
+      my $prev = $_->previousSibling();
+      if ($prev && $prev->nodeType == XML_COMMENT_NODE) {
+        $prev->unbindNode();
+        $replacement->appendChild($prev);
+      }
+      $_->unbindNode();
+      $replacement->appendChild($_)
+    } @types_and_decls;
+    # Remove the old abi-instr nodes.
+    for my $child (@children) {
+      if ($child->hasChildNodes()) {
+        warn "failed to evacuate abi-instr: ", $child->toString(), "\n";
+        next;
+      }
+      remove_node($child);
+    }
+    # Add the replacement abi-instr node to the abi-corpus.
+    $corpus->appendChild($replacement);
+  }
+}
+
 # Parse arguments.
 my $input_opt;
 my $output_opt;
@@ -505,17 +581,19 @@ my $drop_opt;
 my $prune_opt;
 my $normalise_opt;
 my $eliminate_opt;
+my $stabilise_opt;
 my $report_opt;
 GetOptions('i|input=s' => \$input_opt,
            'o|output=s' => \$output_opt,
            'S|symbols=s' => \$symbols_opt,
            'a|all' => sub {
-             $drop_opt = $prune_opt = $normalise_opt = $eliminate_opt = $report_opt = 1
+             $drop_opt = $prune_opt = $normalise_opt = $eliminate_opt = $stabilise_opt = $report_opt = 1
            },
            'd|drop-empty!' => \$drop_opt,
            'p|prune-unreachable!' => \$prune_opt,
            'n|normalise-anonymous!' => \$normalise_opt,
            'e|eliminate-duplicates!' => \$eliminate_opt,
+           's|stabilise-order!' => \$stabilise_opt,
            'r|report-duplicates!' => \$report_opt,
   ) and !@ARGV or die("usage: $0",
                       map { (' ', $_) } (
@@ -527,6 +605,7 @@ GetOptions('i|input=s' => \$input_opt,
                         '[-p|--[no-]prune-unreachable]',
                         '[-n|--[no-]normalise-anonymous]',
                         '[-e|--[no-]eliminate-duplicates]',
+                        '[-s|--[no-]stabilise-order]',
                         '[-r|--[no-]report-duplicates]',
                       ), "\n");
 
@@ -554,6 +633,9 @@ report_duplicate_types($dom) if $report_opt;
 
 # Prune unreachable elements.
 prune_unreachable($dom) if $prune_opt;
+
+# Stabilise types and declarations.
+stabilise_types_and_declarations($dom) if $stabilise_opt;
 
 # Drop empty elements.
 if ($drop_opt) {
