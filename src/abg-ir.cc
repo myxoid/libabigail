@@ -3570,6 +3570,10 @@ struct decl_base::priv
   {
     is_anonymous_ = name_.empty();
     has_anonymous_parent_ = false;
+    if (is_anonymous_ && !linkage_name_.empty())
+    {
+      std::cerr << __LINE__ << ": ctor linkage anon\n";
+    }
   }
 
   priv(const location& l)
@@ -3657,6 +3661,10 @@ decl_base::decl_base(const decl_base& d)
   priv_->linkage_name_ = d.priv_->linkage_name_;
   priv_->context_ = d.priv_->context_;
   priv_->visibility_ = d.priv_->visibility_;
+  if (d.priv_->is_anonymous_)
+    {
+      std::cerr << __LINE__ << ": failed to copy anon\n";
+    }
 }
 
 /// Getter for the qualified name.
@@ -3825,7 +3833,12 @@ decl_base::set_name(const string& n)
 /// @return true iff the type is anonymous.
 bool
 decl_base::get_is_anonymous() const
-{return priv_->is_anonymous_;}
+{
+  if (priv_->is_anonymous_ && !priv_->linkage_name_.empty())
+    {
+      std::cerr << __LINE__ << ": oh dear\n";
+    }
+return priv_->is_anonymous_;}
 
 /// Set the "is_anonymous" flag of the current declaration.
 ///
@@ -3835,7 +3848,13 @@ decl_base::get_is_anonymous() const
 /// @param f the new value of the flag.
 void
 decl_base::set_is_anonymous(bool f)
-{priv_->is_anonymous_ = f;}
+{priv_->is_anonymous_ = f;
+
+  if (f && !get_linkage_name().empty())
+    {
+      std::cerr << __LINE__ << ": linkage set anon\n";
+    }
+}
 
 /// Getter of the flag that says if the declaration is artificial.
 ///
@@ -3893,7 +3912,11 @@ decl_base::get_is_anonymous_or_has_anonymous_parent() const
 /// @return the new mangled name.
 const interned_string&
 decl_base::get_linkage_name() const
-{return priv_->linkage_name_;}
+{  if (priv_->is_anonymous_ && !priv_->linkage_name_.empty())
+    {
+      std::cerr << __LINE__ << ": oh dear\n";
+    }
+return priv_->linkage_name_;}
 
 /// Setter for the linkage name.
 ///
@@ -3904,6 +3927,10 @@ decl_base::set_linkage_name(const string& m)
   const environment* env = get_environment();
   ABG_ASSERT(env);
   priv_->linkage_name_ = env->intern(m);
+  if (get_is_anonymous() && !m.empty())
+  {
+    std::cerr << __LINE__ << ": set linkage anon\n";
+  }
 }
 
 /// Getter for the visibility of the decl.
