@@ -1617,6 +1617,7 @@ read_symbol_db_from_input(read_context&		 ctxt,
   if (!reader)
     return false;
 
+  std::cout << "reading symbols: " << ctxt.get_corpus_node() << std::endl;
   if (!ctxt.get_corpus_node())
     for (;;)
       {
@@ -1647,13 +1648,21 @@ read_symbol_db_from_input(read_context&		 ctxt,
 	else if (has_var_syms)
 	  var_symdb = build_elf_symbol_db(ctxt, node, false);
 
-	xmlTextReaderNext(reader.get());
+        auto old_type = XML_READER_GET_NODE_TYPE(reader);
+        auto old_name = XML_READER_GET_NODE_NAME(reader);
+        xmlTextReaderNext(reader.get());
+        auto new_type = XML_READER_GET_NODE_TYPE(reader);
+        auto new_name = XML_READER_GET_NODE_NAME(reader);
+        std::cout << "reader next from type " << old_type << " to " << new_type << std::endl;
+        if (old_name) std::cout << " old name " << old_name << std::endl;
+        if (new_name) std::cout << " new name " << new_name << std::endl;
       }
   else
     {
       xmlNodePtr n = ctxt.get_corpus_node();
+      std::cout << "** " << n->type << ":" << n->name << " **" << std::endl;
       for (; n; n = xmlNextElementSibling(n))
-	{
+        {
 	  bool has_fn_syms = false, has_var_syms = false;
 	  if (xmlStrEqual(n->name, BAD_CAST("elf-function-symbols")))
 	    has_fn_syms = true;
@@ -1669,6 +1678,7 @@ read_symbol_db_from_input(read_context&		 ctxt,
 	    break;
 	}
       ctxt.set_corpus_node(n);
+      std::cout << "found symbols: " << found << std::endl;
     }
 
   return true;
@@ -1727,6 +1737,7 @@ read_elf_needed_from_input(read_context&	ctxt,
 
   if (ctxt.get_corpus_node() == 0)
     {
+      std::cout << "needed: cursor\n";
       int status = 1;
       while (status == 1
 	     && XML_READER_GET_NODE_TYPE(reader) != XML_READER_TYPE_ELEMENT)
@@ -1743,6 +1754,7 @@ read_elf_needed_from_input(read_context&	ctxt,
     }
   else
     {
+      std::cout << "needed: cursor " << ctxt.get_corpus_node()->name << "\n";
       xmlNodePtr n = ctxt.get_corpus_node();
       if (n && xmlStrEqual(n->name, BAD_CAST("elf-needed")))
 	node = n;
@@ -1852,25 +1864,33 @@ read_corpus_from_input(read_context& ctxt)
   corpus_sptr nil;
 
   xml::reader_sptr reader = ctxt.get_reader();
+  std::cout << "entered" << std::endl;
   if (!reader)
     return nil;
+  std::cout << "reader OK" << std::endl;
 
   // This is to remember to call xmlTextReaderNext if we ever call
   // xmlTextReaderExpand.
   bool call_reader_next = false;
 
   xmlNodePtr node = ctxt.get_corpus_node();
+  std::cout << "node:" << node << std::endl;
   if (!node)
     {
       // The document must start with the abi-corpus node.
       int status = 1;
       while (status == 1
 	     && XML_READER_GET_NODE_TYPE(reader) != XML_READER_TYPE_ELEMENT)
+      {
+        std::cout << "skipping over node of type " << XML_READER_GET_NODE_TYPE(reader) << std::endl;
 	status = advance_cursor (ctxt);
+      }
 
+      std::cout << "got element: " << XML_READER_GET_NODE_NAME(reader).get() << std::endl;
       if (status != 1 || !xmlStrEqual (XML_READER_GET_NODE_NAME(reader).get(),
 				       BAD_CAST("abi-corpus")))
 	return nil;
+      std::cout << "got an abi-corpus" << std::endl;
 
       ctxt.set_corpus(std::make_shared<corpus>(ctxt.get_environment(), ""));
 #ifdef WITH_DEBUG_SELF_COMPARISON
@@ -1931,6 +1951,7 @@ read_corpus_from_input(read_context& ctxt)
     }
   else
     {
+      std::cout << "working with element: " << node->name << std::endl;
       ctxt.set_corpus(std::make_shared<corpus>(ctxt.get_environment(), ""));
 #ifdef WITH_DEBUG_SELF_COMPARISON
       if (ctxt.get_environment()->self_comparison_debug_is_on())
@@ -2007,7 +2028,14 @@ read_corpus_from_input(read_context& ctxt)
     {
       // This is the necessary counter-part of the xmlTextReaderExpand()
       // call at the beginning of the function.
+      auto old_type = XML_READER_GET_NODE_TYPE(reader);
+      auto old_name = XML_READER_GET_NODE_NAME(reader);
       xmlTextReaderNext(reader.get());
+      auto new_type = XML_READER_GET_NODE_TYPE(reader);
+      auto new_name = XML_READER_GET_NODE_NAME(reader);
+      std::cout << "reader next from type " << old_type << " to " << new_type << std::endl;
+      if (old_name) std::cout << " old name " << old_name << std::endl;
+      if (new_name) std::cout << " new name " << new_name << std::endl;
       // The call above invalidates the xml node returned by
       // xmlTextReaderExpand, which is can still be accessed via
       // ctxt.set_corpus_node.
@@ -2065,12 +2093,20 @@ read_corpus_group_from_input(read_context& ctxt)
   for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       ctxt.set_corpus_node(n);
+      std::cout << "using node: " << n->name << std::endl;
       corpus_sptr corp = read_corpus_from_input(ctxt);
       if (corp)
 	ctxt.get_corpus_group()->add_corpus(corp);
     }
 
+  auto old_type = XML_READER_GET_NODE_TYPE(reader);
+  auto old_name = XML_READER_GET_NODE_NAME(reader);
   xmlTextReaderNext(reader.get());
+  auto new_type = XML_READER_GET_NODE_TYPE(reader);
+  auto new_name = XML_READER_GET_NODE_NAME(reader);
+  std::cout << "reader next from type " << old_type << " to " << new_type << std::endl;
+  if (old_name) std::cout << " old name " << old_name << std::endl;
+  if (new_name) std::cout << " new name " << new_name << std::endl;
 
   return ctxt.get_corpus_group();
 }
@@ -3014,6 +3050,7 @@ build_elf_symbol_db(read_context& ctxt,
   if (!node)
     return nil;
 
+  std::cout << "processing symbols element: " << node->name << std::endl;
   if (function_syms
       && !xmlStrEqual(node->name, BAD_CAST("elf-function-symbols")))
     return nil;
