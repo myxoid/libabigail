@@ -1427,18 +1427,13 @@ static void
 walk_xml_node_to_map_type_ids(read_context& ctxt,
 			      xmlNodePtr node)
 {
-  xmlNodePtr n = node;
-
-  if (!n || n->type != XML_ELEMENT_NODE)
-    return;
-
-  if (xml_char_sptr s = XML_NODE_GET_ATTRIBUTE(n, "id"))
+  if (xml_char_sptr s = XML_NODE_GET_ATTRIBUTE(node, "id"))
     {
       string id = CHAR_STR(s);
-      ctxt.map_id_and_node(id, n);
+      ctxt.map_id_and_node(id, node);
     }
 
-  for (n = xmlFirstElementChild(n); n; n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     walk_xml_node_to_map_type_ids(ctxt, n);
 }
 
@@ -1480,9 +1475,7 @@ read_translation_unit(read_context& ctxt, translation_unit& tu, xmlNodePtr node)
       || !ctxt.get_corpus())
     walk_xml_node_to_map_type_ids(ctxt, node);
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     handle_element_node(ctxt, n, /*add_decl_to_scope=*/true);
 
   ctxt.pop_scope_or_abort(tu.get_global_scope());
@@ -1577,32 +1570,24 @@ read_translation_unit_from_input(read_context&	ctxt)
   else
     {
       node = 0;
-      for (xmlNodePtr n = ctxt.get_corpus_node();
-	   n;
-	   n = xmlNextElementSibling(n))
-	{
-	  if (!xmlStrEqual(n->name, BAD_CAST("abi-instr")))
-	    return nil;
-	  node = n;
-	  break;
-	}
+      xmlNodePtr n = ctxt.get_corpus_node();
+      if (n && xmlStrEqual(n->name, BAD_CAST("abi-instr")))
+	node = n;
     }
 
   if (node == 0)
     return nil;
 
   tu = get_or_read_and_add_translation_unit(ctxt, node);
-
-  if (ctxt.get_corpus_node())
-    {
-      // We are not in the mode where the current corpus node came
-      // from a local invocation of xmlTextReaderExpand.  So let's set
-      // ctxt.get_corpus_node to the next child element node of the
-      // corpus that needs to be processed.
-      node = xmlNextElementSibling(node);
-      ctxt.set_corpus_node(node);
-    }
-
+  // So read_translation_unit() can trigger (under the hood) reading
+  // from several translation units just because
+  // read_context::get_scope_for_node() has been called.  In that
+  // case, after that unexpected call to read_translation_unit(), the
+  // current corpus node of the context is going to point to that
+  // translation unit that has been read under the hood.  Let's set
+  // the corpus node to just after the one we initially called
+  // read_translation_unit() on here.
+  ctxt.set_corpus_node(xmlNextElementSibling(node));
   return tu;
 }
 
@@ -1665,26 +1650,26 @@ read_symbol_db_from_input(read_context&		 ctxt,
 	xmlTextReaderNext(reader.get());
       }
   else
-    for (xmlNodePtr n = ctxt.get_corpus_node(); n; n = xmlNextElementSibling(n))
-      {
-	bool has_fn_syms = false, has_var_syms = false;
-	if (xmlStrEqual(n->name, BAD_CAST("elf-function-symbols")))
-	  has_fn_syms = true;
-	else if (xmlStrEqual(n->name, BAD_CAST("elf-variable-symbols")))
-	  has_var_syms = true;
-	else
-	  {
-	    ctxt.set_corpus_node(n);
+    {
+      xmlNodePtr n = ctxt.get_corpus_node();
+      for (; n; n = xmlNextElementSibling(n))
+	{
+	  bool has_fn_syms = false, has_var_syms = false;
+	  if (xmlStrEqual(n->name, BAD_CAST("elf-function-symbols")))
+	    has_fn_syms = true;
+	  else if (xmlStrEqual(n->name, BAD_CAST("elf-variable-symbols")))
+	    has_var_syms = true;
+	  else
 	    break;
-	  }
-
-	if (has_fn_syms)
-	  fn_symdb = build_elf_symbol_db(ctxt, n, true);
-	else if (has_var_syms)
-	  var_symdb = build_elf_symbol_db(ctxt, n, false);
-	else
-	  break;
-      }
+	  if (has_fn_syms)
+	    fn_symdb = build_elf_symbol_db(ctxt, n, true);
+	  else if (has_var_syms)
+	    var_symdb = build_elf_symbol_db(ctxt, n, false);
+	  else
+	    break;
+	}
+      ctxt.set_corpus_node(n);
+    }
 
   return true;
 }
@@ -1702,12 +1687,10 @@ read_symbol_db_from_input(read_context&		 ctxt,
 static bool
 build_needed(xmlNode* node, vector<string>& needed)
 {
-  if (!node || !xmlStrEqual(node->name,BAD_CAST("elf-needed")))
+  if (!xmlStrEqual(node->name, BAD_CAST("elf-needed")))
     return false;
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (!xmlStrEqual(n->name, BAD_CAST("dependency")))
 	continue;
@@ -1757,28 +1740,19 @@ read_elf_needed_from_input(read_context&	ctxt,
 	return false;
 
       node = xmlTextReaderExpand(reader.get());
-      if (!node)
-	return false;
     }
   else
     {
-      for (xmlNodePtr n = ctxt.get_corpus_node();
-	   n;
-	   n = xmlNextElementSibling(n))
-	{
-	  if (!xmlStrEqual(n->name, BAD_CAST("elf-needed")))
-	    return false;
-	  node = n;
-	  break;
-	}
+      xmlNodePtr n = ctxt.get_corpus_node();
+      if (n && xmlStrEqual(n->name, BAD_CAST("elf-needed")))
+	node = n;
     }
 
   bool result = false;
   if (node)
     {
       result = build_needed(node, needed);
-      node = xmlNextElementSibling(node);
-      ctxt.set_corpus_node(node);
+      ctxt.set_corpus_node(xmlNextElementSibling(node));
     }
 
   return result;
@@ -1986,14 +1960,7 @@ read_corpus_from_input(read_context& ctxt)
 	corp.set_soname(reinterpret_cast<char*>(soname_str.get()));
     }
 
-  // If the corpus element node has children nodes, make
-  // ctxt.get_corpus_node() returns the first child element node of
-  // the corpus element that *needs* to be processed.
-  if (node->children)
-    {
-      xmlNodePtr n = xmlFirstElementChild(node);
-      ctxt.set_corpus_node(n);
-    }
+  ctxt.set_corpus_node(xmlFirstElementChild(node));
 
   corpus& corp = *ctxt.get_corpus();
 
@@ -2046,18 +2013,6 @@ read_corpus_from_input(read_context& ctxt)
       // ctxt.set_corpus_node.
       ctxt.set_corpus_node(0);
     }
-  else
-    {
-      node = ctxt.get_corpus_node();
-      node = xmlNextElementSibling(node);
-      if (!node)
-	{
-	  node = ctxt.get_corpus_node();
-	  if (node)
-	    node = xmlNextElementSibling(node->parent);
-	}
-      ctxt.set_corpus_node(node);
-    }
 
   return ctxt.get_corpus();
 }
@@ -2107,12 +2062,13 @@ read_corpus_group_from_input(read_context& ctxt)
   if (!node)
     return nil;
 
-  node = xmlFirstElementChild(node);
-  ctxt.set_corpus_node(node);
-
-  corpus_sptr corp;
-  while ((corp = read_corpus_from_input(ctxt)))
-    ctxt.get_corpus_group()->add_corpus(corp);
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
+    {
+      ctxt.set_corpus_node(n);
+      corpus_sptr corp = read_corpus_from_input(ctxt);
+      if (corp)
+	ctxt.get_corpus_group()->add_corpus(corp);
+    }
 
   xmlTextReaderNext(reader.get());
 
@@ -2887,9 +2843,7 @@ build_namespace_decl(read_context&	ctxt,
   ctxt.push_decl_to_current_scope(decl, add_to_current_scope);
   ctxt.map_xml_node_to_decl(node, decl);
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     handle_element_node(ctxt, n, /*add_to_current_scope=*/true);
 
   ctxt.pop_scope_or_abort(decl);
@@ -2914,9 +2868,7 @@ build_elf_symbol(read_context& ctxt, const xmlNodePtr node,
 {
   elf_symbol_sptr nil;
 
-  if (!node
-      || node->type != XML_ELEMENT_NODE
-      || !xmlStrEqual(node->name, BAD_CAST("elf-symbol")))
+  if (!xmlStrEqual(node->name, BAD_CAST("elf-symbol")))
     return nil;
 
   string name;
@@ -3077,14 +3029,14 @@ build_elf_symbol_db(read_context& ctxt,
   xml_node_ptr_elf_symbol_sptr_map_type xml_node_ptr_elf_symbol_map;
 
   elf_symbol_sptr sym;
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
-    if ((sym = build_elf_symbol(ctxt, n, /*drop_if_suppress=*/false)))
-      {
-	id_sym_map[sym->get_id_string()] = sym;
-	xml_node_ptr_elf_symbol_map[n] = sym;
-      }
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
+    {
+      if ((sym = build_elf_symbol(ctxt, n, /*drop_if_suppress=*/false)))
+	{
+	  id_sym_map[sym->get_id_string()] = sym;
+	  xml_node_ptr_elf_symbol_map[n] = sym;
+	}
+    }
 
   if (id_sym_map.empty())
     return nil;
@@ -3243,9 +3195,7 @@ build_function_decl(read_context&	ctxt,
   std::vector<function_decl::parameter_sptr> parms;
   type_base_sptr return_type = env->get_void_type();
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n ;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (xmlStrEqual(n->name, BAD_CAST("parameter")))
 	{
@@ -3914,9 +3864,7 @@ build_function_type(read_context&	ctxt,
   ctxt.get_translation_unit()->bind_function_type_life_time(fn_type);
   ctxt.key_type_decl(fn_type, id);
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (xmlStrEqual(n->name, BAD_CAST("parameter")))
 	{
@@ -4143,22 +4091,22 @@ build_array_type_def(read_context&	ctxt,
   read_location(ctxt, node, loc);
   array_type_def::subranges_type subranges;
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
-    if (xmlStrEqual(n->name, BAD_CAST("subrange")))
-      {
-	if (array_type_def::subrange_sptr s =
-	    build_subrange_type(ctxt, n))
-	  {
-	    if (add_to_current_scope)
-	      {
-		add_decl_to_scope(s, ctxt.get_cur_scope());
-		ctxt.maybe_canonicalize_type(s);
-	      }
-	    subranges.push_back(s);
-	  }
-      }
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
+    {
+      if (xmlStrEqual(n->name, BAD_CAST("subrange")))
+	{
+	  if (array_type_def::subrange_sptr s =
+	      build_subrange_type(ctxt, n))
+	    {
+	      if (add_to_current_scope)
+		{
+		  add_decl_to_scope(s, ctxt.get_cur_scope());
+		  ctxt.maybe_canonicalize_type(s);
+		}
+	      subranges.push_back(s);
+	    }
+	}
+    }
 
   array_type_def_sptr ar_type(new array_type_def(ctxt.get_environment(),
 						 subranges, loc));
@@ -4300,9 +4248,7 @@ build_enum_type_decl(read_context&	ctxt,
 
   string base_type_id;
   enum_type_decl::enumerators enums;
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (xmlStrEqual(n->name, BAD_CAST("underlying-type")))
 	{
@@ -4673,10 +4619,11 @@ build_class_decl(read_context&		ctxt,
       decl->set_naming_typedef(naming_typedef);
     }
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       !is_decl_only && n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
+      // See https://sourceware.org/bugzilla/show_bug.cgi?id=26591#c7.
+      if (is_decl_only)
+        continue;
       if (xmlStrEqual(n->name, BAD_CAST("base-class")))
 	{
 	  access_specifier access =
@@ -4723,9 +4670,7 @@ build_class_decl(read_context&		ctxt,
 
 	  ctxt.map_xml_node_to_decl(n, decl);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (type_base_sptr t =
 		  build_type(ctxt, p, /*add_to_current_scope=*/true))
@@ -4760,9 +4705,7 @@ build_class_decl(read_context&		ctxt,
 	  bool is_static = false;
 	  read_static(n, is_static);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (var_decl_sptr v =
 		  build_var_decl(ctxt, p, /*add_to_cur_scope=*/false))
@@ -4817,9 +4760,7 @@ build_class_decl(read_context&		ctxt,
 	  bool is_ctor = false, is_dtor = false, is_const = false;
 	  read_cdtor_const(n, is_ctor, is_dtor, is_const);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (function_decl_sptr f =
 		  build_function_decl_if_not_suppressed(ctxt, p, decl,
@@ -4855,9 +4796,7 @@ build_class_decl(read_context&		ctxt,
 	  bool is_ctor = false, is_dtor = false, is_const = false;
 	  read_cdtor_const(n, is_ctor, is_dtor, is_const);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (shared_ptr<function_tdecl> f =
 		  build_function_tdecl(ctxt, p,
@@ -5069,10 +5008,11 @@ build_union_decl(read_context& ctxt,
   ctxt.map_xml_node_to_decl(node, decl);
   ctxt.key_type_decl(decl, id);
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       !is_decl_only && n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
+      // See https://sourceware.org/bugzilla/show_bug.cgi?id=26591#c7.
+      if (is_decl_only)
+        continue;
       if (xmlStrEqual(n->name, BAD_CAST("member-type")))
 	{
 	  access_specifier access = private_access;
@@ -5080,9 +5020,7 @@ build_union_decl(read_context& ctxt,
 
 	  ctxt.map_xml_node_to_decl(n, decl);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (type_base_sptr t =
 		  build_type(ctxt, p, /*add_to_current_scope=*/true))
@@ -5111,9 +5049,7 @@ build_union_decl(read_context& ctxt,
 	  bool is_static = false;
 	  read_static(n, is_static);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (var_decl_sptr v =
 		  build_var_decl(ctxt, p, /*add_to_cur_scope=*/false))
@@ -5152,9 +5088,7 @@ build_union_decl(read_context& ctxt,
 	  bool is_ctor = false, is_dtor = false, is_const = false;
 	  read_cdtor_const(n, is_ctor, is_dtor, is_const);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (function_decl_sptr f =
 		  build_function_decl_if_not_suppressed(ctxt, p, decl,
@@ -5184,9 +5118,7 @@ build_union_decl(read_context& ctxt,
 	  bool is_ctor = false, is_dtor = false, is_const = false;
 	  read_cdtor_const(n, is_ctor, is_dtor, is_const);
 
-	  for (xmlNodePtr p = xmlFirstElementChild(n);
-	       p;
-	       p = xmlNextElementSibling(p))
+	  for (xmlNodePtr p = xmlFirstElementChild(n); p; p = xmlNextElementSibling(p))
 	    {
 	      if (function_tdecl_sptr f =
 		  build_function_tdecl(ctxt, p,
@@ -5263,9 +5195,7 @@ build_function_tdecl(read_context& ctxt,
   ctxt.push_decl_to_current_scope(fn_tmpl_decl, add_to_current_scope);
 
   unsigned parm_index = 0;
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (template_parameter_sptr parm =
 	  build_template_parameter(ctxt, n, parm_index, fn_tmpl_decl))
@@ -5327,9 +5257,7 @@ build_class_tdecl(read_context&	ctxt,
   ctxt.push_decl_to_current_scope(class_tmpl, add_to_current_scope);
 
   unsigned parm_index = 0;
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if (template_parameter_sptr parm=
 	  build_template_parameter(ctxt, n, parm_index, class_tmpl))
@@ -5446,9 +5374,7 @@ build_type_composition(read_context&		ctxt,
   ctxt.push_decl_to_current_scope(dynamic_pointer_cast<decl_base>(result),
 				  /*add_to_current_scope=*/true);
 
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
     {
       if ((composed_type =
 	   build_pointer_type_def(ctxt, n,
@@ -5576,15 +5502,15 @@ build_template_tparameter(read_context&	ctxt,
 
   // Go parse template parameters that are children nodes
   int parm_index = 0;
-  for (xmlNodePtr n = xmlFirstElementChild(node);
-       n;
-       n = xmlNextElementSibling(n))
-    if (shared_ptr<template_parameter> p =
-	build_template_parameter(ctxt, n, parm_index, result))
-      {
-	result->add_template_parameter(p);
-	++parm_index;
-      }
+  for (xmlNodePtr n = xmlFirstElementChild(node); n; n = xmlNextElementSibling(n))
+    {
+      if (shared_ptr<template_parameter> p =
+	  build_template_parameter(ctxt, n, parm_index, result))
+	{
+	  result->add_template_parameter(p);
+	  ++parm_index;
+	}
+    }
 
   if (result)
     {
