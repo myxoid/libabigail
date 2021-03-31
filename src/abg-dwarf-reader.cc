@@ -8855,19 +8855,7 @@ is_anonymous_type_die(Dwarf_Die *die)
 static string
 get_internal_anonymous_die_prefix_name(const Dwarf_Die *die)
 {
-  ABG_ASSERT(die_is_type(die));
-  ABG_ASSERT(die_string_attribute(die, DW_AT_name) == "");
-
-  int tag = dwarf_tag(const_cast<Dwarf_Die*>(die));
-  string type_name;
-  if (tag == DW_TAG_class_type || tag == DW_TAG_structure_type)
-    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
-  else if (tag == DW_TAG_union_type)
-    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
-  else if (tag == DW_TAG_enumeration_type)
-    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
-
-  return type_name;
+  return tools_utils::get_anonymous_type_internal_name_prefix();
 }
 
 /// Build a full internal anonymous type name.
@@ -8875,10 +8863,9 @@ get_internal_anonymous_die_prefix_name(const Dwarf_Die *die)
 /// @param base_name this is the base name as returned by the function
 /// @ref get_internal_anonymous_die_prefix_name.
 ///
-/// @param anonymous_type_index this is the index of the anonymous
-/// type in its scope.  That is, if there are more than one anonymous
-/// types of a given kind in a scope, this index is what tells them
-/// appart, starting from 0.
+/// @param anonymous_type_index this is the index of the anonymous type
+/// in its scope.  That is, if there are multiple anonymous types in a
+/// scope, this index is what tells them apart, starting from 0.
 ///
 /// @return the built string, which is a concatenation of @p base_name
 /// and @p anonymous_type_index.
@@ -12207,9 +12194,7 @@ add_or_update_class_type(read_context&	 ctxt,
 
   if (has_child)
     {
-      int anonymous_member_class_index = -1;
-      int anonymous_member_union_index = -1;
-      int anonymous_member_enum_index = -1;
+      int anonymous_member_type_index = -1;
 
       do
 	{
@@ -12359,24 +12344,16 @@ add_or_update_class_type(read_context&	 ctxt,
 	      // scope. Look for what this means by reading the
 	      // comment of the function
 	      // build_internal_anonymous_die_name.
-	      int anonymous_member_type_index = 0;
+	      int anonymous_type_index = 0;
 	      if (is_anonymous_type_die(&child))
 		{
 		  // Update the anonymous type index.
-		  if (die_is_class_type(&child))
-		    anonymous_member_type_index =
-		      ++anonymous_member_class_index;
-		  else if (dwarf_tag(&child) == DW_TAG_union_type)
-		    anonymous_member_type_index =
-		      ++anonymous_member_union_index;
-		  else if (dwarf_tag(&child) == DW_TAG_enumeration_type)
-		    anonymous_member_type_index =
-		      ++anonymous_member_enum_index;
+		  anonymous_type_index = ++anonymous_member_type_index;
 		}
 	      // if the type is not already a member of this class,
 	      // then add it to the class.
 	      if (!lookup_class_typedef_or_enum_type_from_corpus
-		  (&child, anonymous_member_type_index, result.get()))
+		  (&child, anonymous_type_index, result.get()))
 		build_ir_node_from_die(ctxt, &child, result.get(),
 				       called_from_public_decl,
 				       where_offset);
