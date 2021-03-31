@@ -8861,11 +8861,11 @@ get_internal_anonymous_die_prefix_name(const Dwarf_Die *die)
   int tag = dwarf_tag(const_cast<Dwarf_Die*>(die));
   string type_name;
   if (tag == DW_TAG_class_type || tag == DW_TAG_structure_type)
-    type_name = tools_utils::get_anonymous_struct_internal_name_prefix();
+    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
   else if (tag == DW_TAG_union_type)
-    type_name = tools_utils::get_anonymous_union_internal_name_prefix();
+    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
   else if (tag == DW_TAG_enumeration_type)
-    type_name = tools_utils::get_anonymous_enum_internal_name_prefix();
+    type_name = tools_utils::get_anonymous_type_internal_name_prefix();
 
   return type_name;
 }

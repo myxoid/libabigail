@@ -426,46 +426,24 @@ is_dir(const string& path)
   return false;
 }
 
-static const char* ANONYMOUS_STRUCT_INTERNAL_NAME = "__anonymous_struct__";
-static const char* ANONYMOUS_UNION_INTERNAL_NAME =  "__anonymous_union__";
-static const char* ANONYMOUS_ENUM_INTERNAL_NAME =   "__anonymous_enum__";
+static const char* ANONYMOUS_TYPE_INTERNAL_NAME = "__anonymous__";
 
-static int ANONYMOUS_STRUCT_INTERNAL_NAME_LEN =
-  strlen(ANONYMOUS_STRUCT_INTERNAL_NAME);
+static int ANONYMOUS_TYPE_INTERNAL_NAME_LEN =
+  strlen(ANONYMOUS_TYPE_INTERNAL_NAME);
 
-static int ANONYMOUS_UNION_INTERNAL_NAME_LEN =
-  strlen(ANONYMOUS_UNION_INTERNAL_NAME);
-
-static int ANONYMOUS_ENUM_INTERNAL_NAME_LEN =
-  strlen(ANONYMOUS_ENUM_INTERNAL_NAME);
-
-/// Getter of the prefix for the name of anonymous structs.
+/// Getter of the prefix for the name of anonymous types.
 ///
-/// @reaturn the prefix for the name of anonymous structs.
+/// @return the prefix for the name of anonymous types.
 const char*
-get_anonymous_struct_internal_name_prefix()
-{return ANONYMOUS_STRUCT_INTERNAL_NAME;}
-
-/// Getter of the prefix for the name of anonymous unions.
-///
-/// @reaturn the prefix for the name of anonymous unions.
-const char*
-get_anonymous_union_internal_name_prefix()
-{return ANONYMOUS_UNION_INTERNAL_NAME;}
-
-/// Getter of the prefix for the name of anonymous enums.
-///
-/// @reaturn the prefix for the name of anonymous enums.
-const char*
-get_anonymous_enum_internal_name_prefix()
-{return ANONYMOUS_ENUM_INTERNAL_NAME;}
+get_anonymous_type_internal_name_prefix()
+{return ANONYMOUS_TYPE_INTERNAL_NAME;}
 
 /// Compare two fully qualified decl names by taking into account that
 /// they might have compontents that are anonymous types/namespace names.
 ///
 /// For instance:
 ///
-/// __anonymous_struct__1::foo and __anonymous_struct__2::foo are
+/// __anonymous__1::foo and __anonymous__2::foo are
 /// considered being equivalent qualified names because both are data
 /// members that belong to anonymous structs.  The anonymous structs
 /// are numbered so that we can tell them appart (and look them up)
@@ -473,14 +451,8 @@ get_anonymous_enum_internal_name_prefix()
 /// comparison, for various purposes, we want to consider them as
 /// equivalent.
 ///
-/// Similarly, __anonymous_struct__1::foo::__anonymous_struct__2::bar
-/// and __anonymous_struct__10::foo::__anonymous_struct__11::bar are
-/// equivalent.
-///
-/// But __anonymous_struct__1::foo::__anonymous_struct__2::bar and
-/// __anonymous_struct__10::foo::__anonymous_union__11::bar are not
-/// equivalent because the former designates a member of an anonymous
-/// struct and the latter designates a member of an anonymous union.
+/// Similarly, __anonymous__1::foo::__anonymous__2::bar and
+/// __anonymous__10::foo::__anonymous__11::bar are equivalent.
 ///
 /// So this function handles those cases.
 ///
@@ -509,23 +481,11 @@ decl_names_equal(const string& l, const string& r)
       if (l.compare(l_pos1, l_pos2 - l_pos1, r,
 		    r_pos1, r_pos2 - r_pos1)
 	  && (l.compare(l_pos1,
-			ANONYMOUS_STRUCT_INTERNAL_NAME_LEN,
-			ANONYMOUS_STRUCT_INTERNAL_NAME)
+			ANONYMOUS_TYPE_INTERNAL_NAME_LEN,
+			ANONYMOUS_TYPE_INTERNAL_NAME)
 	      || r.compare(r_pos1,
-			   ANONYMOUS_STRUCT_INTERNAL_NAME_LEN,
-			   ANONYMOUS_STRUCT_INTERNAL_NAME))
-	  && (l.compare(l_pos1,
-			ANONYMOUS_UNION_INTERNAL_NAME_LEN,
-			ANONYMOUS_UNION_INTERNAL_NAME)
-	      || r.compare(r_pos1,
-			   ANONYMOUS_UNION_INTERNAL_NAME_LEN,
-			   ANONYMOUS_UNION_INTERNAL_NAME))
-	  && (l.compare(l_pos1,
-			ANONYMOUS_ENUM_INTERNAL_NAME_LEN,
-			ANONYMOUS_ENUM_INTERNAL_NAME)
-	      || r.compare(r_pos1,
-			   ANONYMOUS_ENUM_INTERNAL_NAME_LEN,
-			   ANONYMOUS_ENUM_INTERNAL_NAME)))
+			   ANONYMOUS_TYPE_INTERNAL_NAME_LEN,
+			   ANONYMOUS_TYPE_INTERNAL_NAME)))
 	return false;
 
       l_pos1 = l_pos2 == l_length ? l_pos2 : l_pos2 + 2;

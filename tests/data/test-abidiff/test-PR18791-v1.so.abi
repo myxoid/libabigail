@@ -3964,7 +3964,7 @@
     <type-decl name='char' size-in-bits='8' id='type-id-282'/>
     <qualified-type-def type-id='type-id-282' const='yes' id='type-id-269'/>
     <pointer-type-def type-id='type-id-269' size-in-bits='64' id='type-id-283'/>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/wchar.h' line='83' column='1' id='type-id-284'>
+    <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/wchar.h' line='83' column='1' id='type-id-284'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__count' type-id='type-id-47' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
       </data-member>

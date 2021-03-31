@@ -30,9 +30,7 @@ using std::set;
 using std::shared_ptr;
 
 const char* get_system_libdir();
-const char* get_anonymous_struct_internal_name_prefix();
-const char* get_anonymous_union_internal_name_prefix();
-const char* get_anonymous_enum_internal_name_prefix();
+const char* get_anonymous_type_internal_name_prefix();
 
 bool file_exists(const string&);
 bool is_regular_file(const string&);

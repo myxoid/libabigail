@@ -12724,8 +12724,8 @@
     <!-- class ProfileHandler -->
     <class-decl name='ProfileHandler' size-in-bits='448' visibility='default' filepath='src/profile-handler.cc' line='84' column='1' id='type-id-1194'>
       <member-type access='private'>
-        <!-- enum ProfileHandler::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/profile-handler.cc' line='166' column='1' id='type-id-1195'>
+        <!-- enum ProfileHandler::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='src/profile-handler.cc' line='166' column='1' id='type-id-1195'>
           <underlying-type type-id='type-id-229'/>
           <enumerator name='TIMERS_UNTOUCHED' value='0'/>
           <enumerator name='TIMERS_ONE_SET' value='1'/>
@@ -12786,7 +12786,7 @@
         <var-decl name='thread_timer_key' type-id='type-id-1116' visibility='default' filepath='src/profile-handler.cc' line='161' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='224'>
-        <!-- ProfileHandler::__anonymous_enum__ ProfileHandler::timer_sharing_ -->
+        <!-- ProfileHandler::__anonymous__ ProfileHandler::timer_sharing_ -->
         <var-decl name='timer_sharing_' type-id='type-id-1195' visibility='default' filepath='src/profile-handler.cc' line='175' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='256'>
@@ -13574,10 +13574,10 @@
     <class-decl name='siginfo' size-in-bits='1024' is-struct='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='52' column='1' id='type-id-1299'>
       <member-type access='public'>
         <!-- union {int _pad[28]; struct {__pid_t si_pid; __uid_t si_uid;} _kill; struct {int si_tid; int si_overrun; sigval_t si_sigval;} _timer; struct {__pid_t si_pid; __uid_t si_uid; sigval_t si_sigval;} _rt; struct {__pid_t si_pid; __uid_t si_uid; int si_status; __clock_t si_utime; __clock_t si_stime;} _sigchld; struct {void* si_addr;} _sigfault; struct {long int si_band; int si_fd;} _sigpoll;} -->
-        <union-decl name='__anonymous_union__' size-in-bits='896' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='59' column='1' id='type-id-1300'>
+        <union-decl name='__anonymous__' size-in-bits='896' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='59' column='1' id='type-id-1300'>
           <member-type access='public'>
             <!-- struct {__pid_t si_pid; __uid_t si_uid;} -->
-            <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='64' column='1' id='type-id-1301'>
+            <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='64' column='1' id='type-id-1301'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- __pid_t si_pid -->
                 <var-decl name='si_pid' type-id='type-id-65' visibility='default' filepath='/usr/include/bits/siginfo.h' line='65' column='1'/>
@@ -13590,7 +13590,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {int si_tid; int si_overrun; sigval_t si_sigval;} -->
-            <class-decl name='__anonymous_struct__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='71' column='1' id='type-id-1303'>
+            <class-decl name='__anonymous__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='71' column='1' id='type-id-1303'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- int si_tid -->
                 <var-decl name='si_tid' type-id='type-id-1' visibility='default' filepath='/usr/include/bits/siginfo.h' line='72' column='1'/>
@@ -13607,7 +13607,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {__pid_t si_pid; __uid_t si_uid; sigval_t si_sigval;} -->
-            <class-decl name='__anonymous_struct__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='79' column='1' id='type-id-1304'>
+            <class-decl name='__anonymous__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='79' column='1' id='type-id-1304'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- __pid_t si_pid -->
                 <var-decl name='si_pid' type-id='type-id-65' visibility='default' filepath='/usr/include/bits/siginfo.h' line='80' column='1'/>
@@ -13624,7 +13624,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {__pid_t si_pid; __uid_t si_uid; int si_status; __clock_t si_utime; __clock_t si_stime;} -->
-            <class-decl name='__anonymous_struct__3' size-in-bits='256' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='87' column='1' id='type-id-1305'>
+            <class-decl name='__anonymous__3' size-in-bits='256' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='87' column='1' id='type-id-1305'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- __pid_t si_pid -->
                 <var-decl name='si_pid' type-id='type-id-65' visibility='default' filepath='/usr/include/bits/siginfo.h' line='88' column='1'/>
@@ -13649,7 +13649,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {void* si_addr;} -->
-            <class-decl name='__anonymous_struct__4' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='97' column='1' id='type-id-1307'>
+            <class-decl name='__anonymous__4' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='97' column='1' id='type-id-1307'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- void* si_addr -->
                 <var-decl name='si_addr' type-id='type-id-58' visibility='default' filepath='/usr/include/bits/siginfo.h' line='98' column='1'/>
@@ -13658,7 +13658,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {long int si_band; int si_fd;} -->
-            <class-decl name='__anonymous_struct__5' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='103' column='1' id='type-id-1308'>
+            <class-decl name='__anonymous__5' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/siginfo.h' line='103' column='1' id='type-id-1308'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- long int si_band -->
                 <var-decl name='si_band' type-id='type-id-152' visibility='default' filepath='/usr/include/bits/siginfo.h' line='104' column='1'/>
@@ -15723,22 +15723,22 @@
     <!-- class SpinLock -->
     <class-decl name='SpinLock' size-in-bits='32' visibility='default' filepath='./src/base/spinlock.h' line='48' column='1' id='type-id-190'>
       <member-type access='private'>
-        <!-- enum SpinLock::__anonymous_enum__2 -->
-        <enum-decl name='__anonymous_enum__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1510'>
+        <!-- enum SpinLock::__anonymous__2 -->
+        <enum-decl name='__anonymous__2' is-anonymous='yes' filepath='./src/base/spinlock.h' line='116' column='1' id='type-id-1510'>
           <underlying-type type-id='type-id-229'/>
           <enumerator name='kSpinLockSleeper' value='2'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <!-- enum SpinLock::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1511'>
+        <!-- enum SpinLock::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='src/base/spinlock.h' line='114' column='1' id='type-id-1511'>
           <underlying-type type-id='type-id-229'/>
           <enumerator name='kSpinLockFree' value='0'/>
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <!-- enum SpinLock::__anonymous_enum__1 -->
-        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1512'>
+        <!-- enum SpinLock::__anonymous__1 -->
+        <enum-decl name='__anonymous__1' is-anonymous='yes' filepath='src/base/spinlock.h' line='115' column='1' id='type-id-1512'>
           <underlying-type type-id='type-id-229'/>
           <enumerator name='kSpinLockHeld' value='1'/>
         </enum-decl>
@@ -16425,7 +16425,7 @@
     <class-decl name='__mbstate_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1' id='type-id-1547'>
       <member-type access='public'>
         <!-- union {unsigned int __wch; char __wchb[4];} -->
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='87' column='1' id='type-id-1548'>
+        <union-decl name='__anonymous__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='87' column='1' id='type-id-1548'>
           <data-member access='public'>
             <!-- unsigned int __wch -->
             <var-decl name='__wch' type-id='type-id-1310' visibility='default' filepath='/usr/include/wchar.h' line='89' column='1'/>
@@ -19968,7 +19968,7 @@
         </member-type>
         <member-type access='private'>
           <!-- union {const char* str; void* ptr; int64_t snum; uint64_t unum;} -->
-          <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='src/internal_logging.h' line='91' column='1' id='type-id-1759'>
+          <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='src/internal_logging.h' line='91' column='1' id='type-id-1759'>
             <data-member access='public'>
               <!-- const char* str -->
               <var-decl name='str' type-id='type-id-57' visibility='default' filepath='src/internal_logging.h' line='92' column='1'/>
@@ -20673,8 +20673,8 @@
       <!-- struct tcmalloc::Span -->
       <class-decl name='Span' size-in-bits='384' is-struct='yes' visibility='default' filepath='src/span.h' line='45' column='1' id='type-id-127'>
         <member-type access='public'>
-          <!-- enum tcmalloc::Span::__anonymous_enum__ -->
-          <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/span.h' line='65' column='1' id='type-id-1762'>
+          <!-- enum tcmalloc::Span::__anonymous__ -->
+          <enum-decl name='__anonymous__' is-anonymous='yes' filepath='src/span.h' line='65' column='1' id='type-id-1762'>
             <underlying-type type-id='type-id-229'/>
             <enumerator name='IN_USE' value='0'/>
             <enumerator name='ON_NORMAL_FREELIST' value='1'/>
@@ -20767,8 +20767,8 @@
       <!-- class tcmalloc::ThreadCache -->
       <class-decl name='ThreadCache' size-in-bits='17408' visibility='default' filepath='src/thread_cache.h' line='66' column='1' id='type-id-1664'>
         <member-type access='private'>
-          <!-- enum tcmalloc::ThreadCache::__anonymous_enum__ -->
-          <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='src/thread_cache.h' line='69' column='1' id='type-id-1764'>
+          <!-- enum tcmalloc::ThreadCache::__anonymous__ -->
+          <enum-decl name='__anonymous__' is-anonymous='yes' filepath='src/thread_cache.h' line='69' column='1' id='type-id-1764'>
             <underlying-type type-id='type-id-229'/>
             <enumerator name='have_tls' value='1'/>
           </enum-decl>

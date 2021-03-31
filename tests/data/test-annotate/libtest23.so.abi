@@ -40,7 +40,7 @@
       </data-member>
     </class-decl>
     <!-- struct {} -->
-    <class-decl name='__anonymous_struct__1' is-struct='yes' is-anonymous='yes' visibility='default' id='type-id-6'/>
+    <class-decl name='__anonymous__1' is-struct='yes' is-anonymous='yes' visibility='default' id='type-id-6'/>
     <!-- double -->
     <type-decl name='double' size-in-bits='64' id='type-id-7'/>
     <!-- float -->
@@ -124,10 +124,10 @@
       </data-member>
     </class-decl>
     <!-- struct {int __count; union {} __value;} -->
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-26' visibility='default' filepath='/usr/include/wchar.h' line='83' column='1' id='type-id-27'>
+    <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-26' visibility='default' filepath='/usr/include/wchar.h' line='83' column='1' id='type-id-27'>
       <member-type access='public'>
         <!-- union {} -->
-        <union-decl name='__anonymous_union__' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='type-id-28'/>
+        <union-decl name='__anonymous__' is-anonymous='yes' visibility='default' is-declaration-only='yes' id='type-id-28'/>
       </member-type>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int __count -->
@@ -138,7 +138,7 @@
         <var-decl name='__value' type-id='type-id-28' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__ __mbstate_t -->
+    <!-- typedef __anonymous__ __mbstate_t -->
     <typedef-decl name='__mbstate_t' type-id='type-id-27' filepath='/usr/include/wchar.h' line='94' column='1' id='type-id-26'/>
     <!-- typedef __mbstate_t mbstate_t -->
     <typedef-decl name='mbstate_t' type-id='type-id-26' filepath='/usr/include/wchar.h' line='106' column='1' id='type-id-29'/>
@@ -152,7 +152,7 @@
     <typedef-decl name='wint_t' type-id='type-id-4' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h' line='353' column='1' id='type-id-34'/>
     <!-- __FILE* -->
     <pointer-type-def type-id='type-id-23' size-in-bits='64' id='type-id-35'/>
-    <!-- __anonymous_struct__1* -->
+    <!-- __anonymous__1* -->
     <pointer-type-def type-id='type-id-6' size-in-bits='64' id='type-id-36'/>
     <!-- char& -->
     <reference-type-def kind='lvalue' type-id='type-id-2' size-in-bits='64' id='type-id-37'/>
@@ -630,9 +630,9 @@
       <!-- char* -->
       <return type-id='type-id-38'/>
     </function-decl>
-    <!-- __anonymous_struct__1* localeconv() -->
+    <!-- __anonymous__1* localeconv() -->
     <function-decl name='localeconv' filepath='/usr/include/locale.h' line='128' column='1' visibility='default' binding='global' size-in-bits='64'>
-      <!-- __anonymous_struct__1* -->
+      <!-- __anonymous__1* -->
       <return type-id='type-id-36'/>
     </function-decl>
     <!-- wchar_t* wcscpy(wchar_t*, const wchar_t*) -->

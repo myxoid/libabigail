@@ -446,10 +446,10 @@ Variables changes summary: 0 Removed, 0 Changed, 3 Added variables
                   2 data member changes:
                     type of 'filter_node* parent' changed:
                       pointed to type 'struct filter_node' changed, as being reported
-                    type of 'union {struct {} unknown; struct {filter_node* child;} root; struct {__anonymous_enum__ type; ast_link_type post_op; ast_link_type pre_op; union {char* string; uint64_t constant; double float_constant; char* identifier; filter_node* child;} u; filter_node* prev; filter_node* next;} expression; struct {op_type type; filter_node* lchild; filter_node* rchild;} op; struct {unary_op_type type; filter_node* child;} unary_op;} u' changed:
+                    type of 'union {struct {} unknown; struct {filter_node* child;} root; struct {__anonymous__ type; ast_link_type post_op; ast_link_type pre_op; union {char* string; uint64_t constant; double float_constant; char* identifier; filter_node* child;} u; filter_node* prev; filter_node* next;} expression; struct {op_type type; filter_node* lchild; filter_node* rchild;} op; struct {unary_op_type type; filter_node* child;} unary_op;} u' changed:
                       type size changed from 320 to 384 (in bits)
                       4 data member changes:
-                        type of 'struct {__anonymous_enum__ type; ast_link_type post_op; ast_link_type pre_op; union {char* string; uint64_t constant; double float_constant; char* identifier; filter_node* child;} u; filter_node* prev; filter_node* next;} expression' changed:
+                        type of 'struct {__anonymous__ type; ast_link_type post_op; ast_link_type pre_op; union {char* string; uint64_t constant; double float_constant; char* identifier; filter_node* child;} u; filter_node* prev; filter_node* next;} expression' changed:
                           type size changed from 320 to 384 (in bits)
                           1 data member insertion:
                             'filter_node* next_bracket', at offset 320 (in bits)

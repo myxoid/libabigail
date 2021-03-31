@@ -7,7 +7,7 @@
 // This test modifies the type of the S0::m0 data member from the
 // anonymous union to a native type. The resulting change report must
 // refer to the anonymous union by using its flat representation,
-// rather than just "__anonymous_union__".
+// rather than just "__anonymous__".
 
 struct S0
 {

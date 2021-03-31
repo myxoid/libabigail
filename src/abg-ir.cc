@@ -7807,13 +7807,13 @@ get_generic_anonymous_internal_type_name(const decl_base *d)
   interned_string result;
   if (is_class_type(d))
     result =
-      env->intern(tools_utils::get_anonymous_struct_internal_name_prefix());
+      env->intern(tools_utils::get_anonymous_type_internal_name_prefix());
   else if (is_union_type(d))
     result =
-      env->intern(tools_utils::get_anonymous_union_internal_name_prefix());
+      env->intern(tools_utils::get_anonymous_type_internal_name_prefix());
   else if (is_enum_type(d))
     result =
-      env->intern(tools_utils::get_anonymous_enum_internal_name_prefix());
+      env->intern(tools_utils::get_anonymous_type_internal_name_prefix());
   else
     ABG_ASSERT_NOT_REACHED;
 

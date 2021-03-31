@@ -1049,8 +1049,8 @@
     </class-decl>
     <!-- typedef diagnostic_context diagnostic_context -->
     <typedef-decl name='diagnostic_context' type-id='type-id-42' filepath='../.././gcc/coretypes.h' line='74' column='1' id='type-id-43'/>
-    <!-- enum __anonymous_enum__2 -->
-    <enum-decl name='__anonymous_enum__2' is-anonymous='yes' linkage-name='12diagnostic_t' filepath='../.././gcc/diagnostic-core.h' line='32' column='1' id='type-id-44'>
+    <!-- enum __anonymous__2 -->
+    <enum-decl name='__anonymous__2' is-anonymous='yes' linkage-name='12diagnostic_t' filepath='../.././gcc/diagnostic-core.h' line='32' column='1' id='type-id-44'>
       <underlying-type type-id='type-id-26'/>
       <enumerator name='DK_UNSPECIFIED' value='0'/>
       <enumerator name='DK_IGNORED' value='1'/>
@@ -1067,7 +1067,7 @@
       <enumerator name='DK_LAST_DIAGNOSTIC_KIND' value='12'/>
       <enumerator name='DK_POP' value='13'/>
     </enum-decl>
-    <!-- typedef __anonymous_enum__2 diagnostic_t -->
+    <!-- typedef __anonymous__2 diagnostic_t -->
     <typedef-decl name='diagnostic_t' type-id='type-id-44' filepath='../.././gcc/diagnostic-core.h' line='40' column='1' id='type-id-45'/>
     <!-- struct diagnostic_info -->
     <class-decl name='diagnostic_info' size-in-bits='512' is-struct='yes' visibility='default' filepath='../.././gcc/diagnostic.h' line='31' column='1' id='type-id-46'>
@@ -1245,7 +1245,7 @@
     <!-- typedef source_location location_t -->
     <typedef-decl name='location_t' type-id='type-id-37' filepath='../.././gcc/input.h' line='44' column='1' id='type-id-48'/>
     <!-- struct {const char* format_spec; va_list* args_ptr; int err_no; location_t* locus; void** x_data;} -->
-    <class-decl name='__anonymous_struct__2' size-in-bits='320' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-47' visibility='default' filepath='../.././gcc/pretty-print.h' line='34' column='1' id='type-id-63'>
+    <class-decl name='__anonymous__2' size-in-bits='320' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-47' visibility='default' filepath='../.././gcc/pretty-print.h' line='34' column='1' id='type-id-63'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const char* format_spec -->
         <var-decl name='format_spec' type-id='type-id-15' visibility='default' filepath='../.././gcc/pretty-print.h' line='35' column='1'/>
@@ -1267,16 +1267,16 @@
         <var-decl name='x_data' type-id='type-id-66' visibility='default' filepath='../.././gcc/pretty-print.h' line='39' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__2 text_info -->
+    <!-- typedef __anonymous__2 text_info -->
     <typedef-decl name='text_info' type-id='type-id-63' filepath='../.././gcc/pretty-print.h' line='40' column='1' id='type-id-47'/>
-    <!-- enum __anonymous_enum__1 -->
-    <enum-decl name='__anonymous_enum__1' is-anonymous='yes' linkage-name='27diagnostic_prefixing_rule_t' filepath='../.././gcc/pretty-print.h' line='48' column='1' id='type-id-67'>
+    <!-- enum __anonymous__1 -->
+    <enum-decl name='__anonymous__1' is-anonymous='yes' linkage-name='27diagnostic_prefixing_rule_t' filepath='../.././gcc/pretty-print.h' line='48' column='1' id='type-id-67'>
       <underlying-type type-id='type-id-26'/>
       <enumerator name='DIAGNOSTICS_SHOW_PREFIX_ONCE' value='0'/>
       <enumerator name='DIAGNOSTICS_SHOW_PREFIX_NEVER' value='1'/>
       <enumerator name='DIAGNOSTICS_SHOW_PREFIX_EVERY_LINE' value='2'/>
     </enum-decl>
-    <!-- typedef __anonymous_enum__1 diagnostic_prefixing_rule_t -->
+    <!-- typedef __anonymous__1 diagnostic_prefixing_rule_t -->
     <typedef-decl name='diagnostic_prefixing_rule_t' type-id='type-id-67' filepath='../.././gcc/pretty-print.h' line='52' column='1' id='type-id-68'/>
     <!-- struct chunk_info -->
     <class-decl name='chunk_info' size-in-bits='3904' is-struct='yes' visibility='default' filepath='../.././gcc/pretty-print.h' line='59' column='1' id='type-id-69'>
@@ -1290,7 +1290,7 @@
       </data-member>
     </class-decl>
     <!-- struct {obstack formatted_obstack; obstack chunk_obstack; obstack* obstack; chunk_info* cur_chunk_array; FILE* stream; int line_length; char digit_buffer[128];} -->
-    <class-decl name='__anonymous_struct__' size-in-bits='2688' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-71' visibility='default' filepath='../.././gcc/pretty-print.h' line='76' column='1' id='type-id-72'>
+    <class-decl name='__anonymous__' size-in-bits='2688' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-71' visibility='default' filepath='../.././gcc/pretty-print.h' line='76' column='1' id='type-id-72'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- obstack formatted_obstack -->
         <var-decl name='formatted_obstack' type-id='type-id-73' visibility='default' filepath='../.././gcc/pretty-print.h' line='78' column='1'/>
@@ -1320,19 +1320,19 @@
         <var-decl name='digit_buffer' type-id='type-id-3' visibility='default' filepath='../.././gcc/pretty-print.h' line='99' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__ output_buffer -->
+    <!-- typedef __anonymous__ output_buffer -->
     <typedef-decl name='output_buffer' type-id='type-id-72' filepath='../.././gcc/pretty-print.h' line='100' column='1' id='type-id-71'/>
-    <!-- enum __anonymous_enum__ -->
-    <enum-decl name='__anonymous_enum__' is-anonymous='yes' linkage-name='10pp_padding' filepath='../.././gcc/pretty-print.h' line='106' column='1' id='type-id-76'>
+    <!-- enum __anonymous__ -->
+    <enum-decl name='__anonymous__' is-anonymous='yes' linkage-name='10pp_padding' filepath='../.././gcc/pretty-print.h' line='106' column='1' id='type-id-76'>
       <underlying-type type-id='type-id-26'/>
       <enumerator name='pp_none' value='0'/>
       <enumerator name='pp_before' value='1'/>
       <enumerator name='pp_after' value='2'/>
     </enum-decl>
-    <!-- typedef __anonymous_enum__ pp_padding -->
+    <!-- typedef __anonymous__ pp_padding -->
     <typedef-decl name='pp_padding' type-id='type-id-76' filepath='../.././gcc/pretty-print.h' line='108' column='1' id='type-id-77'/>
     <!-- struct {diagnostic_prefixing_rule_t rule; int line_cutoff;} -->
-    <class-decl name='__anonymous_struct__1' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-78' visibility='default' filepath='../.././gcc/pretty-print.h' line='113' column='1' id='type-id-79'>
+    <class-decl name='__anonymous__1' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-78' visibility='default' filepath='../.././gcc/pretty-print.h' line='113' column='1' id='type-id-79'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- diagnostic_prefixing_rule_t rule -->
         <var-decl name='rule' type-id='type-id-68' visibility='default' filepath='../.././gcc/pretty-print.h' line='115' column='1'/>
@@ -1342,7 +1342,7 @@
         <var-decl name='line_cutoff' type-id='type-id-18' visibility='default' filepath='../.././gcc/pretty-print.h' line='119' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__1 pp_wrapping_mode_t -->
+    <!-- typedef __anonymous__1 pp_wrapping_mode_t -->
     <typedef-decl name='pp_wrapping_mode_t' type-id='type-id-79' filepath='../.././gcc/pretty-print.h' line='120' column='1' id='type-id-78'/>
     <!-- typedef pretty_print_info pretty_printer -->
     <typedef-decl name='pretty_printer' type-id='type-id-80' filepath='../.././gcc/pretty-print.h' line='135' column='1' id='type-id-81'/>
@@ -2636,7 +2636,7 @@
       </data-member>
     </class-decl>
     <!-- struct {const char* file; int line; int column; bool sysp;} -->
-    <class-decl name='__anonymous_struct__1' size-in-bits='192' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-156' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='588' column='1' id='type-id-157'>
+    <class-decl name='__anonymous__1' size-in-bits='192' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-156' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='588' column='1' id='type-id-157'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const char* file -->
         <var-decl name='file' type-id='type-id-15' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='590' column='1'/>
@@ -2654,7 +2654,7 @@
         <var-decl name='sysp' type-id='type-id-1' visibility='default' filepath='../.././gcc/../libcpp/include/line-map.h' line='598' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__1 expanded_location -->
+    <!-- typedef __anonymous__1 expanded_location -->
     <typedef-decl name='expanded_location' type-id='type-id-157' filepath='../.././gcc/../libcpp/include/line-map.h' line='599' column='1' id='type-id-156'/>
     <!-- enum location_resolution_kind -->
     <enum-decl name='location_resolution_kind' filepath='../.././gcc/../libcpp/include/line-map.h' line='604' column='1' id='type-id-158'>
@@ -7025,7 +7025,7 @@
     <class-decl name='cpp_options' size-in-bits='1024' is-struct='yes' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='290' column='1' id='type-id-234'>
       <member-type access='public'>
         <!-- struct {cpp_deps_style style; bool missing_files; bool phony_targets; bool ignore_main_file; bool need_preprocessor_output;} -->
-        <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='451' column='1' id='type-id-316'>
+        <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='451' column='1' id='type-id-316'>
           <data-member access='public' layout-offset-in-bits='0'>
             <!-- cpp_deps_style style -->
             <var-decl name='style' type-id='type-id-315' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='453' column='1'/>
@@ -7394,7 +7394,7 @@
       </data-member>
     </class-decl>
     <!-- struct {char* comment; source_location sloc;} -->
-    <class-decl name='__anonymous_struct__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-334' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='961' column='1' id='type-id-335'>
+    <class-decl name='__anonymous__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-334' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='961' column='1' id='type-id-335'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- char* comment -->
         <var-decl name='comment' type-id='type-id-33' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='963' column='1'/>
@@ -7404,10 +7404,10 @@
         <var-decl name='sloc' type-id='type-id-37' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='966' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__2 cpp_comment -->
+    <!-- typedef __anonymous__2 cpp_comment -->
     <typedef-decl name='cpp_comment' type-id='type-id-335' filepath='../.././libcpp/include/cpplib.h' line='967' column='1' id='type-id-334'/>
     <!-- struct {cpp_comment* entries; int count; int allocated;} -->
-    <class-decl name='__anonymous_struct__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-284' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='972' column='1' id='type-id-336'>
+    <class-decl name='__anonymous__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-284' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='972' column='1' id='type-id-336'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- cpp_comment* entries -->
         <var-decl name='entries' type-id='type-id-337' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='974' column='1'/>
@@ -7421,7 +7421,7 @@
         <var-decl name='allocated' type-id='type-id-18' visibility='default' filepath='../.././libcpp/include/cpplib.h' line='980' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__1 cpp_comment_table -->
+    <!-- typedef __anonymous__1 cpp_comment_table -->
     <typedef-decl name='cpp_comment_table' type-id='type-id-336' filepath='../.././libcpp/include/cpplib.h' line='981' column='1' id='type-id-284'/>
     <!-- typedef ht hash_table -->
     <typedef-decl name='hash_table' type-id='type-id-338' filepath='../.././libcpp/include/symtab.h' line='41' column='1' id='type-id-339'/>
@@ -7541,7 +7541,7 @@
       </data-member>
     </class-decl>
     <!-- struct {cpp_hashnode* macro_node; source_location* virt_locs; source_location* cur_virt_loc;} -->
-    <class-decl name='__anonymous_struct__' size-in-bits='192' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-353' visibility='default' filepath='../.././libcpp/internal.h' line='146' column='1' id='type-id-354'>
+    <class-decl name='__anonymous__' size-in-bits='192' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-353' visibility='default' filepath='../.././libcpp/internal.h' line='146' column='1' id='type-id-354'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- cpp_hashnode* macro_node -->
         <var-decl name='macro_node' type-id='type-id-40' visibility='default' filepath='../.././libcpp/internal.h' line='148' column='1'/>
@@ -7555,7 +7555,7 @@
         <var-decl name='cur_virt_loc' type-id='type-id-41' visibility='default' filepath='../.././libcpp/internal.h' line='157' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __anonymous_struct__ macro_context -->
+    <!-- typedef __anonymous__ macro_context -->
     <typedef-decl name='macro_context' type-id='type-id-354' filepath='../.././libcpp/internal.h' line='158' column='1' id='type-id-353'/>
     <!-- enum context_tokens_kind -->
     <enum-decl name='context_tokens_kind' filepath='../.././libcpp/internal.h' line='161' column='1' id='type-id-355'>
@@ -7568,10 +7568,10 @@
     <class-decl name='cpp_context' size-in-bits='448' is-struct='yes' visibility='default' filepath='../.././libcpp/internal.h' line='177' column='1' id='type-id-280'>
       <member-type access='public'>
         <!-- union {struct {utoken first; utoken last;} iso; struct {const unsigned char* cur; const unsigned char* rlimit;} trad;} -->
-        <union-decl name='__anonymous_union__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='183' column='1' id='type-id-356'>
+        <union-decl name='__anonymous__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='183' column='1' id='type-id-356'>
           <member-type access='public'>
             <!-- struct {utoken first; utoken last;} -->
-            <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='188' column='1' id='type-id-357'>
+            <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='188' column='1' id='type-id-357'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- utoken first -->
                 <var-decl name='first' type-id='type-id-349' visibility='default' filepath='../.././libcpp/internal.h' line='189' column='1'/>
@@ -7584,7 +7584,7 @@
           </member-type>
           <member-type access='public'>
             <!-- struct {const unsigned char* cur; const unsigned char* rlimit;} -->
-            <class-decl name='__anonymous_struct__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='195' column='1' id='type-id-358'>
+            <class-decl name='__anonymous__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='195' column='1' id='type-id-358'>
               <data-member access='public' layout-offset-in-bits='0'>
                 <!-- const unsigned char* cur -->
                 <var-decl name='cur' type-id='type-id-248' visibility='default' filepath='../.././libcpp/internal.h' line='196' column='1'/>
@@ -7607,7 +7607,7 @@
       </member-type>
       <member-type access='public'>
         <!-- union {macro_context* mc; cpp_hashnode* macro;} -->
-        <union-decl name='__anonymous_union__1' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='216' column='1' id='type-id-359'>
+        <union-decl name='__anonymous__1' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='216' column='1' id='type-id-359'>
           <data-member access='public'>
             <!-- macro_context* mc -->
             <var-decl name='mc' type-id='type-id-360' visibility='default' filepath='../.././libcpp/internal.h' line='217' column='1'/>
@@ -7852,7 +7852,7 @@
     <class-decl name='cpp_reader' size-in-bits='10560' is-struct='yes' visibility='default' filepath='../.././libcpp/internal.h' line='380' column='1' id='type-id-309'>
       <member-type access='public'>
         <!-- struct {unsigned char* base; unsigned char* limit; unsigned char* cur; source_location first_line;} -->
-        <class-decl name='__anonymous_struct__' size-in-bits='256' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='528' column='1' id='type-id-369'>
+        <class-decl name='__anonymous__' size-in-bits='256' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libcpp/internal.h' line='528' column='1' id='type-id-369'>
           <data-member access='public' layout-offset-in-bits='0'>
             <!-- unsigned char* base -->
             <var-decl name='base' type-id='type-id-269' visibility='default' filepath='../.././libcpp/internal.h' line='529' column='1'/>
@@ -9450,7 +9450,7 @@
       </data-member>
     </class-decl>
     <!-- union {struct {const char* s; int len;} s_name; struct {const demangle_operator_info* op;} s_operator; struct {int args; demangle_component* name;} s_extended_operator; struct {demangle_component* length; short int accum; short int sat;} s_fixed; struct {gnu_v3_ctor_kinds kind; demangle_component* name;} s_ctor; struct {gnu_v3_dtor_kinds kind; demangle_component* name;} s_dtor; struct {const demangle_builtin_type_info* type;} s_builtin; struct {const char* string; int len;} s_string; struct {long int number;} s_number; struct {int character;} s_character; struct {demangle_component* left; demangle_component* right;} s_binary; struct {demangle_component* sub; int num;} s_unary_num;} -->
-    <union-decl name='__anonymous_union__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='439' column='1' id='type-id-438'>
+    <union-decl name='__anonymous__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='439' column='1' id='type-id-438'>
       <data-member access='public'>
         <!-- struct {const char* s; int len;} s_name -->
         <var-decl name='s_name' type-id='type-id-439' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='448' column='1'/>
@@ -9501,7 +9501,7 @@
       </data-member>
     </union-decl>
     <!-- struct {const char* s; int len;} -->
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='442' column='1' id='type-id-439'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='442' column='1' id='type-id-439'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const char* s -->
         <var-decl name='s' type-id='type-id-15' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='446' column='1'/>
@@ -9512,14 +9512,14 @@
       </data-member>
     </class-decl>
     <!-- struct {const demangle_operator_info* op;} -->
-    <class-decl name='__anonymous_struct__1' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='451' column='1' id='type-id-440'>
+    <class-decl name='__anonymous__1' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='451' column='1' id='type-id-440'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const demangle_operator_info* op -->
         <var-decl name='op' type-id='type-id-451' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='454' column='1'/>
       </data-member>
     </class-decl>
     <!-- struct {int args; demangle_component* name;} -->
-    <class-decl name='__anonymous_struct__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='458' column='1' id='type-id-441'>
+    <class-decl name='__anonymous__2' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='458' column='1' id='type-id-441'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int args -->
         <var-decl name='args' type-id='type-id-18' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='461' column='1'/>
@@ -9530,7 +9530,7 @@
       </data-member>
     </class-decl>
     <!-- struct {demangle_component* length; short int accum; short int sat;} -->
-    <class-decl name='__anonymous_struct__3' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='467' column='1' id='type-id-442'>
+    <class-decl name='__anonymous__3' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='467' column='1' id='type-id-442'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- demangle_component* length -->
         <var-decl name='length' type-id='type-id-452' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='470' column='1'/>
@@ -9545,7 +9545,7 @@
       </data-member>
     </class-decl>
     <!-- struct {gnu_v3_ctor_kinds kind; demangle_component* name;} -->
-    <class-decl name='__anonymous_struct__4' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='478' column='1' id='type-id-443'>
+    <class-decl name='__anonymous__4' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='478' column='1' id='type-id-443'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- gnu_v3_ctor_kinds kind -->
         <var-decl name='kind' type-id='type-id-434' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='481' column='1'/>
@@ -9556,7 +9556,7 @@
       </data-member>
     </class-decl>
     <!-- struct {gnu_v3_dtor_kinds kind; demangle_component* name;} -->
-    <class-decl name='__anonymous_struct__5' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='487' column='1' id='type-id-444'>
+    <class-decl name='__anonymous__5' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='487' column='1' id='type-id-444'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- gnu_v3_dtor_kinds kind -->
         <var-decl name='kind' type-id='type-id-435' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='490' column='1'/>
@@ -9567,14 +9567,14 @@
       </data-member>
     </class-decl>
     <!-- struct {const demangle_builtin_type_info* type;} -->
-    <class-decl name='__anonymous_struct__6' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='496' column='1' id='type-id-445'>
+    <class-decl name='__anonymous__6' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='496' column='1' id='type-id-445'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const demangle_builtin_type_info* type -->
         <var-decl name='type' type-id='type-id-453' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='499' column='1'/>
       </data-member>
     </class-decl>
     <!-- struct {const char* string; int len;} -->
-    <class-decl name='__anonymous_struct__7' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='503' column='1' id='type-id-446'>
+    <class-decl name='__anonymous__7' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='503' column='1' id='type-id-446'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- const char* string -->
         <var-decl name='string' type-id='type-id-15' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='506' column='1'/>
@@ -9585,21 +9585,21 @@
       </data-member>
     </class-decl>
     <!-- struct {long int number;} -->
-    <class-decl name='__anonymous_struct__8' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='512' column='1' id='type-id-447'>
+    <class-decl name='__anonymous__8' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='512' column='1' id='type-id-447'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- long int number -->
         <var-decl name='number' type-id='type-id-21' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='515' column='1'/>
       </data-member>
     </class-decl>
     <!-- struct {int character;} -->
-    <class-decl name='__anonymous_struct__9' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='519' column='1' id='type-id-448'>
+    <class-decl name='__anonymous__9' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='519' column='1' id='type-id-448'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- int character -->
         <var-decl name='character' type-id='type-id-18' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='521' column='1'/>
       </data-member>
     </class-decl>
     <!-- struct {demangle_component* left; demangle_component* right;} -->
-    <class-decl name='__anonymous_struct__10' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='525' column='1' id='type-id-449'>
+    <class-decl name='__anonymous__10' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='525' column='1' id='type-id-449'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- demangle_component* left -->
         <var-decl name='left' type-id='type-id-452' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='528' column='1'/>
@@ -9610,7 +9610,7 @@
       </data-member>
     </class-decl>
     <!-- struct {demangle_component* sub; int num;} -->
-    <class-decl name='__anonymous_struct__11' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='533' column='1' id='type-id-450'>
+    <class-decl name='__anonymous__11' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='533' column='1' id='type-id-450'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- demangle_component* sub -->
         <var-decl name='sub' type-id='type-id-452' visibility='default' filepath='../.././libiberty/../include/demangle.h' line='536' column='1'/>
@@ -10859,7 +10859,7 @@
       </data-member>
     </union-decl>
     <!-- struct {unsigned int __w_termsig; unsigned int __w_coredump; unsigned int __w_retcode;} -->
-    <class-decl name='__anonymous_struct__' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='70' column='1' id='type-id-501'>
+    <class-decl name='__anonymous__' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='70' column='1' id='type-id-501'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- unsigned int __w_termsig -->
         <var-decl name='__w_termsig' type-id='type-id-13' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='73' column='1'/>
@@ -10874,7 +10874,7 @@
       </data-member>
     </class-decl>
     <!-- struct {unsigned int __w_stopval; unsigned int __w_stopsig;} -->
-    <class-decl name='__anonymous_struct__1' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='85' column='1' id='type-id-502'>
+    <class-decl name='__anonymous__1' size-in-bits='32' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='85' column='1' id='type-id-502'>
       <data-member access='public' layout-offset-in-bits='0'>
         <!-- unsigned int __w_stopval -->
         <var-decl name='__w_stopval' type-id='type-id-13' visibility='default' filepath='/usr/include/bits/waitstatus.h' line='88' column='1'/>
@@ -10885,7 +10885,7 @@
       </data-member>
     </class-decl>
     <!-- union {wait* __uptr; int* __iptr;} -->
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/stdlib.h' line='68' column='1' id='type-id-503'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/stdlib.h' line='68' column='1' id='type-id-503'>
       <data-member access='public'>
         <!-- wait* __uptr -->
         <var-decl name='__uptr' type-id='type-id-504' visibility='default' filepath='/usr/include/stdlib.h' line='70' column='1'/>
@@ -10895,7 +10895,7 @@
         <var-decl name='__iptr' type-id='type-id-58' visibility='default' filepath='/usr/include/stdlib.h' line='71' column='1'/>
       </data-member>
     </union-decl>
-    <!-- typedef __anonymous_union__ __WAIT_STATUS -->
+    <!-- typedef __anonymous__ __WAIT_STATUS -->
     <typedef-decl name='__WAIT_STATUS' type-id='type-id-503' filepath='/usr/include/stdlib.h' line='72' column='1' id='type-id-505'/>
     <!-- rusage* -->
     <pointer-type-def type-id='type-id-497' size-in-bits='64' id='type-id-506'/>

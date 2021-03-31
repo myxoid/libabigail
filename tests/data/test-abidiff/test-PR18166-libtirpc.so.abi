@@ -334,7 +334,7 @@
         <var-decl name='c' type-id='type-id-17' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth.h' line='164' column='1'/>
       </data-member>
     </union-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth.h' line='160' column='1' id='type-id-16'>
+    <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth.h' line='160' column='1' id='type-id-16'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='high' type-id='type-id-18' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth.h' line='161' column='1'/>
       </data-member>
@@ -472,7 +472,7 @@
       <parameter type-id='type-id-54'/>
       <return type-id='type-id-27'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='320' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='76' column='1' id='type-id-75'>
+    <union-decl name='__anonymous__' size-in-bits='320' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='76' column='1' id='type-id-75'>
       <data-member access='private'>
         <var-decl name='__data' type-id='type-id-76' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='101' column='1'/>
       </data-member>
@@ -753,7 +753,7 @@
         <var-decl name='ru' type-id='type-id-104' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='83' column='1'/>
       </data-member>
     </class-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='72' column='1' id='type-id-104'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='72' column='1' id='type-id-104'>
       <data-member access='private'>
         <var-decl name='RE_errno' type-id='type-id-6' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='73' column='1'/>
       </data-member>
@@ -780,7 +780,7 @@
       <enumerator name='RPCSEC_GSS_CREDPROBLEM' value='13'/>
       <enumerator name='RPCSEC_GSS_CTXPROBLEM' value='14'/>
     </enum-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='75' column='1' id='type-id-106'>
+    <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='75' column='1' id='type-id-106'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='low' type-id='type-id-108' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='76' column='1'/>
       </data-member>
@@ -789,7 +789,7 @@
       </data-member>
     </class-decl>
     <typedef-decl name='rpcvers_t' type-id='type-id-18' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/types.h' line='47' column='1' id='type-id-108'/>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='79' column='1' id='type-id-107'>
+    <class-decl name='__anonymous__' size-in-bits='64' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='79' column='1' id='type-id-107'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='s1' type-id='type-id-10' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/clnt.h' line='80' column='1'/>
       </data-member>
@@ -906,7 +906,7 @@
       <parameter type-id='type-id-129' name='sin' filepath='/home/max/src/v6/libtirpc/src/bindresvport.c' line='59' column='1'/>
       <return type-id='type-id-6'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='96' column='1' id='type-id-130'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='96' column='1' id='type-id-130'>
       <data-member access='private'>
         <var-decl name='__sockaddr__' type-id='type-id-131' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='96' column='1'/>
       </data-member>
@@ -985,7 +985,7 @@
         <var-decl name='__in6_u' type-id='type-id-156' visibility='default' filepath='/usr/include/netinet/in.h' line='207' column='1'/>
       </data-member>
     </class-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/usr/include/netinet/in.h' line='200' column='1' id='type-id-156'>
+    <union-decl name='__anonymous__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/usr/include/netinet/in.h' line='200' column='1' id='type-id-156'>
       <data-member access='private'>
         <var-decl name='__u6_addr8' type-id='type-id-157' visibility='default' filepath='/usr/include/netinet/in.h' line='202' column='1'/>
       </data-member>
@@ -1049,7 +1049,7 @@
     <function-decl name='getpid' filepath='/usr/include/unistd.h' line='629' column='1' visibility='default' binding='global' size-in-bits='64'>
       <return type-id='type-id-181'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='92' column='1' id='type-id-182'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='92' column='1' id='type-id-182'>
       <data-member access='private'>
         <var-decl name='__sockaddr__' type-id='type-id-120' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/socket.h' line='92' column='1'/>
       </data-member>
@@ -1111,7 +1111,7 @@
     </function-decl>
   </abi-instr>
   <abi-instr version='1.0' address-size='64' path='/home/max/src/v6/libtirpc/src/clnt_bcast.c' comp-dir-path='/home/max/build/libtirpc/src' language='LANG_C89'>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-196' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='112' column='1' id='type-id-197'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-196' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='112' column='1' id='type-id-197'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='tqh_first' type-id='type-id-198' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='112' column='1'/>
       </data-member>
@@ -1144,7 +1144,7 @@
     <array-type-def dimensions='1' type-id='type-id-11' size-in-bits='896' id='type-id-203'>
       <subrange length='112' type-id='type-id-19' id='type-id-204'/>
     </array-type-def>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='109' column='1' id='type-id-202'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='109' column='1' id='type-id-202'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='tqe_next' type-id='type-id-198' visibility='default' filepath='/home/max/src/v6/libtirpc/src/clnt_bcast.c' line='109' column='1'/>
       </data-member>
@@ -1292,7 +1292,7 @@
       <enumerator name='CALL' value='0'/>
       <enumerator name='REPLY' value='1'/>
     </enum-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='512' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='154' column='1' id='type-id-226'>
+    <union-decl name='__anonymous__' size-in-bits='512' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='154' column='1' id='type-id-226'>
       <data-member access='private'>
         <var-decl name='RM_cmb' type-id='type-id-227' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='155' column='1'/>
       </data-member>
@@ -1333,7 +1333,7 @@
       <enumerator name='MSG_ACCEPTED' value='0'/>
       <enumerator name='MSG_DENIED' value='1'/>
     </enum-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='384' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='128' column='1' id='type-id-230'>
+    <union-decl name='__anonymous__' size-in-bits='384' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='128' column='1' id='type-id-230'>
       <data-member access='private'>
         <var-decl name='RP_ar' type-id='type-id-231' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='129' column='1'/>
       </data-member>
@@ -1361,7 +1361,7 @@
       <enumerator name='GARBAGE_ARGS' value='4'/>
       <enumerator name='SYSTEM_ERR' value='5'/>
     </enum-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='92' column='1' id='type-id-234'>
+    <union-decl name='__anonymous__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='92' column='1' id='type-id-234'>
       <data-member access='private'>
         <var-decl name='AR_versions' type-id='type-id-106' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='96' column='1'/>
       </data-member>
@@ -1369,7 +1369,7 @@
         <var-decl name='AR_results' type-id='type-id-235' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='100' column='1'/>
       </data-member>
     </union-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='97' column='1' id='type-id-235'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='97' column='1' id='type-id-235'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='where' type-id='type-id-8' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='98' column='1'/>
       </data-member>
@@ -1390,7 +1390,7 @@
       <enumerator name='RPC_MISMATCH' value='0'/>
       <enumerator name='AUTH_ERROR' value='1'/>
     </enum-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='112' column='1' id='type-id-237'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='112' column='1' id='type-id-237'>
       <data-member access='private'>
         <var-decl name='RJ_versions' type-id='type-id-106' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpc_msg.h' line='116' column='1'/>
       </data-member>
@@ -1485,7 +1485,7 @@
       </data-member>
     </class-decl>
     <pointer-type-def type-id='type-id-261' size-in-bits='64' id='type-id-262'/>
-    <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/ifaddrs.h' line='39' column='1' id='type-id-263'>
+    <union-decl name='__anonymous__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/usr/include/ifaddrs.h' line='39' column='1' id='type-id-263'>
       <data-member access='private'>
         <var-decl name='ifu_broadaddr' type-id='type-id-120' visibility='default' filepath='/usr/include/ifaddrs.h' line='45' column='1'/>
       </data-member>
@@ -1727,7 +1727,7 @@
         <var-decl name='args' type-id='type-id-286' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='225' column='1'/>
       </data-member>
     </class-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='222' column='1' id='type-id-286'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='222' column='1' id='type-id-286'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='args_len' type-id='type-id-9' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='223' column='1'/>
       </data-member>
@@ -1869,7 +1869,7 @@
       <parameter type-id='type-id-9' name='recvsz' filepath='/home/max/src/v6/libtirpc/src/clnt_dg.c' line='148' column='1'/>
       <return type-id='type-id-307'/>
     </function-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='1024' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-310' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/sigset.h' line='29' column='1' id='type-id-311'>
+    <class-decl name='__anonymous__' size-in-bits='1024' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-310' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/sigset.h' line='29' column='1' id='type-id-311'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__val' type-id='type-id-312' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/sigset.h' line='31' column='1'/>
       </data-member>
@@ -1893,7 +1893,7 @@
       <parameter type-id='type-id-317'/>
       <return type-id='type-id-6'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='384' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='115' column='1' id='type-id-318'>
+    <union-decl name='__anonymous__' size-in-bits='384' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='115' column='1' id='type-id-318'>
       <data-member access='private'>
         <var-decl name='__data' type-id='type-id-319' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='127' column='1'/>
       </data-member>
@@ -1904,7 +1904,7 @@
         <var-decl name='__align' type-id='type-id-321' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='129' column='1'/>
       </data-member>
     </union-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='384' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='117' column='1' id='type-id-319'>
+    <class-decl name='__anonymous__' size-in-bits='384' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='117' column='1' id='type-id-319'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__lock' type-id='type-id-6' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='119' column='1'/>
       </data-member>
@@ -2002,7 +2002,7 @@
       <parameter type-id='type-id-302'/>
       <return type-id='type-id-27'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='132' column='1' id='type-id-330'>
+    <union-decl name='__anonymous__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='132' column='1' id='type-id-330'>
       <data-member access='private'>
         <var-decl name='__size' type-id='type-id-331' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='134' column='1'/>
       </data-member>
@@ -2676,7 +2676,7 @@
     <function-decl name='tsd_key_delete' mangled-name='tsd_key_delete' filepath='/home/max/src/v6/libtirpc/src/mt_misc.c' line='132' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='tsd_key_delete'>
       <return type-id='type-id-27'/>
     </function-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='448' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='150' column='1' id='type-id-366'>
+    <union-decl name='__anonymous__' size-in-bits='448' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='150' column='1' id='type-id-366'>
       <data-member access='private'>
         <var-decl name='__data' type-id='type-id-367' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='168' column='1'/>
       </data-member>
@@ -2687,7 +2687,7 @@
         <var-decl name='__align' type-id='type-id-46' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='188' column='1'/>
       </data-member>
     </union-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='448' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='153' column='1' id='type-id-367'>
+    <class-decl name='__anonymous__' size-in-bits='448' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='153' column='1' id='type-id-367'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='__lock' type-id='type-id-6' visibility='default' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='155' column='1'/>
       </data-member>
@@ -2989,7 +2989,7 @@
   <abi-instr version='1.0' address-size='64' path='/home/max/src/v6/libtirpc/src/rpc_commondata.c' comp-dir-path='/home/max/build/libtirpc/src' language='LANG_C89'>
     <var-decl name='_null_auth' type-id='type-id-2' mangled-name='_null_auth' visibility='default' filepath='/home/max/src/v6/libtirpc/src/rpc_commondata.c' line='36' column='1' elf-symbol-id='_null_auth'/>
     <var-decl name='svc_maxfd' type-id='type-id-6' mangled-name='svc_maxfd' visibility='default' filepath='/home/max/src/v6/libtirpc/src/rpc_commondata.c' line='38' column='1' elf-symbol-id='svc_maxfd'/>
-    <class-decl name='__anonymous_struct__' size-in-bits='1024' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-388' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/select.h' line='65' column='1' id='type-id-389'>
+    <class-decl name='__anonymous__' size-in-bits='1024' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-388' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/select.h' line='65' column='1' id='type-id-389'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='fds_bits' type-id='type-id-390' visibility='default' filepath='/usr/include/x86_64-linux-gnu/sys/select.h' line='70' column='1'/>
       </data-member>
@@ -3543,7 +3543,7 @@
         <var-decl name='results' type-id='type-id-437' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='269' column='1'/>
       </data-member>
     </class-decl>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='266' column='1' id='type-id-437'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='266' column='1' id='type-id-437'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='results_len' type-id='type-id-9' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/rpcb_prot.h' line='267' column='1'/>
       </data-member>
@@ -4061,7 +4061,7 @@
       </data-member>
     </class-decl>
     <typedef-decl name='nis_name' type-id='type-id-12' filepath='/usr/include/rpcsvc/nis.h' line='87' column='1' id='type-id-472'/>
-    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/rpcsvc/nis.h' line='137' column='1' id='type-id-473'>
+    <class-decl name='__anonymous__' size-in-bits='128' is-struct='yes' is-anonymous='yes' visibility='default' filepath='/usr/include/rpcsvc/nis.h' line='137' column='1' id='type-id-473'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='ep_len' type-id='type-id-9' visibility='default' filepath='/usr/include/rpcsvc/nis.h' line='138' column='1'/>
       </data-member>
@@ -4206,7 +4206,7 @@
         <var-decl name='adv_int_u' type-id='type-id-18' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth_des.h' line='88' column='1'/>
       </data-member>
     </class-decl>
-    <union-decl name='__anonymous_union__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth_des.h' line='83' column='1' id='type-id-490'>
+    <union-decl name='__anonymous__' size-in-bits='128' is-anonymous='yes' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth_des.h' line='83' column='1' id='type-id-490'>
       <data-member access='private'>
         <var-decl name='adv_ctime' type-id='type-id-95' visibility='default' filepath='/home/max/src/v6/libtirpc/tirpc/rpc/auth_des.h' line='84' column='1'/>
       </data-member>

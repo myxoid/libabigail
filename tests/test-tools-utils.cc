@@ -26,47 +26,37 @@ main(int, char**)
 
   ABG_ASSERT(decl_names_equal("foo", "bar") == false);
 
-  ABG_ASSERT(decl_names_equal("__anonymous_struct__1::foo",
-			      "__anonymous_struct__2::foo") == true);
+  ABG_ASSERT(decl_names_equal("__anonymous__1::foo",
+			      "__anonymous__2::foo") == true);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_struct__1::foo::__anonymous_struct__2::bar",
-	      "__anonymous_struct__10::foo::__anonymous_struct__11::bar")
+	     ("__anonymous__1::foo::__anonymous__2::bar",
+	      "__anonymous__10::foo::__anonymous__11::bar")
 	     == true);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_union__1::foo::__anonymous_union__2::bar",
-	      "__anonymous_union__10::foo::__anonymous_union__11::bar")
+	     ("__anonymous__1::foo::__anonymous__2::bar",
+	      "__anonymous__10::foo::__anonymous__11::bar")
 	     == true);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_enum__1::foo::__anonymous_enum__2::bar",
-	      "__anonymous_enum__10::foo::__anonymous_enum__11::bar")
+	     ("__anonymous__1::foo::__anonymous__2::bar",
+	      "__anonymous__10::foo::__anonymous__11::bar")
 	     == true);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_struct__1::bar::__anonymous_struct__2::baz",
-	      "__anonymous_struct__10::foo::__anonymous_struct__11::bar")
+	     ("__anonymous__1::bar::__anonymous__2::baz",
+	      "__anonymous__10::foo::__anonymous__11::bar")
 	     == false);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_struct__1::foo::__anonymous_struct__2::baz",
-	      "__anonymous_struct__10::foo::__anonymous_struct__11::bar")
+	     ("__anonymous__1::foo::__anonymous__2::baz",
+	      "__anonymous__10::foo::__anonymous__11::bar")
 	     == false);
 
   ABG_ASSERT(decl_names_equal
-	     ("__anonymous_struct__1::foo::__anonymous_struct__2::bar",
-	      "__anonymous_struct__10::foo::__anonymous_union__11::bar")
-	     == false);
-
-  ABG_ASSERT(decl_names_equal
-	     ("__anonymous_struct__1::foo::__anonymous_struct__2::bar",
-	      "__anonymous_struct__10::foo::__anonymous_enum__11::bar")
-	     == false);
-
-  ABG_ASSERT(decl_names_equal
-	     ("OT::Extension<OT::ExtensionSubst>::__anonymous_union__",
-	      "OT::Extension<OT::ExtensionSubst>::__anonymous_union__")
+	     ("OT::Extension<OT::ExtensionSubst>::__anonymous__",
+	      "OT::Extension<OT::ExtensionSubst>::__anonymous__")
 	     == true);
 
   ABG_ASSERT(decl_names_equal("S0::m2", "S0::m12") == false);
@@ -74,12 +64,12 @@ main(int, char**)
   ABG_ASSERT(!decl_names_equal("S0::S1", "S0"));
   ABG_ASSERT(!decl_names_equal("S0", "S0::S1"));
   ABG_ASSERT(!decl_names_equal("S1::S0", "S0::S1"));
-  ABG_ASSERT(!decl_names_equal("__anonymous_struct__::S0", "__anonymous_struct__"));
-  ABG_ASSERT(!decl_names_equal("__anonymous_struct__", "__anonymous_struct__::S1"));
-  ABG_ASSERT(!decl_names_equal("__anonymous_struct__::S0", "__anonymous_struct__::S1"));
-  ABG_ASSERT(!decl_names_equal("S0::__anonymous_struct__", "__anonymous_struct__"));
-  ABG_ASSERT(!decl_names_equal("__anonymous_struct__", "S1::__anonymous_struct__"));
-  ABG_ASSERT(!decl_names_equal("S0::__anonymous_struct__", "S1::__anonymous_struct__"));
+  ABG_ASSERT(!decl_names_equal("__anonymous__::S0", "__anonymous__"));
+  ABG_ASSERT(!decl_names_equal("__anonymous__", "__anonymous__::S1"));
+  ABG_ASSERT(!decl_names_equal("__anonymous__::S0", "__anonymous__::S1"));
+  ABG_ASSERT(!decl_names_equal("S0::__anonymous__", "__anonymous__"));
+  ABG_ASSERT(!decl_names_equal("__anonymous__", "S1::__anonymous__"));
+  ABG_ASSERT(!decl_names_equal("S0::__anonymous__", "S1::__anonymous__"));
 
   return 0;
 }

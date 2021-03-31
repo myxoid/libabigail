@@ -2076,7 +2076,7 @@
     <class-decl name='__mbstate_t' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1' id='type-id-70'>
       <member-type access='public'>
         <!-- union {unsigned int __wch; char __wchb[4];} -->
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='87' column='1' id='type-id-96'>
+        <union-decl name='__anonymous__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='87' column='1' id='type-id-96'>
           <data-member access='public'>
             <!-- unsigned int __wch -->
             <var-decl name='__wch' type-id='type-id-13' visibility='default' filepath='/usr/include/wchar.h' line='89' column='1'/>
@@ -2907,8 +2907,8 @@
     <!-- class vtkTextureObject -->
     <class-decl name='vtkTextureObject' visibility='default' is-declaration-only='yes' id='type-id-293'>
       <member-type access='private'>
-        <!-- enum vtkTextureObject::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkTextureObject.h' line='65' column='1' id='type-id-294'>
+        <!-- enum vtkTextureObject::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkTextureObject.h' line='65' column='1' id='type-id-294'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='Clamp' value='0'/>
           <enumerator name='ClampToEdge' value='1'/>
@@ -2919,8 +2919,8 @@
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <!-- enum vtkTextureObject::__anonymous_enum__1 -->
-        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkTextureObject.h' line='76' column='1' id='type-id-295'>
+        <!-- enum vtkTextureObject::__anonymous__1 -->
+        <enum-decl name='__anonymous__1' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkTextureObject.h' line='76' column='1' id='type-id-295'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='Nearest' value='0'/>
           <enumerator name='Linear' value='1'/>
@@ -3302,8 +3302,8 @@
           </class-decl>
         </member-type>
         <member-type access='protected'>
-          <!-- enum std::_Deque_base<vtkPixelExtent, std::allocator<vtkPixelExtent> >::__anonymous_enum__ -->
-          <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h' line='465' column='1' id='type-id-308'>
+          <!-- enum std::_Deque_base<vtkPixelExtent, std::allocator<vtkPixelExtent> >::__anonymous__ -->
+          <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h' line='465' column='1' id='type-id-308'>
             <underlying-type type-id='type-id-24'/>
             <enumerator name='_S_initial_map_size' value='8'/>
           </enum-decl>
@@ -7136,8 +7136,8 @@
       <!-- class vtkObject -->
       <base-class access='public' layout-offset-in-bits='0' type-id='type-id-291'/>
       <member-type access='private'>
-        <!-- enum vtkLineIntegralConvolution2D::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkLineIntegralConvolution2D.h' line='149' column='1' id='type-id-487'>
+        <!-- enum vtkLineIntegralConvolution2D::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkLineIntegralConvolution2D.h' line='149' column='1' id='type-id-487'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='ENHANCE_CONTRAST_OFF' value='0'/>
           <enumerator name='ENHANCE_CONTRAST_ON' value='1'/>
@@ -10266,8 +10266,8 @@
         </class-decl>
       </member-type>
       <member-type access='private'>
-        <!-- enum vtkSurfaceLICPainter::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.h' line='210' column='1' id='type-id-587'>
+        <!-- enum vtkSurfaceLICPainter::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.h' line='210' column='1' id='type-id-587'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='ENHANCE_CONTRAST_OFF' value='0'/>
           <enumerator name='ENHANCE_CONTRAST_LIC' value='1'/>
@@ -10276,8 +10276,8 @@
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <!-- enum vtkSurfaceLICPainter::__anonymous_enum__1 -->
-        <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.h' line='374' column='1' id='type-id-588'>
+        <!-- enum vtkSurfaceLICPainter::__anonymous__1 -->
+        <enum-decl name='__anonymous__1' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.h' line='374' column='1' id='type-id-588'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='COMPOSITE_INPLACE' value='0'/>
           <enumerator name='COMPOSITE_INPLACE_DISJOINT' value='1'/>
@@ -11664,8 +11664,8 @@
     <!-- class vtkPainter -->
     <class-decl name='vtkPainter' visibility='default' is-declaration-only='yes' id='type-id-572'>
       <member-type access='private'>
-        <!-- enum vtkPainter::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/Core/vtkPainter.h' line='100' column='1' id='type-id-622'>
+        <!-- enum vtkPainter::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/Core/vtkPainter.h' line='100' column='1' id='type-id-622'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='VERTS' value='1'/>
           <enumerator name='LINES' value='2'/>
@@ -12759,8 +12759,8 @@
     <!-- class vtkLightingHelper -->
     <class-decl name='vtkLightingHelper' visibility='default' is-declaration-only='yes' id='type-id-746'>
       <member-type access='private'>
-        <!-- enum vtkLightingHelper::__anonymous_enum__ -->
-        <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkLightingHelper.h' line='42' column='1' id='type-id-802'>
+        <!-- enum vtkLightingHelper::__anonymous__ -->
+        <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/OpenGL/vtkLightingHelper.h' line='42' column='1' id='type-id-802'>
           <underlying-type type-id='type-id-24'/>
           <enumerator name='VTK_MAX_LIGHTS' value='8'/>
         </enum-decl>
@@ -13087,8 +13087,8 @@
       <!-- class vtkSurfaceLICPainterUtil::RandomNoise2D -->
       <class-decl name='RandomNoise2D' size-in-bits='128' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.cxx' line='299' column='1' id='type-id-788'>
         <member-type access='private'>
-          <!-- enum vtkSurfaceLICPainterUtil::RandomNoise2D::__anonymous_enum__ -->
-          <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.cxx' line='319' column='1' id='type-id-806'>
+          <!-- enum vtkSurfaceLICPainterUtil::RandomNoise2D::__anonymous__ -->
+          <enum-decl name='__anonymous__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Rendering/LIC/vtkSurfaceLICPainter.cxx' line='319' column='1' id='type-id-806'>
             <underlying-type type-id='type-id-24'/>
             <enumerator name='UNIFORM' value='0'/>
             <enumerator name='GAUSSIAN' value='1'/>
