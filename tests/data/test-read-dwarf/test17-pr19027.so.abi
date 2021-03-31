@@ -7019,405 +7019,6 @@
         <member-type access='public'>
           <typedef-decl name='return_t' type-id='c894953d' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='265' column='1' id='e65f4c18'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_closure_context_t' size-in-bits='256' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='56' column='1' id='7865f8b1'>
-        <member-type access='public'>
-          <typedef-decl name='return_t' type-id='260b603a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='59' column='1' id='7fb85619'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_collect_glyphs_context_t' size-in-bits='66944' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='144' column='1' id='1b0a834a'>
-        <member-type access='public'>
-          <typedef-decl name='return_t' type-id='260b603a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='147' column='1' id='50d55e5c'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_get_coverage_context_t' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='236' column='1' id='c31741c1'>
-        <member-type access='public'>
-          <typedef-decl name='return_t' type-id='05bec195' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='239' column='1' id='783f4a47'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_would_apply_context_t' size-in-bits='256' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='106' column='1' id='5647398a'>
-        <member-type access='public'>
-          <typedef-decl name='return_t' type-id='c894953d' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='109' column='1' id='129bee46'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <pointer-type-def type-id='c540aa74' size-in-bits='64' id='43a5fe32'/>
-    <pointer-type-def type-id='057e98f8' size-in-bits='64' id='a6f9fdae'/>
-    <pointer-type-def type-id='62a172f6' size-in-bits='64' id='90995cbc'/>
-    <pointer-type-def type-id='0a186029' size-in-bits='64' id='958d7351'/>
-    <array-type-def dimensions='1' type-id='e86f2285' size-in-bits='2048' id='5a4c6e99'>
-      <subrange length='256' type-id='7359adad' id='36e5b9fa'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='d2508266' size-in-bits='96' id='c43766f5'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='a0aca0ca' size-in-bits='64' id='a9ff1359'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='802a161f' size-in-bits='32' id='d6fd7f86'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='e272644e' size-in-bits='16' id='7b1b583d'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='0b056d27' size-in-bits='24' id='86e35f9e'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='31296d39' size-in-bits='32' id='c5f505a0'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='38081ac2' size-in-bits='32' id='4adb6e41'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='2f293efd' size-in-bits='16' id='dc453234'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='41510bc6' size-in-bits='16' id='a4489a25'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='15999e12' size-in-bits='16' id='5d1a1f91'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='fd3e7ed2' size-in-bits='16' id='e714ced1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='6c606c21' size-in-bits='16' id='5685cfb8'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='ddccf839' size-in-bits='16' id='7ea02230'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='c0ac5794' size-in-bits='16' id='6c7bc583'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='a55a47b8' size-in-bits='32' id='598b9d67'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='fd7bc300' size-in-bits='16' id='0fa02bbf'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='2a2fdd0c' size-in-bits='16' id='fdcf7dfb'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='9d05b568' size-in-bits='16' id='bdc2a887'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='3dc8f35c' size-in-bits='16' id='e2e2af4b'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='5140e546' size-in-bits='16' id='a3407355'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='ff06cafc' size-in-bits='16' id='6c66a33b'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='75c40f42' size-in-bits='16' id='806c81b1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='29e56465' size-in-bits='16' id='beac0a8c'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='e29139c9' size-in-bits='16' id='894a99b0'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='58ff1033' size-in-bits='16' id='dd73c8ba'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='f9ae2a6e' size-in-bits='48' id='47675cad'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='54710f52' size-in-bits='48' id='ca8d61d1'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='fc84a533' size-in-bits='48' id='fa6575fa'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='4665a4a1' size-in-bits='48' id='4cfb6558'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='73772998' size-in-bits='40' id='d8c48427'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <array-type-def dimensions='1' type-id='a98ffca7' size-in-bits='32' id='e7f6893e'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <pointer-type-def type-id='23f47fec' size-in-bits='64' id='255f335a'/>
-    <array-type-def dimensions='1' type-id='4481074f' size-in-bits='88' id='8c3d8356'>
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <namespace-decl name='OT'>
-      <class-decl name='AlternateSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='453' column='1' id='1b267645'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='544' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='546' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <var-decl name='alternateSet' type-id='8b509f54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='549' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='552' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='ChainContext' size-in-bits='160' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2142' column='1' id='3d658a1e'>
-        <member-type access='protected'>
-          <union-decl name='__anonymous_union__' size-in-bits='160' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2167' column='1' id='0e325f64'>
-            <data-member access='public'>
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2168' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format1' type-id='5a2e0b54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2169' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format2' type-id='5d2e100d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2170' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format3' type-id='5c2e0e7a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2171' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='u' type-id='0e325f64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2172' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <parameter type-id='fef7d5e8'/>
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <parameter type-id='dac194b9'/>
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <parameter type-id='23c76eb9'/>
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='Context' size-in-bits='96' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1524' column='1' id='bd40d0c5'>
-        <member-type access='protected'>
-          <union-decl name='__anonymous_union__' size-in-bits='96' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1549' column='1' id='4317c95d'>
-            <data-member access='public'>
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1550' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format1' type-id='af73d779' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1551' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format2' type-id='ac73d2c0' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1552' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format3' type-id='ad73d453' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1553' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='u' type-id='4317c95d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1554' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <parameter type-id='fef7d5e8'/>
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <parameter type-id='dac194b9'/>
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <parameter type-id='23c76eb9'/>
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='Extension&lt;OT::ExtensionSubst&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2199' column='1' id='cf1c9132'>
-        <member-type access='protected'>
-          <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2247' column='1' id='9452b977'>
-            <data-member access='public'>
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2248' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <var-decl name='format1' type-id='b7accedf' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2249' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='u' type-id='9452b977' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2250' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <function-decl name='get_subtable&lt;OT::SubstLookupSubTable&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2216' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <return type-id='a5ae515e'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <parameter type-id='fef7d5e8'/>
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_collect_glyphs_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <parameter type-id='f51858b8'/>
-            <return type-id='50d55e5c'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <parameter type-id='dac194b9'/>
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <parameter type-id='ea2b5956'/>
-            <return type-id='e65f4c18'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <parameter type-id='23c76eb9'/>
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='IndexArray' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-common-private.hh' line='161' column='1' id='63bdc577'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='8de8e952'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='MultipleSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='328' column='1' id='fab60057'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='393' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='395' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <var-decl name='sequence' type-id='acba043b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='398' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='401' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='OffsetArrayOf&lt;OT::PairSet&gt;' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='900' column='1' id='504054a0'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='057e98f8'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='ReverseChainSingleSubstFormat1' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='929' column='1' id='cafe8d0c'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1032' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1034' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <var-decl name='backtrack' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1037' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='64'>
-          <var-decl name='lookaheadX' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1041' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='96'>
-          <var-decl name='substituteX' type-id='a1c590f2' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1045' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1048' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='SortedArrayOf&lt;OT::CmapSubtableLongGroup, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='58b562d3'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='be936c52'/>
-        <member-function access='public'>
-          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='723261b4' is-artificial='yes'/>
-            <parameter type-id='29981667'/>
-            <return type-id='95e97e5e'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='SortedArrayOf&lt;OT::EncodingRecord, OT::IntType&lt;short unsigned int, 2u&gt; &gt;' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='0d95c097'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='c76cb794'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='SortedArrayOf&lt;OT::VariationSelectorRecord, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='120' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='8bff39a4'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='dbfcd50d'/>
-        <member-function access='public'>
-          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <parameter type-id='d7aaa961' is-artificial='yes'/>
-            <parameter type-id='29981667'/>
-            <return type-id='95e97e5e'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='ValueFormat' size-in-bits='16' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='50' column='1' id='23f47fec'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='1c64eff2'/>
-        <member-type access='public'>
-          <enum-decl name='Flags' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='51' column='1' id='442c6f62'>
-            <underlying-type type-id='9cac1fee'/>
-            <enumerator name='xPlacement' value='1'/>
-            <enumerator name='yPlacement' value='2'/>
-            <enumerator name='xAdvance' value='4'/>
-            <enumerator name='yAdvance' value='8'/>
-            <enumerator name='xPlaDevice' value='16'/>
-            <enumerator name='yPlaDevice' value='32'/>
-            <enumerator name='xAdvDevice' value='64'/>
-            <enumerator name='yAdvDevice' value='128'/>
-            <enumerator name='ignored' value='3840'/>
-            <enumerator name='reserved' value='61440'/>
-            <enumerator name='devices' value='240'/>
-          </enum-decl>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_apply_context_t' size-in-bits='640' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='262' column='1' id='84c6d1a0'>
-        <member-type access='public'>
-          <typedef-decl name='return_t' type-id='c894953d' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='265' column='1' id='e65f4c18'/>
-        </member-type>
         <member-type access='public'>
           <typedef-decl name='recurse_func_t' type-id='a5382af8' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='266' column='1' id='c2659562'/>
         </member-type>
@@ -8323,6 +7924,374 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <pointer-type-def type-id='c540aa74' size-in-bits='64' id='43a5fe32'/>
+    <pointer-type-def type-id='057e98f8' size-in-bits='64' id='a6f9fdae'/>
+    <pointer-type-def type-id='62a172f6' size-in-bits='64' id='90995cbc'/>
+    <pointer-type-def type-id='0a186029' size-in-bits='64' id='958d7351'/>
+    <array-type-def dimensions='1' type-id='e86f2285' size-in-bits='2048' id='5a4c6e99'>
+      <subrange length='256' type-id='7359adad' id='36e5b9fa'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='d2508266' size-in-bits='96' id='c43766f5'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='a0aca0ca' size-in-bits='64' id='a9ff1359'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='802a161f' size-in-bits='32' id='d6fd7f86'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='e272644e' size-in-bits='16' id='7b1b583d'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='0b056d27' size-in-bits='24' id='86e35f9e'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='31296d39' size-in-bits='32' id='c5f505a0'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='38081ac2' size-in-bits='32' id='4adb6e41'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='2f293efd' size-in-bits='16' id='dc453234'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='41510bc6' size-in-bits='16' id='a4489a25'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='15999e12' size-in-bits='16' id='5d1a1f91'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='fd3e7ed2' size-in-bits='16' id='e714ced1'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='6c606c21' size-in-bits='16' id='5685cfb8'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='ddccf839' size-in-bits='16' id='7ea02230'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='c0ac5794' size-in-bits='16' id='6c7bc583'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='a55a47b8' size-in-bits='32' id='598b9d67'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='fd7bc300' size-in-bits='16' id='0fa02bbf'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='2a2fdd0c' size-in-bits='16' id='fdcf7dfb'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='9d05b568' size-in-bits='16' id='bdc2a887'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='3dc8f35c' size-in-bits='16' id='e2e2af4b'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='5140e546' size-in-bits='16' id='a3407355'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='ff06cafc' size-in-bits='16' id='6c66a33b'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='75c40f42' size-in-bits='16' id='806c81b1'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='29e56465' size-in-bits='16' id='beac0a8c'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='e29139c9' size-in-bits='16' id='894a99b0'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='58ff1033' size-in-bits='16' id='dd73c8ba'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='f9ae2a6e' size-in-bits='48' id='47675cad'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='54710f52' size-in-bits='48' id='ca8d61d1'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='fc84a533' size-in-bits='48' id='fa6575fa'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='4665a4a1' size-in-bits='48' id='4cfb6558'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='73772998' size-in-bits='40' id='d8c48427'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <array-type-def dimensions='1' type-id='a98ffca7' size-in-bits='32' id='e7f6893e'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <pointer-type-def type-id='23f47fec' size-in-bits='64' id='255f335a'/>
+    <array-type-def dimensions='1' type-id='4481074f' size-in-bits='88' id='8c3d8356'>
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <pointer-type-def type-id='8a742aed' size-in-bits='64' id='db2e6c3d'/>
+    <pointer-type-def type-id='96cb00fb' size-in-bits='64' id='8a38f6fb'/>
+    <pointer-type-def type-id='d3c8819f' size-in-bits='64' id='d2293bb7'/>
+    <pointer-type-def type-id='db4e6df7' size-in-bits='64' id='f004074b'/>
+    <namespace-decl name='OT'>
+      <class-decl name='AlternateSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='453' column='1' id='1b267645'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='544' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='546' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <var-decl name='alternateSet' type-id='8b509f54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='549' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='552' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='ChainContext' size-in-bits='160' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2142' column='1' id='3d658a1e'>
+        <member-type access='protected'>
+          <union-decl name='__anonymous_union__' size-in-bits='160' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2167' column='1' id='0e325f64'>
+            <data-member access='public'>
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2168' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format1' type-id='5a2e0b54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2169' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format2' type-id='5d2e100d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2170' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format3' type-id='5c2e0e7a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2171' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='u' type-id='0e325f64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2172' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <parameter type-id='fef7d5e8'/>
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <parameter type-id='dac194b9'/>
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <parameter type-id='23c76eb9'/>
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='Context' size-in-bits='96' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1524' column='1' id='bd40d0c5'>
+        <member-type access='protected'>
+          <union-decl name='__anonymous_union__' size-in-bits='96' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1549' column='1' id='4317c95d'>
+            <data-member access='public'>
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1550' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format1' type-id='af73d779' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1551' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format2' type-id='ac73d2c0' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1552' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format3' type-id='ad73d453' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1553' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='u' type-id='4317c95d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1554' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <parameter type-id='fef7d5e8'/>
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <parameter type-id='dac194b9'/>
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <parameter type-id='23c76eb9'/>
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='Extension&lt;OT::ExtensionSubst&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2199' column='1' id='cf1c9132'>
+        <member-type access='protected'>
+          <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2247' column='1' id='9452b977'>
+            <data-member access='public'>
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2248' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <var-decl name='format1' type-id='b7accedf' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2249' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='u' type-id='9452b977' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2250' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <function-decl name='get_subtable&lt;OT::SubstLookupSubTable&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2216' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <return type-id='a5ae515e'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <parameter type-id='fef7d5e8'/>
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_collect_glyphs_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <parameter type-id='f51858b8'/>
+            <return type-id='50d55e5c'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <parameter type-id='dac194b9'/>
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <parameter type-id='ea2b5956'/>
+            <return type-id='e65f4c18'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <parameter type-id='23c76eb9'/>
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='IndexArray' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-common-private.hh' line='161' column='1' id='63bdc577'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='8de8e952'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='MultipleSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='328' column='1' id='fab60057'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='393' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='395' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <var-decl name='sequence' type-id='acba043b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='398' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='401' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='OffsetArrayOf&lt;OT::PairSet&gt;' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='900' column='1' id='504054a0'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='057e98f8'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='ReverseChainSingleSubstFormat1' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='929' column='1' id='cafe8d0c'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1032' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1034' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <var-decl name='backtrack' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1037' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='64'>
+          <var-decl name='lookaheadX' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1041' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='96'>
+          <var-decl name='substituteX' type-id='a1c590f2' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1045' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1048' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='SortedArrayOf&lt;OT::CmapSubtableLongGroup, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='58b562d3'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='be936c52'/>
+        <member-function access='public'>
+          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='723261b4' is-artificial='yes'/>
+            <parameter type-id='29981667'/>
+            <return type-id='95e97e5e'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='SortedArrayOf&lt;OT::EncodingRecord, OT::IntType&lt;short unsigned int, 2u&gt; &gt;' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='0d95c097'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='c76cb794'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='SortedArrayOf&lt;OT::VariationSelectorRecord, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='120' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='8bff39a4'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='dbfcd50d'/>
+        <member-function access='public'>
+          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <parameter type-id='d7aaa961' is-artificial='yes'/>
+            <parameter type-id='29981667'/>
+            <return type-id='95e97e5e'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='ValueFormat' size-in-bits='16' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='50' column='1' id='23f47fec'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='1c64eff2'/>
+        <member-type access='public'>
+          <enum-decl name='Flags' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='51' column='1' id='442c6f62'>
+            <underlying-type type-id='9cac1fee'/>
+            <enumerator name='xPlacement' value='1'/>
+            <enumerator name='yPlacement' value='2'/>
+            <enumerator name='xAdvance' value='4'/>
+            <enumerator name='yAdvance' value='8'/>
+            <enumerator name='xPlaDevice' value='16'/>
+            <enumerator name='yPlaDevice' value='32'/>
+            <enumerator name='xAdvDevice' value='64'/>
+            <enumerator name='yAdvDevice' value='128'/>
+            <enumerator name='ignored' value='3840'/>
+            <enumerator name='reserved' value='61440'/>
+            <enumerator name='devices' value='240'/>
+          </enum-decl>
+        </member-type>
+      </class-decl>
+    </namespace-decl>
     <class-decl name='hb_set_t' size-in-bits='66496' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='147' column='1' id='f522b3d3'>
       <member-type access='public'>
         <typedef-decl name='elt_t' type-id='8f92235e' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='320' column='1' id='e2069b86'/>
@@ -8356,22 +8325,44 @@
       </data-member>
     </class-decl>
     <pointer-type-def type-id='786d3268' size-in-bits='64' id='d5e61de6'/>
+    <reference-type-def kind='lvalue' type-id='fab5746e' size-in-bits='64' id='f3a60d58'/>
+    <reference-type-def kind='lvalue' type-id='25f6ac5b' size-in-bits='64' id='405188c7'/>
+    <reference-type-def kind='lvalue' type-id='26f6adee' size-in-bits='64' id='1e5391d8'/>
+    <reference-type-def kind='lvalue' type-id='27f6af81' size-in-bits='64' id='905683e5'/>
+    <reference-type-def kind='lvalue' type-id='585e98e4' size-in-bits='64' id='deea7966'/>
+    <reference-type-def kind='lvalue' type-id='5b5e9d9d' size-in-bits='64' id='90f24d61'/>
+    <reference-type-def kind='lvalue' type-id='5a5e9c0a' size-in-bits='64' id='6eefd944'/>
     <qualified-type-def type-id='00a94db8' const='yes' id='f5b6c911'/>
     <reference-type-def kind='lvalue' type-id='f5b6c911' size-in-bits='64' id='05bec195'/>
     <qualified-type-def type-id='569925be' const='yes' id='108c3a8d'/>
     <qualified-type-def type-id='5599242b' const='yes' id='0d8c35d4'/>
+    <reference-type-def kind='lvalue' type-id='6e928d02' size-in-bits='64' id='34b42fac'/>
     <reference-type-def kind='lvalue' type-id='5b2f9b73' size-in-bits='64' id='e0f186cf'/>
+    <qualified-type-def type-id='3aaa1fe4' id='3aaa1fe3'/>
     <pointer-type-def type-id='c8f5e813' size-in-bits='64' id='941c91bb'/>
+    <reference-type-def kind='lvalue' type-id='f61cef57' size-in-bits='64' id='e08ceee3'/>
+    <reference-type-def kind='lvalue' type-id='bd5a624b' size-in-bits='64' id='8248f197'/>
+    <reference-type-def kind='lvalue' type-id='0d49ffb6' size-in-bits='64' id='7b7d4fb0'/>
+    <reference-type-def kind='lvalue' type-id='5ade8aaf' size-in-bits='64' id='955415ab'/>
     <pointer-type-def type-id='cdb97718' size-in-bits='64' id='0cf6a3b6'/>
+    <reference-type-def kind='lvalue' type-id='3a80895e' size-in-bits='64' id='905867e8'/>
+    <reference-type-def kind='lvalue' type-id='c86230d3' size-in-bits='64' id='679311af'/>
+    <reference-type-def kind='lvalue' type-id='c9623266' size-in-bits='64' id='45951ac0'/>
     <qualified-type-def type-id='6612f4e0' const='yes' id='40c624bf'/>
     <qualified-type-def type-id='312700dd' const='yes' id='62ed2ec2'/>
     <qualified-type-def type-id='b9b2f56f' const='yes' id='50671326'/>
     <pointer-type-def type-id='eecdb341' size-in-bits='64' id='58d17171'/>
+    <reference-type-def kind='lvalue' type-id='ea07fc7d' size-in-bits='64' id='c5924341'/>
+    <reference-type-def kind='lvalue' type-id='acff728b' size-in-bits='64' id='03218657'/>
+    <reference-type-def kind='lvalue' type-id='adff741e' size-in-bits='64' id='2123f428'/>
     <pointer-type-def type-id='4c4e436c' size-in-bits='64' id='6533e732'/>
+    <reference-type-def kind='lvalue' type-id='4f704f0a' size-in-bits='64' id='39cca244'/>
+    <reference-type-def kind='lvalue' type-id='4e704d77' size-in-bits='64' id='cbc9b683'/>
     <qualified-type-def type-id='9786a753' const='yes' id='d87ff52e'/>
     <qualified-type-def type-id='af474f2f' const='yes' id='d8282482'/>
     <qualified-type-def type-id='43609ad9' const='yes' id='6e3072fa'/>
     <qualified-type-def type-id='99919ea3' const='yes' id='a9703bcc'/>
+    <pointer-type-def type-id='c9103200' size-in-bits='64' id='ae7ef81e'/>
     <namespace-decl name='OT'>
       <typedef-decl name='FWORD' type-id='600e567f' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='639' column='1' id='1c6af55f'/>
     </namespace-decl>
@@ -8384,15 +8375,15 @@
     <namespace-decl name='OT'>
       <typedef-decl name='ValueRecord' type-id='1b68b60a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='47' column='1' id='291180a9'/>
     </namespace-decl>
+    <pointer-type-def type-id='9e8e1bf6' size-in-bits='64' id='a5382af8'/>
+    <pointer-type-def type-id='25086db6' size-in-bits='64' id='9c851c98'/>
+    <pointer-type-def type-id='562458ee' size-in-bits='64' id='7ca0e3a0'/>
     <typedef-decl name='hb_set_digest_t' type-id='2a9964e0' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='135' column='1' id='6b027525'/>
+    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
     <typedef-decl name='hb_void_t' type-id='b92493b1' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='259' column='1' id='260b603a'/>
     <array-type-def dimensions='1' type-id='f3c794ac' size-in-bits='16' id='1b68b60a'>
       <subrange length='1' type-id='7359adad' id='52f813b4'/>
     </array-type-def>
-    <pointer-type-def type-id='8a742aed' size-in-bits='64' id='db2e6c3d'/>
-    <pointer-type-def type-id='96cb00fb' size-in-bits='64' id='8a38f6fb'/>
-    <pointer-type-def type-id='d3c8819f' size-in-bits='64' id='d2293bb7'/>
-    <pointer-type-def type-id='db4e6df7' size-in-bits='64' id='f004074b'/>
     <namespace-decl name='OT'>
       <class-decl name='ChainContextFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1812' column='1' id='5a2e0b54'>
         <data-member access='protected' layout-offset-in-bits='0'>
@@ -8652,53 +8643,78 @@
       </data-member>
     </class-decl>
     <qualified-type-def type-id='a2b58879' const='yes' id='786d3268'/>
-    <reference-type-def kind='lvalue' type-id='fab5746e' size-in-bits='64' id='f3a60d58'/>
+    <qualified-type-def type-id='1b267645' const='yes' id='fab5746e'/>
     <pointer-type-def type-id='6e33047f' size-in-bits='64' id='cf4fd1cf'/>
-    <reference-type-def kind='lvalue' type-id='25f6ac5b' size-in-bits='64' id='405188c7'/>
-    <reference-type-def kind='lvalue' type-id='26f6adee' size-in-bits='64' id='1e5391d8'/>
-    <reference-type-def kind='lvalue' type-id='27f6af81' size-in-bits='64' id='905683e5'/>
+    <qualified-type-def type-id='5a2e0b54' const='yes' id='25f6ac5b'/>
+    <qualified-type-def type-id='5d2e100d' const='yes' id='26f6adee'/>
+    <qualified-type-def type-id='5c2e0e7a' const='yes' id='27f6af81'/>
     <pointer-type-def type-id='f2128c2e' size-in-bits='64' id='17326a4c'/>
-    <reference-type-def kind='lvalue' type-id='585e98e4' size-in-bits='64' id='deea7966'/>
-    <reference-type-def kind='lvalue' type-id='5b5e9d9d' size-in-bits='64' id='90f24d61'/>
-    <reference-type-def kind='lvalue' type-id='5a5e9c0a' size-in-bits='64' id='6eefd944'/>
-    <reference-type-def kind='lvalue' type-id='6e928d02' size-in-bits='64' id='34b42fac'/>
+    <qualified-type-def type-id='af73d779' const='yes' id='585e98e4'/>
+    <qualified-type-def type-id='ac73d2c0' const='yes' id='5b5e9d9d'/>
+    <qualified-type-def type-id='9220a63d' const='yes' id='6e928d02'/>
     <pointer-type-def type-id='b6603669' size-in-bits='64' id='5c756b79'/>
-    <qualified-type-def type-id='3aaa1fe4' id='3aaa1fe3'/>
+    <reference-type-def kind='lvalue' type-id='22cd9a57' size-in-bits='64' id='3aaa1fe4'/>
     <qualified-type-def type-id='a8edf220' const='yes' id='c8f5e813'/>
-    <reference-type-def kind='lvalue' type-id='f61cef57' size-in-bits='64' id='e08ceee3'/>
-    <reference-type-def kind='lvalue' type-id='bd5a624b' size-in-bits='64' id='8248f197'/>
-    <reference-type-def kind='lvalue' type-id='0d49ffb6' size-in-bits='64' id='7b7d4fb0'/>
-    <reference-type-def kind='lvalue' type-id='5ade8aaf' size-in-bits='64' id='955415ab'/>
+    <qualified-type-def type-id='c82782d6' const='yes' id='f61cef57'/>
     <qualified-type-def type-id='14a24b13' const='yes' id='cdb97718'/>
-    <reference-type-def kind='lvalue' type-id='3a80895e' size-in-bits='64' id='905867e8'/>
-    <reference-type-def kind='lvalue' type-id='c86230d3' size-in-bits='64' id='679311af'/>
-    <reference-type-def kind='lvalue' type-id='c9623266' size-in-bits='64' id='45951ac0'/>
+    <qualified-type-def type-id='fab60057' const='yes' id='3a80895e'/>
     <qualified-type-def type-id='13ddbd06' const='yes' id='eecdb341'/>
-    <reference-type-def kind='lvalue' type-id='ea07fc7d' size-in-bits='64' id='c5924341'/>
-    <reference-type-def kind='lvalue' type-id='acff728b' size-in-bits='64' id='03218657'/>
-    <reference-type-def kind='lvalue' type-id='adff741e' size-in-bits='64' id='2123f428'/>
+    <qualified-type-def type-id='cafe8d0c' const='yes' id='ea07fc7d'/>
     <qualified-type-def type-id='1f901307' const='yes' id='4c4e436c'/>
-    <reference-type-def kind='lvalue' type-id='4f704f0a' size-in-bits='64' id='39cca244'/>
-    <reference-type-def kind='lvalue' type-id='4e704d77' size-in-bits='64' id='cbc9b683'/>
+    <qualified-type-def type-id='48e21af3' const='yes' id='4f704f0a'/>
+    <qualified-type-def type-id='49e21c86' const='yes' id='4e704d77'/>
     <pointer-type-def type-id='5424f7d6' size-in-bits='64' id='723261b4'/>
     <pointer-type-def type-id='356e5191' size-in-bits='64' id='d7aaa961'/>
     <reference-type-def kind='lvalue' type-id='a9703bcc' size-in-bits='64' id='a5ae515e'/>
-    <pointer-type-def type-id='c9103200' size-in-bits='64' id='ae7ef81e'/>
+    <qualified-type-def type-id='0f676950' const='yes' id='c9103200'/>
     <reference-type-def kind='lvalue' type-id='753c700d' size-in-bits='64' id='b92493b1'/>
+    <function-type size-in-bits='64' id='db4e6df7'>
+      <parameter type-id='a959aecb'/>
+      <parameter type-id='aa7ef1d2'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='c894953d'/>
+    </function-type>
+    <function-type size-in-bits='64' id='9e8e1bf6'>
+      <parameter type-id='ea2b5956'/>
+      <parameter type-id='f0981eeb'/>
+      <return type-id='e65f4c18'/>
+    </function-type>
+    <function-type size-in-bits='64' id='25086db6'>
+      <parameter type-id='dac194b9'/>
+      <parameter type-id='f0981eeb'/>
+      <return type-id='7fb85619'/>
+    </function-type>
+    <function-type size-in-bits='64' id='562458ee'>
+      <parameter type-id='f51858b8'/>
+      <parameter type-id='f0981eeb'/>
+      <return type-id='50d55e5c'/>
+    </function-type>
     <array-type-def dimensions='1' type-id='e2069b86' size-in-bits='65536' id='e653ad5f'>
       <subrange length='2048' type-id='7359adad' id='e5323efb'/>
     </array-type-def>
     <namespace-decl name='OT'>
       <typedef-decl name='BYTE' type-id='b96825af' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='631' column='1' id='e86f2285'/>
     </namespace-decl>
-    <pointer-type-def type-id='9e8e1bf6' size-in-bits='64' id='a5382af8'/>
-    <pointer-type-def type-id='25086db6' size-in-bits='64' id='9c851c98'/>
-    <pointer-type-def type-id='562458ee' size-in-bits='64' id='7ca0e3a0'/>
-    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
     <namespace-decl name='OT'>
       <class-decl name='BEInt&lt;unsigned int, 3&gt;' size-in-bits='24' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='532' column='1' id='a0cde6eb'>
         <data-member access='private' layout-offset-in-bits='0'>
           <var-decl name='v' type-id='d3490169' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='579' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <class-decl name='CursivePosFormat1' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='875' column='1' id='9220a63d'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='976' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='978' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <var-decl name='entryExitRecord' type-id='fde36be5' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='981' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='984' column='1'/>
         </data-member>
       </class-decl>
     </namespace-decl>
@@ -8734,102 +8750,18 @@
         <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
       </data-member>
     </class-decl>
-    <qualified-type-def type-id='1b267645' const='yes' id='fab5746e'/>
     <qualified-type-def type-id='3d658a1e' const='yes' id='6e33047f'/>
-    <qualified-type-def type-id='5a2e0b54' const='yes' id='25f6ac5b'/>
-    <qualified-type-def type-id='5d2e100d' const='yes' id='26f6adee'/>
-    <qualified-type-def type-id='5c2e0e7a' const='yes' id='27f6af81'/>
     <qualified-type-def type-id='bd40d0c5' const='yes' id='f2128c2e'/>
-    <qualified-type-def type-id='af73d779' const='yes' id='585e98e4'/>
-    <qualified-type-def type-id='ac73d2c0' const='yes' id='5b5e9d9d'/>
-    <qualified-type-def type-id='9220a63d' const='yes' id='6e928d02'/>
     <qualified-type-def type-id='cf1c9132' const='yes' id='b6603669'/>
-    <reference-type-def kind='lvalue' type-id='22cd9a57' size-in-bits='64' id='3aaa1fe4'/>
-    <qualified-type-def type-id='c82782d6' const='yes' id='f61cef57'/>
-    <qualified-type-def type-id='fab60057' const='yes' id='3a80895e'/>
+    <qualified-type-def type-id='233f61b6' const='yes' id='22cd9a57'/>
     <pointer-type-def type-id='1e809379' size-in-bits='64' id='5767eba9'/>
-    <qualified-type-def type-id='cafe8d0c' const='yes' id='ea07fc7d'/>
-    <qualified-type-def type-id='48e21af3' const='yes' id='4f704f0a'/>
-    <qualified-type-def type-id='49e21c86' const='yes' id='4e704d77'/>
     <qualified-type-def type-id='58b562d3' const='yes' id='5424f7d6'/>
     <qualified-type-def type-id='8bff39a4' const='yes' id='356e5191'/>
-    <qualified-type-def type-id='0f676950' const='yes' id='c9103200'/>
+    <reference-type-def kind='lvalue' type-id='c9103200' size-in-bits='64' id='aa7ef1d2'/>
     <qualified-type-def type-id='3052d88c' const='yes' id='753c700d'/>
-    <function-type size-in-bits='64' id='db4e6df7'>
-      <parameter type-id='a959aecb'/>
-      <parameter type-id='aa7ef1d2'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='c894953d'/>
-    </function-type>
-    <function-type size-in-bits='64' id='9e8e1bf6'>
-      <parameter type-id='ea2b5956'/>
-      <parameter type-id='f0981eeb'/>
-      <return type-id='e65f4c18'/>
-    </function-type>
-    <function-type size-in-bits='64' id='25086db6'>
-      <parameter type-id='dac194b9'/>
-      <parameter type-id='f0981eeb'/>
-      <return type-id='7fb85619'/>
-    </function-type>
-    <function-type size-in-bits='64' id='562458ee'>
-      <parameter type-id='f51858b8'/>
-      <parameter type-id='f0981eeb'/>
-      <return type-id='50d55e5c'/>
-    </function-type>
     <namespace-decl name='OT'>
       <typedef-decl name='Value' type-id='0f676950' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='45' column='1' id='f3c794ac'/>
     </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='CursivePosFormat1' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='875' column='1' id='9220a63d'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='976' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='978' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <var-decl name='entryExitRecord' type-id='fde36be5' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='981' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='984' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <class-decl name='_hb_void_t' size-in-bits='8' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='258' column='1' id='3052d88c'/>
-    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 0u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='23c7c035'>
-      <data-member access='public' static='yes'>
-        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
-      </data-member>
-      <data-member access='private' layout-offset-in-bits='0'>
-        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
-      </data-member>
-    </class-decl>
-    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 9u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='f504f856'>
-      <data-member access='public' static='yes'>
-        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
-      </data-member>
-      <data-member access='private' layout-offset-in-bits='0'>
-        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
-      </data-member>
-    </class-decl>
-    <qualified-type-def type-id='233f61b6' const='yes' id='22cd9a57'/>
-    <qualified-type-def type-id='f9ae2a6e' const='yes' id='1e809379'/>
-    <reference-type-def kind='lvalue' type-id='c9103200' size-in-bits='64' id='aa7ef1d2'/>
-    <array-type-def dimensions='1' type-id='b96825af' size-in-bits='24' id='d3490169'>
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
-    </array-type-def>
     <namespace-decl name='OT'>
       <class-decl name='GDEF' size-in-bits='112' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gdef-table.hh' line='326' column='1' id='233f61b6'>
         <member-type access='public'>
@@ -8868,6 +8800,39 @@
         </data-member>
       </class-decl>
     </namespace-decl>
+    <class-decl name='_hb_void_t' size-in-bits='8' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='258' column='1' id='3052d88c'/>
+    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 0u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='23c7c035'>
+      <data-member access='public' static='yes'>
+        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
+      </data-member>
+      <data-member access='private' layout-offset-in-bits='0'>
+        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
+      </data-member>
+    </class-decl>
+    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 9u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='f504f856'>
+      <data-member access='public' static='yes'>
+        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
+      </data-member>
+      <data-member access='private' layout-offset-in-bits='0'>
+        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
+      </data-member>
+    </class-decl>
+    <qualified-type-def type-id='f9ae2a6e' const='yes' id='1e809379'/>
+    <array-type-def dimensions='1' type-id='b96825af' size-in-bits='24' id='d3490169'>
+      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+    </array-type-def>
     <array-type-def dimensions='1' type-id='62095b2c' size-in-bits='16' id='9827c4db'>
       <subrange length='1' type-id='7359adad' id='52f813b4'/>
     </array-type-def>

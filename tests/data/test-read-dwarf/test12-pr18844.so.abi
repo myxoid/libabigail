@@ -24735,15 +24735,25 @@
     <pointer-type-def type-id='a05950a5' size-in-bits='64' id='9e387ad5'/>
     <namespace-decl name='__gnu_cxx'>
       <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='762b2faf'/>
+        <member-type access='public'>
+          <typedef-decl name='value_type' type-id='ca44d8de' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='76659321'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='pointer' type-id='47d3a485' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='397ed004'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='reference' type-id='b49b04f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='109' column='1' id='830aed44'/>
+        </member-type>
         <member-type access='public'>
           <typedef-decl name='const_reference' type-id='7e45f775' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='110' column='1' id='e41fed14'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
         <member-type access='public'>
-          <typedef-decl name='reference' type-id='b49b04f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='109' column='1' id='830aed44'/>
+          <class-decl name='rebind&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='29015e28'>
+            <member-type access='public'>
+              <typedef-decl name='other' type-id='133e9efe' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='14754e35'/>
+            </member-type>
+          </class-decl>
         </member-type>
       </class-decl>
     </namespace-decl>
@@ -24819,6 +24829,92 @@
             <parameter type-id='1b9eaacb'/>
             <parameter type-id='f248f16e'/>
             <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='std'>
+      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
+        <member-type access='public'>
+          <typedef-decl name='value_type' type-id='728286f2' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='ca44d8de'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__pointer' type-id='05bd5559' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='b12abbd3'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='pointer' type-id='b12abbd3' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='47d3a485'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__const_void_pointer' type-id='b5f0e9c3' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='126' column='1' id='efd1b186'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='const_void_pointer' type-id='efd1b186' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='135' column='1' id='f4d92ecc'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__size_type' type-id='862bb972' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='148' column='1' id='812c0e24'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='size_type' type-id='812c0e24' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='157' column='1' id='a279e1fe'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind_alloc&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' type-id='9acf69d5' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='133e9efe'/>
+        </member-type>
+        <member-function access='public' static='yes'>
+          <function-decl name='construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE9constructIS3_JRKS3_EEEDTcl12_S_constructfp_fp0_spclsr3stdE7forwardIT0_Efp1_EEERS4_PT_DpOS9_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='397' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE9constructIS3_JRKS3_EEEDTcl12_S_constructfp_fp0_spclsr3stdE7forwardIT0_Efp1_EEERS4_PT_DpOS9_'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='1b9eaacb'/>
+            <parameter type-id='f248f16e'/>
+            <return type-id='574532e6'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' static='yes'>
+          <function-decl name='destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE7destroyIS3_EEvRS4_PT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='410' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE7destroyIS3_EEvRS4_PT_'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='1b9eaacb'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' static='yes'>
+          <function-decl name='deallocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10deallocateERS4_PS3_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='382' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10deallocateERS4_PS3_m'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='47d3a485'/>
+            <parameter type-id='a279e1fe'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='private' static='yes'>
+          <function-decl name='_S_destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10_S_destroyIS3_EENSt9enable_ifIXsr6__and_INS5_16__destroy_helperIT_E4typeEEE5valueEvE4typeERS4_PS9_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='281' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10_S_destroyIS3_EENSt9enable_ifIXsr6__and_INS5_16__destroy_helperIT_E4typeEEE5valueEvE4typeERS4_PS9_'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='1b9eaacb'/>
+            <return type-id='c1fdc6da'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' static='yes'>
+          <function-decl name='allocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8allocateERS4_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='356' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8allocateERS4_m'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='a279e1fe'/>
+            <return type-id='47d3a485'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' static='yes'>
+          <function-decl name='max_size' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8max_sizeERKS4_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='421' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8max_sizeERKS4_'>
+            <parameter type-id='ea2b599e'/>
+            <return type-id='a279e1fe'/>
+          </function-decl>
+        </member-function>
+        <member-function access='private' static='yes'>
+          <function-decl name='_S_max_size&lt;const std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;, void&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE11_S_max_sizeIKS4_vEEmRT_i' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='308' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE11_S_max_sizeIKS4_vEEmRT_i'>
+            <parameter type-id='ea2b599e'/>
+            <parameter type-id='95e97e5e'/>
+            <return type-id='a279e1fe'/>
+          </function-decl>
+        </member-function>
+        <member-function access='private' static='yes'>
+          <function-decl name='_S_construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE12_S_constructIS3_JRKS3_EEENSt9enable_ifIXsr6__and_INS5_18__construct_helperIT_JDpT0_EE4typeEEE5valueEvE4typeERS4_PSB_DpOSC_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='252' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE12_S_constructIS3_JRKS3_EEENSt9enable_ifIXsr6__and_INS5_18__construct_helperIT_JDpT0_EE4typeEEE5valueEvE4typeERS4_PSB_DpOSC_'>
+            <parameter type-id='fc4ddcff'/>
+            <parameter type-id='1b9eaacb'/>
+            <parameter type-id='f248f16e'/>
+            <return type-id='574532e6'/>
           </function-decl>
         </member-function>
       </class-decl>
@@ -24968,40 +25064,14 @@
     <reference-type-def kind='rvalue' type-id='72b365b3' size-in-bits='64' id='8aa0f8ca'/>
     <pointer-type-def type-id='fa9309b7' size-in-bits='64' id='e9f0fc9f'/>
     <pointer-type-def type-id='7fca334b' size-in-bits='64' id='004de34b'/>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='47d3a485' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='397ed004'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
-        <member-type access='public'>
-          <class-decl name='rebind&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='29015e28'>
-            <member-type access='public'>
-              <typedef-decl name='other' type-id='133e9efe' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='14754e35'/>
-            </member-type>
-          </class-decl>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
     <namespace-decl name='std'>
       <class-decl name='iterator_traits&lt;const mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='186' column='1' id='a0f350c9'>
         <member-type access='public'>
           <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='190' column='1' id='d56f9e02'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='iterator_traits&lt;const mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='186' column='1' id='a0f350c9'>
         <member-type access='public'>
           <typedef-decl name='pointer' type-id='ee48eb22' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='191' column='1' id='01d07e43'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='iterator_traits&lt;const mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='186' column='1' id='a0f350c9'>
         <member-type access='public'>
           <typedef-decl name='reference' type-id='f248f16e' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='192' column='1' id='f7184757'/>
         </member-type>
@@ -25010,19 +25080,14 @@
     <namespace-decl name='std'>
       <class-decl name='iterator_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='175' column='1' id='78d245f0'>
         <member-type access='public'>
+          <typedef-decl name='value_type' type-id='c360a8ab' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='178' column='1' id='0e1070f1'/>
+        </member-type>
+        <member-type access='public'>
           <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='179' column='1' id='2ad1350d'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='iterator_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='175' column='1' id='78d245f0'>
         <member-type access='public'>
           <typedef-decl name='pointer' type-id='1b9eaacb' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='180' column='1' id='d95c0f94'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='iterator_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='175' column='1' id='78d245f0'>
         <member-type access='public'>
           <typedef-decl name='reference' type-id='179ea47f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='181' column='1' id='70e45c74'/>
         </member-type>
@@ -25249,40 +25314,62 @@
     <reference-type-def kind='lvalue' type-id='a42a8566' size-in-bits='64' id='aeefc3c0'/>
     <reference-type-def kind='lvalue' type-id='683affb2' size-in-bits='64' id='a8e055fc'/>
     <qualified-type-def type-id='1b9eaacb' const='yes' id='d86b9e80'/>
+    <reference-type-def kind='lvalue' type-id='7fca334b' size-in-bits='64' id='fc4ddcff'/>
     <reference-type-def kind='rvalue' type-id='887814e5' size-in-bits='64' id='b237e585'/>
     <pointer-type-def type-id='887814e5' size-in-bits='64' id='22db4555'/>
     <namespace-decl name='__gnu_cxx'>
       <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
+        <base-class access='public' layout-offset-in-bits='0' type-id='9115e880'/>
         <member-type access='public'>
-          <typedef-decl name='const_reference' type-id='b4e49c70' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='110' column='1' id='7d12d105'/>
+          <typedef-decl name='value_type' type-id='f2fc2591' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='0c271b86'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
+        <member-type access='public'>
+          <typedef-decl name='pointer' type-id='ae0b8ef4' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='aecbc07d'/>
+        </member-type>
         <member-type access='public'>
           <typedef-decl name='reference' type-id='8c51b005' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='109' column='1' id='1dbc0849'/>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
         <member-type access='public'>
-          <typedef-decl name='value_type' type-id='ca44d8de' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='76659321'/>
+          <typedef-decl name='const_reference' type-id='b4e49c70' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='110' column='1' id='7d12d105'/>
+        </member-type>
+        <member-type access='public'>
+          <class-decl name='rebind&lt;mongo::executor::RemoteCommandRequest&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='38c27b4e'>
+            <member-type access='public'>
+              <typedef-decl name='other' type-id='746780f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='acba606f'/>
+            </member-type>
+          </class-decl>
         </member-type>
       </class-decl>
     </namespace-decl>
     <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
+      <typedef-decl name='_Require&lt;__has_construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt; &gt;' type-id='cac6dcd8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1957' column='1' id='574532e6'/>
+    </namespace-decl>
+    <namespace-decl name='std'>
+      <typedef-decl name='_Require&lt;__has_destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' type-id='cac6dcd8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1957' column='1' id='c1fdc6da'/>
+    </namespace-decl>
+    <namespace-decl name='std'>
+      <class-decl name='__alloctr_rebind&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;, mongo::executor::TaskExecutor::CallbackHandle, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='63' column='1' id='8cd01b58'>
         <member-type access='public'>
-          <typedef-decl name='pointer' type-id='b12abbd3' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='47d3a485'/>
+          <typedef-decl name='__type' type-id='33ba6d7a' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='65' column='1' id='9acf69d5'/>
         </member-type>
       </class-decl>
     </namespace-decl>
     <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
+      <class-decl name='pointer_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='150' column='1' id='8cd802e7'>
         <member-type access='public'>
-          <typedef-decl name='rebind_alloc&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' type-id='9acf69d5' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='133e9efe'/>
+          <typedef-decl name='pointer' type-id='1b9eaacb' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='153' column='1' id='23b9890b'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='157' column='1' id='eb70635a'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;const value_type&gt;' type-id='ee48eb22' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='ad33ebdb'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;const void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='b5f0e9c3'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='d69aa238'/>
         </member-type>
       </class-decl>
     </namespace-decl>
@@ -25330,6 +25417,42 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <namespace-decl name='std'>
+      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
+        <member-type access='public'>
+          <typedef-decl name='value_type' type-id='a67ed811' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='f2fc2591'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__pointer' type-id='f6919674' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='518674fa'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='pointer' type-id='518674fa' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='ae0b8ef4'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__const_void_pointer' type-id='eb507adc' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='126' column='1' id='3a2dc16d'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='const_void_pointer' type-id='3a2dc16d' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='135' column='1' id='1112c1f3'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='__size_type' type-id='3d69d40b' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='148' column='1' id='be4e0ce1'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='size_type' type-id='be4e0ce1' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='157' column='1' id='8fddc08b'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind_alloc&lt;mongo::executor::RemoteCommandRequest&gt;' type-id='a9c9b569' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='746780f8'/>
+        </member-type>
+        <member-function access='public' static='yes'>
+          <function-decl name='deallocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor20RemoteCommandRequestEEE10deallocateERS3_PS2_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='382' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor20RemoteCommandRequestEEE10deallocateERS3_PS2_m'>
+            <parameter type-id='eb012242'/>
+            <parameter type-id='ae0b8ef4'/>
+            <parameter type-id='8fddc08b'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
     <reference-type-def kind='lvalue' type-id='c43877f6' size-in-bits='64' id='b4e49c70'/>
     <qualified-type-def type-id='44558909' const='yes' id='561f18fa'/>
     <reference-type-def kind='lvalue' type-id='a84051fb' size-in-bits='64' id='ba40dee7'/>
@@ -25345,49 +25468,10 @@
     <pointer-type-def type-id='49efaa87' size-in-bits='64' id='58af9caf'/>
     <pointer-type-def type-id='a25f3828' size-in-bits='64' id='ef01288e'/>
     <pointer-type-def type-id='59af4d00' size-in-bits='64' id='6304f756'/>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='ae0b8ef4' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='aecbc07d'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
-        <member-type access='public'>
-          <class-decl name='rebind&lt;mongo::executor::RemoteCommandRequest&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='38c27b4e'>
-            <member-type access='public'>
-              <typedef-decl name='other' type-id='746780f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='acba606f'/>
-            </member-type>
-          </class-decl>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
     <namespace-decl name='mongo'>
       <namespace-decl name='repl'>
         <typedef-decl name='ResponseStatus' type-id='c5d0e004' filepath='src/mongo/db/repl/replication_executor.h' line='350' column='1' id='01a45bd8'/>
       </namespace-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='__alloctr_rebind&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;, mongo::executor::TaskExecutor::CallbackHandle, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='63' column='1' id='8cd01b58'>
-        <member-type access='public'>
-          <typedef-decl name='__type' type-id='33ba6d7a' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='65' column='1' id='9acf69d5'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
-        <member-type access='public'>
-          <typedef-decl name='__pointer' type-id='05bd5559' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='b12abbd3'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='728286f2' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='ca44d8de'/>
-        </member-type>
-      </class-decl>
     </namespace-decl>
     <pointer-type-def type-id='c6311f6a' size-in-bits='64' id='0fc47fc8'/>
     <qualified-type-def type-id='0c271b86' const='yes' id='c43877f6'/>
@@ -25395,28 +25479,7 @@
     <qualified-type-def type-id='47009deb' const='yes' id='a84051fb'/>
     <qualified-type-def type-id='fdcb7981' const='yes' id='2f9dd511'/>
     <qualified-type-def type-id='a25f3828' const='yes' id='729187f7'/>
-    <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='f2fc2591' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='0c271b86'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='518674fa' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='ae0b8ef4'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
-        <member-type access='public'>
-          <typedef-decl name='rebind_alloc&lt;mongo::executor::RemoteCommandRequest&gt;' type-id='a9c9b569' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='746780f8'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <qualified-type-def type-id='c6311f6a' const='yes' id='1a2f32e1'/>
+    <reference-type-def kind='lvalue' type-id='a25f3828' size-in-bits='64' id='eb012242'/>
     <namespace-decl name='std'>
       <class-decl name='__alloctr_rebind&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt;, mongo::executor::RemoteCommandRequest, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='63' column='1' id='92daca24'>
         <member-type access='public'>
@@ -25425,19 +25488,25 @@
       </class-decl>
     </namespace-decl>
     <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
+      <class-decl name='pointer_traits&lt;mongo::executor::RemoteCommandRequest *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='150' column='1' id='01db534c'>
         <member-type access='public'>
-          <typedef-decl name='__pointer' type-id='f6919674' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='518674fa'/>
+          <typedef-decl name='pointer' type-id='35bd5f48' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='153' column='1' id='9140512a'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='157' column='1' id='4884fb7f'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;const value_type&gt;' type-id='6ef513a1' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='bc3abb0c'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;const void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='eb507adc'/>
+        </member-type>
+        <member-type access='public'>
+          <typedef-decl name='rebind&lt;void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='736dd9b7'/>
         </member-type>
       </class-decl>
     </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='a67ed811' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='f2fc2591'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
+    <qualified-type-def type-id='c6311f6a' const='yes' id='1a2f32e1'/>
   </abi-instr>
   <abi-instr address-size='64' path='src/mongo/db/repl/scatter_gather_algorithm.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
     <namespace-decl name='std'>
@@ -25522,8 +25591,6 @@
     <reference-type-def kind='lvalue' type-id='fa9309b7' size-in-bits='64' id='edf102eb'/>
     <reference-type-def kind='lvalue' type-id='c72e68fc' size-in-bits='64' id='5b5bdc5b'/>
     <reference-type-def kind='lvalue' type-id='869b7f92' size-in-bits='64' id='9e4154d9'/>
-    <reference-type-def kind='lvalue' type-id='a25f3828' size-in-bits='64' id='eb012242'/>
-    <reference-type-def kind='lvalue' type-id='7fca334b' size-in-bits='64' id='fc4ddcff'/>
     <pointer-type-def type-id='f2fc2591' size-in-bits='64' id='59afaaf4'/>
     <pointer-type-def type-id='ca44d8de' size-in-bits='64' id='dd87f0a1'/>
     <reference-type-def kind='lvalue' type-id='a663dbba' size-in-bits='64' id='3254001c'/>
@@ -25567,50 +25634,6 @@
     <qualified-type-def type-id='51d98da8' volatile='yes' id='e28c3132'/>
     <qualified-type-def type-id='6d4fc4d7' volatile='yes' id='a4b36659'/>
     <namespace-decl name='__gnu_cxx'>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='17d23b7f'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='9115e880'/>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='f2fc2591' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='0c271b86'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='ae0b8ef4' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='aecbc07d'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='8c51b005' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='109' column='1' id='1dbc0849'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='const_reference' type-id='b4e49c70' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='110' column='1' id='7d12d105'/>
-        </member-type>
-        <member-type access='public'>
-          <class-decl name='rebind&lt;mongo::executor::RemoteCommandRequest&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='38c27b4e'>
-            <member-type access='public'>
-              <typedef-decl name='other' type-id='746780f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='acba606f'/>
-            </member-type>
-          </class-decl>
-        </member-type>
-      </class-decl>
-      <class-decl name='__alloc_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='95' column='1' id='dad76568'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='762b2faf'/>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='ca44d8de' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='103' column='1' id='76659321'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='47d3a485' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='104' column='1' id='397ed004'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='b49b04f8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='109' column='1' id='830aed44'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='const_reference' type-id='7e45f775' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='110' column='1' id='e41fed14'/>
-        </member-type>
-        <member-type access='public'>
-          <class-decl name='rebind&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='168' column='1' id='29015e28'>
-            <member-type access='public'>
-              <typedef-decl name='other' type-id='133e9efe' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/alloc_traits.h' line='169' column='1' id='14754e35'/>
-            </member-type>
-          </class-decl>
-        </member-type>
-      </class-decl>
       <class-decl name='__normal_iterator&lt;const mongo::executor::RemoteCommandRequest *, std::vector&lt;mongo::executor::RemoteCommandRequest, std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='38a497f7'/>
       <class-decl name='__normal_iterator&lt;mongo::executor::RemoteCommandRequest *, std::vector&lt;mongo::executor::RemoteCommandRequest, std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='f3c3f958'/>
       <function-decl name='operator==&lt;const mongo::executor::TaskExecutor::CallbackHandle *, std::vector&lt;mongo::executor::TaskExecutor::CallbackHandle, std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt; &gt;' mangled-name='_ZN9__gnu_cxxeqIPKN5mongo8executor12TaskExecutor14CallbackHandleESt6vectorIS4_SaIS4_EEEEbRKNS_17__normal_iteratorIT_T0_EESF_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator.h' line='815' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN9__gnu_cxxeqIPKN5mongo8executor12TaskExecutor14CallbackHandleESt6vectorIS4_SaIS4_EEEEbRKNS_17__normal_iteratorIT_T0_EESF_'>
@@ -25625,134 +25648,6 @@
       </function-decl>
     </namespace-decl>
     <namespace-decl name='std'>
-      <class-decl name='__alloctr_rebind&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt;, mongo::executor::RemoteCommandRequest, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='63' column='1' id='92daca24'>
-        <member-type access='public'>
-          <typedef-decl name='__type' type-id='787611d8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='65' column='1' id='a9c9b569'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='__alloctr_rebind&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;, mongo::executor::TaskExecutor::CallbackHandle, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='63' column='1' id='8cd01b58'>
-        <member-type access='public'>
-          <typedef-decl name='__type' type-id='33ba6d7a' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='65' column='1' id='9acf69d5'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::RemoteCommandRequest&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='9115e880'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='a67ed811' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='f2fc2591'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__pointer' type-id='f6919674' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='518674fa'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='518674fa' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='ae0b8ef4'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__const_void_pointer' type-id='eb507adc' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='126' column='1' id='3a2dc16d'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='const_void_pointer' type-id='3a2dc16d' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='135' column='1' id='1112c1f3'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__size_type' type-id='3d69d40b' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='148' column='1' id='be4e0ce1'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='size_type' type-id='be4e0ce1' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='157' column='1' id='8fddc08b'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind_alloc&lt;mongo::executor::RemoteCommandRequest&gt;' type-id='a9c9b569' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='746780f8'/>
-        </member-type>
-        <member-function access='public' static='yes'>
-          <function-decl name='deallocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor20RemoteCommandRequestEEE10deallocateERS3_PS2_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='382' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor20RemoteCommandRequestEEE10deallocateERS3_PS2_m'>
-            <parameter type-id='eb012242'/>
-            <parameter type-id='ae0b8ef4'/>
-            <parameter type-id='8fddc08b'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-      <class-decl name='allocator_traits&lt;std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='80' column='1' id='762b2faf'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='728286f2' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='85' column='1' id='ca44d8de'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__pointer' type-id='05bd5559' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='95' column='1' id='b12abbd3'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='b12abbd3' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='102' column='1' id='47d3a485'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__const_void_pointer' type-id='b5f0e9c3' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='126' column='1' id='efd1b186'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='const_void_pointer' type-id='efd1b186' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='135' column='1' id='f4d92ecc'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='__size_type' type-id='862bb972' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='148' column='1' id='812c0e24'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='size_type' type-id='812c0e24' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='157' column='1' id='a279e1fe'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind_alloc&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' type-id='9acf69d5' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='197' column='1' id='133e9efe'/>
-        </member-type>
-        <member-function access='public' static='yes'>
-          <function-decl name='construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE9constructIS3_JRKS3_EEEDTcl12_S_constructfp_fp0_spclsr3stdE7forwardIT0_Efp1_EEERS4_PT_DpOS9_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='397' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE9constructIS3_JRKS3_EEEDTcl12_S_constructfp_fp0_spclsr3stdE7forwardIT0_Efp1_EEERS4_PT_DpOS9_'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='1b9eaacb'/>
-            <parameter type-id='f248f16e'/>
-            <return type-id='574532e6'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' static='yes'>
-          <function-decl name='destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE7destroyIS3_EEvRS4_PT_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='410' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE7destroyIS3_EEvRS4_PT_'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='1b9eaacb'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' static='yes'>
-          <function-decl name='deallocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10deallocateERS4_PS3_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='382' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10deallocateERS4_PS3_m'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='47d3a485'/>
-            <parameter type-id='a279e1fe'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='private' static='yes'>
-          <function-decl name='_S_destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10_S_destroyIS3_EENSt9enable_ifIXsr6__and_INS5_16__destroy_helperIT_E4typeEEE5valueEvE4typeERS4_PS9_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='281' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE10_S_destroyIS3_EENSt9enable_ifIXsr6__and_INS5_16__destroy_helperIT_E4typeEEE5valueEvE4typeERS4_PS9_'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='1b9eaacb'/>
-            <return type-id='c1fdc6da'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' static='yes'>
-          <function-decl name='allocate' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8allocateERS4_m' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='356' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8allocateERS4_m'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='a279e1fe'/>
-            <return type-id='47d3a485'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' static='yes'>
-          <function-decl name='max_size' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8max_sizeERKS4_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='421' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE8max_sizeERKS4_'>
-            <parameter type-id='ea2b599e'/>
-            <return type-id='a279e1fe'/>
-          </function-decl>
-        </member-function>
-        <member-function access='private' static='yes'>
-          <function-decl name='_S_max_size&lt;const std::allocator&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;, void&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE11_S_max_sizeIKS4_vEEmRT_i' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='308' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE11_S_max_sizeIKS4_vEEmRT_i'>
-            <parameter type-id='ea2b599e'/>
-            <parameter type-id='95e97e5e'/>
-            <return type-id='a279e1fe'/>
-          </function-decl>
-        </member-function>
-        <member-function access='private' static='yes'>
-          <function-decl name='_S_construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt;' mangled-name='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE12_S_constructIS3_JRKS3_EEENSt9enable_ifIXsr6__and_INS5_18__construct_helperIT_JDpT0_EE4typeEEE5valueEvE4typeERS4_PSB_DpOSC_' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/alloc_traits.h' line='252' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNSt16allocator_traitsISaIN5mongo8executor12TaskExecutor14CallbackHandleEEE12_S_constructIS3_JRKS3_EEENSt9enable_ifIXsr6__and_INS5_18__construct_helperIT_JDpT0_EE4typeEEE5valueEvE4typeERS4_PSB_DpOSC_'>
-            <parameter type-id='fc4ddcff'/>
-            <parameter type-id='1b9eaacb'/>
-            <parameter type-id='f248f16e'/>
-            <return type-id='574532e6'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
       <class-decl name='__ptrtr_not_void&lt;mongo::executor::RemoteCommandRequest, mongo::executor::RemoteCommandRequest&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='105' column='1' id='d9b59831'>
         <member-type access='public'>
           <typedef-decl name='__type' type-id='02ad6cea' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='107' column='1' id='c72e68fc'/>
@@ -25761,40 +25656,6 @@
       <class-decl name='__ptrtr_not_void&lt;mongo::executor::TaskExecutor::CallbackHandle, mongo::executor::TaskExecutor::CallbackHandle&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='105' column='1' id='fd1a5207'>
         <member-type access='public'>
           <typedef-decl name='__type' type-id='c360a8ab' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='107' column='1' id='869b7f92'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='pointer_traits&lt;mongo::executor::RemoteCommandRequest *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='150' column='1' id='01db534c'>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='35bd5f48' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='153' column='1' id='9140512a'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='157' column='1' id='4884fb7f'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;const value_type&gt;' type-id='6ef513a1' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='bc3abb0c'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;const void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='eb507adc'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='736dd9b7'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='pointer_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='150' column='1' id='8cd802e7'>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='1b9eaacb' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='153' column='1' id='23b9890b'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='157' column='1' id='eb70635a'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;const value_type&gt;' type-id='ee48eb22' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='ad33ebdb'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;const void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='b5f0e9c3'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='rebind&lt;void&gt;' type-id='eaa32e2f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/ptr_traits.h' line='160' column='1' id='d69aa238'/>
         </member-type>
       </class-decl>
       <class-decl name='_Destroy_aux&lt;false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_construct.h' line='96' column='1' id='ea0078d5'>
@@ -25864,31 +25725,6 @@
             <return type-id='093276a0'/>
           </function-decl>
         </member-function>
-      </class-decl>
-      <class-decl name='iterator_traits&lt;mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='175' column='1' id='78d245f0'>
-        <member-type access='public'>
-          <typedef-decl name='value_type' type-id='c360a8ab' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='178' column='1' id='0e1070f1'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='179' column='1' id='2ad1350d'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='1b9eaacb' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='180' column='1' id='d95c0f94'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='179ea47f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='181' column='1' id='70e45c74'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='iterator_traits&lt;const mongo::executor::TaskExecutor::CallbackHandle *&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='186' column='1' id='a0f350c9'>
-        <member-type access='public'>
-          <typedef-decl name='difference_type' type-id='d368b855' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='190' column='1' id='d56f9e02'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='pointer' type-id='ee48eb22' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='191' column='1' id='01d07e43'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='f248f16e' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='192' column='1' id='f7184757'/>
-        </member-type>
       </class-decl>
       <class-decl name='__uninitialized_copy&lt;false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_uninitialized.h' line='64' column='1' id='f389fc98'>
         <member-function access='public' static='yes'>
@@ -26318,18 +26154,6 @@
           <typedef-decl name='type' type-id='12712997' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1505' column='1' id='5fe762ca'/>
         </member-type>
       </class-decl>
-      <class-decl name='__add_rvalue_reference_helper&lt;const mongo::executor::TaskExecutor::RemoteCommandCallbackArgs &amp;, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1530' column='1' id='82f4dfeb'>
-        <member-type access='public'>
-          <typedef-decl name='type' type-id='f1810104' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1531' column='1' id='d4bb238a'/>
-        </member-type>
-      </class-decl>
-      <class-decl name='__add_rvalue_reference_helper&lt;mongo::executor::TaskExecutor::CallbackHandle &amp;, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1530' column='1' id='46668e2e'>
-        <member-type access='public'>
-          <typedef-decl name='type' type-id='179ea47f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1531' column='1' id='700f438d'/>
-        </member-type>
-      </class-decl>
-      <typedef-decl name='_Require&lt;__has_construct&lt;mongo::executor::TaskExecutor::CallbackHandle, const mongo::executor::TaskExecutor::CallbackHandle &amp;&gt; &gt;' type-id='cac6dcd8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1957' column='1' id='574532e6'/>
-      <typedef-decl name='_Require&lt;__has_destroy&lt;mongo::executor::TaskExecutor::CallbackHandle&gt; &gt;' type-id='cac6dcd8' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1957' column='1' id='c1fdc6da'/>
       <typedef-decl name='__allocator_base&lt;mongo::executor::RemoteCommandRequest&gt;' type-id='c6311f6a' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++allocator.h' line='48' column='1' id='ef976929'/>
       <typedef-decl name='__allocator_base&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' type-id='44558909' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++allocator.h' line='48' column='1' id='cd5f7692'/>
       <class-decl name='initializer_list&lt;mongo::executor::TaskExecutor::CallbackHandle&gt;' visibility='default' is-declaration-only='yes' id='562ce2d3'/>

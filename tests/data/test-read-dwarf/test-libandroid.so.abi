@@ -1064,48 +1064,6 @@
             </member-function>
           </class-decl>
         </member-type>
-      </class-decl>
-    </namespace-decl>
-    <reference-type-def kind='lvalue' type-id='a3cec311' size-in-bits='32' id='157d4f95'/>
-    <reference-type-def kind='lvalue' type-id='34433e18' size-in-bits='32' id='83dafb9a'/>
-    <reference-type-def kind='lvalue' type-id='0a81a029' size-in-bits='32' id='990ef79d'/>
-    <reference-type-def kind='lvalue' type-id='2d59b88e' size-in-bits='32' id='0c3db078'/>
-    <qualified-type-def type-id='c894953d' const='yes' id='4ab96a04'/>
-    <qualified-type-def type-id='3ff5601b' const='yes' id='922df12b'/>
-    <pointer-type-def type-id='3ff5601b' size-in-bits='32' id='4aafb922'/>
-    <typedef-decl name='int32_t' type-id='33f57a65' filepath='bionic/libc/include/stdint.h' line='64' column='1' id='3ff5601b'/>
-    <type-decl name='void' id='48b5725f'/>
-    <namespace-decl name='android'>
-      <class-decl name='IBinder' visibility='default' is-declaration-only='yes' id='edff7cb3'/>
-    </namespace-decl>
-    <namespace-decl name='android'>
-      <class-decl name='IInterface' visibility='default' is-declaration-only='yes' id='40b6343a'/>
-    </namespace-decl>
-    <namespace-decl name='android'>
-      <class-decl name='String16' size-in-bits='32' visibility='default' filepath='system/core/libutils/include/utils/String16.h' line='39' column='1' id='c73fabea'>
-        <member-type access='private'>
-          <class-decl name='StaticData&lt;35&gt;' size-in-bits='608' is-struct='yes' visibility='default' filepath='system/core/libutils/include/utils/String16.h' line='154' column='1' id='6807f016'>
-            <data-member access='public' layout-offset-in-bits='0'>
-              <var-decl name='size' type-id='b9930aae' visibility='default' filepath='system/core/libutils/include/utils/String16.h' line='158' column='1'/>
-            </data-member>
-            <data-member access='public' layout-offset-in-bits='32'>
-              <var-decl name='data' type-id='5da7196d' visibility='default' filepath='system/core/libutils/include/utils/String16.h' line='159' column='1'/>
-            </data-member>
-            <member-function access='public'>
-              <function-decl name='StaticData' filepath='system/core/libutils/include/utils/String16.h' line='157' column='1' visibility='default' binding='global' size-in-bits='32'>
-                <parameter type-id='ba5970bc' is-artificial='yes'/>
-                <return type-id='48b5725f'/>
-              </function-decl>
-            </member-function>
-            <member-function access='public'>
-              <function-decl name='StaticData' filepath='system/core/libutils/include/utils/String16.h' line='161' column='1' visibility='default' binding='global' size-in-bits='32'>
-                <parameter type-id='ba5970bc' is-artificial='yes'/>
-                <parameter type-id='fbc5f4a1'/>
-                <return type-id='48b5725f'/>
-              </function-decl>
-            </member-function>
-          </class-decl>
-        </member-type>
         <member-type access='private'>
           <class-decl name='StaticData&lt;38&gt;' size-in-bits='640' is-struct='yes' visibility='default' filepath='system/core/libutils/include/utils/String16.h' line='154' column='1' id='6a14bf2f'>
             <data-member access='public' layout-offset-in-bits='0'>
@@ -1202,16 +1160,36 @@
         </member-function>
       </class-decl>
     </namespace-decl>
-    <qualified-type-def type-id='c73fabea' const='yes' id='a3cec311'/>
-    <qualified-type-def type-id='bb7689ff' const='yes' id='34433e18'/>
-    <qualified-type-def type-id='92343ec8' const='yes' id='0a81a029'/>
-    <qualified-type-def type-id='a107f0d1' const='yes' id='2d59b88e'/>
-    <qualified-type-def type-id='8f92235e' const='yes' id='b9930aae'/>
-    <typedef-decl name='__int32_t' type-id='95e97e5e' filepath='bionic/libc/include/stdint.h' line='40' column='1' id='33f57a65'/>
+    <reference-type-def kind='lvalue' type-id='a3cec311' size-in-bits='32' id='157d4f95'/>
+    <reference-type-def kind='lvalue' type-id='34433e18' size-in-bits='32' id='83dafb9a'/>
+    <reference-type-def kind='lvalue' type-id='0a81a029' size-in-bits='32' id='990ef79d'/>
+    <reference-type-def kind='lvalue' type-id='2d59b88e' size-in-bits='32' id='0c3db078'/>
+    <qualified-type-def type-id='c894953d' const='yes' id='4ab96a04'/>
+    <qualified-type-def type-id='3ff5601b' const='yes' id='922df12b'/>
+    <pointer-type-def type-id='3ff5601b' size-in-bits='32' id='4aafb922'/>
+    <typedef-decl name='int32_t' type-id='33f57a65' filepath='bionic/libc/include/stdint.h' line='64' column='1' id='3ff5601b'/>
+    <type-decl name='void' id='48b5725f'/>
     <pointer-type-def type-id='6a14bf2f' size-in-bits='32' id='6ec90c77'/>
     <array-type-def dimensions='1' type-id='801a266d' size-in-bits='608' id='19b37a54'>
       <subrange length='38' type-id='7ff19f0f' id='aa4ccdac'/>
     </array-type-def>
+    <namespace-decl name='android'>
+      <class-decl name='IBinder' visibility='default' is-declaration-only='yes' id='edff7cb3'/>
+    </namespace-decl>
+    <namespace-decl name='android'>
+      <class-decl name='IInterface' visibility='default' is-declaration-only='yes' id='40b6343a'/>
+    </namespace-decl>
+    <qualified-type-def type-id='c73fabea' const='yes' id='a3cec311'/>
+    <reference-type-def kind='lvalue' type-id='eae5dbc4' size-in-bits='32' id='a9d924c6'/>
+    <reference-type-def kind='lvalue' type-id='745c9152' size-in-bits='32' id='a1b8f99c'/>
+    <qualified-type-def type-id='bb7689ff' const='yes' id='34433e18'/>
+    <qualified-type-def type-id='92343ec8' const='yes' id='0a81a029'/>
+    <qualified-type-def type-id='a107f0d1' const='yes' id='2d59b88e'/>
+    <pointer-type-def type-id='9b45d938' size-in-bits='32' id='80f4b756'/>
+    <pointer-type-def type-id='e7c31614' size-in-bits='32' id='161c039a'/>
+    <qualified-type-def type-id='8f92235e' const='yes' id='b9930aae'/>
+    <typedef-decl name='__int32_t' type-id='95e97e5e' filepath='bionic/libc/include/stdint.h' line='40' column='1' id='33f57a65'/>
+    <typedef-decl name='size_t' type-id='f0981eeb' filepath='prebuilts/clang/host/linux-x86/clang-r383902b/lib64/clang/11.0.2/include/stddef.h' line='46' column='1' id='b59d7dce'/>
     <namespace-decl name='android'>
       <class-decl name='sp&lt;android::IBinder&gt;' size-in-bits='32' visibility='default' filepath='system/core/libutils/include/utils/StrongPointer.h' line='31' column='1' id='bb7689ff'>
         <data-member access='private' layout-offset-in-bits='0'>
@@ -1339,13 +1317,13 @@
         </member-function>
       </class-decl>
     </namespace-decl>
-    <reference-type-def kind='lvalue' type-id='eae5dbc4' size-in-bits='32' id='a9d924c6'/>
-    <reference-type-def kind='lvalue' type-id='745c9152' size-in-bits='32' id='a1b8f99c'/>
-    <pointer-type-def type-id='9b45d938' size-in-bits='32' id='80f4b756'/>
-    <pointer-type-def type-id='e7c31614' size-in-bits='32' id='161c039a'/>
+    <qualified-type-def type-id='6a14bf2f' const='yes' id='eae5dbc4'/>
+    <qualified-type-def type-id='bacf3393' const='yes' id='745c9152'/>
+    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
+    <qualified-type-def type-id='801a266d' const='yes' id='e7c31614'/>
     <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
-    <typedef-decl name='size_t' type-id='f0981eeb' filepath='prebuilts/clang/host/linux-x86/clang-r383902b/lib64/clang/11.0.2/include/stddef.h' line='46' column='1' id='b59d7dce'/>
     <typedef-decl name='uint32_t' type-id='62f1140c' filepath='bionic/libc/include/stdint.h' line='65' column='1' id='8f92235e'/>
+    <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
     <pointer-type-def type-id='f7c5ae1e' size-in-bits='32' id='c70198d4'/>
     <pointer-type-def type-id='65c10d3d' size-in-bits='32' id='5a61729d'/>
     <reference-type-def kind='rvalue' type-id='bb7689ff' size-in-bits='32' id='82104e1f'/>
@@ -1354,14 +1332,88 @@
     <pointer-type-def type-id='92343ec8' size-in-bits='32' id='7566205e'/>
     <reference-type-def kind='rvalue' type-id='a107f0d1' size-in-bits='32' id='1e1ebf51'/>
     <pointer-type-def type-id='a107f0d1' size-in-bits='32' id='b5cb4749'/>
-    <qualified-type-def type-id='6a14bf2f' const='yes' id='eae5dbc4'/>
-    <qualified-type-def type-id='bacf3393' const='yes' id='745c9152'/>
-    <reference-type-def kind='lvalue' type-id='2d0d8ce7' size-in-bits='32' id='ad5493d3'/>
-    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
-    <qualified-type-def type-id='801a266d' const='yes' id='e7c31614'/>
-    <typedef-decl name='__uint32_t' type-id='f0981eeb' filepath='bionic/libc/include/stdint.h' line='41' column='1' id='62f1140c'/>
-    <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
     <type-decl name='char' size-in-bits='8' id='a84c031d'/>
+    <namespace-decl name='android'>
+      <class-decl name='String8' size-in-bits='32' visibility='default' filepath='system/core/libutils/include/utils/String8.h' line='40' column='1' id='bacf3393'>
+        <data-member access='private' layout-offset-in-bits='0'>
+          <var-decl name='mString' type-id='80f4b756' visibility='default' filepath='system/core/libutils/include/utils/String8.h' line='229' column='1'/>
+        </data-member>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='43' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='44' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='a1b8f99c'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='45' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='80f4b756'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='46' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='80f4b756'/>
+            <parameter type-id='b59d7dce'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='48' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='157d4f95'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='49' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='161c039a'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='50' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='161c039a'/>
+            <parameter type-id='b59d7dce'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='51' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='58d7e108'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' constructor='yes'>
+          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='52' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <parameter type-id='58d7e108'/>
+            <parameter type-id='b59d7dce'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public' destructor='yes'>
+          <function-decl name='~String8' filepath='system/core/libutils/include/utils/String8.h' line='53' column='1' visibility='default' binding='global' size-in-bits='32'>
+            <parameter type-id='1ab09733' is-artificial='yes'/>
+            <return type-id='48b5725f'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <reference-type-def kind='lvalue' type-id='2d0d8ce7' size-in-bits='32' id='ad5493d3'/>
+    <typedef-decl name='__uint32_t' type-id='f0981eeb' filepath='bionic/libc/include/stdint.h' line='41' column='1' id='62f1140c'/>
+    <pointer-type-def type-id='bacf3393' size-in-bits='32' id='1ab09733'/>
     <namespace-decl name='android'>
       <class-decl name='IObbActionListener' size-in-bits='96' visibility='default' filepath='frameworks/base/libs/storage/include/storage/IObbActionListener.h' line='27' column='1' id='f7c5ae1e'>
         <base-class access='public' layout-offset-in-bits='0' type-id='40b6343a'/>
@@ -1498,87 +1550,9 @@
         </member-function>
       </class-decl>
     </namespace-decl>
-    <namespace-decl name='android'>
-      <class-decl name='String8' size-in-bits='32' visibility='default' filepath='system/core/libutils/include/utils/String8.h' line='40' column='1' id='bacf3393'>
-        <data-member access='private' layout-offset-in-bits='0'>
-          <var-decl name='mString' type-id='80f4b756' visibility='default' filepath='system/core/libutils/include/utils/String8.h' line='229' column='1'/>
-        </data-member>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='43' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='44' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='a1b8f99c'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='45' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='80f4b756'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='46' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='80f4b756'/>
-            <parameter type-id='b59d7dce'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='48' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='157d4f95'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='49' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='161c039a'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='50' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='161c039a'/>
-            <parameter type-id='b59d7dce'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='51' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='58d7e108'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' constructor='yes'>
-          <function-decl name='String8' filepath='system/core/libutils/include/utils/String8.h' line='52' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <parameter type-id='58d7e108'/>
-            <parameter type-id='b59d7dce'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public' destructor='yes'>
-          <function-decl name='~String8' filepath='system/core/libutils/include/utils/String8.h' line='53' column='1' visibility='default' binding='global' size-in-bits='32'>
-            <parameter type-id='1ab09733' is-artificial='yes'/>
-            <return type-id='48b5725f'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
     <qualified-type-def type-id='788ba3f2' const='yes' id='2d0d8ce7'/>
+    <pointer-type-def type-id='eb5b5ff2' size-in-bits='32' id='58d7e108'/>
     <pointer-type-def type-id='cb49a619' size-in-bits='32' id='1a1ddb91'/>
-    <pointer-type-def type-id='bacf3393' size-in-bits='32' id='1ab09733'/>
     <namespace-decl name='android'>
       <class-decl name='Parcelable' size-in-bits='32' visibility='default' filepath='frameworks/native/libs/binder/include/binder/Parcelable.h' line='35' column='1' id='f8f7e309'>
         <member-function access='public' constructor='yes'>
@@ -1700,7 +1674,7 @@
     <pointer-type-def type-id='79f4741d' size-in-bits='32' id='32d2f295'/>
     <pointer-type-def type-id='dda33994' size-in-bits='32' id='a5f3e61a'/>
     <pointer-type-def type-id='4eb937a6' size-in-bits='32' id='79927164'/>
-    <pointer-type-def type-id='eb5b5ff2' size-in-bits='32' id='58d7e108'/>
+    <qualified-type-def type-id='a846fc93' const='yes' id='eb5b5ff2'/>
     <pointer-type-def type-id='2b61797f' size-in-bits='32' id='9f7200cf'/>
     <namespace-decl name='android'>
       <typedef-decl name='status_t' type-id='3ff5601b' filepath='system/core/libutils/include/utils/Errors.h' line='30' column='1' id='6e9756f6'/>
@@ -1709,6 +1683,7 @@
     <pointer-type-def type-id='f8f7e309' size-in-bits='32' id='f7891b51'/>
     <reference-type-def kind='rvalue' type-id='788ba3f2' size-in-bits='32' id='a7d93406'/>
     <pointer-type-def type-id='788ba3f2' size-in-bits='32' id='37fc04a0'/>
+    <type-decl name='char32_t' size-in-bits='32' id='a846fc93'/>
     <namespace-decl name='android'>
       <class-decl name='Parcel' size-in-bits='480' visibility='default' filepath='frameworks/native/libs/binder/include/binder/Parcel.h' line='55' column='1' id='cb49a619'>
         <member-type access='private'>
@@ -1823,7 +1798,6 @@
     <qualified-type-def type-id='cb49a619' const='yes' id='4eb937a6'/>
     <reference-type-def kind='lvalue' type-id='b04de3ca' size-in-bits='32' id='769dcc84'/>
     <pointer-type-def type-id='b04de3ca' size-in-bits='32' id='6a9db9a0'/>
-    <qualified-type-def type-id='a846fc93' const='yes' id='eb5b5ff2'/>
     <qualified-type-def type-id='b96825af' const='yes' id='2b61797f'/>
     <reference-type-def kind='rvalue' type-id='c722890a' size-in-bits='32' id='4c21e37e'/>
     <pointer-type-def type-id='c722890a' size-in-bits='32' id='d3ba3bb8'/>
@@ -1837,7 +1811,6 @@
       </namespace-decl>
     </namespace-decl>
     <pointer-type-def type-id='9af0438f' size-in-bits='32' id='ed491f06'/>
-    <type-decl name='char32_t' size-in-bits='32' id='a846fc93'/>
     <class-decl name='ObbActionListener' size-in-bits='224' is-struct='yes' visibility='default' filepath='frameworks/base/native/android/storage_manager.cpp' line='36' column='1' id='38e516d0'>
       <base-class access='public' layout-offset-in-bits='0' type-id='b4c0d64f'/>
       <data-member access='private' layout-offset-in-bits='128'>
@@ -2496,11 +2469,6 @@
     </namespace-decl>
     <namespace-decl name='std'>
       <namespace-decl name='__1'>
-        <class-decl name='__pointer_type&lt;android::IObbActionListener, std::__1::default_delete&lt;android::IObbActionListener&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1029' column='1' id='4ef6f3a4'>
-          <member-type access='public'>
-            <typedef-decl name='type' type-id='1e232805' filepath='external/libcxx/include/memory' line='1031' column='1' id='3ac420f3'/>
-          </member-type>
-        </class-decl>
         <class-decl name='__add_lvalue_reference_impl&lt;android::IObbActionListener, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/type_traits' line='1125' column='1' id='9ce38486'>
           <member-type access='public'>
             <typedef-decl name='type' type-id='bb0185f0' filepath='external/libcxx/include/type_traits' line='1125' column='1' id='608b97af'/>
@@ -2512,11 +2480,6 @@
           </member-type>
         </class-decl>
         <namespace-decl name='__pointer_type_imp'>
-          <class-decl name='__pointer_type&lt;android::IObbActionListener, std::__1::default_delete&lt;android::IObbActionListener&gt;, false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1021' column='1' id='123fea2e'>
-            <member-type access='public'>
-              <typedef-decl name='type' type-id='c70198d4' filepath='external/libcxx/include/memory' line='1023' column='1' id='1e232805'/>
-            </member-type>
-          </class-decl>
         </namespace-decl>
       </namespace-decl>
     </namespace-decl>
@@ -34133,11 +34096,6 @@
             <typedef-decl name='type' type-id='f2824ab4' filepath='external/libcxx/include/memory' line='1031' column='1' id='1cddba11'/>
           </member-type>
         </class-decl>
-        <class-decl name='__pointer_type&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, std::__1::default_delete&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; &gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1029' column='1' id='302a5334'>
-          <member-type access='public'>
-            <typedef-decl name='type' type-id='e0875c35' filepath='external/libcxx/include/memory' line='1031' column='1' id='538091a9'/>
-          </member-type>
-        </class-decl>
         <class-decl name='__pointer_type&lt;std::__1::pair&lt;unsigned int, float&gt;, std::__1::allocator&lt;std::__1::pair&lt;unsigned int, float&gt; &gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1029' column='1' id='a6639112'>
           <member-type access='public'>
             <typedef-decl name='type' type-id='93533072' filepath='external/libcxx/include/memory' line='1031' column='1' id='7e077329'/>
@@ -34156,11 +34114,6 @@
         <class-decl name='__pointer_type&lt;unsigned short, std::__1::allocator&lt;unsigned short&gt; &gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1029' column='1' id='32e24ca4'>
           <member-type access='public'>
             <typedef-decl name='type' type-id='2d40fa7c' filepath='external/libcxx/include/memory' line='1031' column='1' id='75770269'/>
-          </member-type>
-        </class-decl>
-        <class-decl name='__const_pointer&lt;char, char *, std::__1::allocator&lt;char&gt;, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1042' column='1' id='a6fda4d5'>
-          <member-type access='public'>
-            <typedef-decl name='type' type-id='ffee57ca' filepath='external/libcxx/include/memory' line='1044' column='1' id='d77939ac'/>
           </member-type>
         </class-decl>
         <class-decl name='__const_pointer&lt;minikin::FontCollection::Range, minikin::FontCollection::Range *, std::__1::allocator&lt;minikin::FontCollection::Range&gt;, true&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1042' column='1' id='9456f6a6'>
@@ -36476,11 +36429,6 @@
           <class-decl name='__pointer_type&lt;hb_font_t, minikin::HbFontDeleter, false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1021' column='1' id='571575cf'>
             <member-type access='public'>
               <typedef-decl name='type' type-id='022d8174' filepath='external/libcxx/include/memory' line='1023' column='1' id='93581aca'/>
-            </member-type>
-          </class-decl>
-          <class-decl name='__pointer_type&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, std::__1::default_delete&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; &gt;, false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1021' column='1' id='94e6669c'>
-            <member-type access='public'>
-              <typedef-decl name='type' type-id='9c8ba24a' filepath='external/libcxx/include/memory' line='1023' column='1' id='e0875c35'/>
             </member-type>
           </class-decl>
           <class-decl name='__pointer_type&lt;unsigned char, XmlCharDeleter, false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='external/libcxx/include/memory' line='1021' column='1' id='a540a948'>

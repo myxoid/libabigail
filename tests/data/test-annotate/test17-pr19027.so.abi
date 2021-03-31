@@ -10652,585 +10652,6 @@
       <typedef-decl name='GlyphID' type-id='0f676950' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='672' column='1' id='707a613a'/>
     </namespace-decl>
     <namespace-decl name='OT'>
-      <class-decl name='hb_apply_context_t' size-in-bits='640' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='262' column='1' id='84c6d1a0'>
-        <member-type access='public'>
-          <!-- typedef bool OT::hb_apply_context_t::return_t -->
-          <typedef-decl name='return_t' type-id='c894953d' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='265' column='1' id='e65f4c18'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_closure_context_t' size-in-bits='256' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='56' column='1' id='7865f8b1'>
-        <member-type access='public'>
-          <!-- typedef hb_void_t OT::hb_closure_context_t::return_t -->
-          <typedef-decl name='return_t' type-id='260b603a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='59' column='1' id='7fb85619'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_collect_glyphs_context_t' size-in-bits='66944' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='144' column='1' id='1b0a834a'>
-        <member-type access='public'>
-          <!-- typedef hb_void_t OT::hb_collect_glyphs_context_t::return_t -->
-          <typedef-decl name='return_t' type-id='260b603a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='147' column='1' id='50d55e5c'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_get_coverage_context_t' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='236' column='1' id='c31741c1'>
-        <member-type access='public'>
-          <!-- typedef const OT::Coverage& OT::hb_get_coverage_context_t::return_t -->
-          <typedef-decl name='return_t' type-id='05bec195' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='239' column='1' id='783f4a47'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <class-decl name='hb_would_apply_context_t' size-in-bits='256' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='106' column='1' id='5647398a'>
-        <member-type access='public'>
-          <!-- typedef bool OT::hb_would_apply_context_t::return_t -->
-          <typedef-decl name='return_t' type-id='c894953d' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='109' column='1' id='129bee46'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <!-- OT::ArrayOf<OT::OffsetTo<OT::AnchorMatrix, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
-    <pointer-type-def type-id='c540aa74' size-in-bits='64' id='43a5fe32'/>
-    <!-- OT::ArrayOf<OT::OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
-    <pointer-type-def type-id='057e98f8' size-in-bits='64' id='a6f9fdae'/>
-    <!-- OT::ArrayOf<OT::OffsetTo<OT::PosLookupSubTable, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
-    <pointer-type-def type-id='62a172f6' size-in-bits='64' id='90995cbc'/>
-    <!-- OT::ArrayOf<OT::OffsetTo<OT::SubstLookupSubTable, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
-    <pointer-type-def type-id='0a186029' size-in-bits='64' id='958d7351'/>
-    <!-- BYTE[256] -->
-    <array-type-def dimensions='1' type-id='e86f2285' size-in-bits='2048' id='5a4c6e99'>
-      <!-- <anonymous range>[256] -->
-      <subrange length='256' type-id='7359adad' id='36e5b9fa'/>
-    </array-type-def>
-    <!-- CmapSubtableLongGroup[1] -->
-    <array-type-def dimensions='1' type-id='d2508266' size-in-bits='96' id='c43766f5'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- EncodingRecord[1] -->
-    <array-type-def dimensions='1' type-id='a0aca0ca' size-in-bits='64' id='a9ff1359'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- EntryExitRecord[1] -->
-    <array-type-def dimensions='1' type-id='802a161f' size-in-bits='32' id='d6fd7f86'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- Index[1] -->
-    <array-type-def dimensions='1' type-id='e272644e' size-in-bits='16' id='7b1b583d'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- IntType<unsigned int, 3u>[1] -->
-    <array-type-def dimensions='1' type-id='0b056d27' size-in-bits='24' id='86e35f9e'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- LookupRecord[1] -->
-    <array-type-def dimensions='1' type-id='31296d39' size-in-bits='32' id='c5f505a0'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- MarkRecord[1] -->
-    <array-type-def dimensions='1' type-id='38081ac2' size-in-bits='32' id='4adb6e41'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Anchor, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='2f293efd' size-in-bits='16' id='dc453234'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::AnchorMatrix, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='41510bc6' size-in-bits='16' id='a4489a25'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='15999e12' size-in-bits='16' id='5d1a1f91'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::CaretValue, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='fd3e7ed2' size-in-bits='16' id='e714ced1'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::ChainRule, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='6c606c21' size-in-bits='16' id='5685cfb8'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::ChainRuleSet, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='ddccf839' size-in-bits='16' id='7ea02230'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='c0ac5794' size-in-bits='16' id='6c7bc583'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Coverage, OT::IntType<unsigned int, 4u> >[1] -->
-    <array-type-def dimensions='1' type-id='a55a47b8' size-in-bits='32' id='598b9d67'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::LigGlyph, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='fd7bc300' size-in-bits='16' id='0fa02bbf'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Lookup, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='2a2fdd0c' size-in-bits='16' id='fdcf7dfb'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='9d05b568' size-in-bits='16' id='bdc2a887'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::PosLookup, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='3dc8f35c' size-in-bits='16' id='e2e2af4b'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::PosLookupSubTable, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='5140e546' size-in-bits='16' id='a3407355'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Rule, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='ff06cafc' size-in-bits='16' id='6c66a33b'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::RuleSet, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='75c40f42' size-in-bits='16' id='806c81b1'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::Sequence, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='29e56465' size-in-bits='16' id='beac0a8c'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::SubstLookup, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='e29139c9' size-in-bits='16' id='894a99b0'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OffsetTo<OT::SubstLookupSubTable, OT::IntType<short unsigned int, 2u> >[1] -->
-    <array-type-def dimensions='1' type-id='58ff1033' size-in-bits='16' id='dd73c8ba'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- RangeRecord[1] -->
-    <array-type-def dimensions='1' type-id='f9ae2a6e' size-in-bits='48' id='47675cad'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- Record<OT::Feature>[1] -->
-    <array-type-def dimensions='1' type-id='54710f52' size-in-bits='48' id='ca8d61d1'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- Record<OT::LangSys>[1] -->
-    <array-type-def dimensions='1' type-id='fc84a533' size-in-bits='48' id='fa6575fa'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- Record<OT::Script>[1] -->
-    <array-type-def dimensions='1' type-id='4665a4a1' size-in-bits='48' id='4cfb6558'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- UVSMapping[1] -->
-    <array-type-def dimensions='1' type-id='73772998' size-in-bits='40' id='d8c48427'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- UnicodeValueRange[1] -->
-    <array-type-def dimensions='1' type-id='a98ffca7' size-in-bits='32' id='e7f6893e'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <!-- OT::ValueFormat* -->
-    <pointer-type-def type-id='23f47fec' size-in-bits='64' id='255f335a'/>
-    <!-- VariationSelectorRecord[1] -->
-    <array-type-def dimensions='1' type-id='4481074f' size-in-bits='88' id='8c3d8356'>
-      <!-- <anonymous range>[1] -->
-      <subrange length='1' type-id='7359adad' id='52f813b4'/>
-    </array-type-def>
-    <namespace-decl name='OT'>
-      <!-- struct OT::AlternateSubstFormat1 -->
-      <class-decl name='AlternateSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='453' column='1' id='1b267645'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- OT::USHORT OT::AlternateSubstFormat1::format -->
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='544' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::AlternateSubstFormat1::coverage -->
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='546' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <!-- OT::OffsetArrayOf<OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> > > OT::AlternateSubstFormat1::alternateSet -->
-          <var-decl name='alternateSet' type-id='8b509f54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='549' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const unsigned int OT::AlternateSubstFormat1::min_size -->
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='552' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::ChainContext -->
-      <class-decl name='ChainContext' size-in-bits='160' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2142' column='1' id='3d658a1e'>
-        <member-type access='protected'>
-          <!-- union {OT::USHORT format; OT::ChainContextFormat1 format1; OT::ChainContextFormat2 format2; OT::ChainContextFormat3 format3;} -->
-          <union-decl name='__anonymous_union__' size-in-bits='160' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2167' column='1' id='0e325f64'>
-            <data-member access='public'>
-              <!-- OT::USHORT format -->
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2168' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ChainContextFormat1 format1 -->
-              <var-decl name='format1' type-id='5a2e0b54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2169' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ChainContextFormat2 format2 -->
-              <var-decl name='format2' type-id='5d2e100d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2170' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ChainContextFormat3 format3 -->
-              <var-decl name='format3' type-id='5c2e0e7a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2171' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- union {OT::USHORT format; OT::ChainContextFormat1 format1; OT::ChainContextFormat2 format2; OT::ChainContextFormat3 format3;} OT::ChainContext::u -->
-          <var-decl name='u' type-id='0e325f64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2172' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <!-- OT::hb_would_apply_context_t::return_t OT::ChainContext::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::ChainContext*' -->
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
-            <parameter type-id='fef7d5e8'/>
-            <!-- typedef OT::hb_would_apply_context_t::return_t -->
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_closure_context_t::return_t OT::ChainContext::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::ChainContext*' -->
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_closure_context_t*' -->
-            <parameter type-id='dac194b9'/>
-            <!-- typedef OT::hb_closure_context_t::return_t -->
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_get_coverage_context_t::return_t OT::ChainContext::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::ChainContext*' -->
-            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
-            <parameter type-id='23c76eb9'/>
-            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::Context -->
-      <class-decl name='Context' size-in-bits='96' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1524' column='1' id='bd40d0c5'>
-        <member-type access='protected'>
-          <!-- union {OT::USHORT format; OT::ContextFormat1 format1; OT::ContextFormat2 format2; OT::ContextFormat3 format3;} -->
-          <union-decl name='__anonymous_union__' size-in-bits='96' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1549' column='1' id='4317c95d'>
-            <data-member access='public'>
-              <!-- OT::USHORT format -->
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1550' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ContextFormat1 format1 -->
-              <var-decl name='format1' type-id='af73d779' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1551' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ContextFormat2 format2 -->
-              <var-decl name='format2' type-id='ac73d2c0' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1552' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ContextFormat3 format3 -->
-              <var-decl name='format3' type-id='ad73d453' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1553' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- union {OT::USHORT format; OT::ContextFormat1 format1; OT::ContextFormat2 format2; OT::ContextFormat3 format3;} OT::Context::u -->
-          <var-decl name='u' type-id='4317c95d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1554' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <!-- OT::hb_would_apply_context_t::return_t OT::Context::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Context*' -->
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
-            <parameter type-id='fef7d5e8'/>
-            <!-- typedef OT::hb_would_apply_context_t::return_t -->
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_closure_context_t::return_t OT::Context::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Context*' -->
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_closure_context_t*' -->
-            <parameter type-id='dac194b9'/>
-            <!-- typedef OT::hb_closure_context_t::return_t -->
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_get_coverage_context_t::return_t OT::Context::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Context*' -->
-            <parameter type-id='17326a4c' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
-            <parameter type-id='23c76eb9'/>
-            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::Extension<OT::ExtensionSubst> -->
-      <class-decl name='Extension&lt;OT::ExtensionSubst&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2199' column='1' id='cf1c9132'>
-        <member-type access='protected'>
-          <!-- union {OT::USHORT format; OT::ExtensionFormat1 format1;} -->
-          <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2247' column='1' id='9452b977'>
-            <data-member access='public'>
-              <!-- OT::USHORT format -->
-              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2248' column='1'/>
-            </data-member>
-            <data-member access='public'>
-              <!-- OT::ExtensionFormat1 format1 -->
-              <var-decl name='format1' type-id='b7accedf' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2249' column='1'/>
-            </data-member>
-          </union-decl>
-        </member-type>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- union {OT::USHORT format; OT::ExtensionFormat1 format1;} OT::Extension<OT::ExtensionSubst>::u -->
-          <var-decl name='u' type-id='9452b977' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2250' column='1'/>
-        </data-member>
-        <member-function access='public'>
-          <!-- const OT::SubstLookupSubTable& OT::Extension<OT::ExtensionSubst>::get_subtable<OT::SubstLookupSubTable>() -->
-          <function-decl name='get_subtable&lt;OT::SubstLookupSubTable&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2216' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- const OT::SubstLookupSubTable& -->
-            <return type-id='a5ae515e'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_would_apply_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
-            <parameter type-id='fef7d5e8'/>
-            <!-- typedef OT::hb_would_apply_context_t::return_t -->
-            <return type-id='129bee46'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_collect_glyphs_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_collect_glyphs_context_t>(OT::hb_collect_glyphs_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_collect_glyphs_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_collect_glyphs_context_t*' -->
-            <parameter type-id='f51858b8'/>
-            <!-- typedef OT::hb_collect_glyphs_context_t::return_t -->
-            <return type-id='50d55e5c'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_closure_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_closure_context_t*' -->
-            <parameter type-id='dac194b9'/>
-            <!-- typedef OT::hb_closure_context_t::return_t -->
-            <return type-id='7fb85619'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_apply_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_apply_context_t>(OT::hb_apply_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_apply_context_t*' -->
-            <parameter type-id='ea2b5956'/>
-            <!-- typedef OT::hb_apply_context_t::return_t -->
-            <return type-id='e65f4c18'/>
-          </function-decl>
-        </member-function>
-        <member-function access='public'>
-          <!-- OT::hb_get_coverage_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
-          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
-            <parameter type-id='5c756b79' is-artificial='yes'/>
-            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
-            <parameter type-id='23c76eb9'/>
-            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
-            <return type-id='783f4a47'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::IndexArray -->
-      <class-decl name='IndexArray' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-common-private.hh' line='161' column='1' id='63bdc577'>
-        <!-- struct OT::ArrayOf<OT::Index, OT::IntType<short unsigned int, 2u> > -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='8de8e952'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::MultipleSubstFormat1 -->
-      <class-decl name='MultipleSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='328' column='1' id='fab60057'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- OT::USHORT OT::MultipleSubstFormat1::format -->
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='393' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::MultipleSubstFormat1::coverage -->
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='395' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <!-- OT::OffsetArrayOf<OT::Sequence> OT::MultipleSubstFormat1::sequence -->
-          <var-decl name='sequence' type-id='acba043b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='398' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const unsigned int OT::MultipleSubstFormat1::min_size -->
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='401' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::OffsetArrayOf<OT::PairSet> -->
-      <class-decl name='OffsetArrayOf&lt;OT::PairSet&gt;' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='900' column='1' id='504054a0'>
-        <!-- struct OT::ArrayOf<OT::OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> > -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='057e98f8'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::ReverseChainSingleSubstFormat1 -->
-      <class-decl name='ReverseChainSingleSubstFormat1' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='929' column='1' id='cafe8d0c'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- OT::USHORT OT::ReverseChainSingleSubstFormat1::format -->
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1032' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::ReverseChainSingleSubstFormat1::coverage -->
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1034' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <!-- OT::OffsetArrayOf<OT::Coverage> OT::ReverseChainSingleSubstFormat1::backtrack -->
-          <var-decl name='backtrack' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1037' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='64'>
-          <!-- OT::OffsetArrayOf<OT::Coverage> OT::ReverseChainSingleSubstFormat1::lookaheadX -->
-          <var-decl name='lookaheadX' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1041' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='96'>
-          <!-- OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> > OT::ReverseChainSingleSubstFormat1::substituteX -->
-          <var-decl name='substituteX' type-id='a1c590f2' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1045' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const unsigned int OT::ReverseChainSingleSubstFormat1::min_size -->
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1048' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> > -->
-      <class-decl name='SortedArrayOf&lt;OT::CmapSubtableLongGroup, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='58b562d3'>
-        <!-- struct OT::ArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> > -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='be936c52'/>
-        <member-function access='public'>
-          <!-- int OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> >::bsearch<hb_codepoint_t>(const hb_codepoint_t&) -->
-          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> >*' -->
-            <parameter type-id='723261b4' is-artificial='yes'/>
-            <!-- parameter of type 'const hb_codepoint_t&' -->
-            <parameter type-id='29981667'/>
-            <!-- int -->
-            <return type-id='95e97e5e'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::SortedArrayOf<OT::EncodingRecord, OT::IntType<short unsigned int, 2u> > -->
-      <class-decl name='SortedArrayOf&lt;OT::EncodingRecord, OT::IntType&lt;short unsigned int, 2u&gt; &gt;' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='0d95c097'>
-        <!-- struct OT::ArrayOf<OT::EncodingRecord, OT::IntType<short unsigned int, 2u> > -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='c76cb794'/>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> > -->
-      <class-decl name='SortedArrayOf&lt;OT::VariationSelectorRecord, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='120' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='8bff39a4'>
-        <!-- struct OT::ArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> > -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='dbfcd50d'/>
-        <member-function access='public'>
-          <!-- int OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> >::bsearch<hb_codepoint_t>(const hb_codepoint_t&) -->
-          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
-            <!-- implicit parameter of type 'const OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> >*' -->
-            <parameter type-id='d7aaa961' is-artificial='yes'/>
-            <!-- parameter of type 'const hb_codepoint_t&' -->
-            <parameter type-id='29981667'/>
-            <!-- int -->
-            <return type-id='95e97e5e'/>
-          </function-decl>
-        </member-function>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::ValueFormat -->
-      <class-decl name='ValueFormat' size-in-bits='16' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='50' column='1' id='23f47fec'>
-        <!-- struct OT::IntType<short unsigned int, 2u> -->
-        <base-class access='public' layout-offset-in-bits='0' type-id='1c64eff2'/>
-        <member-type access='public'>
-          <!-- enum OT::ValueFormat::Flags -->
-          <enum-decl name='Flags' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='51' column='1' id='442c6f62'>
-            <underlying-type type-id='9cac1fee'/>
-            <enumerator name='xPlacement' value='1'/>
-            <enumerator name='yPlacement' value='2'/>
-            <enumerator name='xAdvance' value='4'/>
-            <enumerator name='yAdvance' value='8'/>
-            <enumerator name='xPlaDevice' value='16'/>
-            <enumerator name='yPlaDevice' value='32'/>
-            <enumerator name='xAdvDevice' value='64'/>
-            <enumerator name='yAdvDevice' value='128'/>
-            <enumerator name='ignored' value='3840'/>
-            <enumerator name='reserved' value='61440'/>
-            <enumerator name='devices' value='240'/>
-          </enum-decl>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
-    <namespace-decl name='OT'>
       <!-- struct OT::hb_apply_context_t -->
       <class-decl name='hb_apply_context_t' size-in-bits='640' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='262' column='1' id='84c6d1a0'>
         <member-type access='public'>
@@ -12603,6 +12024,553 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <!-- OT::ArrayOf<OT::OffsetTo<OT::AnchorMatrix, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
+    <pointer-type-def type-id='c540aa74' size-in-bits='64' id='43a5fe32'/>
+    <!-- OT::ArrayOf<OT::OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
+    <pointer-type-def type-id='057e98f8' size-in-bits='64' id='a6f9fdae'/>
+    <!-- OT::ArrayOf<OT::OffsetTo<OT::PosLookupSubTable, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
+    <pointer-type-def type-id='62a172f6' size-in-bits='64' id='90995cbc'/>
+    <!-- OT::ArrayOf<OT::OffsetTo<OT::SubstLookupSubTable, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >* -->
+    <pointer-type-def type-id='0a186029' size-in-bits='64' id='958d7351'/>
+    <!-- BYTE[256] -->
+    <array-type-def dimensions='1' type-id='e86f2285' size-in-bits='2048' id='5a4c6e99'>
+      <!-- <anonymous range>[256] -->
+      <subrange length='256' type-id='7359adad' id='36e5b9fa'/>
+    </array-type-def>
+    <!-- CmapSubtableLongGroup[1] -->
+    <array-type-def dimensions='1' type-id='d2508266' size-in-bits='96' id='c43766f5'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- EncodingRecord[1] -->
+    <array-type-def dimensions='1' type-id='a0aca0ca' size-in-bits='64' id='a9ff1359'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- EntryExitRecord[1] -->
+    <array-type-def dimensions='1' type-id='802a161f' size-in-bits='32' id='d6fd7f86'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- Index[1] -->
+    <array-type-def dimensions='1' type-id='e272644e' size-in-bits='16' id='7b1b583d'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- IntType<unsigned int, 3u>[1] -->
+    <array-type-def dimensions='1' type-id='0b056d27' size-in-bits='24' id='86e35f9e'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- LookupRecord[1] -->
+    <array-type-def dimensions='1' type-id='31296d39' size-in-bits='32' id='c5f505a0'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- MarkRecord[1] -->
+    <array-type-def dimensions='1' type-id='38081ac2' size-in-bits='32' id='4adb6e41'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Anchor, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='2f293efd' size-in-bits='16' id='dc453234'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::AnchorMatrix, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='41510bc6' size-in-bits='16' id='a4489a25'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='15999e12' size-in-bits='16' id='5d1a1f91'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::CaretValue, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='fd3e7ed2' size-in-bits='16' id='e714ced1'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::ChainRule, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='6c606c21' size-in-bits='16' id='5685cfb8'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::ChainRuleSet, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='ddccf839' size-in-bits='16' id='7ea02230'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='c0ac5794' size-in-bits='16' id='6c7bc583'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Coverage, OT::IntType<unsigned int, 4u> >[1] -->
+    <array-type-def dimensions='1' type-id='a55a47b8' size-in-bits='32' id='598b9d67'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::LigGlyph, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='fd7bc300' size-in-bits='16' id='0fa02bbf'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Lookup, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='2a2fdd0c' size-in-bits='16' id='fdcf7dfb'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='9d05b568' size-in-bits='16' id='bdc2a887'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::PosLookup, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='3dc8f35c' size-in-bits='16' id='e2e2af4b'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::PosLookupSubTable, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='5140e546' size-in-bits='16' id='a3407355'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Rule, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='ff06cafc' size-in-bits='16' id='6c66a33b'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::RuleSet, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='75c40f42' size-in-bits='16' id='806c81b1'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::Sequence, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='29e56465' size-in-bits='16' id='beac0a8c'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::SubstLookup, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='e29139c9' size-in-bits='16' id='894a99b0'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OffsetTo<OT::SubstLookupSubTable, OT::IntType<short unsigned int, 2u> >[1] -->
+    <array-type-def dimensions='1' type-id='58ff1033' size-in-bits='16' id='dd73c8ba'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- RangeRecord[1] -->
+    <array-type-def dimensions='1' type-id='f9ae2a6e' size-in-bits='48' id='47675cad'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- Record<OT::Feature>[1] -->
+    <array-type-def dimensions='1' type-id='54710f52' size-in-bits='48' id='ca8d61d1'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- Record<OT::LangSys>[1] -->
+    <array-type-def dimensions='1' type-id='fc84a533' size-in-bits='48' id='fa6575fa'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- Record<OT::Script>[1] -->
+    <array-type-def dimensions='1' type-id='4665a4a1' size-in-bits='48' id='4cfb6558'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- UVSMapping[1] -->
+    <array-type-def dimensions='1' type-id='73772998' size-in-bits='40' id='d8c48427'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- UnicodeValueRange[1] -->
+    <array-type-def dimensions='1' type-id='a98ffca7' size-in-bits='32' id='e7f6893e'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OT::ValueFormat* -->
+    <pointer-type-def type-id='23f47fec' size-in-bits='64' id='255f335a'/>
+    <!-- VariationSelectorRecord[1] -->
+    <array-type-def dimensions='1' type-id='4481074f' size-in-bits='88' id='8c3d8356'>
+      <!-- <anonymous range>[1] -->
+      <subrange length='1' type-id='7359adad' id='52f813b4'/>
+    </array-type-def>
+    <!-- OT::hb_apply_context_t::matcher_t* -->
+    <pointer-type-def type-id='8a742aed' size-in-bits='64' id='db2e6c3d'/>
+    <!-- OT::hb_apply_context_t::skipping_backward_iterator_t* -->
+    <pointer-type-def type-id='96cb00fb' size-in-bits='64' id='8a38f6fb'/>
+    <!-- OT::hb_apply_context_t::skipping_forward_iterator_t* -->
+    <pointer-type-def type-id='d3c8819f' size-in-bits='64' id='d2293bb7'/>
+    <!-- bool (typedef hb_codepoint_t, const OT::USHORT&, void*)* -->
+    <pointer-type-def type-id='db4e6df7' size-in-bits='64' id='f004074b'/>
+    <namespace-decl name='OT'>
+      <!-- struct OT::AlternateSubstFormat1 -->
+      <class-decl name='AlternateSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='453' column='1' id='1b267645'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- OT::USHORT OT::AlternateSubstFormat1::format -->
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='544' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::AlternateSubstFormat1::coverage -->
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='546' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <!-- OT::OffsetArrayOf<OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> > > OT::AlternateSubstFormat1::alternateSet -->
+          <var-decl name='alternateSet' type-id='8b509f54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='549' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const unsigned int OT::AlternateSubstFormat1::min_size -->
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='552' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::ChainContext -->
+      <class-decl name='ChainContext' size-in-bits='160' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2142' column='1' id='3d658a1e'>
+        <member-type access='protected'>
+          <!-- union {OT::USHORT format; OT::ChainContextFormat1 format1; OT::ChainContextFormat2 format2; OT::ChainContextFormat3 format3;} -->
+          <union-decl name='__anonymous_union__' size-in-bits='160' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2167' column='1' id='0e325f64'>
+            <data-member access='public'>
+              <!-- OT::USHORT format -->
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2168' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ChainContextFormat1 format1 -->
+              <var-decl name='format1' type-id='5a2e0b54' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2169' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ChainContextFormat2 format2 -->
+              <var-decl name='format2' type-id='5d2e100d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2170' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ChainContextFormat3 format3 -->
+              <var-decl name='format3' type-id='5c2e0e7a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2171' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- union {OT::USHORT format; OT::ChainContextFormat1 format1; OT::ChainContextFormat2 format2; OT::ChainContextFormat3 format3;} OT::ChainContext::u -->
+          <var-decl name='u' type-id='0e325f64' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2172' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <!-- OT::hb_would_apply_context_t::return_t OT::ChainContext::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::ChainContext*' -->
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
+            <parameter type-id='fef7d5e8'/>
+            <!-- typedef OT::hb_would_apply_context_t::return_t -->
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_closure_context_t::return_t OT::ChainContext::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::ChainContext*' -->
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_closure_context_t*' -->
+            <parameter type-id='dac194b9'/>
+            <!-- typedef OT::hb_closure_context_t::return_t -->
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_get_coverage_context_t::return_t OT::ChainContext::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2144' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::ChainContext*' -->
+            <parameter type-id='cf4fd1cf' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
+            <parameter type-id='23c76eb9'/>
+            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::Context -->
+      <class-decl name='Context' size-in-bits='96' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1524' column='1' id='bd40d0c5'>
+        <member-type access='protected'>
+          <!-- union {OT::USHORT format; OT::ContextFormat1 format1; OT::ContextFormat2 format2; OT::ContextFormat3 format3;} -->
+          <union-decl name='__anonymous_union__' size-in-bits='96' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1549' column='1' id='4317c95d'>
+            <data-member access='public'>
+              <!-- OT::USHORT format -->
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1550' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ContextFormat1 format1 -->
+              <var-decl name='format1' type-id='af73d779' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1551' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ContextFormat2 format2 -->
+              <var-decl name='format2' type-id='ac73d2c0' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1552' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ContextFormat3 format3 -->
+              <var-decl name='format3' type-id='ad73d453' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1553' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- union {OT::USHORT format; OT::ContextFormat1 format1; OT::ContextFormat2 format2; OT::ContextFormat3 format3;} OT::Context::u -->
+          <var-decl name='u' type-id='4317c95d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1554' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <!-- OT::hb_would_apply_context_t::return_t OT::Context::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Context*' -->
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
+            <parameter type-id='fef7d5e8'/>
+            <!-- typedef OT::hb_would_apply_context_t::return_t -->
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_closure_context_t::return_t OT::Context::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Context*' -->
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_closure_context_t*' -->
+            <parameter type-id='dac194b9'/>
+            <!-- typedef OT::hb_closure_context_t::return_t -->
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_get_coverage_context_t::return_t OT::Context::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1526' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Context*' -->
+            <parameter type-id='17326a4c' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
+            <parameter type-id='23c76eb9'/>
+            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::Extension<OT::ExtensionSubst> -->
+      <class-decl name='Extension&lt;OT::ExtensionSubst&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2199' column='1' id='cf1c9132'>
+        <member-type access='protected'>
+          <!-- union {OT::USHORT format; OT::ExtensionFormat1 format1;} -->
+          <union-decl name='__anonymous_union__' size-in-bits='64' is-anonymous='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2247' column='1' id='9452b977'>
+            <data-member access='public'>
+              <!-- OT::USHORT format -->
+              <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2248' column='1'/>
+            </data-member>
+            <data-member access='public'>
+              <!-- OT::ExtensionFormat1 format1 -->
+              <var-decl name='format1' type-id='b7accedf' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2249' column='1'/>
+            </data-member>
+          </union-decl>
+        </member-type>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- union {OT::USHORT format; OT::ExtensionFormat1 format1;} OT::Extension<OT::ExtensionSubst>::u -->
+          <var-decl name='u' type-id='9452b977' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2250' column='1'/>
+        </data-member>
+        <member-function access='public'>
+          <!-- const OT::SubstLookupSubTable& OT::Extension<OT::ExtensionSubst>::get_subtable<OT::SubstLookupSubTable>() -->
+          <function-decl name='get_subtable&lt;OT::SubstLookupSubTable&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2216' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- const OT::SubstLookupSubTable& -->
+            <return type-id='a5ae515e'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_would_apply_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_would_apply_context_t>(OT::hb_would_apply_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_would_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_would_apply_context_t*' -->
+            <parameter type-id='fef7d5e8'/>
+            <!-- typedef OT::hb_would_apply_context_t::return_t -->
+            <return type-id='129bee46'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_collect_glyphs_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_collect_glyphs_context_t>(OT::hb_collect_glyphs_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_collect_glyphs_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_collect_glyphs_context_t*' -->
+            <parameter type-id='f51858b8'/>
+            <!-- typedef OT::hb_collect_glyphs_context_t::return_t -->
+            <return type-id='50d55e5c'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_closure_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_closure_context_t>(OT::hb_closure_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_closure_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_closure_context_t*' -->
+            <parameter type-id='dac194b9'/>
+            <!-- typedef OT::hb_closure_context_t::return_t -->
+            <return type-id='7fb85619'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_apply_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_apply_context_t>(OT::hb_apply_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_apply_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_apply_context_t*' -->
+            <parameter type-id='ea2b5956'/>
+            <!-- typedef OT::hb_apply_context_t::return_t -->
+            <return type-id='e65f4c18'/>
+          </function-decl>
+        </member-function>
+        <member-function access='public'>
+          <!-- OT::hb_get_coverage_context_t::return_t OT::Extension<OT::ExtensionSubst>::dispatch<OT::hb_get_coverage_context_t>(OT::hb_get_coverage_context_t*) -->
+          <function-decl name='dispatch&lt;OT::hb_get_coverage_context_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='2224' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::Extension<OT::ExtensionSubst>*' -->
+            <parameter type-id='5c756b79' is-artificial='yes'/>
+            <!-- parameter of type 'OT::hb_get_coverage_context_t*' -->
+            <parameter type-id='23c76eb9'/>
+            <!-- typedef OT::hb_get_coverage_context_t::return_t -->
+            <return type-id='783f4a47'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::IndexArray -->
+      <class-decl name='IndexArray' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-common-private.hh' line='161' column='1' id='63bdc577'>
+        <!-- struct OT::ArrayOf<OT::Index, OT::IntType<short unsigned int, 2u> > -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='8de8e952'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::MultipleSubstFormat1 -->
+      <class-decl name='MultipleSubstFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='328' column='1' id='fab60057'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- OT::USHORT OT::MultipleSubstFormat1::format -->
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='393' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::MultipleSubstFormat1::coverage -->
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='395' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <!-- OT::OffsetArrayOf<OT::Sequence> OT::MultipleSubstFormat1::sequence -->
+          <var-decl name='sequence' type-id='acba043b' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='398' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const unsigned int OT::MultipleSubstFormat1::min_size -->
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='401' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::OffsetArrayOf<OT::PairSet> -->
+      <class-decl name='OffsetArrayOf&lt;OT::PairSet&gt;' size-in-bits='32' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='900' column='1' id='504054a0'>
+        <!-- struct OT::ArrayOf<OT::OffsetTo<OT::PairSet, OT::IntType<short unsigned int, 2u> >, OT::IntType<short unsigned int, 2u> > -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='057e98f8'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::ReverseChainSingleSubstFormat1 -->
+      <class-decl name='ReverseChainSingleSubstFormat1' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='929' column='1' id='cafe8d0c'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- OT::USHORT OT::ReverseChainSingleSubstFormat1::format -->
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1032' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::ReverseChainSingleSubstFormat1::coverage -->
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1034' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <!-- OT::OffsetArrayOf<OT::Coverage> OT::ReverseChainSingleSubstFormat1::backtrack -->
+          <var-decl name='backtrack' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1037' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='64'>
+          <!-- OT::OffsetArrayOf<OT::Coverage> OT::ReverseChainSingleSubstFormat1::lookaheadX -->
+          <var-decl name='lookaheadX' type-id='2e520e46' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1041' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='96'>
+          <!-- OT::ArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> > OT::ReverseChainSingleSubstFormat1::substituteX -->
+          <var-decl name='substituteX' type-id='a1c590f2' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1045' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const unsigned int OT::ReverseChainSingleSubstFormat1::min_size -->
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsub-table.hh' line='1048' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> > -->
+      <class-decl name='SortedArrayOf&lt;OT::CmapSubtableLongGroup, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='58b562d3'>
+        <!-- struct OT::ArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> > -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='be936c52'/>
+        <member-function access='public'>
+          <!-- int OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> >::bsearch<hb_codepoint_t>(const hb_codepoint_t&) -->
+          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> >*' -->
+            <parameter type-id='723261b4' is-artificial='yes'/>
+            <!-- parameter of type 'const hb_codepoint_t&' -->
+            <parameter type-id='29981667'/>
+            <!-- int -->
+            <return type-id='95e97e5e'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::SortedArrayOf<OT::EncodingRecord, OT::IntType<short unsigned int, 2u> > -->
+      <class-decl name='SortedArrayOf&lt;OT::EncodingRecord, OT::IntType&lt;short unsigned int, 2u&gt; &gt;' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='0d95c097'>
+        <!-- struct OT::ArrayOf<OT::EncodingRecord, OT::IntType<short unsigned int, 2u> > -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='c76cb794'/>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> > -->
+      <class-decl name='SortedArrayOf&lt;OT::VariationSelectorRecord, OT::IntType&lt;unsigned int, 4u&gt; &gt;' size-in-bits='120' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='982' column='1' id='8bff39a4'>
+        <!-- struct OT::ArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> > -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='dbfcd50d'/>
+        <member-function access='public'>
+          <!-- int OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> >::bsearch<hb_codepoint_t>(const hb_codepoint_t&) -->
+          <function-decl name='bsearch&lt;hb_codepoint_t&gt;' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='984' column='1' visibility='default' binding='global' size-in-bits='64'>
+            <!-- implicit parameter of type 'const OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> >*' -->
+            <parameter type-id='d7aaa961' is-artificial='yes'/>
+            <!-- parameter of type 'const hb_codepoint_t&' -->
+            <parameter type-id='29981667'/>
+            <!-- int -->
+            <return type-id='95e97e5e'/>
+          </function-decl>
+        </member-function>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::ValueFormat -->
+      <class-decl name='ValueFormat' size-in-bits='16' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='50' column='1' id='23f47fec'>
+        <!-- struct OT::IntType<short unsigned int, 2u> -->
+        <base-class access='public' layout-offset-in-bits='0' type-id='1c64eff2'/>
+        <member-type access='public'>
+          <!-- enum OT::ValueFormat::Flags -->
+          <enum-decl name='Flags' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='51' column='1' id='442c6f62'>
+            <underlying-type type-id='9cac1fee'/>
+            <enumerator name='xPlacement' value='1'/>
+            <enumerator name='yPlacement' value='2'/>
+            <enumerator name='xAdvance' value='4'/>
+            <enumerator name='yAdvance' value='8'/>
+            <enumerator name='xPlaDevice' value='16'/>
+            <enumerator name='yPlaDevice' value='32'/>
+            <enumerator name='xAdvDevice' value='64'/>
+            <enumerator name='yAdvDevice' value='128'/>
+            <enumerator name='ignored' value='3840'/>
+            <enumerator name='reserved' value='61440'/>
+            <enumerator name='devices' value='240'/>
+          </enum-decl>
+        </member-type>
+      </class-decl>
+    </namespace-decl>
     <!-- struct hb_set_t -->
     <class-decl name='hb_set_t' size-in-bits='66496' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='147' column='1' id='f522b3d3'>
       <member-type access='public'>
@@ -12648,6 +12616,20 @@
     </class-decl>
     <!-- const OT::AlternateSubst* -->
     <pointer-type-def type-id='786d3268' size-in-bits='64' id='d5e61de6'/>
+    <!-- const OT::AlternateSubstFormat1& -->
+    <reference-type-def kind='lvalue' type-id='fab5746e' size-in-bits='64' id='f3a60d58'/>
+    <!-- const OT::ChainContextFormat1& -->
+    <reference-type-def kind='lvalue' type-id='25f6ac5b' size-in-bits='64' id='405188c7'/>
+    <!-- const OT::ChainContextFormat2& -->
+    <reference-type-def kind='lvalue' type-id='26f6adee' size-in-bits='64' id='1e5391d8'/>
+    <!-- const OT::ChainContextFormat3& -->
+    <reference-type-def kind='lvalue' type-id='27f6af81' size-in-bits='64' id='905683e5'/>
+    <!-- const OT::ContextFormat1& -->
+    <reference-type-def kind='lvalue' type-id='585e98e4' size-in-bits='64' id='deea7966'/>
+    <!-- const OT::ContextFormat2& -->
+    <reference-type-def kind='lvalue' type-id='5b5e9d9d' size-in-bits='64' id='90f24d61'/>
+    <!-- const OT::ContextFormat3& -->
+    <reference-type-def kind='lvalue' type-id='5a5e9c0a' size-in-bits='64' id='6eefd944'/>
     <!-- const OT::Coverage -->
     <qualified-type-def type-id='00a94db8' const='yes' id='f5b6c911'/>
     <!-- const OT::Coverage& -->
@@ -12656,12 +12638,30 @@
     <qualified-type-def type-id='569925be' const='yes' id='108c3a8d'/>
     <!-- const OT::CoverageFormat2 -->
     <qualified-type-def type-id='5599242b' const='yes' id='0d8c35d4'/>
+    <!-- const OT::CursivePosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='6e928d02' size-in-bits='64' id='34b42fac'/>
     <!-- const OT::EncodingRecord& -->
     <reference-type-def kind='lvalue' type-id='5b2f9b73' size-in-bits='64' id='e0f186cf'/>
+    <!-- const OT::GDEF& -->
+    <qualified-type-def type-id='3aaa1fe4' id='3aaa1fe3'/>
     <!-- const OT::LigatureSubst* -->
     <pointer-type-def type-id='c8f5e813' size-in-bits='64' id='941c91bb'/>
+    <!-- const OT::LigatureSubstFormat1& -->
+    <reference-type-def kind='lvalue' type-id='f61cef57' size-in-bits='64' id='e08ceee3'/>
+    <!-- const OT::MarkBasePosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='bd5a624b' size-in-bits='64' id='8248f197'/>
+    <!-- const OT::MarkLigPosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='0d49ffb6' size-in-bits='64' id='7b7d4fb0'/>
+    <!-- const OT::MarkMarkPosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='5ade8aaf' size-in-bits='64' id='955415ab'/>
     <!-- const OT::MultipleSubst* -->
     <pointer-type-def type-id='cdb97718' size-in-bits='64' id='0cf6a3b6'/>
+    <!-- const OT::MultipleSubstFormat1& -->
+    <reference-type-def kind='lvalue' type-id='3a80895e' size-in-bits='64' id='905867e8'/>
+    <!-- const OT::PairPosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='c86230d3' size-in-bits='64' id='679311af'/>
+    <!-- const OT::PairPosFormat2& -->
+    <reference-type-def kind='lvalue' type-id='c9623266' size-in-bits='64' id='45951ac0'/>
     <!-- const OT::Record<OT::Feature>::sanitize_closure_t -->
     <qualified-type-def type-id='6612f4e0' const='yes' id='40c624bf'/>
     <!-- const OT::Record<OT::LangSys>::sanitize_closure_t -->
@@ -12670,8 +12670,18 @@
     <qualified-type-def type-id='b9b2f56f' const='yes' id='50671326'/>
     <!-- const OT::ReverseChainSingleSubst* -->
     <pointer-type-def type-id='eecdb341' size-in-bits='64' id='58d17171'/>
+    <!-- const OT::ReverseChainSingleSubstFormat1& -->
+    <reference-type-def kind='lvalue' type-id='ea07fc7d' size-in-bits='64' id='c5924341'/>
+    <!-- const OT::SinglePosFormat1& -->
+    <reference-type-def kind='lvalue' type-id='acff728b' size-in-bits='64' id='03218657'/>
+    <!-- const OT::SinglePosFormat2& -->
+    <reference-type-def kind='lvalue' type-id='adff741e' size-in-bits='64' id='2123f428'/>
     <!-- const OT::SingleSubst* -->
     <pointer-type-def type-id='4c4e436c' size-in-bits='64' id='6533e732'/>
+    <!-- const OT::SingleSubstFormat1& -->
+    <reference-type-def kind='lvalue' type-id='4f704f0a' size-in-bits='64' id='39cca244'/>
+    <!-- const OT::SingleSubstFormat2& -->
+    <reference-type-def kind='lvalue' type-id='4e704d77' size-in-bits='64' id='cbc9b683'/>
     <!-- const OT::SortedArrayOf<OT::IntType<short unsigned int, 2u>, OT::IntType<short unsigned int, 2u> > -->
     <qualified-type-def type-id='9786a753' const='yes' id='d87ff52e'/>
     <!-- const OT::SortedArrayOf<OT::RangeRecord, OT::IntType<short unsigned int, 2u> > -->
@@ -12680,6 +12690,8 @@
     <qualified-type-def type-id='43609ad9' const='yes' id='6e3072fa'/>
     <!-- const OT::SubstLookupSubTable -->
     <qualified-type-def type-id='99919ea3' const='yes' id='a9703bcc'/>
+    <!-- const OT::USHORT* -->
+    <pointer-type-def type-id='c9103200' size-in-bits='64' id='ae7ef81e'/>
     <namespace-decl name='OT'>
       <!-- typedef OT::SHORT OT::FWORD -->
       <typedef-decl name='FWORD' type-id='600e567f' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='639' column='1' id='1c6af55f'/>
@@ -12696,8 +12708,16 @@
       <!-- typedef Value[1] OT::ValueRecord -->
       <typedef-decl name='ValueRecord' type-id='1b68b60a' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='47' column='1' id='291180a9'/>
     </namespace-decl>
+    <!-- typedef OT::hb_apply_context_t::return_t (OT::hb_apply_context_t*, unsigned int)* -->
+    <pointer-type-def type-id='9e8e1bf6' size-in-bits='64' id='a5382af8'/>
+    <!-- typedef OT::hb_closure_context_t::return_t (OT::hb_closure_context_t*, unsigned int)* -->
+    <pointer-type-def type-id='25086db6' size-in-bits='64' id='9c851c98'/>
+    <!-- typedef OT::hb_collect_glyphs_context_t::return_t (OT::hb_collect_glyphs_context_t*, unsigned int)* -->
+    <pointer-type-def type-id='562458ee' size-in-bits='64' id='7ca0e3a0'/>
     <!-- typedef hb_set_digest_combiner_t<hb_set_digest_lowest_bits_t<long unsigned int, 4u>, hb_set_digest_combiner_t<hb_set_digest_lowest_bits_t<long unsigned int, 0u>, hb_set_digest_lowest_bits_t<long unsigned int, 9u> > > hb_set_digest_t -->
     <typedef-decl name='hb_set_digest_t' type-id='2a9964e0' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='135' column='1' id='6b027525'/>
+    <!-- typedef hb_set_t hb_set_t -->
+    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
     <!-- typedef const _hb_void_t& hb_void_t -->
     <typedef-decl name='hb_void_t' type-id='b92493b1' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='259' column='1' id='260b603a'/>
     <!-- Value[1] -->
@@ -12705,14 +12725,6 @@
       <!-- <anonymous range>[1] -->
       <subrange length='1' type-id='7359adad' id='52f813b4'/>
     </array-type-def>
-    <!-- OT::hb_apply_context_t::matcher_t* -->
-    <pointer-type-def type-id='8a742aed' size-in-bits='64' id='db2e6c3d'/>
-    <!-- OT::hb_apply_context_t::skipping_backward_iterator_t* -->
-    <pointer-type-def type-id='96cb00fb' size-in-bits='64' id='8a38f6fb'/>
-    <!-- OT::hb_apply_context_t::skipping_forward_iterator_t* -->
-    <pointer-type-def type-id='d3c8819f' size-in-bits='64' id='d2293bb7'/>
-    <!-- bool (typedef hb_codepoint_t, const OT::USHORT&, void*)* -->
-    <pointer-type-def type-id='db4e6df7' size-in-bits='64' id='f004074b'/>
     <namespace-decl name='OT'>
       <!-- struct OT::ChainContextFormat1 -->
       <class-decl name='ChainContextFormat1' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gsubgpos-private.hh' line='1812' column='1' id='5a2e0b54'>
@@ -13060,72 +13072,94 @@
     </class-decl>
     <!-- const OT::AlternateSubst -->
     <qualified-type-def type-id='a2b58879' const='yes' id='786d3268'/>
-    <!-- const OT::AlternateSubstFormat1& -->
-    <reference-type-def kind='lvalue' type-id='fab5746e' size-in-bits='64' id='f3a60d58'/>
+    <!-- const OT::AlternateSubstFormat1 -->
+    <qualified-type-def type-id='1b267645' const='yes' id='fab5746e'/>
     <!-- const OT::ChainContext* -->
     <pointer-type-def type-id='6e33047f' size-in-bits='64' id='cf4fd1cf'/>
-    <!-- const OT::ChainContextFormat1& -->
-    <reference-type-def kind='lvalue' type-id='25f6ac5b' size-in-bits='64' id='405188c7'/>
-    <!-- const OT::ChainContextFormat2& -->
-    <reference-type-def kind='lvalue' type-id='26f6adee' size-in-bits='64' id='1e5391d8'/>
-    <!-- const OT::ChainContextFormat3& -->
-    <reference-type-def kind='lvalue' type-id='27f6af81' size-in-bits='64' id='905683e5'/>
+    <!-- const OT::ChainContextFormat1 -->
+    <qualified-type-def type-id='5a2e0b54' const='yes' id='25f6ac5b'/>
+    <!-- const OT::ChainContextFormat2 -->
+    <qualified-type-def type-id='5d2e100d' const='yes' id='26f6adee'/>
+    <!-- const OT::ChainContextFormat3 -->
+    <qualified-type-def type-id='5c2e0e7a' const='yes' id='27f6af81'/>
     <!-- const OT::Context* -->
     <pointer-type-def type-id='f2128c2e' size-in-bits='64' id='17326a4c'/>
-    <!-- const OT::ContextFormat1& -->
-    <reference-type-def kind='lvalue' type-id='585e98e4' size-in-bits='64' id='deea7966'/>
-    <!-- const OT::ContextFormat2& -->
-    <reference-type-def kind='lvalue' type-id='5b5e9d9d' size-in-bits='64' id='90f24d61'/>
-    <!-- const OT::ContextFormat3& -->
-    <reference-type-def kind='lvalue' type-id='5a5e9c0a' size-in-bits='64' id='6eefd944'/>
-    <!-- const OT::CursivePosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='6e928d02' size-in-bits='64' id='34b42fac'/>
+    <!-- const OT::ContextFormat1 -->
+    <qualified-type-def type-id='af73d779' const='yes' id='585e98e4'/>
+    <!-- const OT::ContextFormat2 -->
+    <qualified-type-def type-id='ac73d2c0' const='yes' id='5b5e9d9d'/>
+    <!-- const OT::CursivePosFormat1 -->
+    <qualified-type-def type-id='9220a63d' const='yes' id='6e928d02'/>
     <!-- const OT::Extension<OT::ExtensionSubst>* -->
     <pointer-type-def type-id='b6603669' size-in-bits='64' id='5c756b79'/>
     <!-- const OT::GDEF& -->
-    <qualified-type-def type-id='3aaa1fe4' id='3aaa1fe3'/>
+    <reference-type-def kind='lvalue' type-id='22cd9a57' size-in-bits='64' id='3aaa1fe4'/>
     <!-- const OT::LigatureSubst -->
     <qualified-type-def type-id='a8edf220' const='yes' id='c8f5e813'/>
-    <!-- const OT::LigatureSubstFormat1& -->
-    <reference-type-def kind='lvalue' type-id='f61cef57' size-in-bits='64' id='e08ceee3'/>
-    <!-- const OT::MarkBasePosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='bd5a624b' size-in-bits='64' id='8248f197'/>
-    <!-- const OT::MarkLigPosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='0d49ffb6' size-in-bits='64' id='7b7d4fb0'/>
-    <!-- const OT::MarkMarkPosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='5ade8aaf' size-in-bits='64' id='955415ab'/>
+    <!-- const OT::LigatureSubstFormat1 -->
+    <qualified-type-def type-id='c82782d6' const='yes' id='f61cef57'/>
     <!-- const OT::MultipleSubst -->
     <qualified-type-def type-id='14a24b13' const='yes' id='cdb97718'/>
-    <!-- const OT::MultipleSubstFormat1& -->
-    <reference-type-def kind='lvalue' type-id='3a80895e' size-in-bits='64' id='905867e8'/>
-    <!-- const OT::PairPosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='c86230d3' size-in-bits='64' id='679311af'/>
-    <!-- const OT::PairPosFormat2& -->
-    <reference-type-def kind='lvalue' type-id='c9623266' size-in-bits='64' id='45951ac0'/>
+    <!-- const OT::MultipleSubstFormat1 -->
+    <qualified-type-def type-id='fab60057' const='yes' id='3a80895e'/>
     <!-- const OT::ReverseChainSingleSubst -->
     <qualified-type-def type-id='13ddbd06' const='yes' id='eecdb341'/>
-    <!-- const OT::ReverseChainSingleSubstFormat1& -->
-    <reference-type-def kind='lvalue' type-id='ea07fc7d' size-in-bits='64' id='c5924341'/>
-    <!-- const OT::SinglePosFormat1& -->
-    <reference-type-def kind='lvalue' type-id='acff728b' size-in-bits='64' id='03218657'/>
-    <!-- const OT::SinglePosFormat2& -->
-    <reference-type-def kind='lvalue' type-id='adff741e' size-in-bits='64' id='2123f428'/>
+    <!-- const OT::ReverseChainSingleSubstFormat1 -->
+    <qualified-type-def type-id='cafe8d0c' const='yes' id='ea07fc7d'/>
     <!-- const OT::SingleSubst -->
     <qualified-type-def type-id='1f901307' const='yes' id='4c4e436c'/>
-    <!-- const OT::SingleSubstFormat1& -->
-    <reference-type-def kind='lvalue' type-id='4f704f0a' size-in-bits='64' id='39cca244'/>
-    <!-- const OT::SingleSubstFormat2& -->
-    <reference-type-def kind='lvalue' type-id='4e704d77' size-in-bits='64' id='cbc9b683'/>
+    <!-- const OT::SingleSubstFormat1 -->
+    <qualified-type-def type-id='48e21af3' const='yes' id='4f704f0a'/>
+    <!-- const OT::SingleSubstFormat2 -->
+    <qualified-type-def type-id='49e21c86' const='yes' id='4e704d77'/>
     <!-- const OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> >* -->
     <pointer-type-def type-id='5424f7d6' size-in-bits='64' id='723261b4'/>
     <!-- const OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> >* -->
     <pointer-type-def type-id='356e5191' size-in-bits='64' id='d7aaa961'/>
     <!-- const OT::SubstLookupSubTable& -->
     <reference-type-def kind='lvalue' type-id='a9703bcc' size-in-bits='64' id='a5ae515e'/>
-    <!-- const OT::USHORT* -->
-    <pointer-type-def type-id='c9103200' size-in-bits='64' id='ae7ef81e'/>
+    <!-- const OT::USHORT -->
+    <qualified-type-def type-id='0f676950' const='yes' id='c9103200'/>
     <!-- const _hb_void_t& -->
     <reference-type-def kind='lvalue' type-id='753c700d' size-in-bits='64' id='b92493b1'/>
+    <!-- bool (hb_codepoint_t, const OT::USHORT&, void*) -->
+    <function-type size-in-bits='64' id='db4e6df7'>
+      <!-- parameter of type 'typedef hb_codepoint_t' -->
+      <parameter type-id='a959aecb'/>
+      <!-- parameter of type 'const OT::USHORT&' -->
+      <parameter type-id='aa7ef1d2'/>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- bool -->
+      <return type-id='c894953d'/>
+    </function-type>
+    <!-- OT::hb_apply_context_t::return_t (OT::hb_apply_context_t*, unsigned int) -->
+    <function-type size-in-bits='64' id='9e8e1bf6'>
+      <!-- parameter of type 'OT::hb_apply_context_t*' -->
+      <parameter type-id='ea2b5956'/>
+      <!-- parameter of type 'unsigned int' -->
+      <parameter type-id='f0981eeb'/>
+      <!-- typedef OT::hb_apply_context_t::return_t -->
+      <return type-id='e65f4c18'/>
+    </function-type>
+    <!-- OT::hb_closure_context_t::return_t (OT::hb_closure_context_t*, unsigned int) -->
+    <function-type size-in-bits='64' id='25086db6'>
+      <!-- parameter of type 'OT::hb_closure_context_t*' -->
+      <parameter type-id='dac194b9'/>
+      <!-- parameter of type 'unsigned int' -->
+      <parameter type-id='f0981eeb'/>
+      <!-- typedef OT::hb_closure_context_t::return_t -->
+      <return type-id='7fb85619'/>
+    </function-type>
+    <!-- OT::hb_collect_glyphs_context_t::return_t (OT::hb_collect_glyphs_context_t*, unsigned int) -->
+    <function-type size-in-bits='64' id='562458ee'>
+      <!-- parameter of type 'OT::hb_collect_glyphs_context_t*' -->
+      <parameter type-id='f51858b8'/>
+      <!-- parameter of type 'unsigned int' -->
+      <parameter type-id='f0981eeb'/>
+      <!-- typedef OT::hb_collect_glyphs_context_t::return_t -->
+      <return type-id='50d55e5c'/>
+    </function-type>
     <!-- elt_t[2048] -->
     <array-type-def dimensions='1' type-id='e2069b86' size-in-bits='65536' id='e653ad5f'>
       <!-- <anonymous range>[2048] -->
@@ -13135,20 +13169,33 @@
       <!-- typedef uint8_t OT::BYTE -->
       <typedef-decl name='BYTE' type-id='b96825af' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='631' column='1' id='e86f2285'/>
     </namespace-decl>
-    <!-- typedef OT::hb_apply_context_t::return_t (OT::hb_apply_context_t*, unsigned int)* -->
-    <pointer-type-def type-id='9e8e1bf6' size-in-bits='64' id='a5382af8'/>
-    <!-- typedef OT::hb_closure_context_t::return_t (OT::hb_closure_context_t*, unsigned int)* -->
-    <pointer-type-def type-id='25086db6' size-in-bits='64' id='9c851c98'/>
-    <!-- typedef OT::hb_collect_glyphs_context_t::return_t (OT::hb_collect_glyphs_context_t*, unsigned int)* -->
-    <pointer-type-def type-id='562458ee' size-in-bits='64' id='7ca0e3a0'/>
-    <!-- typedef hb_set_t hb_set_t -->
-    <typedef-decl name='hb_set_t' type-id='f522b3d3' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set.h' line='41' column='1' id='314f0a7e'/>
     <namespace-decl name='OT'>
       <!-- struct OT::BEInt<unsigned int, 3> -->
       <class-decl name='BEInt&lt;unsigned int, 3&gt;' size-in-bits='24' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='532' column='1' id='a0cde6eb'>
         <data-member access='private' layout-offset-in-bits='0'>
           <!-- uint8_t OT::BEInt<unsigned int, 3>::v[3] -->
           <var-decl name='v' type-id='d3490169' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-open-type-private.hh' line='579' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
+    <namespace-decl name='OT'>
+      <!-- struct OT::CursivePosFormat1 -->
+      <class-decl name='CursivePosFormat1' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='875' column='1' id='9220a63d'>
+        <data-member access='protected' layout-offset-in-bits='0'>
+          <!-- OT::USHORT OT::CursivePosFormat1::format -->
+          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='976' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='16'>
+          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::CursivePosFormat1::coverage -->
+          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='978' column='1'/>
+        </data-member>
+        <data-member access='protected' layout-offset-in-bits='32'>
+          <!-- OT::ArrayOf<OT::EntryExitRecord, OT::IntType<short unsigned int, 2u> > OT::CursivePosFormat1::entryExitRecord -->
+          <var-decl name='entryExitRecord' type-id='fde36be5' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='981' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const unsigned int OT::CursivePosFormat1::min_size -->
+          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='984' column='1'/>
         </data-member>
       </class-decl>
     </namespace-decl>
@@ -13196,162 +13243,28 @@
         <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
       </data-member>
     </class-decl>
-    <!-- const OT::AlternateSubstFormat1 -->
-    <qualified-type-def type-id='1b267645' const='yes' id='fab5746e'/>
     <!-- const OT::ChainContext -->
     <qualified-type-def type-id='3d658a1e' const='yes' id='6e33047f'/>
-    <!-- const OT::ChainContextFormat1 -->
-    <qualified-type-def type-id='5a2e0b54' const='yes' id='25f6ac5b'/>
-    <!-- const OT::ChainContextFormat2 -->
-    <qualified-type-def type-id='5d2e100d' const='yes' id='26f6adee'/>
-    <!-- const OT::ChainContextFormat3 -->
-    <qualified-type-def type-id='5c2e0e7a' const='yes' id='27f6af81'/>
     <!-- const OT::Context -->
     <qualified-type-def type-id='bd40d0c5' const='yes' id='f2128c2e'/>
-    <!-- const OT::ContextFormat1 -->
-    <qualified-type-def type-id='af73d779' const='yes' id='585e98e4'/>
-    <!-- const OT::ContextFormat2 -->
-    <qualified-type-def type-id='ac73d2c0' const='yes' id='5b5e9d9d'/>
-    <!-- const OT::CursivePosFormat1 -->
-    <qualified-type-def type-id='9220a63d' const='yes' id='6e928d02'/>
     <!-- const OT::Extension<OT::ExtensionSubst> -->
     <qualified-type-def type-id='cf1c9132' const='yes' id='b6603669'/>
-    <!-- const OT::GDEF& -->
-    <reference-type-def kind='lvalue' type-id='22cd9a57' size-in-bits='64' id='3aaa1fe4'/>
-    <!-- const OT::LigatureSubstFormat1 -->
-    <qualified-type-def type-id='c82782d6' const='yes' id='f61cef57'/>
-    <!-- const OT::MultipleSubstFormat1 -->
-    <qualified-type-def type-id='fab60057' const='yes' id='3a80895e'/>
+    <!-- const OT::GDEF -->
+    <qualified-type-def type-id='233f61b6' const='yes' id='22cd9a57'/>
     <!-- const OT::RangeRecord* -->
     <pointer-type-def type-id='1e809379' size-in-bits='64' id='5767eba9'/>
-    <!-- const OT::ReverseChainSingleSubstFormat1 -->
-    <qualified-type-def type-id='cafe8d0c' const='yes' id='ea07fc7d'/>
-    <!-- const OT::SingleSubstFormat1 -->
-    <qualified-type-def type-id='48e21af3' const='yes' id='4f704f0a'/>
-    <!-- const OT::SingleSubstFormat2 -->
-    <qualified-type-def type-id='49e21c86' const='yes' id='4e704d77'/>
     <!-- const OT::SortedArrayOf<OT::CmapSubtableLongGroup, OT::IntType<unsigned int, 4u> > -->
     <qualified-type-def type-id='58b562d3' const='yes' id='5424f7d6'/>
     <!-- const OT::SortedArrayOf<OT::VariationSelectorRecord, OT::IntType<unsigned int, 4u> > -->
     <qualified-type-def type-id='8bff39a4' const='yes' id='356e5191'/>
-    <!-- const OT::USHORT -->
-    <qualified-type-def type-id='0f676950' const='yes' id='c9103200'/>
+    <!-- const OT::USHORT& -->
+    <reference-type-def kind='lvalue' type-id='c9103200' size-in-bits='64' id='aa7ef1d2'/>
     <!-- const _hb_void_t -->
     <qualified-type-def type-id='3052d88c' const='yes' id='753c700d'/>
-    <!-- bool (hb_codepoint_t, const OT::USHORT&, void*) -->
-    <function-type size-in-bits='64' id='db4e6df7'>
-      <!-- parameter of type 'typedef hb_codepoint_t' -->
-      <parameter type-id='a959aecb'/>
-      <!-- parameter of type 'const OT::USHORT&' -->
-      <parameter type-id='aa7ef1d2'/>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- bool -->
-      <return type-id='c894953d'/>
-    </function-type>
-    <!-- OT::hb_apply_context_t::return_t (OT::hb_apply_context_t*, unsigned int) -->
-    <function-type size-in-bits='64' id='9e8e1bf6'>
-      <!-- parameter of type 'OT::hb_apply_context_t*' -->
-      <parameter type-id='ea2b5956'/>
-      <!-- parameter of type 'unsigned int' -->
-      <parameter type-id='f0981eeb'/>
-      <!-- typedef OT::hb_apply_context_t::return_t -->
-      <return type-id='e65f4c18'/>
-    </function-type>
-    <!-- OT::hb_closure_context_t::return_t (OT::hb_closure_context_t*, unsigned int) -->
-    <function-type size-in-bits='64' id='25086db6'>
-      <!-- parameter of type 'OT::hb_closure_context_t*' -->
-      <parameter type-id='dac194b9'/>
-      <!-- parameter of type 'unsigned int' -->
-      <parameter type-id='f0981eeb'/>
-      <!-- typedef OT::hb_closure_context_t::return_t -->
-      <return type-id='7fb85619'/>
-    </function-type>
-    <!-- OT::hb_collect_glyphs_context_t::return_t (OT::hb_collect_glyphs_context_t*, unsigned int) -->
-    <function-type size-in-bits='64' id='562458ee'>
-      <!-- parameter of type 'OT::hb_collect_glyphs_context_t*' -->
-      <parameter type-id='f51858b8'/>
-      <!-- parameter of type 'unsigned int' -->
-      <parameter type-id='f0981eeb'/>
-      <!-- typedef OT::hb_collect_glyphs_context_t::return_t -->
-      <return type-id='50d55e5c'/>
-    </function-type>
     <namespace-decl name='OT'>
       <!-- typedef OT::USHORT OT::Value -->
       <typedef-decl name='Value' type-id='0f676950' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='45' column='1' id='f3c794ac'/>
     </namespace-decl>
-    <namespace-decl name='OT'>
-      <!-- struct OT::CursivePosFormat1 -->
-      <class-decl name='CursivePosFormat1' size-in-bits='80' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='875' column='1' id='9220a63d'>
-        <data-member access='protected' layout-offset-in-bits='0'>
-          <!-- OT::USHORT OT::CursivePosFormat1::format -->
-          <var-decl name='format' type-id='0f676950' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='976' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='16'>
-          <!-- OT::OffsetTo<OT::Coverage, OT::IntType<short unsigned int, 2u> > OT::CursivePosFormat1::coverage -->
-          <var-decl name='coverage' type-id='c0ac5794' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='978' column='1'/>
-        </data-member>
-        <data-member access='protected' layout-offset-in-bits='32'>
-          <!-- OT::ArrayOf<OT::EntryExitRecord, OT::IntType<short unsigned int, 2u> > OT::CursivePosFormat1::entryExitRecord -->
-          <var-decl name='entryExitRecord' type-id='fde36be5' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='981' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const unsigned int OT::CursivePosFormat1::min_size -->
-          <var-decl name='min_size' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gpos-table.hh' line='984' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
-    <!-- struct _hb_void_t -->
-    <class-decl name='_hb_void_t' size-in-bits='8' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='258' column='1' id='3052d88c'/>
-    <!-- struct hb_set_digest_lowest_bits_t<long unsigned int, 0u> -->
-    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 0u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='23c7c035'>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask_bytes -->
-        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask_bits -->
-        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::num_bits -->
-        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
-      </data-member>
-      <data-member access='private' layout-offset-in-bits='0'>
-        <!-- unsigned long int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask -->
-        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
-      </data-member>
-    </class-decl>
-    <!-- struct hb_set_digest_lowest_bits_t<long unsigned int, 9u> -->
-    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 9u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='f504f856'>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask_bytes -->
-        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask_bits -->
-        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
-      </data-member>
-      <data-member access='public' static='yes'>
-        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::num_bits -->
-        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
-      </data-member>
-      <data-member access='private' layout-offset-in-bits='0'>
-        <!-- unsigned long int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask -->
-        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
-      </data-member>
-    </class-decl>
-    <!-- const OT::GDEF -->
-    <qualified-type-def type-id='233f61b6' const='yes' id='22cd9a57'/>
-    <!-- const OT::RangeRecord -->
-    <qualified-type-def type-id='f9ae2a6e' const='yes' id='1e809379'/>
-    <!-- const OT::USHORT& -->
-    <reference-type-def kind='lvalue' type-id='c9103200' size-in-bits='64' id='aa7ef1d2'/>
-    <!-- uint8_t[3] -->
-    <array-type-def dimensions='1' type-id='b96825af' size-in-bits='24' id='d3490169'>
-      <!-- <anonymous range>[3] -->
-      <subrange length='3' type-id='7359adad' id='56f209d2'/>
-    </array-type-def>
     <namespace-decl name='OT'>
       <!-- struct OT::GDEF -->
       <class-decl name='GDEF' size-in-bits='112' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-ot-layout-gdef-table.hh' line='326' column='1' id='233f61b6'>
@@ -13400,6 +13313,53 @@
         </data-member>
       </class-decl>
     </namespace-decl>
+    <!-- struct _hb_void_t -->
+    <class-decl name='_hb_void_t' size-in-bits='8' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-private.hh' line='258' column='1' id='3052d88c'/>
+    <!-- struct hb_set_digest_lowest_bits_t<long unsigned int, 0u> -->
+    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 0u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='23c7c035'>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask_bytes -->
+        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask_bits -->
+        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::num_bits -->
+        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
+      </data-member>
+      <data-member access='private' layout-offset-in-bits='0'>
+        <!-- unsigned long int hb_set_digest_lowest_bits_t<long unsigned int, 0u>::mask -->
+        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
+      </data-member>
+    </class-decl>
+    <!-- struct hb_set_digest_lowest_bits_t<long unsigned int, 9u> -->
+    <class-decl name='hb_set_digest_lowest_bits_t&lt;long unsigned int, 9u&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='44' column='1' id='f504f856'>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask_bytes -->
+        <var-decl name='mask_bytes' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='47' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask_bits -->
+        <var-decl name='mask_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='48' column='1'/>
+      </data-member>
+      <data-member access='public' static='yes'>
+        <!-- static const unsigned int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::num_bits -->
+        <var-decl name='num_bits' type-id='20f5f452' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='55' column='1'/>
+      </data-member>
+      <data-member access='private' layout-offset-in-bits='0'>
+        <!-- unsigned long int hb_set_digest_lowest_bits_t<long unsigned int, 9u>::mask -->
+        <var-decl name='mask' type-id='7359adad' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-04g73E/harfbuzz-0.9.37/src/hb-set-private.hh' line='87' column='1'/>
+      </data-member>
+    </class-decl>
+    <!-- const OT::RangeRecord -->
+    <qualified-type-def type-id='f9ae2a6e' const='yes' id='1e809379'/>
+    <!-- uint8_t[3] -->
+    <array-type-def dimensions='1' type-id='b96825af' size-in-bits='24' id='d3490169'>
+      <!-- <anonymous range>[3] -->
+      <subrange length='3' type-id='7359adad' id='56f209d2'/>
+    </array-type-def>
     <!-- OffsetTo<OT::MarkGlyphSets, OT::IntType<short unsigned int, 2u> >[1] -->
     <array-type-def dimensions='1' type-id='62095b2c' size-in-bits='16' id='9827c4db'>
       <!-- <anonymous range>[1] -->

@@ -1830,13 +1830,6 @@
     <namespace-decl name='std'>
       <typedef-decl name='size_t' type-id='7359adad' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++config.h' line='188' column='1' id='7a51dc7f'/>
     </namespace-decl>
-    <namespace-decl name='std'>
-      <class-decl name='allocator&lt;char&gt;' visibility='default' is-declaration-only='yes' id='eb166b35'>
-        <member-type access='private'>
-          <typedef-decl name='size_type' type-id='7a51dc7f' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/allocator.h' line='95' column='1' id='ea4606d6'/>
-        </member-type>
-      </class-decl>
-    </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/operations.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='264d1268' size-in-bits='infinite' id='f1ae717c'>
@@ -5219,11 +5212,6 @@
       </class-decl>
     </namespace-decl>
     <namespace-decl name='boost'>
-      <class-decl name='enable_if_c&lt;true, void&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='src/third_party/boost-1.56.0/boost/core/enable_if.hpp' line='28' column='1' id='31ffcadd'>
-        <member-type access='public'>
-          <typedef-decl name='type' type-id='48b5725f' filepath='src/third_party/boost-1.56.0/boost/core/enable_if.hpp' line='29' column='1' id='1cb110d8'/>
-        </member-type>
-      </class-decl>
       <namespace-decl name='filesystem'>
         <namespace-decl name='detail'>
           <function-decl name='unique_path' mangled-name='_ZN5boost10filesystem6detail11unique_pathERKNS0_4pathEPNS_6system10error_codeE' filepath='src/third_party/boost-1.56.0/libs/filesystem/src/unique_path.cpp' line='111' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN5boost10filesystem6detail11unique_pathERKNS0_4pathEPNS_6system10error_codeE'>

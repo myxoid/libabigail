@@ -5851,11 +5851,6 @@
     <qualified-type-def type-id='ae6cb45b' id='ae6cb45c'/>
     <reference-type-def kind='lvalue' type-id='3a2d5f3f' size-in-bits='64' id='ae6cb45b'/>
     <namespace-decl name='boost'>
-      <class-decl name='enable_if_c&lt;true, void&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='src/third_party/boost-1.56.0/boost/core/enable_if.hpp' line='28' column='1' id='31ffcadd'>
-        <member-type access='public'>
-          <typedef-decl name='type' type-id='48b5725f' filepath='src/third_party/boost-1.56.0/boost/core/enable_if.hpp' line='29' column='1' id='1cb110d8'/>
-        </member-type>
-      </class-decl>
       <namespace-decl name='filesystem'>
         <namespace-decl name='detail'>
           <function-decl name='unique_path' mangled-name='_ZN5boost10filesystem6detail11unique_pathERKNS0_4pathEPNS_6system10error_codeE' filepath='src/third_party/boost-1.56.0/libs/filesystem/src/unique_path.cpp' line='111' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN5boost10filesystem6detail11unique_pathERKNS0_4pathEPNS_6system10error_codeE'>

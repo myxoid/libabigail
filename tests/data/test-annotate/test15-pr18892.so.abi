@@ -4823,6 +4823,7 @@
       </class-decl>
     </namespace-decl>
     <namespace-decl name='__sanitizer'>
+      <!-- class __sanitizer::SizeClassMap<17ul, 64ul, 14ul> -->
       <class-decl name='SizeClassMap&lt;17ul, 64ul, 14ul&gt;' size-in-bits='8' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='89' column='1' id='7a6f0121'>
         <member-type access='public'>
           <!-- struct __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch -->
@@ -4841,6 +4842,50 @@
             </data-member>
           </class-decl>
         </member-type>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMinSizeLog -->
+          <var-decl name='kMinSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='90' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidSizeLog -->
+          <var-decl name='kMidSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='91' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMinSize -->
+          <var-decl name='kMinSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='92' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidSize -->
+          <var-decl name='kMidSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='93' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidClass -->
+          <var-decl name='kMidClass' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='94' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::S -->
+          <var-decl name='S' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='95' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::M -->
+          <var-decl name='M' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='96' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMaxNumCached -->
+          <var-decl name='kMaxNumCached' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='99' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMaxSize -->
+          <var-decl name='kMaxSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='109' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kNumClasses -->
+          <var-decl name='kNumClasses' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='110' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kNumClassesRounded -->
+          <var-decl name='kNumClassesRounded' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='113' column='1'/>
+        </data-member>
       </class-decl>
     </namespace-decl>
     <namespace-decl name='__sanitizer'>
@@ -6288,11 +6333,16 @@
       <typedef-decl name='OFF_T' type-id='ceed60aa' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='81' column='1' id='43055039'/>
     </namespace-decl>
     <namespace-decl name='__sanitizer'>
+      <!-- struct __sanitizer::atomic_uint32_t -->
       <class-decl name='atomic_uint32_t' size-in-bits='32' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='38' column='1' id='8e51b2c2'>
         <member-type access='public'>
           <!-- typedef __sanitizer::u32 __sanitizer::atomic_uint32_t::Type -->
           <typedef-decl name='Type' type-id='3ae5bbe9' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='39' column='1' id='9c64597f'/>
         </member-type>
+        <data-member access='public' layout-offset-in-bits='0'>
+          <!-- volatile __sanitizer::atomic_uint32_t::Type __sanitizer::atomic_uint32_t::val_dont_use -->
+          <var-decl name='val_dont_use' type-id='d669196c' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='40' column='1'/>
+        </data-member>
       </class-decl>
     </namespace-decl>
     <namespace-decl name='__sanitizer'>
@@ -6317,19 +6367,6 @@
     </array-type-def>
     <!-- volatile __sanitizer::atomic_uint32_t -->
     <qualified-type-def type-id='8e51b2c2' volatile='yes' id='d5d8cb68'/>
-    <namespace-decl name='__sanitizer'>
-      <!-- struct __sanitizer::atomic_uint32_t -->
-      <class-decl name='atomic_uint32_t' size-in-bits='32' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='38' column='1' id='8e51b2c2'>
-        <member-type access='public'>
-          <!-- typedef __sanitizer::u32 __sanitizer::atomic_uint32_t::Type -->
-          <typedef-decl name='Type' type-id='3ae5bbe9' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='39' column='1' id='9c64597f'/>
-        </member-type>
-        <data-member access='public' layout-offset-in-bits='0'>
-          <!-- volatile __sanitizer::atomic_uint32_t::Type __sanitizer::atomic_uint32_t::val_dont_use -->
-          <var-decl name='val_dont_use' type-id='d669196c' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_atomic.h' line='40' column='1'/>
-        </data-member>
-      </class-decl>
-    </namespace-decl>
     <!-- volatile __sanitizer::atomic_uint32_t::Type -->
     <qualified-type-def type-id='9c64597f' volatile='yes' id='d669196c'/>
   </abi-instr>
@@ -10090,6 +10127,7 @@
       </class-decl>
     </namespace-decl>
     <namespace-decl name='__sanitizer'>
+      <!-- class __sanitizer::SizeClassMap<17ul, 128ul, 16ul> -->
       <class-decl name='SizeClassMap&lt;17ul, 128ul, 16ul&gt;' size-in-bits='8' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='89' column='1' id='3ac8ecb6'>
         <member-type access='public'>
           <!-- struct __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch -->
@@ -10108,6 +10146,50 @@
             </data-member>
           </class-decl>
         </member-type>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMinSizeLog -->
+          <var-decl name='kMinSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='90' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidSizeLog -->
+          <var-decl name='kMidSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='91' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMinSize -->
+          <var-decl name='kMinSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='92' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidSize -->
+          <var-decl name='kMidSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='93' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidClass -->
+          <var-decl name='kMidClass' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='94' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::S -->
+          <var-decl name='S' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='95' column='1'/>
+        </data-member>
+        <data-member access='private' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::M -->
+          <var-decl name='M' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='96' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMaxNumCached -->
+          <var-decl name='kMaxNumCached' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='99' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMaxSize -->
+          <var-decl name='kMaxSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='109' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kNumClasses -->
+          <var-decl name='kNumClasses' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='110' column='1'/>
+        </data-member>
+        <data-member access='public' static='yes'>
+          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kNumClassesRounded -->
+          <var-decl name='kNumClassesRounded' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='113' column='1'/>
+        </data-member>
       </class-decl>
     </namespace-decl>
     <namespace-decl name='__tsan'>
@@ -27849,134 +27931,6 @@
     <qualified-type-def type-id='48b5725f' volatile='yes' id='b0b3cbf9'/>
     <!-- namespace __sanitizer -->
     <namespace-decl name='__sanitizer'>
-      <!-- class __sanitizer::SizeClassMap<17ul, 128ul, 16ul> -->
-      <class-decl name='SizeClassMap&lt;17ul, 128ul, 16ul&gt;' size-in-bits='8' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='89' column='1' id='3ac8ecb6'>
-        <member-type access='public'>
-          <!-- struct __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch -->
-          <class-decl name='TransferBatch' size-in-bits='8320' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='103' column='1' id='b56a16b7'>
-            <data-member access='public' layout-offset-in-bits='0'>
-              <!-- __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch* __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch::next -->
-              <var-decl name='next' type-id='124997ef' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='104' column='1'/>
-            </data-member>
-            <data-member access='public' layout-offset-in-bits='64'>
-              <!-- __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch::count -->
-              <var-decl name='count' type-id='c8e929d2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='105' column='1'/>
-            </data-member>
-            <data-member access='public' layout-offset-in-bits='128'>
-              <!-- void* __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::TransferBatch::batch[128] -->
-              <var-decl name='batch' type-id='47dd7ec8' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='106' column='1'/>
-            </data-member>
-          </class-decl>
-        </member-type>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMinSizeLog -->
-          <var-decl name='kMinSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='90' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidSizeLog -->
-          <var-decl name='kMidSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='91' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMinSize -->
-          <var-decl name='kMinSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='92' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidSize -->
-          <var-decl name='kMidSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='93' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMidClass -->
-          <var-decl name='kMidClass' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='94' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::S -->
-          <var-decl name='S' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='95' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::M -->
-          <var-decl name='M' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='96' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMaxNumCached -->
-          <var-decl name='kMaxNumCached' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='99' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kMaxSize -->
-          <var-decl name='kMaxSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='109' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kNumClasses -->
-          <var-decl name='kNumClasses' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='110' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 128ul, 16ul>::kNumClassesRounded -->
-          <var-decl name='kNumClassesRounded' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='113' column='1'/>
-        </data-member>
-      </class-decl>
-      <!-- class __sanitizer::SizeClassMap<17ul, 64ul, 14ul> -->
-      <class-decl name='SizeClassMap&lt;17ul, 64ul, 14ul&gt;' size-in-bits='8' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='89' column='1' id='7a6f0121'>
-        <member-type access='public'>
-          <!-- struct __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch -->
-          <class-decl name='TransferBatch' size-in-bits='4224' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='103' column='1' id='fd7147de'>
-            <data-member access='public' layout-offset-in-bits='0'>
-              <!-- __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch* __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch::next -->
-              <var-decl name='next' type-id='f62f8fc4' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='104' column='1'/>
-            </data-member>
-            <data-member access='public' layout-offset-in-bits='64'>
-              <!-- __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch::count -->
-              <var-decl name='count' type-id='c8e929d2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='105' column='1'/>
-            </data-member>
-            <data-member access='public' layout-offset-in-bits='128'>
-              <!-- void* __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::TransferBatch::batch[64] -->
-              <var-decl name='batch' type-id='56f066f9' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='106' column='1'/>
-            </data-member>
-          </class-decl>
-        </member-type>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMinSizeLog -->
-          <var-decl name='kMinSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='90' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidSizeLog -->
-          <var-decl name='kMidSizeLog' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='91' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMinSize -->
-          <var-decl name='kMinSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='92' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidSize -->
-          <var-decl name='kMidSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='93' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMidClass -->
-          <var-decl name='kMidClass' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='94' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::S -->
-          <var-decl name='S' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='95' column='1'/>
-        </data-member>
-        <data-member access='private' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::M -->
-          <var-decl name='M' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='96' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMaxNumCached -->
-          <var-decl name='kMaxNumCached' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='99' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kMaxSize -->
-          <var-decl name='kMaxSize' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='109' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kNumClasses -->
-          <var-decl name='kNumClasses' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='110' column='1'/>
-        </data-member>
-        <data-member access='public' static='yes'>
-          <!-- static const __sanitizer::uptr __sanitizer::SizeClassMap<17ul, 64ul, 14ul>::kNumClassesRounded -->
-          <var-decl name='kNumClassesRounded' type-id='870ffec2' visibility='default' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='113' column='1'/>
-        </data-member>
-      </class-decl>
       <!-- enum __sanitizer::AllocatorStat -->
       <enum-decl name='AllocatorStat' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_allocator.h' line='198' column='1' id='d3f20cd4'>
         <underlying-type type-id='9cac1fee'/>
