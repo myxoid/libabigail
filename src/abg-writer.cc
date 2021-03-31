@@ -1923,6 +1923,8 @@ write_decl(const decl_base_sptr& decl, write_context& ctxt, unsigned indent)
 
 /// Emit a declaration, along with its scope.
 ///
+/// If the scope includes another type declaration, emit that instead.
+///
 /// This function is called at the end of emitting a translation unit,
 /// to emit type declarations that were referenced by types that were
 /// emitted in the TU already, but that were not emitted themselves.
@@ -1954,6 +1956,7 @@ write_decl_in_scope(const decl_base_sptr&	decl,
   stack<string> closing_tags;
   stack<unsigned> closing_indents;
   unsigned indent = initial_indent;
+  bool done = false;
   for (list<scope_decl*>::const_iterator i = scopes.begin();
        i != scopes.end();
        ++i)
@@ -1969,43 +1972,28 @@ write_decl_in_scope(const decl_base_sptr&	decl,
 	    << "'>\n";
 	  closing_tags.push("</namespace-decl>");
 	  closing_indents.push(indent);
+	  indent += c.get_xml_element_indent();
 	}
       // ... or a class.
       else if (class_decl* c = is_class_type(*i))
 	{
 	  class_decl_sptr class_type(c, noop_deleter());
-	  write_class_decl_opening_tag(class_type, "", ctxt, indent,
-				       /*prepare_to_handle_members=*/false);
-	  closing_tags.push("</class-decl>");
-	  closing_indents.push(indent);
-
-	  unsigned nb_ws = get_indent_to_level(ctxt, indent, 1);
-	  write_member_type_opening_tag(type, ctxt, nb_ws);
-	  indent = nb_ws;
-	  closing_tags.push("</member-type>");
-	  closing_indents.push(nb_ws);
+	  write_class_decl(class_type, ctxt, indent);
+	  done = true;
 	}
       else if (union_decl *u = is_union_type(*i))
 	{
 	  union_decl_sptr union_type(u, noop_deleter());
-	  write_union_decl_opening_tag(union_type, "", ctxt, indent,
-				       /*prepare_to_handle_members=*/false);
-	  closing_tags.push("</union-decl>");
-	  closing_indents.push(indent);
-
-	  unsigned nb_ws = get_indent_to_level(ctxt, indent, 1);
-	  write_member_type_opening_tag(type, ctxt, nb_ws);
-	  indent = nb_ws;
-	  closing_tags.push("</member-type>");
-	  closing_indents.push(nb_ws);
+	  write_union_decl(union_type, ctxt, indent);
+	  done = true;
 	}
       else
 	// We should never reach this point.
 	abort();
-      indent += c.get_xml_element_indent();
     }
 
-  write_decl(decl, ctxt, indent);
+  if (!done)
+    write_decl(decl, ctxt, indent);
 
   while (!closing_tags.empty())
     {
