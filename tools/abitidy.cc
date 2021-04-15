@@ -139,11 +139,36 @@ void format_xml(size_t indent, xmlNodePtr node)
     }
 }
 
+static const std::unordered_set<std::string> drop_if_empty = {
+  "elf-variable-symbols",
+  "elf-function-symbols",
+  "namespace-decl",
+  "abi-instr",
+  "abi-corpus",
+  "abi-corpus-group",
+};
+
+// Drop empty elements, if safe to do so, recursively.
+//
+// Args:
+//   node
+//
+void drop_empty(xmlNodePtr node)
+{
+  for (xmlNodePtr child : get_children(node))
+    drop_empty(child);
+  if (!node->children && node->type == XML_ELEMENT_NODE && drop_if_empty.count(from_libxml(node->name)))
+    // Until abidiff accepts empty ABIs, avoid dropping top-level elements.
+    if (node->parent->type == XML_ELEMENT_NODE)
+      remove_node(node);
+}
+
 int main(int argc, char * argv[])
 {
   // Defaults.
   const char * opt_in = NULL;
   const char * opt_out = NULL;
+  bool opt_drop_empty = false;
 
   // Process command line.
   auto usage = [&]() -> int {
@@ -151,6 +176,7 @@ int main(int argc, char * argv[])
               << " [-i|--input file]"
               << " [-o|--output file]"
               << " [-a|--all]"
+              << " [-d|--[no-]drop-empty]"
               << '\n';
     return 1;
   };
@@ -168,7 +194,11 @@ int main(int argc, char * argv[])
       else if (!strcmp(arg, "-o") || !strcmp(arg, "--output"))
         opt_out = get_arg();
       else if (!strcmp(arg, "-a") || !strcmp(arg, "--all"))
-        ;
+        opt_drop_empty = true;
+      else if (!strcmp(arg, "-d") || !strcmp(arg, "--drop-empty"))
+        opt_drop_empty = true;
+      else if (!strcmp(arg, "--no-drop-empty"))
+        opt_drop_empty = false;
       else
         exit(usage());
     }
@@ -192,6 +222,11 @@ int main(int argc, char * argv[])
 
   // Strip text nodes to simplify other operations.
   strip_text(doc);
+
+  // Drop empty elements.
+  if (opt_drop_empty)
+    for (xmlNodePtr node = doc->children; node; node = node->next)
+      drop_empty(node);
 
   // Reformat XML for human consumption.
   for (xmlNodePtr node = doc->children; node; node = node->next)
