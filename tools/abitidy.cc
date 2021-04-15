@@ -163,12 +163,26 @@ void drop_empty(xmlNodePtr node)
       remove_node(node);
 }
 
+// Prune unreachable elements.
+//
+// Reachability is defined to be union of contains, containing and refers to
+// relationships for types, decls and symbols. The roots for reachability are
+// the ELF elements in the ABI.
+//
+// Args:
+//
+//
+void prune_unreachable(xmlDocPtr doc)
+{
+}
+
 int main(int argc, char * argv[])
 {
   // Defaults.
   const char * opt_in = NULL;
   const char * opt_out = NULL;
   bool opt_drop_empty = false;
+  bool opt_prune_unreachable = false;
 
   // Process command line.
   auto usage = [&]() -> int {
@@ -177,6 +191,7 @@ int main(int argc, char * argv[])
               << " [-o|--output file]"
               << " [-a|--all]"
               << " [-d|--[no-]drop-empty]"
+              << " [-p|--[no-]prune-unreachable]",
               << '\n';
     return 1;
   };
@@ -194,11 +209,15 @@ int main(int argc, char * argv[])
       else if (!strcmp(arg, "-o") || !strcmp(arg, "--output"))
         opt_out = get_arg();
       else if (!strcmp(arg, "-a") || !strcmp(arg, "--all"))
-        opt_drop_empty = true;
+        opt_prune_unreachable = opt_drop_empty = true;
       else if (!strcmp(arg, "-d") || !strcmp(arg, "--drop-empty"))
         opt_drop_empty = true;
       else if (!strcmp(arg, "--no-drop-empty"))
         opt_drop_empty = false;
+      else if (!strcmp(arg, "-p") || !strcmp(arg, "--prune-unreachable"))
+        opt_prune_unreachable = true;
+      else if (!strcmp(arg, "--no-prune-unreachable"))
+        opt_prune_unreachable = false;
       else
         exit(usage());
     }
@@ -222,6 +241,10 @@ int main(int argc, char * argv[])
 
   // Strip text nodes to simplify other operations.
   strip_text(doc);
+
+  // Prune unreachable elements.
+  if (opt_prune_unreachable)
+    prune_unreachable(doc);
 
   // Drop empty elements.
   if (opt_drop_empty)
