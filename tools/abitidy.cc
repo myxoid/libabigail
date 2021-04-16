@@ -174,6 +174,184 @@ void drop_empty(xmlNodePtr node)
 //
 void prune_unreachable(xmlDocPtr doc)
 {
+  std::unordered_set<std::string> elf_symbols;
+  // Graph vertices (only needed for statistics).
+  std::unordered_set<std::string> vertices;
+  // Graph edges.
+  std::unordered_map<std::string, std::unordered_set<std::string>> edges;
+
+  // Keep track of type / symbol nesting.
+  std::vector<std::string> stack;
+
+  // Traverse the whole XML DOM.
+  auto make_graph = [&](xmlNodePtr node) {
+    // The XML attributes we care about.
+    std::string name;
+    std::string id;
+    std::string type_id;
+    std::string symbol;
+    std::string naming_typedef_id;
+
+    // Not every node we encounter is an XML element.
+    if (node->type == XML_ELEMENT_NODE) {
+      $name = $node->getAttribute("name");
+      $id = $node->getAttribute("id");
+      $type_id = $node->getAttribute("type-id");
+      $symbol = $node->getAttribute("mangled-name");
+      $naming_typedef_id = $node->getAttribute("naming-typedef-id");
+      die if defined $id && defined $symbol;
+    }
+
+    if (defined $name && $node->getName() == "elf-symbol")
+      {
+        elf_symbols.insert(name);
+        // Early return is safe, but not necessary.
+        return;
+      }
+
+    if (defined $id) {
+      my $vertex = "type:$id";
+      # This element defines a type (but there may be more than one
+      # defining the same type - we cannot rely on uniqueness).
+      $vertices{$vertex} = undef;
+      if (defined $naming_typedef_id) {
+        # This is an odd one, there can be a backwards link from an
+        # anonymous type to the typedef that refers to it, so we need to
+        # pull in the typedef, even if nothing else refers to it.
+        $edges{$vertex}{"type:$naming_typedef_id"} = undef;
+      }
+      if (@stack) {
+        # Parent<->child dependencies; record dependencies both
+        # ways to avoid holes in XML types and declarations.
+        $edges{$stack[-1]}{$vertex} = undef;
+        $edges{$vertex}{$stack[-1]} = undef;
+      }
+      push @stack, $vertex;
+    }
+
+    if (defined $symbol) {
+      my $vertex = "symbol:$symbol";
+      # This element is a declaration linked to a symbol (whether or not
+      # exported).
+      $vertices{$vertex} = undef;
+      if (@stack) {
+        # Parent<->child dependencies; record dependencies both ways
+        # to avoid holes in XML types and declarations.
+        #
+        # Symbols exist outside of the type hierarchy, so choosing to
+        # make them depend on a containing type scope and vice versa
+        # is conservative and probably not necessary.
+        $edges{$stack[-1]}{$vertex} = undef;
+        $edges{$vertex}{$stack[-1]} = undef;
+      }
+      # The symbol depends on the types mentioned in this element, so
+      # record it.
+      push @stack, $vertex;
+      # In practice there will be at most one symbol on the stack; we
+      # could verify this here, but it wouldn't achieve anything.
+    }
+
+    if (defined $type_id) {
+      if (@stack) {
+        # The enclosing type or symbol refers to another type.
+        $edges{$stack[-1]}{"type:$type_id"} = undef;
+      }
+    }
+
+    for my $child ($node->childNodes()) {
+      __SUB__->($child);
+    }
+
+    if (defined $symbol) {
+      pop @stack;
+    }
+    if (defined $id) {
+      pop @stack;
+    }
+  }
+
+  # Build a graph.
+  make_graph($dom);
+  die if @stack;
+  #warn Dumper(\%elf_symbols, \%vertices, \%edges);
+
+  # DFS visited state. Would be nicer with a flat namespace of nodes.
+  my %seen;
+  my sub dfs($vertex) {
+    no warnings 'recursion';
+    return if exists $seen{$vertex};
+    $seen{$vertex} = undef;
+
+    my $tos = $edges{$vertex};
+    if (defined $tos) {
+      for my $to (keys %$tos) {
+        __SUB__->($to);
+      }
+    }
+  }
+
+  # Traverse the graph, starting from the exported symbols.
+  for my $symbol (keys %elf_symbols) {
+    my $vertex = "symbol:$symbol";
+    if (exists $vertices{$vertex}) {
+      dfs($vertex);
+    } else {
+      warn "no declaration found for ELF symbol $symbol\n";
+    }
+  }
+
+  #warn Dumper(\%seen);
+
+  # Useful counts.
+  my sub print_report() {
+    my $count_elf_symbols = scalar keys %elf_symbols;
+    my $count_vertices = scalar keys %vertices;
+    my $count_seen = scalar keys %seen;
+
+    warn qq{ELF = $count_elf_symbols
+vertices = $count_vertices
+seen = $count_seen
+};
+  }
+
+  #print_report();
+
+  # XPath selection is too slow as we end up enumerating lots of
+  # nested items whose preservation is entirely determined by their
+  # containing items. DFS with early stopping for the win.
+  my sub remove_unwanted($node) {
+    my $node_name = $node->getName();
+    my $name;
+    my $id;
+    my $symbol;
+
+    if ($node->nodeType == XML_ELEMENT_NODE) {
+      $name = $node->getAttribute('name');
+      $id = $node->getAttribute('id');
+      $symbol = $node->getAttribute('mangled-name');
+      die if defined $id && defined $symbol;
+    }
+
+    # Return if we know that this is a type or declaration to keep or
+    # drop in its entirety.
+    if (defined $id) {
+      remove_node($node) unless exists $seen{"type:$id"};
+      return;
+    }
+    if ($node_name eq 'var-decl' || $node_name eq 'function-decl') {
+      remove_node($node) unless defined $symbol && exists $seen{"symbol:$symbol"};
+      return;
+    }
+
+    # Otherwise, this is not a type, declaration or part thereof, so
+    # process child elements.
+    for my $child ($node->childNodes()) {
+      __SUB__->($child);
+    }
+  }
+
+  remove_unwanted($dom);
+}
 }
 
 int main(int argc, char * argv[])
