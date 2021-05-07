@@ -687,6 +687,12 @@ public:
   bool
   type_is_emitted(const type_base *t)
   {
+    auto repr = t->get_pretty_representation(false, true);
+    //std::cout << "\n[" << repr << "]\n";
+    auto debug = repr == "class __sanitizer::SizeClassMap<17ul, 128ul, 16ul>"
+                 || repr == "typedef hb_bool_t (hb_font_t*, void*, hb_codepoint_t, char*, unsigned int, void*)";
+    // if (true)
+    //   std::cout << "\nEMITTED(" << repr << "): " << (m_emitted_type_set.find(t) != m_emitted_type_set.end()) << "\n";
     return m_emitted_type_set.find(t) != m_emitted_type_set.end();
   }
 
