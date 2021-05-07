@@ -6327,8 +6327,6 @@
     </array-type-def>
     <!-- unnamed&#45;enum&#45;underlying&#45;type&#45;32 -->
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='type-id-12'/>
-    <!-- unsigned long int -->
-    <type-decl name='unsigned long int' size-in-bits='64' id='type-id-3'/>
     <!-- unsigned long int[16] -->
     <array-type-def dimensions='1' type-id='type-id-3' size-in-bits='1024' id='type-id-388'>
       <!-- <anonymous range>[16] -->
@@ -7137,8 +7135,6 @@
     <typedef-decl name='GLint' type-id='type-id-8' filepath='../../../include/GL/gl.h' line='155' column='1' id='type-id-48'/>
     <!-- typedef int GLsizei -->
     <typedef-decl name='GLsizei' type-id='type-id-8' filepath='../../../include/GL/gl.h' line='159' column='1' id='type-id-464'/>
-    <!-- void* -->
-    <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-36'/>
     <!-- GLint gluScaleImage(GLenum, GLsizei, GLsizei, GLenum, void*, GLsizei, GLsizei, GLenum, void*) -->
     <function-decl name='gluScaleImage' mangled-name='gluScaleImage' filepath='libutil/mipmap.c' line='3498' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluScaleImage'>
       <!-- parameter of type 'typedef GLenum' -->

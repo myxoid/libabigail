@@ -11234,7 +11234,6 @@
     <type-decl name='char' size-in-bits='8' id='type-id-166'/>
     <type-decl name='long int' size-in-bits='64' id='type-id-222'/>
     <type-decl name='long long int' size-in-bits='64' id='type-id-212'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='type-id-6'/>
     <type-decl name='void' id='type-id-154'/>
     <class-decl name='Marshaller' size-in-bits='256' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_common.h' line='388' column='1' id='type-id-285'>
       <data-member access='private' layout-offset-in-bits='0'>
@@ -18078,7 +18077,6 @@
     <type-decl name='long long unsigned int' size-in-bits='64' id='type-id-3500'/>
     <type-decl name='signed char' size-in-bits='8' id='type-id-52'/>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='type-id-29'/>
-    <type-decl name='unsigned short int' size-in-bits='16' id='type-id-57'/>
     <type-decl name='variadic parameter type' id='type-id-3501'/>
     <type-decl name='wchar_t' size-in-bits='32' id='type-id-9'/>
     <typedef-decl name='wint_t' type-id='type-id-2' filepath='/export/users/iverbin/gcc_build_host/gcc/include/stddef.h' line='357' column='1' id='type-id-3502'/>

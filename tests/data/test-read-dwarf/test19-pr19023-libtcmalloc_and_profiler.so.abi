@@ -9542,11 +9542,9 @@
       <subrange length='2169' type-id='type-id-5' id='type-id-1501'/>
     </array-type-def>
     <type-decl name='unsigned int' size-in-bits='32' id='type-id-1310'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='type-id-5'/>
     <array-type-def dimensions='1' type-id='type-id-5' size-in-bits='4194304' id='type-id-1502'>
       <subrange length='65536' type-id='type-id-5' id='type-id-1503'/>
     </array-type-def>
-    <type-decl name='unsigned short int' size-in-bits='16' id='type-id-22'/>
     <type-decl name='variadic parameter type' id='type-id-1504'/>
     <type-decl name='void' id='type-id-60'/>
     <array-type-def dimensions='1' type-id='type-id-58' size-in-bits='1984' id='type-id-1505'>

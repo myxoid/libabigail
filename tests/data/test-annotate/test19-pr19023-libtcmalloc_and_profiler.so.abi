@@ -15691,15 +15691,11 @@
     </array-type-def>
     <!-- unsigned int -->
     <type-decl name='unsigned int' size-in-bits='32' id='type-id-1310'/>
-    <!-- unsigned long int -->
-    <type-decl name='unsigned long int' size-in-bits='64' id='type-id-5'/>
     <!-- unsigned long int[65536] -->
     <array-type-def dimensions='1' type-id='type-id-5' size-in-bits='4194304' id='type-id-1502'>
       <!-- <anonymous range>[65536] -->
       <subrange length='65536' type-id='type-id-5' id='type-id-1503'/>
     </array-type-def>
-    <!-- unsigned short int -->
-    <type-decl name='unsigned short int' size-in-bits='16' id='type-id-22'/>
     <!-- variadic parameter type -->
     <type-decl name='variadic parameter type' id='type-id-1504'/>
     <!-- void -->

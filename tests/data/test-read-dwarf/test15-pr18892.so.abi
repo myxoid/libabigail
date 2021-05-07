@@ -3900,7 +3900,6 @@
     <typedef-decl name='backtrace_syminfo_callback' type-id='type-id-301' filepath='../../.././libsanitizer/../libbacktrace/backtrace.h' line='175' column='1' id='type-id-28'/>
     <typedef-decl name='uintptr_t' type-id='type-id-111' filepath='/usr/include/stdint.h' line='123' column='1' id='type-id-23'/>
     <qualified-type-def type-id='type-id-302' const='yes' id='type-id-303'/>
-    <pointer-type-def type-id='type-id-10' size-in-bits='64' id='type-id-22'/>
     <pointer-type-def type-id='type-id-304' size-in-bits='64' id='type-id-300'/>
     <pointer-type-def type-id='type-id-305' size-in-bits='64' id='type-id-298'/>
     <pointer-type-def type-id='type-id-306' size-in-bits='64' id='type-id-299'/>
@@ -4163,7 +4162,6 @@
     <type-decl name='sizetype' size-in-bits='64' id='type-id-39'/>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='type-id-49'/>
     <type-decl name='unsigned int' size-in-bits='32' id='type-id-141'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='type-id-111'/>
     <type-decl name='void' id='type-id-25'/>
     <pointer-type-def type-id='type-id-338' size-in-bits='64' id='type-id-339'/>
     <pointer-type-def type-id='type-id-340' size-in-bits='64' id='type-id-341'/>
@@ -5154,7 +5152,6 @@
     <pointer-type-def type-id='type-id-1181' size-in-bits='64' id='type-id-936'/>
     <pointer-type-def type-id='type-id-1182' size-in-bits='64' id='type-id-803'/>
     <pointer-type-def type-id='type-id-1183' size-in-bits='64' id='type-id-841'/>
-    <pointer-type-def type-id='type-id-29' size-in-bits='64' id='type-id-13'/>
     <pointer-type-def type-id='type-id-1184' size-in-bits='64' id='type-id-812'/>
     <pointer-type-def type-id='type-id-1185' size-in-bits='64' id='type-id-669'/>
     <pointer-type-def type-id='type-id-1186' size-in-bits='64' id='type-id-782'/>
@@ -12938,7 +12935,6 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../.././libsanitizer/tsan/tsan_interface.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <type-decl name='unsigned short int' size-in-bits='16' id='type-id-189'/>
     <typedef-decl name='uu16' type-id='type-id-1267' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='171' column='1' id='type-id-1270'/>
     <typedef-decl name='uu32' type-id='type-id-198' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='172' column='1' id='type-id-1271'/>
     <typedef-decl name='uu64' type-id='type-id-125' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='173' column='1' id='type-id-1272'/>
