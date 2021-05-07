@@ -2128,7 +2128,7 @@ write_canonical_types_of_scope(const scope_decl	&scope,
     {
       if (is_member_type)
 	write_member_type(*i, ctxt, indent);
-      else
+      else if (!ctxt.type_is_emitted(*i))
 	write_type(*i, ctxt, indent);
     }
 

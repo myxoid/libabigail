@@ -3466,17 +3466,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/libbacktrace' language='LANG_C89'>
-    <!-- struct backtrace_freelist_struct -->
-    <class-decl name='backtrace_freelist_struct' size-in-bits='128' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='55' column='1' id='type-id-14'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- backtrace_freelist_struct* backtrace_freelist_struct::next -->
-        <var-decl name='next' type-id='type-id-9' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='58' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <!-- size_t backtrace_freelist_struct::size -->
-        <var-decl name='size' type-id='type-id-11' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='60' column='1'/>
-      </data-member>
-    </class-decl>
     <!-- void* __asan_backtrace_vector_finish(backtrace_state*, backtrace_vector*, backtrace_error_callback, void*) -->
     <function-decl name='__asan_backtrace_vector_finish' mangled-name='__asan_backtrace_vector_finish' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='258' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='__asan_backtrace_vector_finish'>
       <!-- parameter of type 'backtrace_state*' -->
