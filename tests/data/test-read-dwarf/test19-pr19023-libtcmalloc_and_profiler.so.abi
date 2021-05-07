@@ -13157,10 +13157,6 @@
       <parameter type-id='type-id-58'/>
       <return type-id='type-id-60'/>
     </function-type>
-    <function-type size-in-bits='64' id='type-id-836'>
-      <parameter type-id='type-id-62'/>
-      <return type-id='type-id-58'/>
-    </function-type>
     <function-type size-in-bits='64' id='type-id-1731'>
       <parameter type-id='type-id-62'/>
       <parameter type-id='type-id-62'/>

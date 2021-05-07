@@ -4690,36 +4690,34 @@
       <parameter type-id='type-id-36'/>
       <return type-id='type-id-14'/>
     </function-type>
-    <function-type size-in-bits='64' id='type-id-460'>
-      <return type-id='type-id-14'/>
-    </function-type>
+    <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-36'/>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/error.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <type-decl name='unsigned char' size-in-bits='8' id='type-id-461'/>
+    <type-decl name='unsigned char' size-in-bits='8' id='type-id-460'/>
     <type-decl name='unsigned int' size-in-bits='32' id='type-id-272'/>
     <typedef-decl name='GLenum' type-id='type-id-272' filepath='../../../include/GL/gl.h' line='149' column='1' id='type-id-49'/>
-    <typedef-decl name='GLubyte' type-id='type-id-461' filepath='../../../include/GL/gl.h' line='156' column='1' id='type-id-462'/>
-    <qualified-type-def type-id='type-id-462' const='yes' id='type-id-463'/>
-    <pointer-type-def type-id='type-id-463' size-in-bits='64' id='type-id-464'/>
+    <typedef-decl name='GLubyte' type-id='type-id-460' filepath='../../../include/GL/gl.h' line='156' column='1' id='type-id-461'/>
+    <qualified-type-def type-id='type-id-461' const='yes' id='type-id-462'/>
+    <pointer-type-def type-id='type-id-462' size-in-bits='64' id='type-id-463'/>
     <function-decl name='gluErrorString' mangled-name='gluErrorString' filepath='libutil/error.c' line='66' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluErrorString'>
       <parameter type-id='type-id-49' name='errorCode' filepath='libutil/error.c' line='66' column='1'/>
-      <return type-id='type-id-464'/>
+      <return type-id='type-id-463'/>
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/mipmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <type-decl name='int' size-in-bits='32' id='type-id-8'/>
     <type-decl name='void' id='type-id-14'/>
     <typedef-decl name='GLint' type-id='type-id-8' filepath='../../../include/GL/gl.h' line='155' column='1' id='type-id-48'/>
-    <typedef-decl name='GLsizei' type-id='type-id-8' filepath='../../../include/GL/gl.h' line='159' column='1' id='type-id-465'/>
+    <typedef-decl name='GLsizei' type-id='type-id-8' filepath='../../../include/GL/gl.h' line='159' column='1' id='type-id-464'/>
     <pointer-type-def type-id='type-id-14' size-in-bits='64' id='type-id-36'/>
     <function-decl name='gluScaleImage' mangled-name='gluScaleImage' filepath='libutil/mipmap.c' line='3498' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluScaleImage'>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='3498' column='1'/>
-      <parameter type-id='type-id-465' name='widthin' filepath='libutil/mipmap.c' line='3498' column='1'/>
-      <parameter type-id='type-id-465' name='heightin' filepath='libutil/mipmap.c' line='3498' column='1'/>
+      <parameter type-id='type-id-464' name='widthin' filepath='libutil/mipmap.c' line='3498' column='1'/>
+      <parameter type-id='type-id-464' name='heightin' filepath='libutil/mipmap.c' line='3498' column='1'/>
       <parameter type-id='type-id-49' name='typein' filepath='libutil/mipmap.c' line='3499' column='1'/>
       <parameter type-id='type-id-36' name='datain' filepath='libutil/mipmap.c' line='3499' column='1'/>
-      <parameter type-id='type-id-465' name='widthout' filepath='libutil/mipmap.c' line='3500' column='1'/>
-      <parameter type-id='type-id-465' name='heightout' filepath='libutil/mipmap.c' line='3500' column='1'/>
+      <parameter type-id='type-id-464' name='widthout' filepath='libutil/mipmap.c' line='3500' column='1'/>
+      <parameter type-id='type-id-464' name='heightout' filepath='libutil/mipmap.c' line='3500' column='1'/>
       <parameter type-id='type-id-49' name='typeout' filepath='libutil/mipmap.c' line='3500' column='1'/>
       <parameter type-id='type-id-36' name='dataout' filepath='libutil/mipmap.c' line='3501' column='1'/>
       <return type-id='type-id-48'/>
@@ -4727,7 +4725,7 @@
     <function-decl name='gluBuild1DMipmapLevels' mangled-name='gluBuild1DMipmapLevels' filepath='libutil/mipmap.c' line='3643' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild1DMipmapLevels'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='3643' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='3643' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='3644' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='3644' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='3645' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='3645' column='1'/>
       <parameter type-id='type-id-48' name='userLevel' filepath='libutil/mipmap.c' line='3646' column='1'/>
@@ -4739,7 +4737,7 @@
     <function-decl name='gluBuild1DMipmaps' mangled-name='gluBuild1DMipmaps' filepath='libutil/mipmap.c' line='3672' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild1DMipmaps'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='3672' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='3672' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='3672' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='3672' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='3673' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='3673' column='1'/>
       <parameter type-id='type-id-36' name='data' filepath='libutil/mipmap.c' line='3674' column='1'/>
@@ -4748,8 +4746,8 @@
     <function-decl name='gluBuild2DMipmapLevels' mangled-name='gluBuild2DMipmapLevels' filepath='libutil/mipmap.c' line='4552' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild2DMipmapLevels'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='4552' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='4552' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='4553' column='1'/>
-      <parameter type-id='type-id-465' name='height' filepath='libutil/mipmap.c' line='4553' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='4553' column='1'/>
+      <parameter type-id='type-id-464' name='height' filepath='libutil/mipmap.c' line='4553' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='4554' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='4554' column='1'/>
       <parameter type-id='type-id-48' name='userLevel' filepath='libutil/mipmap.c' line='4555' column='1'/>
@@ -4761,8 +4759,8 @@
     <function-decl name='gluBuild2DMipmaps' mangled-name='gluBuild2DMipmaps' filepath='libutil/mipmap.c' line='4584' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild2DMipmaps'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='4584' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='4584' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='4585' column='1'/>
-      <parameter type-id='type-id-465' name='height' filepath='libutil/mipmap.c' line='4585' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='4585' column='1'/>
+      <parameter type-id='type-id-464' name='height' filepath='libutil/mipmap.c' line='4585' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='4586' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='4586' column='1'/>
       <parameter type-id='type-id-36' name='data' filepath='libutil/mipmap.c' line='4587' column='1'/>
@@ -4771,9 +4769,9 @@
     <function-decl name='gluBuild3DMipmapLevels' mangled-name='gluBuild3DMipmapLevels' filepath='libutil/mipmap.c' line='8444' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild3DMipmapLevels'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='8444' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='8444' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='8445' column='1'/>
-      <parameter type-id='type-id-465' name='height' filepath='libutil/mipmap.c' line='8445' column='1'/>
-      <parameter type-id='type-id-465' name='depth' filepath='libutil/mipmap.c' line='8445' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='8445' column='1'/>
+      <parameter type-id='type-id-464' name='height' filepath='libutil/mipmap.c' line='8445' column='1'/>
+      <parameter type-id='type-id-464' name='depth' filepath='libutil/mipmap.c' line='8445' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='8446' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='8446' column='1'/>
       <parameter type-id='type-id-48' name='userLevel' filepath='libutil/mipmap.c' line='8447' column='1'/>
@@ -4785,9 +4783,9 @@
     <function-decl name='gluBuild3DMipmaps' mangled-name='gluBuild3DMipmaps' filepath='libutil/mipmap.c' line='8482' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluBuild3DMipmaps'>
       <parameter type-id='type-id-49' name='target' filepath='libutil/mipmap.c' line='8482' column='1'/>
       <parameter type-id='type-id-48' name='internalFormat' filepath='libutil/mipmap.c' line='8482' column='1'/>
-      <parameter type-id='type-id-465' name='width' filepath='libutil/mipmap.c' line='8483' column='1'/>
-      <parameter type-id='type-id-465' name='height' filepath='libutil/mipmap.c' line='8483' column='1'/>
-      <parameter type-id='type-id-465' name='depth' filepath='libutil/mipmap.c' line='8483' column='1'/>
+      <parameter type-id='type-id-464' name='width' filepath='libutil/mipmap.c' line='8483' column='1'/>
+      <parameter type-id='type-id-464' name='height' filepath='libutil/mipmap.c' line='8483' column='1'/>
+      <parameter type-id='type-id-464' name='depth' filepath='libutil/mipmap.c' line='8483' column='1'/>
       <parameter type-id='type-id-49' name='format' filepath='libutil/mipmap.c' line='8484' column='1'/>
       <parameter type-id='type-id-49' name='type' filepath='libutil/mipmap.c' line='8484' column='1'/>
       <parameter type-id='type-id-36' name='data' filepath='libutil/mipmap.c' line='8484' column='1'/>
@@ -4795,15 +4793,15 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/project.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <type-decl name='double' size-in-bits='64' id='type-id-466'/>
-    <typedef-decl name='GLdouble' type-id='type-id-466' filepath='../../../include/GL/gl.h' line='162' column='1' id='type-id-381'/>
-    <typedef-decl name='GLclampd' type-id='type-id-466' filepath='../../../include/GL/gl.h' line='163' column='1' id='type-id-467'/>
+    <type-decl name='double' size-in-bits='64' id='type-id-465'/>
+    <typedef-decl name='GLdouble' type-id='type-id-465' filepath='../../../include/GL/gl.h' line='162' column='1' id='type-id-381'/>
+    <typedef-decl name='GLclampd' type-id='type-id-465' filepath='../../../include/GL/gl.h' line='163' column='1' id='type-id-466'/>
     <pointer-type-def type-id='type-id-381' size-in-bits='64' id='type-id-459'/>
-    <pointer-type-def type-id='type-id-48' size-in-bits='64' id='type-id-468'/>
-    <qualified-type-def type-id='type-id-381' const='yes' id='type-id-469'/>
-    <pointer-type-def type-id='type-id-469' size-in-bits='64' id='type-id-470'/>
-    <qualified-type-def type-id='type-id-48' const='yes' id='type-id-471'/>
-    <pointer-type-def type-id='type-id-471' size-in-bits='64' id='type-id-51'/>
+    <pointer-type-def type-id='type-id-48' size-in-bits='64' id='type-id-467'/>
+    <qualified-type-def type-id='type-id-381' const='yes' id='type-id-468'/>
+    <pointer-type-def type-id='type-id-468' size-in-bits='64' id='type-id-469'/>
+    <qualified-type-def type-id='type-id-48' const='yes' id='type-id-470'/>
+    <pointer-type-def type-id='type-id-470' size-in-bits='64' id='type-id-51'/>
     <function-decl name='gluOrtho2D' mangled-name='gluOrtho2D' filepath='libutil/project.c' line='57' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluOrtho2D'>
       <parameter type-id='type-id-381' name='left' filepath='libutil/project.c' line='57' column='1'/>
       <parameter type-id='type-id-381' name='right' filepath='libutil/project.c' line='57' column='1'/>
@@ -4834,8 +4832,8 @@
       <parameter type-id='type-id-381' name='objx' filepath='libutil/project.c' line='234' column='1'/>
       <parameter type-id='type-id-381' name='objy' filepath='libutil/project.c' line='234' column='1'/>
       <parameter type-id='type-id-381' name='objz' filepath='libutil/project.c' line='234' column='1'/>
-      <parameter type-id='type-id-470' name='modelMatrix' filepath='libutil/project.c' line='235' column='1'/>
-      <parameter type-id='type-id-470' name='projMatrix' filepath='libutil/project.c' line='236' column='1'/>
+      <parameter type-id='type-id-469' name='modelMatrix' filepath='libutil/project.c' line='235' column='1'/>
+      <parameter type-id='type-id-469' name='projMatrix' filepath='libutil/project.c' line='236' column='1'/>
       <parameter type-id='type-id-51' name='viewport' filepath='libutil/project.c' line='237' column='1'/>
       <parameter type-id='type-id-459' name='winx' filepath='libutil/project.c' line='238' column='1'/>
       <parameter type-id='type-id-459' name='winy' filepath='libutil/project.c' line='238' column='1'/>
@@ -4846,8 +4844,8 @@
       <parameter type-id='type-id-381' name='winx' filepath='libutil/project.c' line='269' column='1'/>
       <parameter type-id='type-id-381' name='winy' filepath='libutil/project.c' line='269' column='1'/>
       <parameter type-id='type-id-381' name='winz' filepath='libutil/project.c' line='269' column='1'/>
-      <parameter type-id='type-id-470' name='modelMatrix' filepath='libutil/project.c' line='270' column='1'/>
-      <parameter type-id='type-id-470' name='projMatrix' filepath='libutil/project.c' line='271' column='1'/>
+      <parameter type-id='type-id-469' name='modelMatrix' filepath='libutil/project.c' line='270' column='1'/>
+      <parameter type-id='type-id-469' name='projMatrix' filepath='libutil/project.c' line='271' column='1'/>
       <parameter type-id='type-id-51' name='viewport' filepath='libutil/project.c' line='272' column='1'/>
       <parameter type-id='type-id-459' name='objx' filepath='libutil/project.c' line='273' column='1'/>
       <parameter type-id='type-id-459' name='objy' filepath='libutil/project.c' line='273' column='1'/>
@@ -4859,11 +4857,11 @@
       <parameter type-id='type-id-381' name='winy' filepath='libutil/project.c' line='308' column='1'/>
       <parameter type-id='type-id-381' name='winz' filepath='libutil/project.c' line='308' column='1'/>
       <parameter type-id='type-id-381' name='clipw' filepath='libutil/project.c' line='308' column='1'/>
-      <parameter type-id='type-id-470' name='modelMatrix' filepath='libutil/project.c' line='309' column='1'/>
-      <parameter type-id='type-id-470' name='projMatrix' filepath='libutil/project.c' line='310' column='1'/>
+      <parameter type-id='type-id-469' name='modelMatrix' filepath='libutil/project.c' line='309' column='1'/>
+      <parameter type-id='type-id-469' name='projMatrix' filepath='libutil/project.c' line='310' column='1'/>
       <parameter type-id='type-id-51' name='viewport' filepath='libutil/project.c' line='311' column='1'/>
-      <parameter type-id='type-id-467' name='nearVal' filepath='libutil/project.c' line='312' column='1'/>
-      <parameter type-id='type-id-467' name='farVal' filepath='libutil/project.c' line='312' column='1'/>
+      <parameter type-id='type-id-466' name='nearVal' filepath='libutil/project.c' line='312' column='1'/>
+      <parameter type-id='type-id-466' name='farVal' filepath='libutil/project.c' line='312' column='1'/>
       <parameter type-id='type-id-459' name='objx' filepath='libutil/project.c' line='313' column='1'/>
       <parameter type-id='type-id-459' name='objy' filepath='libutil/project.c' line='313' column='1'/>
       <parameter type-id='type-id-459' name='objz' filepath='libutil/project.c' line='313' column='1'/>
@@ -4875,15 +4873,15 @@
       <parameter type-id='type-id-381' name='y' filepath='libutil/project.c' line='348' column='1'/>
       <parameter type-id='type-id-381' name='deltax' filepath='libutil/project.c' line='348' column='1'/>
       <parameter type-id='type-id-381' name='deltay' filepath='libutil/project.c' line='348' column='1'/>
-      <parameter type-id='type-id-468' name='viewport' filepath='libutil/project.c' line='349' column='1'/>
+      <parameter type-id='type-id-467' name='viewport' filepath='libutil/project.c' line='349' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/quad.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
-    <typedef-decl name='GLboolean' type-id='type-id-461' filepath='../../../include/GL/gl.h' line='150' column='1' id='type-id-41'/>
-    <typedef-decl name='GLUquadric' type-id='type-id-472' filepath='../../../include/GL/glu.h' line='275' column='1' id='type-id-473'/>
+    <typedef-decl name='GLboolean' type-id='type-id-460' filepath='../../../include/GL/gl.h' line='150' column='1' id='type-id-41'/>
+    <typedef-decl name='GLUquadric' type-id='type-id-471' filepath='../../../include/GL/glu.h' line='275' column='1' id='type-id-472'/>
     <typedef-decl name='_GLUfuncptr' type-id='type-id-33' filepath='../../../include/GL/glu.h' line='287' column='1' id='type-id-52'/>
-    <class-decl name='GLUquadric' size-in-bits='192' is-struct='yes' visibility='default' filepath='libutil/quad.c' line='45' column='1' id='type-id-472'>
+    <class-decl name='GLUquadric' size-in-bits='192' is-struct='yes' visibility='default' filepath='libutil/quad.c' line='45' column='1' id='type-id-471'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='normals' type-id='type-id-48' visibility='default' filepath='libutil/quad.c' line='46' column='1'/>
       </data-member>
@@ -4897,47 +4895,47 @@
         <var-decl name='drawStyle' type-id='type-id-48' visibility='default' filepath='libutil/quad.c' line='49' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='128'>
-        <var-decl name='errorCallback' type-id='type-id-474' visibility='default' filepath='libutil/quad.c' line='50' column='1'/>
+        <var-decl name='errorCallback' type-id='type-id-473' visibility='default' filepath='libutil/quad.c' line='50' column='1'/>
       </data-member>
     </class-decl>
-    <pointer-type-def type-id='type-id-473' size-in-bits='64' id='type-id-475'/>
-    <pointer-type-def type-id='type-id-460' size-in-bits='64' id='type-id-33'/>
-    <pointer-type-def type-id='type-id-476' size-in-bits='64' id='type-id-474'/>
+    <pointer-type-def type-id='type-id-472' size-in-bits='64' id='type-id-474'/>
+    <pointer-type-def type-id='type-id-475' size-in-bits='64' id='type-id-33'/>
+    <pointer-type-def type-id='type-id-476' size-in-bits='64' id='type-id-473'/>
     <function-decl name='gluNewQuadric' mangled-name='gluNewQuadric' filepath='libutil/quad.c' line='54' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluNewQuadric'>
-      <return type-id='type-id-475'/>
+      <return type-id='type-id-474'/>
     </function-decl>
     <function-decl name='gluDeleteQuadric' mangled-name='gluDeleteQuadric' filepath='libutil/quad.c' line='73' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluDeleteQuadric'>
-      <parameter type-id='type-id-475' name='state' filepath='libutil/quad.c' line='73' column='1'/>
+      <parameter type-id='type-id-474' name='state' filepath='libutil/quad.c' line='73' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluQuadricCallback' mangled-name='gluQuadricCallback' filepath='libutil/quad.c' line='86' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluQuadricCallback'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='86' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='86' column='1'/>
       <parameter type-id='type-id-49' name='which' filepath='libutil/quad.c' line='86' column='1'/>
       <parameter type-id='type-id-52' name='fn' filepath='libutil/quad.c' line='86' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluQuadricNormals' mangled-name='gluQuadricNormals' filepath='libutil/quad.c' line='99' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluQuadricNormals'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='99' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='99' column='1'/>
       <parameter type-id='type-id-49' name='normals' filepath='libutil/quad.c' line='99' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluQuadricTexture' mangled-name='gluQuadricTexture' filepath='libutil/quad.c' line='114' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluQuadricTexture'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='114' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='114' column='1'/>
       <parameter type-id='type-id-41' name='textureCoords' filepath='libutil/quad.c' line='114' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluQuadricOrientation' mangled-name='gluQuadricOrientation' filepath='libutil/quad.c' line='120' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluQuadricOrientation'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='120' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='120' column='1'/>
       <parameter type-id='type-id-49' name='orientation' filepath='libutil/quad.c' line='120' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluQuadricDrawStyle' mangled-name='gluQuadricDrawStyle' filepath='libutil/quad.c' line='134' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluQuadricDrawStyle'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='134' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='134' column='1'/>
       <parameter type-id='type-id-49' name='drawStyle' filepath='libutil/quad.c' line='134' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluCylinder' mangled-name='gluCylinder' filepath='libutil/quad.c' line='150' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluCylinder'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='150' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='150' column='1'/>
       <parameter type-id='type-id-381' name='baseRadius' filepath='libutil/quad.c' line='150' column='1'/>
       <parameter type-id='type-id-381' name='topRadius' filepath='libutil/quad.c' line='150' column='1'/>
       <parameter type-id='type-id-381' name='height' filepath='libutil/quad.c' line='151' column='1'/>
@@ -4946,7 +4944,7 @@
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluDisk' mangled-name='gluDisk' filepath='libutil/quad.c' line='424' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluDisk'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='424' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='424' column='1'/>
       <parameter type-id='type-id-381' name='innerRadius' filepath='libutil/quad.c' line='424' column='1'/>
       <parameter type-id='type-id-381' name='outerRadius' filepath='libutil/quad.c' line='424' column='1'/>
       <parameter type-id='type-id-48' name='slices' filepath='libutil/quad.c' line='425' column='1'/>
@@ -4954,7 +4952,7 @@
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluPartialDisk' mangled-name='gluPartialDisk' filepath='libutil/quad.c' line='431' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluPartialDisk'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='431' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='431' column='1'/>
       <parameter type-id='type-id-381' name='innerRadius' filepath='libutil/quad.c' line='431' column='1'/>
       <parameter type-id='type-id-381' name='outerRadius' filepath='libutil/quad.c' line='432' column='1'/>
       <parameter type-id='type-id-48' name='slices' filepath='libutil/quad.c' line='432' column='1'/>
@@ -4964,12 +4962,15 @@
       <return type-id='type-id-14'/>
     </function-decl>
     <function-decl name='gluSphere' mangled-name='gluSphere' filepath='libutil/quad.c' line='694' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluSphere'>
-      <parameter type-id='type-id-475' name='qobj' filepath='libutil/quad.c' line='694' column='1'/>
+      <parameter type-id='type-id-474' name='qobj' filepath='libutil/quad.c' line='694' column='1'/>
       <parameter type-id='type-id-381' name='radius' filepath='libutil/quad.c' line='694' column='1'/>
       <parameter type-id='type-id-48' name='slices' filepath='libutil/quad.c' line='694' column='1'/>
       <parameter type-id='type-id-48' name='stacks' filepath='libutil/quad.c' line='694' column='1'/>
       <return type-id='type-id-14'/>
     </function-decl>
+    <function-type size-in-bits='64' id='type-id-475'>
+      <return type-id='type-id-14'/>
+    </function-type>
     <function-type size-in-bits='64' id='type-id-476'>
       <parameter type-id='type-id-48'/>
       <return type-id='type-id-14'/>
@@ -4978,11 +4979,11 @@
   <abi-instr address-size='64' path='libutil/registry.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <function-decl name='gluGetString' mangled-name='gluGetString' filepath='libutil/registry.c' line='44' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluGetString'>
       <parameter type-id='type-id-49' name='name' filepath='libutil/registry.c' line='44' column='1'/>
-      <return type-id='type-id-464'/>
+      <return type-id='type-id-463'/>
     </function-decl>
     <function-decl name='gluCheckExtension' mangled-name='gluCheckExtension' filepath='libutil/registry.c' line='63' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluCheckExtension'>
-      <parameter type-id='type-id-464' name='extName' filepath='libutil/registry.c' line='63' column='1'/>
-      <parameter type-id='type-id-464' name='extString' filepath='libutil/registry.c' line='63' column='1'/>
+      <parameter type-id='type-id-463' name='extName' filepath='libutil/registry.c' line='63' column='1'/>
+      <parameter type-id='type-id-463' name='extString' filepath='libutil/registry.c' line='63' column='1'/>
       <return type-id='type-id-41'/>
     </function-decl>
   </abi-instr>
