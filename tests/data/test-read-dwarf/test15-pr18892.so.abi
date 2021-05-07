@@ -1768,14 +1768,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/libbacktrace' language='LANG_C89'>
-    <class-decl name='backtrace_freelist_struct' size-in-bits='128' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='55' column='1' id='334fd126'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='next' type-id='ab64235c' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='58' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='size' type-id='b59d7dce' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='60' column='1'/>
-      </data-member>
-    </class-decl>
     <function-decl name='__asan_backtrace_vector_finish' mangled-name='__asan_backtrace_vector_finish' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='258' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='__asan_backtrace_vector_finish'>
       <parameter type-id='8687e9ed' name='state' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='259' column='1'/>
       <parameter type-id='f8dcdf3f' name='vec' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='260' column='1'/>
@@ -4265,7 +4257,6 @@
     <typedef-decl name='backtrace_full_callback' type-id='76501d4c' filepath='../../.././libsanitizer/../libbacktrace/backtrace.h' line='110' column='1' id='70626b86'/>
     <typedef-decl name='backtrace_syminfo_callback' type-id='c01c0659' filepath='../../.././libsanitizer/../libbacktrace/backtrace.h' line='175' column='1' id='1cc872ea'/>
     <typedef-decl name='uintptr_t' type-id='7359adad' filepath='/usr/include/stdint.h' line='123' column='1' id='e475ab95'/>
-    <pointer-type-def type-id='1f9fe12d' size-in-bits='64' id='8687e9ed'/>
     <pointer-type-def type-id='d1f0cc1a' size-in-bits='64' id='76501d4c'/>
     <pointer-type-def type-id='92128534' size-in-bits='64' id='0039c01e'/>
     <pointer-type-def type-id='10721eaa' size-in-bits='64' id='b07dc7cc'/>
@@ -4643,7 +4634,6 @@
     <type-decl name='sizetype' size-in-bits='64' id='4c87fef4'/>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
     <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
     <pointer-type-def type-id='66fb3efc' size-in-bits='64' id='c7866b8a'/>
     <pointer-type-def type-id='68a6b299' size-in-bits='64' id='ca9ee4a1'/>
     <pointer-type-def type-id='fef8b83a' size-in-bits='64' id='cd764a78'/>
@@ -5738,7 +5728,6 @@
     <pointer-type-def type-id='13a4eed2' size-in-bits='64' id='1c5594fc'/>
     <pointer-type-def type-id='54eb43c1' size-in-bits='64' id='237051e5'/>
     <pointer-type-def type-id='73e99a56' size-in-bits='64' id='d7130ce8'/>
-    <pointer-type-def type-id='96ee24a5' size-in-bits='64' id='585e1de9'/>
     <pointer-type-def type-id='a4dc031f' size-in-bits='64' id='1938e4f3'/>
     <pointer-type-def type-id='8b2a77fb' size-in-bits='64' id='39189f6f'/>
     <pointer-type-def type-id='8a0bb7d6' size-in-bits='64' id='c33a1d80'/>
@@ -13646,7 +13635,6 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../.././libsanitizer/tsan/tsan_interface.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-ImG4Cf/gcc-4.9.2/x86_64-unknown-linux-gnu/libsanitizer/tsan' language='LANG_C_plus_plus'>
-    <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
     <typedef-decl name='uu16' type-id='cee094b7' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='171' column='1' id='6e0237b5'/>
     <typedef-decl name='uu32' type-id='3ae5bbe9' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='172' column='1' id='f9fd03eb'/>
     <typedef-decl name='uu64' type-id='ceed60aa' filepath='../../.././libsanitizer/sanitizer_common/sanitizer_internal_defs.h' line='173' column='1' id='6a047000'/>

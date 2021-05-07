@@ -6808,65 +6808,6 @@
         <var-decl name='system_microseconds' type-id='7359adad' visibility='default' filepath='../.././libiberty/../include/libiberty.h' line='564' column='1'/>
       </data-member>
     </class-decl>
-    <class-decl name='pex_obj' size-in-bits='1152' is-struct='yes' visibility='default' filepath='../.././libiberty/pex-common.h' line='54' column='1' id='2f223614'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='flags' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='57' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='pname' type-id='80f4b756' visibility='default' filepath='../.././libiberty/pex-common.h' line='59' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='128'>
-        <var-decl name='tempbase' type-id='80f4b756' visibility='default' filepath='../.././libiberty/pex-common.h' line='61' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='192'>
-        <var-decl name='next_input' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='63' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='256'>
-        <var-decl name='next_input_name' type-id='26a90f95' visibility='default' filepath='../.././libiberty/pex-common.h' line='65' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='320'>
-        <var-decl name='next_input_name_allocated' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='67' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='352'>
-        <var-decl name='stderr_pipe' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='69' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='384'>
-        <var-decl name='count' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='71' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='448'>
-        <var-decl name='children' type-id='6d654359' visibility='default' filepath='../.././libiberty/pex-common.h' line='73' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='512'>
-        <var-decl name='status' type-id='7292109c' visibility='default' filepath='../.././libiberty/pex-common.h' line='75' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='576'>
-        <var-decl name='time' type-id='39dc0ec4' visibility='default' filepath='../.././libiberty/pex-common.h' line='77' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='640'>
-        <var-decl name='number_waited' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='79' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='704'>
-        <var-decl name='input_file' type-id='822cd80b' visibility='default' filepath='../.././libiberty/pex-common.h' line='81' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='768'>
-        <var-decl name='read_output' type-id='822cd80b' visibility='default' filepath='../.././libiberty/pex-common.h' line='83' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='832'>
-        <var-decl name='read_err' type-id='822cd80b' visibility='default' filepath='../.././libiberty/pex-common.h' line='85' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='896'>
-        <var-decl name='remove_count' type-id='95e97e5e' visibility='default' filepath='../.././libiberty/pex-common.h' line='87' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='960'>
-        <var-decl name='remove' type-id='9b23c9ad' visibility='default' filepath='../.././libiberty/pex-common.h' line='90' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1024'>
-        <var-decl name='funcs' type-id='6a202c55' visibility='default' filepath='../.././libiberty/pex-common.h' line='92' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1088'>
-        <var-decl name='sysdep' type-id='eaa32e2f' visibility='default' filepath='../.././libiberty/pex-common.h' line='94' column='1'/>
-      </data-member>
-    </class-decl>
     <class-decl name='pex_funcs' size-in-bits='576' is-struct='yes' visibility='default' filepath='../.././libiberty/pex-common.h' line='99' column='1' id='8f62a36a'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='open_read' type-id='4cfa0d28' visibility='default' filepath='../.././libiberty/pex-common.h' line='103' column='1'/>

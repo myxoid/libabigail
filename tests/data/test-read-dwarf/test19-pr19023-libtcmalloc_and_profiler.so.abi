@@ -12665,11 +12665,17 @@
       <subrange length='2169' type-id='7359adad' id='2d56c155'/>
     </array-type-def>
     <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
     <array-type-def dimensions='1' type-id='7359adad' size-in-bits='4194304' id='553a88ae'>
       <subrange length='65536' type-id='7359adad' id='6f296326'/>
     </array-type-def>
+<<<<<<< HEAD
     <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
+||||||| parent of 1f2bf430 (XML writer: don't emit already emitted types)
+    <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
+    <type-decl name='variadic parameter type' id='2c1145c5'/>
+=======
+    <type-decl name='variadic parameter type' id='2c1145c5'/>
+>>>>>>> 1f2bf430 (XML writer: don't emit already emitted types)
     <array-type-def dimensions='1' type-id='eaa32e2f' size-in-bits='1984' id='b2db07fb'>
       <subrange length='31' type-id='7359adad' id='ae5e1d19'/>
     </array-type-def>

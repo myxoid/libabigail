@@ -12184,7 +12184,6 @@
     <type-decl name='char' size-in-bits='8' id='a84c031d'/>
     <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
     <type-decl name='long long int' size-in-bits='64' id='1eb56b1e'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
     <class-decl name='Marshaller' size-in-bits='256' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_common.h' line='388' column='1' id='1b4f31b8'>
       <data-member access='private' layout-offset-in-bits='0'>
         <var-decl name='buffer_start' type-id='26a90f95' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_common.h' line='392' column='1'/>
@@ -20383,7 +20382,14 @@
     <type-decl name='long long unsigned int' size-in-bits='64' id='3a47d82b'/>
     <type-decl name='signed char' size-in-bits='8' id='28577a57'/>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
+<<<<<<< HEAD
     <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
+||||||| parent of 1f2bf430 (XML writer: don't emit already emitted types)
+    <type-decl name='unsigned short int' size-in-bits='16' id='8efea9e5'/>
+    <type-decl name='variadic parameter type' id='2c1145c5'/>
+=======
+    <type-decl name='variadic parameter type' id='2c1145c5'/>
+>>>>>>> 1f2bf430 (XML writer: don't emit already emitted types)
     <type-decl name='wchar_t' size-in-bits='32' id='c523b9f1'/>
     <typedef-decl name='wint_t' type-id='f0981eeb' filepath='/export/users/iverbin/gcc_build_host/gcc/include/stddef.h' line='357' column='1' id='6dd37369'/>
     <class-decl name='_G_fpos_t' size-in-bits='128' is-struct='yes' naming-typedef-id='b7152aa8' visibility='default' filepath='/usr/include/_G_config.h' line='22' column='1' id='62271717'>

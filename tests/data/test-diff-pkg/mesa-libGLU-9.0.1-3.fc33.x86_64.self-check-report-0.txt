@@ -1,1 +1,1 @@
-abipkgdiff: ../../src/abg-reader.cc:1379: abigail::ir::type_base_sptr abigail::xml_reader::read_context::build_or_get_type_decl(const string&, bool): Assertion `__abg_cond__' failed.
+abipkgdiff: ../../src/abg-reader.cc:1488: abigail::ir::type_base_sptr abigail::xml_reader::read_context::build_or_get_type_decl(const string&, bool): Assertion `__abg_cond__' failed.

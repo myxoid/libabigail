@@ -9020,7 +9020,6 @@
       <subrange length='8' type-id='7359adad' id='56e0c0b1'/>
     </array-type-def>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
-    <type-decl name='unsigned long int' size-in-bits='64' id='7359adad'/>
     <array-type-def dimensions='1' type-id='7359adad' size-in-bits='1024' id='d2baa450'>
       <subrange length='16' type-id='7359adad' id='848d0938'/>
     </array-type-def>
@@ -9546,7 +9545,6 @@
     <type-decl name='int' size-in-bits='32' id='95e97e5e'/>
     <typedef-decl name='GLint' type-id='95e97e5e' filepath='../../../include/GL/gl.h' line='155' column='1' id='82e13008'/>
     <typedef-decl name='GLsizei' type-id='95e97e5e' filepath='../../../include/GL/gl.h' line='159' column='1' id='d9108c75'/>
-    <pointer-type-def type-id='48b5725f' size-in-bits='64' id='eaa32e2f'/>
     <function-decl name='gluScaleImage' mangled-name='gluScaleImage' filepath='libutil/mipmap.c' line='3498' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='gluScaleImage'>
       <parameter type-id='055aa60e' name='format' filepath='libutil/mipmap.c' line='3498' column='1'/>
       <parameter type-id='d9108c75' name='widthin' filepath='libutil/mipmap.c' line='3498' column='1'/>
@@ -9628,7 +9626,6 @@
       <parameter type-id='eaa32e2f' name='data' filepath='libutil/mipmap.c' line='8484' column='1'/>
       <return type-id='82e13008'/>
     </function-decl>
-    <type-decl name='void' id='48b5725f'/>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/project.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <type-decl name='double' size-in-bits='64' id='a0eb0f08'/>
