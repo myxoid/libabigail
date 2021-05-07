@@ -1,3 +1,1 @@
-==== SELF CHECK SUCCEEDED for 'libcogl.so.20.4.3' ====
-==== SELF CHECK SUCCEEDED for 'libcogl-path.so.20.4.3' ====
-==== SELF CHECK SUCCEEDED for 'libcogl-pango.so.20.4.3' ====
+abipkgdiff: ../../src/abg-reader.cc:1379: abigail::ir::type_base_sptr abigail::xml_reader::read_context::build_or_get_type_decl(const string&, bool): Assertion `__abg_cond__' failed.

@@ -12269,11 +12269,6 @@
       <return type-id='eaa32e2f'/>
     </function-decl>
     <type-decl name='void' id='48b5725f'/>
-    <function-type size-in-bits='64' id='46281162'>
-      <parameter type-id='b59d7dce' name='size'/>
-      <parameter type-id='b59d7dce' name='align'/>
-      <return type-id='eaa32e2f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_engine.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
     <array-type-def dimensions='1' type-id='3742b05a' size-in-bits='8192' id='a262b7a3'>
@@ -18043,15 +18038,6 @@
         </member-function>
       </class-decl>
     </namespace-decl>
-    <function-type size-in-bits='64' id='c5c76c9c'>
-      <parameter type-id='eaa32e2f' name='target_image'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='c039af2e'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_myo_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
     <typedef-decl name='MyoiRFuncCallHandle' type-id='eaa32e2f' filepath='../../../gcc/liboffloadmic/include/myo/myoimpl.h' line='193' column='1' id='930bcc70'/>

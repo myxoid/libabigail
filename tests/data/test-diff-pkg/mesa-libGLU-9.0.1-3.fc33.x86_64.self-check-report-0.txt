@@ -1,1 +1,1 @@
-==== SELF CHECK SUCCEEDED for 'libGLU.so.1.3.1' ====
+abipkgdiff: ../../src/abg-reader.cc:1379: abigail::ir::type_base_sptr abigail::xml_reader::read_context::build_or_get_type_decl(const string&, bool): Assertion `__abg_cond__' failed.

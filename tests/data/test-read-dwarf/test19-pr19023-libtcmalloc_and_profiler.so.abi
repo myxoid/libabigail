@@ -17321,10 +17321,6 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='48b5725f'/>
     </function-type>
-    <function-type size-in-bits='64' id='848c08bf'>
-      <parameter type-id='b59d7dce'/>
-      <return type-id='eaa32e2f'/>
-    </function-type>
     <function-type size-in-bits='64' id='a2daa63c'>
       <parameter type-id='b59d7dce'/>
       <parameter type-id='b59d7dce'/>

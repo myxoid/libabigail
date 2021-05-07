@@ -27669,13 +27669,6 @@
       <!-- void -->
       <return type-id='48b5725f'/>
     </function-type>
-    <!-- void* (size_t) -->
-    <function-type size-in-bits='64' id='848c08bf'>
-      <!-- parameter of type 'typedef size_t' -->
-      <parameter type-id='b59d7dce'/>
-      <!-- void* -->
-      <return type-id='eaa32e2f'/>
-    </function-type>
     <!-- void* (size_t, size_t, void*) -->
     <function-type size-in-bits='64' id='a2daa63c'>
       <!-- parameter of type 'typedef size_t' -->

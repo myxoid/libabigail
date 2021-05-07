@@ -14841,11 +14841,6 @@
       <!-- void -->
       <return type-id='48b5725f'/>
     </function-type>
-    <!-- void () -->
-    <function-type size-in-bits='64' id='ee076206'>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='libutil/error.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C99'>
     <!-- unsigned char -->
