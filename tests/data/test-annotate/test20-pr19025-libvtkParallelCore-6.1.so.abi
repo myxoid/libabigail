@@ -7872,6 +7872,19 @@
     <typedef-decl name='vtkRMIFunctionType' type-id='6f1c08ee' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.h' line='58' column='1' id='c2a96b01'/>
     <!-- void (void*, void*, int, int)* -->
     <pointer-type-def type-id='2e42c4cc' size-in-bits='64' id='6f1c08ee'/>
+    <!-- void (void*, void*, int, int) -->
+    <function-type size-in-bits='64' id='2e42c4cc'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'int' -->
+      <parameter type-id='95e97e5e'/>
+      <!-- parameter of type 'int' -->
+      <parameter type-id='95e97e5e'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkDummyCommunicator.cxx' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Parallel/Core' language='LANG_C_plus_plus'>
     <!-- class vtkDummyCommunicator -->
@@ -9009,19 +9022,6 @@
     <reference-type-def kind='lvalue' type-id='26c0af81' size-in-bits='64' id='a85483e5'/>
     <!-- const vtkMultiProcessController* -->
     <pointer-type-def type-id='26c0af81' size-in-bits='64' id='ac548a31'/>
-    <!-- void (void*, void*, int, int) -->
-    <function-type size-in-bits='64' id='2e42c4cc'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'int' -->
-      <parameter type-id='95e97e5e'/>
-      <!-- parameter of type 'int' -->
-      <parameter type-id='95e97e5e'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
     <!-- typedef void (vtkMultiProcessController*, void*)* vtkProcessFunctionType -->
     <typedef-decl name='vtkProcessFunctionType' type-id='f4eed5f1' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.h' line='53' column='1' id='4035cd5c'/>
     <!-- void*& -->
@@ -10172,6 +10172,15 @@
     <reference-type-def kind='lvalue' type-id='68d7a690' size-in-bits='64' id='c17b7082'/>
     <!-- const vtksys::hashtable<std::pair<const int, void*>, int, vtksys::hash<int>, vtksys::hash_select1st<const int, void*>, std::equal_to<int>, std::allocator<char> >& -->
     <reference-type-def kind='lvalue' type-id='46caba08' size-in-bits='64' id='9f23166a'/>
+    <!-- void (vtkMultiProcessController*, void*) -->
+    <function-type size-in-bits='64' id='205a5a95'>
+      <!-- parameter of type 'vtkMultiProcessController*' -->
+      <parameter type-id='62d334dc'/>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
     <!-- vtkProcess* const -->
     <qualified-type-def type-id='8f612369' const='yes' id='dd4c1a06'/>
     <!-- vtkProcessGroup* const -->
@@ -17821,15 +17830,6 @@
     </namespace-decl>
     <!-- __gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >* -->
     <pointer-type-def type-id='2acf0c50' size-in-bits='64' id='540ad4a6'/>
-    <!-- void (vtkMultiProcessController*, void*) -->
-    <function-type size-in-bits='64' id='205a5a95'>
-      <!-- parameter of type 'vtkMultiProcessController*' -->
-      <parameter type-id='62d334dc'/>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
     <!-- int* const& -->
     <reference-type-def kind='lvalue' type-id='5a5c0787' size-in-bits='64' id='dfe00273'/>
     <!-- int* const -->

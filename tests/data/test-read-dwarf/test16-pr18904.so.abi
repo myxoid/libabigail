@@ -18179,6 +18179,9 @@
         <var-decl name='func' type-id='0cf0e7c7' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_table.h' line='295' column='1'/>
       </data-member>
     </class-decl>
+    <function-type size-in-bits='64' id='ee076206'>
+      <return type-id='48b5725f'/>
+    </function-type>
     <typedef-decl name='MyoiSharedVarEntry' type-id='fd30a328' filepath='../../../gcc/liboffloadmic/include/myo/myoimpl.h' line='357' column='1' id='95da3bbc'/>
     <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='95da3bbc' visibility='default' filepath='../../../gcc/liboffloadmic/include/myo/myoimpl.h' line='352' column='1' id='fd30a328'>
       <data-member access='public' layout-offset-in-bits='0'>
@@ -18228,6 +18231,10 @@
         <var-decl name='entries' type-id='ab5b45e2' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_table.h' line='355' column='1'/>
       </data-member>
     </class-decl>
+    <function-type size-in-bits='64' id='ba322d03'>
+      <parameter type-id='7312d2ea'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <pointer-type-def type-id='2e1f603d' size-in-bits='64' id='b2644435'/>
     <pointer-type-def type-id='9484a741' size-in-bits='64' id='37d38d71'/>
     <pointer-type-def type-id='5e8b57fc' size-in-bits='64' id='ab5b45e2'/>
@@ -19054,10 +19061,6 @@
     <var-decl name='__offload_myo_vtable_tables' type-id='6ba6dd8f' mangled-name='__offload_myo_vtable_tables' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_table.h' line='437' column='1' elf-symbol-id='__offload_myo_vtable_tables'/>
     <var-decl name='__offload_myo_func_tables' type-id='bbbb74ba' mangled-name='__offload_myo_func_tables' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_table.h' line='438' column='1' elf-symbol-id='__offload_myo_func_tables'/>
     <var-decl name='__offload_myo_init_tables' type-id='023f9c9e' mangled-name='__offload_myo_init_tables' visibility='default' filepath='../../../gcc/liboffloadmic/runtime/offload_table.h' line='439' column='1' elf-symbol-id='__offload_myo_init_tables'/>
-    <function-type size-in-bits='64' id='ba322d03'>
-      <parameter type-id='7312d2ea'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/offload_timer_host.cpp' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C_plus_plus'>
     <typedef-decl name='_Atomic_word' type-id='95e97e5e' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/x86_64-pc-linux-gnu/bits/atomic_word.h' line='32' column='1' id='e9464a99'/>
@@ -20965,9 +20968,6 @@
       <parameter type-id='eaa32e2f'/>
       <parameter type-id='eaa32e2f'/>
       <return type-id='95e97e5e'/>
-    </function-type>
-    <function-type size-in-bits='64' id='ee076206'>
-      <return type-id='48b5725f'/>
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='../../../gcc/liboffloadmic/runtime/orsl-lite/lib/orsl-lite.c' comp-dir-path='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/liboffloadmic' language='LANG_C99'>

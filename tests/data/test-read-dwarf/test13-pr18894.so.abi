@@ -672,6 +672,16 @@
     <class-decl name='DBusTimeoutList' is-struct='yes' visibility='default' is-declaration-only='yes' id='9b71e0e2'/>
     <class-decl name='DBusTransport' is-struct='yes' visibility='default' is-declaration-only='yes' id='88618050'/>
     <class-decl name='DBusWatchList' is-struct='yes' visibility='default' is-declaration-only='yes' id='35965606'/>
+    <function-type size-in-bits='64' id='25efba21'>
+      <parameter type-id='a25b1cfb'/>
+      <parameter type-id='770545c2'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='c5c76c9c'>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <qualified-type-def type-id='9107d76e' volatile='yes' id='45290571'/>
     <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
     <typedef-decl name='DBusDataSlot' type-id='51a2367f' filepath='../dbus/dbus-dataslot.h' line='34' column='1' id='f10c9972'/>
@@ -1382,12 +1392,6 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='3cc8ee4c'/>
     </function-type>
-    <function-type size-in-bits='64' id='25efba21'>
-      <parameter type-id='a25b1cfb'/>
-      <parameter type-id='770545c2'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <function-type size-in-bits='64' id='0d2d75f6'>
       <parameter type-id='a25b1cfb'/>
       <parameter type-id='eaa32e2f'/>
@@ -1403,16 +1407,27 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='48b5725f'/>
     </function-type>
-    <function-type size-in-bits='64' id='c5c76c9c'>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <typedef-decl name='DBusPendingCallNotifyFunction' type-id='091ef42d' filepath='../dbus/dbus-connection.h' line='162' column='1' id='1e4bbcbc'/>
     <typedef-decl name='DBusTimeoutHandler' type-id='4c78c077' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.h' line='41' column='1' id='9f06b367'/>
     <typedef-decl name='DBusWatchHandler' type-id='5427e7aa' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.h' line='43' column='1' id='e081a6c3'/>
     <pointer-type-def type-id='04d39780' size-in-bits='64' id='5427e7aa'/>
     <pointer-type-def type-id='14c19683' size-in-bits='64' id='4c78c077'/>
     <pointer-type-def type-id='e72931c9' size-in-bits='64' id='091ef42d'/>
+    <function-type size-in-bits='64' id='04d39780'>
+      <parameter type-id='36f9a538'/>
+      <parameter type-id='f0981eeb'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='3cc8ee4c'/>
+    </function-type>
+    <function-type size-in-bits='64' id='14c19683'>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='3cc8ee4c'/>
+    </function-type>
+    <function-type size-in-bits='64' id='e72931c9'>
+      <parameter type-id='7ff886a4'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-errors.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
     <type-decl name='variadic parameter type' id='2c1145c5'/>
@@ -1971,11 +1986,6 @@
       <parameter type-id='9107d76e' name='slot' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-pending-call.c' line='828' column='1'/>
       <return type-id='eaa32e2f'/>
     </function-decl>
-    <function-type size-in-bits='64' id='e72931c9'>
-      <parameter type-id='7ff886a4'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-server.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='128' id='ac1fa8c0'>
@@ -2420,10 +2430,6 @@
       <parameter type-id='61f110cc' name='timeout' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.c' line='486' column='1'/>
       <return type-id='3cc8ee4c'/>
     </function-decl>
-    <function-type size-in-bits='64' id='14c19683'>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='3cc8ee4c'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-uuidgen.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
     <function-decl name='dbus_internal_do_not_use_get_uuid' mangled-name='dbus_internal_do_not_use_get_uuid' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-uuidgen.c' line='83' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='dbus_internal_do_not_use_get_uuid'>
@@ -2476,11 +2482,5 @@
       <parameter type-id='f0981eeb' name='flags' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.c' line='699' column='1'/>
       <return type-id='3cc8ee4c'/>
     </function-decl>
-    <function-type size-in-bits='64' id='04d39780'>
-      <parameter type-id='36f9a538'/>
-      <parameter type-id='f0981eeb'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='3cc8ee4c'/>
-    </function-type>
   </abi-instr>
 </abi-corpus>

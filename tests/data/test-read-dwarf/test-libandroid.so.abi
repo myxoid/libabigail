@@ -1977,6 +1977,15 @@
       </class-decl>
     </namespace-decl>
     <reference-type-def kind='lvalue' type-id='990dfc58' size-in-bits='32' id='6f047a5a'/>
+    <function-type size-in-bits='32' id='f1e1c37c'>
+      <parameter type-id='1a1ddb91'/>
+      <parameter type-id='9f7200cf'/>
+      <parameter type-id='b59d7dce'/>
+      <parameter type-id='d83fdf4f'/>
+      <parameter type-id='b59d7dce'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <pointer-type-def type-id='15f35f71' size-in-bits='32' id='10cb6749'/>
     <pointer-type-def type-id='17e76a52' size-in-bits='32' id='1e283db0'/>
     <reference-type-def kind='lvalue' type-id='0de0b2fb' size-in-bits='32' id='b43a7bff'/>
@@ -2012,6 +2021,7 @@
       </class-decl>
     </namespace-decl>
     <reference-type-def kind='lvalue' type-id='f4bc7ed7' size-in-bits='32' id='35bbd563'/>
+    <pointer-type-def type-id='552130ff' size-in-bits='32' id='d83fdf4f'/>
     <qualified-type-def type-id='0de0b2fb' const='yes' id='990dfc58'/>
     <type-decl name='long long unsigned int' size-in-bits='64' id='3a47d82b'/>
     <typedef-decl name='AStorageManager' type-id='56516754' filepath='frameworks/native/include/android/storage_manager.h' line='40' column='1' id='6fc023b3'/>
@@ -2114,6 +2124,7 @@
     </namespace-decl>
     <pointer-type-def type-id='f7007f3f' size-in-bits='32' id='eac80e0f'/>
     <qualified-type-def type-id='4c8890e6' const='yes' id='f4bc7ed7'/>
+    <qualified-type-def type-id='9af0438f' const='yes' id='552130ff'/>
     <pointer-type-def type-id='40b6343a' size-in-bits='32' id='6d5a3b78'/>
     <reference-type-def kind='rvalue' type-id='12dbd264' size-in-bits='32' id='de3da448'/>
     <pointer-type-def type-id='12dbd264' size-in-bits='32' id='eed59172'/>
@@ -2378,6 +2389,17 @@
     <qualified-type-def type-id='5d81b3b0' const='yes' id='94d46bf9'/>
     <qualified-type-def type-id='3847ab67' const='yes' id='27297916'/>
     <qualified-type-def type-id='f331f373' const='yes' id='62294afc'/>
+    <function-type size-in-bits='32' id='735b63b3'>
+      <parameter type-id='b5e7b678'/>
+      <parameter type-id='b5e7b678'/>
+      <return type-id='95e97e5e'/>
+    </function-type>
+    <function-type size-in-bits='32' id='32a29f07'>
+      <parameter type-id='b5e7b678'/>
+      <parameter type-id='b5e7b678'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='95e97e5e'/>
+    </function-type>
     <class-decl name='ObbCallback' size-in-bits='96' visibility='default' filepath='frameworks/base/native/android/storage_manager.cpp' line='49' column='1' id='f0b1600d'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='nonce' type-id='3ff5601b' visibility='default' filepath='frameworks/base/native/android/storage_manager.cpp' line='57' column='1'/>
@@ -2406,6 +2428,12 @@
     </array-type-def>
     <typedef-decl name='AStorageManager_obbCallbackFunc' type-id='238ccd13' filepath='frameworks/native/include/android/storage_manager.h' line='123' column='1' id='9299e4b4'/>
     <pointer-type-def type-id='f521429f' size-in-bits='32' id='238ccd13'/>
+    <function-type size-in-bits='32' id='f521429f'>
+      <parameter type-id='80f4b756'/>
+      <parameter type-id='922df12b'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/libs/storage/IObbActionListener.cpp' language='LANG_C_plus_plus_14'>
     <array-type-def dimensions='1' type-id='801a266d' size-in-bits='608' id='19b37a54'>
@@ -21260,23 +21288,6 @@
       <parameter type-id='80f4b756' name='filename' filepath='frameworks/base/native/android/storage_manager.cpp' line='222' column='1'/>
       <return type-id='80f4b756'/>
     </function-decl>
-    <function-type size-in-bits='32' id='735b63b3'>
-      <parameter type-id='b5e7b678'/>
-      <parameter type-id='b5e7b678'/>
-      <return type-id='95e97e5e'/>
-    </function-type>
-    <function-type size-in-bits='32' id='32a29f07'>
-      <parameter type-id='b5e7b678'/>
-      <parameter type-id='b5e7b678'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='95e97e5e'/>
-    </function-type>
-    <function-type size-in-bits='32' id='f521429f'>
-      <parameter type-id='80f4b756'/>
-      <parameter type-id='922df12b'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='32' path='frameworks/base/native/android/surface_control.cpp' language='LANG_C_plus_plus_14'>
     <array-type-def dimensions='1' type-id='0ac54e8c' size-in-bits='512' id='0b1b1d03'>
@@ -34547,15 +34558,6 @@
         </class-decl>
       </namespace-decl>
     </namespace-decl>
-    <function-type size-in-bits='32' id='f1e1c37c'>
-      <parameter type-id='1a1ddb91'/>
-      <parameter type-id='9f7200cf'/>
-      <parameter type-id='b59d7dce'/>
-      <parameter type-id='d83fdf4f'/>
-      <parameter type-id='b59d7dce'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <function-type size-in-bits='32' id='ba286cd1'>
       <parameter type-id='eaa32e2f'/>
       <parameter type-id='b98edb26'/>

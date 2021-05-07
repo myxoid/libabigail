@@ -127,11 +127,6 @@ typedef unordered_set<const type_base*, type_hasher,
 		      abigail::diff_utils::deep_ptr_eq_functor>
 type_ptr_set_type;
 
-/// A convenience typedef for a set of function type*.
-typedef unordered_set<function_type*, type_hasher,
-		      abigail::diff_utils::deep_ptr_eq_functor>
-fn_type_ptr_set_type;
-
 typedef unordered_map<shared_ptr<function_tdecl>,
 		      string,
 		      function_tdecl::shared_ptr_hash> fn_tmpl_shared_ptr_map;
@@ -162,7 +157,6 @@ class write_context
   // A map of types that are referenced by emitted pointers,
   // references or typedefs
   type_ptr_set_type			m_referenced_types_set;
-  fn_type_ptr_set_type			m_referenced_fn_types_set;
   type_ptr_set_type			m_referenced_non_canonical_types_set;
   fn_tmpl_shared_ptr_map		m_fn_tmpl_id_map;
   class_tmpl_shared_ptr_map		m_class_tmpl_id_map;
@@ -481,43 +475,29 @@ public:
   /// Getter of the set of types that were referenced by a pointer,
   /// reference or typedef.
   ///
-  /// This set contains only types that do have canonical types and
-  /// which are not function types.
+  /// This set contains only types that do have canonical types.
   ///
   /// @return the set of types that were referenced.
   const type_ptr_set_type&
   get_referenced_types() const
   {return m_referenced_types_set;}
 
-  /// Getter of the set of function types that were referenced by a
-  /// pointer, reference or typedef.
-  ///
-  /// @return the set of function types that were referenced.
-  const fn_type_ptr_set_type&
-  get_referenced_function_types() const
-  {return m_referenced_fn_types_set;}
-
   /// Getter of the set of types which have no canonical types and
-  /// which were referenced by a pointer, reference or typedef.
+  /// which were referenced by another type or declaration.
   ///
-  /// @return the of referenced type that have no canonical types.
+  /// @return the set of referenced type that have no canonical types.
   const type_ptr_set_type&
   get_referenced_non_canonical_types() const
   {return m_referenced_non_canonical_types_set;}
 
-  /// Record a given type as being referenced by a pointer, a
-  /// reference or a typedef type that is being emitted to the XML
-  /// output.
+  /// Record a given type as being referenced by another type or
+  /// declaration that is being emitted to the XML output.
   ///
   /// @param t a shared pointer to a type
   void
   record_type_as_referenced(const type_base_sptr& t)
   {
-    // If the type is a function type, record it in a dedicated data
-    // structure.
-    if (function_type* f = is_function_type(t.get()))
-      m_referenced_fn_types_set.insert(f);
-    else if (!t->get_naked_canonical_type())
+    if (!t->get_naked_canonical_type())
       // If the type doesn't have a canonical type, record it in a
       // dedicated data structure.
       m_referenced_non_canonical_types_set.insert(t.get());
@@ -525,8 +505,8 @@ public:
       m_referenced_types_set.insert(t.get());
   }
 
-  /// Test if a given type has been referenced by a pointer, a
-  /// reference or a typedef type that was emitted to the XML output.
+  /// Test if a given type has been referenced by another type or
+  /// declaration that was emitted to the XML output.
   ///
   /// @param f a shared pointer to a type
   ///
@@ -535,10 +515,7 @@ public:
   bool
   type_is_referenced(const type_base_sptr& t)
   {
-    if (function_type *f = is_function_type(t.get()))
-      return (m_referenced_fn_types_set.find(f)
-	      != m_referenced_fn_types_set.end());
-    else if (!t->get_naked_canonical_type())
+    if (!t->get_naked_canonical_type())
       return (m_referenced_non_canonical_types_set.find(t.get())
 	      != m_referenced_non_canonical_types_set.end());
     else
@@ -819,7 +796,6 @@ public:
   {
     m_referenced_types_set.clear();
     m_referenced_non_canonical_types_set.clear();
-    m_referenced_fn_types_set.clear();
   }
 
   const string_elf_symbol_sptr_map_type&
@@ -2296,9 +2272,7 @@ write_translation_unit(write_context&	       ctxt,
     }
 
   // Now let's handle types that were referenced, but not yet
-  // emitted because they are either:
-  //   1/ Types without canonical type
-  //   2/ or function types (these might have no scope).
+  // emitted.
 
   // So this map of type -> string is to contain the referenced types
   // we need to emit.
@@ -2311,16 +2285,6 @@ write_translation_unit(write_context&	       ctxt,
     if (!ctxt.type_is_emitted(*i)
 	&& !ctxt.decl_only_type_is_emitted(*i))
 	referenced_types_to_emit.insert(*i);
-
-  for (fn_type_ptr_set_type::const_iterator i =
-	 ctxt.get_referenced_function_types().begin();
-       i != ctxt.get_referenced_function_types().end();
-       ++i)
-    if (!ctxt.type_is_emitted(*i)
-	&& !ctxt.decl_only_type_is_emitted(*i))
-      // A referenced type that was not emitted at all must be
-      // emitted now.
-      referenced_types_to_emit.insert(*i);
 
   for (type_ptr_set_type::const_iterator i =
 	 ctxt.get_referenced_non_canonical_types().begin();
@@ -2402,27 +2366,6 @@ write_translation_unit(write_context&	       ctxt,
 	  // A referenced type that was not emitted at all must be
 	  // emitted now.
 	  referenced_types_to_emit.insert(*i);
-    }
-
-  // Now handle all function types that were not only referenced by
-  // emitted types.
-  const vector<function_type_sptr>& t = tu.get_live_fn_types();
-  vector<type_base_sptr> sorted_types;
-  ctxt.sort_types(t, sorted_types);
-
-  for (vector<type_base_sptr>::const_iterator i = sorted_types.begin();
-       i != sorted_types.end();
-       ++i)
-    {
-      function_type_sptr fn_type = is_function_type(*i);
-
-      if (!ctxt.type_is_referenced(fn_type) || ctxt.type_is_emitted(fn_type))
-	// This function type is either not referenced by any emitted
-	// pointer or reference type, or has already been emitted, so skip it.
-	continue;
-
-      ABG_ASSERT(fn_type);
-      write_function_type(fn_type, ctxt, indent + c.get_xml_element_indent());
     }
 
   ctxt.clear_referenced_types();

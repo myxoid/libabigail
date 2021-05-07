@@ -11075,6 +11075,105 @@
     <reference-type-def kind='lvalue' type-id='761ccdae' size-in-bits='64' id='77578d18'/>
     <!-- const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >& -->
     <reference-type-def kind='lvalue' type-id='9fc2d4ef' size-in-bits='64' id='48b4f86b'/>
+    <!-- void () -->
+    <function-type size-in-bits='64' id='ee076206'>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (const HeapProfileBucket*, HeapProfileTable::BufferArgs*) -->
+    <function-type size-in-bits='64' id='a9892e44'>
+      <!-- parameter of type 'const HeapProfileBucket*' -->
+      <parameter type-id='5bbc4ced'/>
+      <!-- parameter of type 'HeapProfileTable::BufferArgs*' -->
+      <parameter type-id='4e1dcc73'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (const MemoryRegionMap::Region&) -->
+    <function-type size-in-bits='64' id='1d91679c'>
+      <!-- parameter of type 'const MemoryRegionMap::Region&' -->
+      <parameter type-id='af61c01c'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*) -->
+    <function-type size-in-bits='64' id='c5c76c9c'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::AddNonLiveArgs*) -->
+    <function-type size-in-bits='64' id='8805a7e9'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
+      <parameter type-id='17d36d40'/>
+      <!-- parameter of type 'HeapProfileTable::AddNonLiveArgs*' -->
+      <parameter type-id='34d3295d'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::Snapshot*) -->
+    <function-type size-in-bits='64' id='d9e86dd4'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
+      <parameter type-id='17d36d40'/>
+      <!-- parameter of type 'HeapProfileTable::Snapshot*' -->
+      <parameter type-id='5d35644a'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::Snapshot::ReportState*) -->
+    <function-type size-in-bits='64' id='9b6b55c9'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
+      <parameter type-id='17d36d40'/>
+      <!-- parameter of type 'HeapProfileTable::Snapshot::ReportState*' -->
+      <parameter type-id='7b898f5f'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, HeapProfileTable::AllocValue*, char*) -->
+    <function-type size-in-bits='64' id='a81726a9'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
+      <parameter type-id='17d36d40'/>
+      <!-- parameter of type 'char*' -->
+      <parameter type-id='26a90f95'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, HeapProfileTable::AllocValue*, const HeapProfileTable::DumpArgs&) -->
+    <function-type size-in-bits='64' id='56a41ffa'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
+      <parameter type-id='17d36d40'/>
+      <!-- parameter of type 'const HeapProfileTable::DumpArgs&' -->
+      <parameter type-id='8a30c720'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void (void*, size_t) -->
+    <function-type size-in-bits='64' id='5775e931'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'typedef size_t' -->
+      <parameter type-id='b59d7dce'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
+    <!-- void* (unsigned long int) -->
+    <function-type size-in-bits='64' id='b2c13d3a'>
+      <!-- parameter of type 'unsigned long int' -->
+      <parameter type-id='7359adad'/>
+      <!-- void* -->
+      <return type-id='eaa32e2f'/>
+    </function-type>
     <!-- std::basic_string<char, std::char_traits<char>, std::allocator<char> >::_Alloc_hider* -->
     <pointer-type-def type-id='bab0e33c' size-in-bits='64' id='daf943aa'/>
     <!-- std::map<HeapProfileTable::Bucket*, HeapProfileTable::Snapshot::Entry, std::less<HeapProfileTable::Bucket*>, std::allocator<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > >* -->
@@ -11308,6 +11407,8 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <!-- const HeapProfileBucket* -->
+    <pointer-type-def type-id='80dd8755' size-in-bits='64' id='5bbc4ced'/>
     <!-- const MemoryRegionMap::RegionCmp -->
     <qualified-type-def type-id='594bfa00' const='yes' id='33d68ab1'/>
     <!-- const STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> -->
@@ -11330,6 +11431,15 @@
     <qualified-type-def type-id='3d6e5fbd' id='3d6e5fbc'/>
     <!-- const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > -->
     <qualified-type-def type-id='bbd1e162' const='yes' id='9fc2d4ef'/>
+    <!-- void (void*, const base::MallocRange*) -->
+    <function-type size-in-bits='64' id='32ecfb73'>
+      <!-- parameter of type 'void*' -->
+      <parameter type-id='eaa32e2f'/>
+      <!-- parameter of type 'const base::MallocRange*' -->
+      <parameter type-id='44ee045c'/>
+      <!-- void -->
+      <return type-id='48b5725f'/>
+    </function-type>
     <!-- int* -->
     <pointer-type-def type-id='95e97e5e' size-in-bits='64' id='7292109c'/>
     <!-- std::_Rb_tree<HeapProfileTable::Bucket*, std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry>, std::_Select1st<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> >, std::less<HeapProfileTable::Bucket*>, std::allocator<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > >* -->
@@ -11607,10 +11717,14 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <!-- const HeapProfileBucket -->
+    <qualified-type-def type-id='41b9aeb6' const='yes' id='80dd8755'/>
     <!-- const STL_Allocator<std::_Rb_tree_node<MemoryRegionMap::Region>, MemoryRegionMap::MyAllocator> -->
     <qualified-type-def type-id='02ca5731' const='yes' id='2c78bf7c'/>
     <!-- const __gnu_cxx::new_allocator<char>& -->
     <reference-type-def kind='lvalue' type-id='ab34868e' size-in-bits='64' id='2baffa78'/>
+    <!-- const base::MallocRange* -->
+    <pointer-type-def type-id='a955139e' size-in-bits='64' id='44ee045c'/>
     <!-- const std::_Rb_tree<HeapProfileTable::Bucket*, std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry>, std::_Select1st<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> >, std::less<HeapProfileTable::Bucket*>, std::allocator<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > > -->
     <qualified-type-def type-id='4f30931c' const='yes' id='f7c64daf'/>
     <!-- const std::_Rb_tree<MemoryRegionMap::Region, MemoryRegionMap::Region, std::_Identity<MemoryRegionMap::Region>, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > -->
@@ -11802,6 +11916,8 @@
     <qualified-type-def type-id='ae3b5d4b' const='yes' id='ab34868e'/>
     <!-- const __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > >& -->
     <reference-type-def kind='lvalue' type-id='a59657f6' size-in-bits='64' id='7bac3c70'/>
+    <!-- const base::MallocRange -->
+    <qualified-type-def type-id='9d8e6e7d' const='yes' id='a955139e'/>
     <!-- const std::_Rb_tree_iterator<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > -->
     <qualified-type-def type-id='53907f3b' const='yes' id='fba6a636'/>
     <!-- const std::_Rb_tree_node<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> > -->
@@ -11824,6 +11940,37 @@
     <pointer-type-def type-id='e139117a' size-in-bits='64' id='76807da8'/>
     <!-- __gnu_cxx::new_allocator<std::pair<HeapProfileTable::Bucket* const, HeapProfileTable::Snapshot::Entry> >* -->
     <pointer-type-def type-id='f6429821' size-in-bits='64' id='d85fb599'/>
+    <namespace-decl name='base'>
+      <!-- struct base::MallocRange -->
+      <class-decl name='MallocRange' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='399' column='1' id='9d8e6e7d'>
+        <member-type access='public'>
+          <!-- enum base::MallocRange::Type -->
+          <enum-decl name='Type' filepath='./src/gperftools/malloc_extension.h' line='400' column='1' id='e4d8c29e'>
+            <underlying-type type-id='9cac1fee'/>
+            <enumerator name='INUSE' value='0'/>
+            <enumerator name='FREE' value='1'/>
+            <enumerator name='UNMAPPED' value='2'/>
+            <enumerator name='UNKNOWN' value='3'/>
+          </enum-decl>
+        </member-type>
+        <data-member access='public' layout-offset-in-bits='0'>
+          <!-- uintptr_t base::MallocRange::address -->
+          <var-decl name='address' type-id='e475ab95' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='408' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='64'>
+          <!-- size_t base::MallocRange::length -->
+          <var-decl name='length' type-id='b59d7dce' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='409' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='128'>
+          <!-- base::MallocRange::Type base::MallocRange::type -->
+          <var-decl name='type' type-id='e4d8c29e' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='410' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='192'>
+          <!-- double base::MallocRange::fraction -->
+          <var-decl name='fraction' type-id='a0eb0f08' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='411' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
     <namespace-decl name='std'>
       <!-- class std::allocator<MallocExtension::FreeListInfo> -->
       <class-decl name='allocator&lt;MallocExtension::FreeListInfo&gt;' size-in-bits='8' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/allocator.h' line='87' column='1' id='77aedb5e'>
@@ -13287,70 +13434,6 @@
       <parameter type-id='e0e09c68'/>
       <!-- bool -->
       <return type-id='c894953d'/>
-    </function-type>
-    <!-- void (const HeapProfileBucket*, HeapProfileTable::BufferArgs*) -->
-    <function-type size-in-bits='64' id='a9892e44'>
-      <!-- parameter of type 'const HeapProfileBucket*' -->
-      <parameter type-id='5bbc4ced'/>
-      <!-- parameter of type 'HeapProfileTable::BufferArgs*' -->
-      <parameter type-id='4e1dcc73'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::AddNonLiveArgs*) -->
-    <function-type size-in-bits='64' id='8805a7e9'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
-      <parameter type-id='17d36d40'/>
-      <!-- parameter of type 'HeapProfileTable::AddNonLiveArgs*' -->
-      <parameter type-id='34d3295d'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::Snapshot*) -->
-    <function-type size-in-bits='64' id='d9e86dd4'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
-      <parameter type-id='17d36d40'/>
-      <!-- parameter of type 'HeapProfileTable::Snapshot*' -->
-      <parameter type-id='5d35644a'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, HeapProfileTable::AllocValue*, HeapProfileTable::Snapshot::ReportState*) -->
-    <function-type size-in-bits='64' id='9b6b55c9'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
-      <parameter type-id='17d36d40'/>
-      <!-- parameter of type 'HeapProfileTable::Snapshot::ReportState*' -->
-      <parameter type-id='7b898f5f'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, HeapProfileTable::AllocValue*, char*) -->
-    <function-type size-in-bits='64' id='a81726a9'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
-      <parameter type-id='17d36d40'/>
-      <!-- parameter of type 'char*' -->
-      <parameter type-id='26a90f95'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, HeapProfileTable::AllocValue*, const HeapProfileTable::DumpArgs&) -->
-    <function-type size-in-bits='64' id='56a41ffa'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'HeapProfileTable::AllocValue*' -->
-      <parameter type-id='17d36d40'/>
-      <!-- parameter of type 'const HeapProfileTable::DumpArgs&' -->
-      <parameter type-id='8a30c720'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
     </function-type>
     <!-- std::_Rb_tree<const void*, std::pair<const void* const, const char*>, std::_Select1st<std::pair<const void* const, const char*> >, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >::_Rb_tree_impl<std::less<const void*>, false>* -->
     <pointer-type-def type-id='b8eb3bb9' size-in-bits='64' id='861244d1'/>
@@ -15417,13 +15500,6 @@
     </namespace-decl>
     <!-- const SpinLock* -->
     <pointer-type-def type-id='d75a6f13' size-in-bits='64' id='3c5d16bb'/>
-    <!-- void (const MemoryRegionMap::Region&) -->
-    <function-type size-in-bits='64' id='1d91679c'>
-      <!-- parameter of type 'const MemoryRegionMap::Region&' -->
-      <parameter type-id='af61c01c'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='src/page_heap.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
     <!-- TCMalloc_PageMap3<35>* const -->
@@ -24688,36 +24764,6 @@
       <!-- int -->
       <return type-id='95e97e5e'/>
     </function-type>
-    <!-- void () -->
-    <function-type size-in-bits='64' id='ee076206'>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*) -->
-    <function-type size-in-bits='64' id='c5c76c9c'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, const base::MallocRange*) -->
-    <function-type size-in-bits='64' id='32ecfb73'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'const base::MallocRange*' -->
-      <parameter type-id='44ee045c'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
-    <!-- void (void*, size_t) -->
-    <function-type size-in-bits='64' id='5775e931'>
-      <!-- parameter of type 'void*' -->
-      <parameter type-id='eaa32e2f'/>
-      <!-- parameter of type 'typedef size_t' -->
-      <parameter type-id='b59d7dce'/>
-      <!-- void -->
-      <return type-id='48b5725f'/>
-    </function-type>
     <!-- void (void*, void*) -->
     <function-type size-in-bits='64' id='c039af2e'>
       <!-- parameter of type 'void*' -->
@@ -24744,13 +24790,6 @@
       <parameter type-id='b59d7dce'/>
       <!-- parameter of type 'void*' -->
       <parameter type-id='eaa32e2f'/>
-      <!-- void* -->
-      <return type-id='eaa32e2f'/>
-    </function-type>
-    <!-- void* (unsigned long int) -->
-    <function-type size-in-bits='64' id='b2c13d3a'>
-      <!-- parameter of type 'unsigned long int' -->
-      <parameter type-id='7359adad'/>
       <!-- void* -->
       <return type-id='eaa32e2f'/>
     </function-type>

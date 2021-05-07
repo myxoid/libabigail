@@ -6774,6 +6774,61 @@
     <reference-type-def kind='lvalue' type-id='1aa55877' size-in-bits='64' id='434a0783'/>
     <reference-type-def kind='lvalue' type-id='761ccdae' size-in-bits='64' id='77578d18'/>
     <reference-type-def kind='lvalue' type-id='9fc2d4ef' size-in-bits='64' id='48b4f86b'/>
+    <function-type size-in-bits='64' id='ee076206'>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='a9892e44'>
+      <parameter type-id='5bbc4ced'/>
+      <parameter type-id='4e1dcc73'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='1d91679c'>
+      <parameter type-id='af61c01c'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='c5c76c9c'>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='8805a7e9'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='17d36d40'/>
+      <parameter type-id='34d3295d'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='d9e86dd4'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='17d36d40'/>
+      <parameter type-id='5d35644a'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='9b6b55c9'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='17d36d40'/>
+      <parameter type-id='7b898f5f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='a81726a9'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='17d36d40'/>
+      <parameter type-id='26a90f95'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='56a41ffa'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='17d36d40'/>
+      <parameter type-id='8a30c720'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='5775e931'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='b59d7dce'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='b2c13d3a'>
+      <parameter type-id='7359adad'/>
+      <return type-id='eaa32e2f'/>
+    </function-type>
     <pointer-type-def type-id='bab0e33c' size-in-bits='64' id='daf943aa'/>
     <pointer-type-def type-id='57b881a9' size-in-bits='64' id='23b82281'/>
     <pointer-type-def type-id='bbd1e162' size-in-bits='64' id='273aee20'/>
@@ -6928,6 +6983,7 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <pointer-type-def type-id='80dd8755' size-in-bits='64' id='5bbc4ced'/>
     <qualified-type-def type-id='594bfa00' const='yes' id='33d68ab1'/>
     <qualified-type-def type-id='3a7a67b5' const='yes' id='7252e974'/>
     <reference-type-def kind='lvalue' type-id='2c78bf7c' size-in-bits='64' id='5c153aae'/>
@@ -6939,6 +6995,11 @@
     <qualified-type-def type-id='57b881a9' const='yes' id='761ccdae'/>
     <qualified-type-def type-id='3d6e5fbd' id='3d6e5fbc'/>
     <qualified-type-def type-id='bbd1e162' const='yes' id='9fc2d4ef'/>
+    <function-type size-in-bits='64' id='32ecfb73'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='44ee045c'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <pointer-type-def type-id='95e97e5e' size-in-bits='64' id='7292109c'/>
     <pointer-type-def type-id='4f30931c' size-in-bits='64' id='9885922a'/>
     <qualified-type-def type-id='9885922a' const='yes' id='23870175'/>
@@ -7115,8 +7176,10 @@
         </member-function>
       </class-decl>
     </namespace-decl>
+    <qualified-type-def type-id='41b9aeb6' const='yes' id='80dd8755'/>
     <qualified-type-def type-id='02ca5731' const='yes' id='2c78bf7c'/>
     <reference-type-def kind='lvalue' type-id='ab34868e' size-in-bits='64' id='2baffa78'/>
+    <pointer-type-def type-id='a955139e' size-in-bits='64' id='44ee045c'/>
     <qualified-type-def type-id='4f30931c' const='yes' id='f7c64daf'/>
     <qualified-type-def type-id='d3f8a2a2' const='yes' id='313f0e7d'/>
     <reference-type-def kind='lvalue' type-id='fba6a636' size-in-bits='64' id='37576b30'/>
@@ -7240,6 +7303,7 @@
     <qualified-type-def type-id='f9bb65c3' id='f9bb65c4'/>
     <qualified-type-def type-id='ae3b5d4b' const='yes' id='ab34868e'/>
     <reference-type-def kind='lvalue' type-id='a59657f6' size-in-bits='64' id='7bac3c70'/>
+    <qualified-type-def type-id='9d8e6e7d' const='yes' id='a955139e'/>
     <qualified-type-def type-id='53907f3b' const='yes' id='fba6a636'/>
     <qualified-type-def type-id='026acb61' const='yes' id='14e023e0'/>
     <reference-type-def kind='lvalue' type-id='a2e111b5' size-in-bits='64' id='fb4eaa69'/>
@@ -7251,6 +7315,31 @@
     <reference-type-def kind='lvalue' type-id='7b5f6271' size-in-bits='64' id='8e27cef5'/>
     <pointer-type-def type-id='e139117a' size-in-bits='64' id='76807da8'/>
     <pointer-type-def type-id='f6429821' size-in-bits='64' id='d85fb599'/>
+    <namespace-decl name='base'>
+      <class-decl name='MallocRange' size-in-bits='256' is-struct='yes' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='399' column='1' id='9d8e6e7d'>
+        <member-type access='public'>
+          <enum-decl name='Type' filepath='./src/gperftools/malloc_extension.h' line='400' column='1' id='e4d8c29e'>
+            <underlying-type type-id='9cac1fee'/>
+            <enumerator name='INUSE' value='0'/>
+            <enumerator name='FREE' value='1'/>
+            <enumerator name='UNMAPPED' value='2'/>
+            <enumerator name='UNKNOWN' value='3'/>
+          </enum-decl>
+        </member-type>
+        <data-member access='public' layout-offset-in-bits='0'>
+          <var-decl name='address' type-id='e475ab95' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='408' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='64'>
+          <var-decl name='length' type-id='b59d7dce' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='409' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='128'>
+          <var-decl name='type' type-id='e4d8c29e' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='410' column='1'/>
+        </data-member>
+        <data-member access='public' layout-offset-in-bits='192'>
+          <var-decl name='fraction' type-id='a0eb0f08' visibility='default' filepath='./src/gperftools/malloc_extension.h' line='411' column='1'/>
+        </data-member>
+      </class-decl>
+    </namespace-decl>
     <namespace-decl name='std'>
       <class-decl name='allocator&lt;MallocExtension::FreeListInfo&gt;' size-in-bits='8' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/allocator.h' line='87' column='1' id='77aedb5e'>
         <base-class access='public' layout-offset-in-bits='0' type-id='b986e960'/>
@@ -8108,41 +8197,6 @@
       <parameter type-id='e0e09c68'/>
       <parameter type-id='e0e09c68'/>
       <return type-id='c894953d'/>
-    </function-type>
-    <function-type size-in-bits='64' id='a9892e44'>
-      <parameter type-id='5bbc4ced'/>
-      <parameter type-id='4e1dcc73'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='8805a7e9'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='17d36d40'/>
-      <parameter type-id='34d3295d'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='d9e86dd4'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='17d36d40'/>
-      <parameter type-id='5d35644a'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='9b6b55c9'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='17d36d40'/>
-      <parameter type-id='7b898f5f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='a81726a9'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='17d36d40'/>
-      <parameter type-id='26a90f95'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='56a41ffa'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='17d36d40'/>
-      <parameter type-id='8a30c720'/>
-      <return type-id='48b5725f'/>
     </function-type>
     <pointer-type-def type-id='b8eb3bb9' size-in-bits='64' id='861244d1'/>
     <namespace-decl name='std'>
@@ -9400,10 +9454,6 @@
       </namespace-decl>
     </namespace-decl>
     <pointer-type-def type-id='d75a6f13' size-in-bits='64' id='3c5d16bb'/>
-    <function-type size-in-bits='64' id='1d91679c'>
-      <parameter type-id='af61c01c'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='src/page_heap.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
     <qualified-type-def type-id='df188cf3' const='yes' id='4f376e08'/>
@@ -15341,23 +15391,6 @@
       <parameter type-id='eaa32e2f'/>
       <return type-id='95e97e5e'/>
     </function-type>
-    <function-type size-in-bits='64' id='ee076206'>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='c5c76c9c'>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='32ecfb73'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='44ee045c'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='5775e931'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='b59d7dce'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <function-type size-in-bits='64' id='c039af2e'>
       <parameter type-id='eaa32e2f'/>
       <parameter type-id='eaa32e2f'/>
@@ -15372,10 +15405,6 @@
     <function-type size-in-bits='64' id='18a1943b'>
       <parameter type-id='b59d7dce'/>
       <parameter type-id='eaa32e2f'/>
-      <return type-id='eaa32e2f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='b2c13d3a'>
-      <parameter type-id='7359adad'/>
       <return type-id='eaa32e2f'/>
     </function-type>
     <function-type size-in-bits='64' id='07639ebd'>

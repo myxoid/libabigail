@@ -4770,6 +4770,13 @@
     <pointer-type-def type-id='f39f11c3' size-in-bits='64' id='b575dd63'/>
     <typedef-decl name='vtkRMIFunctionType' type-id='6f1c08ee' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.h' line='58' column='1' id='c2a96b01'/>
     <pointer-type-def type-id='2e42c4cc' size-in-bits='64' id='6f1c08ee'/>
+    <function-type size-in-bits='64' id='2e42c4cc'>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='eaa32e2f'/>
+      <parameter type-id='95e97e5e'/>
+      <parameter type-id='95e97e5e'/>
+      <return type-id='48b5725f'/>
+    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkDummyCommunicator.cxx' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Parallel/Core' language='LANG_C_plus_plus'>
     <class-decl name='vtkDummyCommunicator' size-in-bits='576' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkDummyCommunicator.h' line='32' column='1' id='615f5e2f'>
@@ -5505,13 +5512,6 @@
     </namespace-decl>
     <reference-type-def kind='lvalue' type-id='26c0af81' size-in-bits='64' id='a85483e5'/>
     <pointer-type-def type-id='26c0af81' size-in-bits='64' id='ac548a31'/>
-    <function-type size-in-bits='64' id='2e42c4cc'>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='eaa32e2f'/>
-      <parameter type-id='95e97e5e'/>
-      <parameter type-id='95e97e5e'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <typedef-decl name='vtkProcessFunctionType' type-id='f4eed5f1' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.h' line='53' column='1' id='4035cd5c'/>
     <qualified-type-def type-id='67e1782c' id='67e1782b'/>
     <qualified-type-def type-id='62d334dc' const='yes' id='385abb47'/>
@@ -6247,6 +6247,11 @@
     <reference-type-def kind='lvalue' type-id='e99dd2fc' size-in-bits='64' id='9d72ed2e'/>
     <reference-type-def kind='lvalue' type-id='68d7a690' size-in-bits='64' id='c17b7082'/>
     <reference-type-def kind='lvalue' type-id='46caba08' size-in-bits='64' id='9f23166a'/>
+    <function-type size-in-bits='64' id='205a5a95'>
+      <parameter type-id='62d334dc'/>
+      <parameter type-id='eaa32e2f'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <qualified-type-def type-id='8f612369' const='yes' id='dd4c1a06'/>
     <qualified-type-def type-id='bf90234e' const='yes' id='1295d741'/>
     <pointer-type-def type-id='894d8e43' size-in-bits='64' id='e346d9c3'/>
@@ -10892,11 +10897,6 @@
       </function-decl>
     </namespace-decl>
     <pointer-type-def type-id='2acf0c50' size-in-bits='64' id='540ad4a6'/>
-    <function-type size-in-bits='64' id='205a5a95'>
-      <parameter type-id='62d334dc'/>
-      <parameter type-id='eaa32e2f'/>
-      <return type-id='48b5725f'/>
-    </function-type>
     <reference-type-def kind='lvalue' type-id='5a5c0787' size-in-bits='64' id='dfe00273'/>
     <qualified-type-def type-id='7292109c' const='yes' id='5a5c0787'/>
   </abi-instr>

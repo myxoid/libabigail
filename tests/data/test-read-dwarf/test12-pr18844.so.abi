@@ -23723,6 +23723,17 @@
     <reference-type-def kind='lvalue' type-id='92fcecd7' size-in-bits='64' id='5528ff63'/>
     <reference-type-def kind='lvalue' type-id='61fe7cf6' size-in-bits='64' id='139e7b70'/>
     <reference-type-def kind='lvalue' type-id='9a7aafdb' size-in-bits='64' id='2c230b47'/>
+    <function-type size-in-bits='64' id='aeb5676d'>
+      <parameter type-id='7f89a11f'/>
+      <parameter type-id='82f3e9e9'/>
+      <parameter type-id='1cd5d4aa'/>
+      <return type-id='48b5725f'/>
+    </function-type>
+    <function-type size-in-bits='64' id='26089133'>
+      <parameter type-id='f1810104'/>
+      <parameter type-id='82f3e9e9'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <reference-type-def kind='lvalue' type-id='5a412ff5' size-in-bits='64' id='e79e4929'/>
     <pointer-type-def type-id='2d17a581' size-in-bits='64' id='82f3e9e9'/>
     <reference-type-def kind='lvalue' type-id='4d14ac86' size-in-bits='64' id='f78bbfe0'/>
@@ -28596,16 +28607,5 @@
         <return type-id='611e14c0'/>
       </function-decl>
     </namespace-decl>
-    <function-type size-in-bits='64' id='aeb5676d'>
-      <parameter type-id='7f89a11f'/>
-      <parameter type-id='82f3e9e9'/>
-      <parameter type-id='1cd5d4aa'/>
-      <return type-id='48b5725f'/>
-    </function-type>
-    <function-type size-in-bits='64' id='26089133'>
-      <parameter type-id='f1810104'/>
-      <parameter type-id='82f3e9e9'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
 </abi-corpus>

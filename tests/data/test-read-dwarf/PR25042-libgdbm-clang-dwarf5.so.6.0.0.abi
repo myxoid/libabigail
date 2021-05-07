@@ -334,6 +334,10 @@
         <var-decl name='elem_loc' type-id='95e97e5e' visibility='default' filepath='./gdbmdefs.h' line='157' column='1'/>
       </data-member>
     </class-decl>
+    <function-type size-in-bits='64' id='b77bdc37'>
+      <parameter type-id='80f4b756'/>
+      <return type-id='48b5725f'/>
+    </function-type>
     <typedef-decl name='avail_elem' type-id='6142ef96' filepath='./gdbmdefs.h' line='58' column='1' id='4596e42f'/>
     <typedef-decl name='bucket_element' type-id='6c9e0b50' filepath='./gdbmdefs.h' line='114' column='1' id='86079d69'/>
     <typedef-decl name='gdbm_file_header' type-id='aaaa8eec' filepath='./gdbmdefs.h' line='97' column='1' id='9267ea47'/>
@@ -391,9 +395,11 @@
         <var-decl name='avail' type-id='58ba9ffd' visibility='default' filepath='./gdbmdefs.h' line='94' column='1'/>
       </data-member>
     </class-decl>
+    <pointer-type-def type-id='9b45d938' size-in-bits='64' id='80f4b756'/>
     <array-type-def dimensions='1' type-id='a84c031d' size-in-bits='32' id='8e0573fd'>
       <subrange length='4' type-id='7ff19f0f' id='16fe7105'/>
     </array-type-def>
+    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
     <typedef-decl name='avail_block' type-id='2e8dddc2' filepath='./gdbmdefs.h' line='68' column='1' id='58ba9ffd'/>
     <class-decl name='__anonymous_struct__1' size-in-bits='256' is-struct='yes' is-anonymous='yes' naming-typedef-id='58ba9ffd' visibility='default' filepath='./gdbmdefs.h' line='62' column='1' id='2e8dddc2'>
       <data-member access='public' layout-offset-in-bits='0'>
@@ -754,10 +760,6 @@
       <parameter type-id='b9883efd' name='dbf' filepath='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src/gdbmclose.c' line='30' column='1'/>
       <return type-id='95e97e5e'/>
     </function-decl>
-    <function-type size-in-bits='64' id='b77bdc37'>
-      <parameter type-id='80f4b756'/>
-      <return type-id='48b5725f'/>
-    </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='gdbmcount.c' comp-dir-path='/tmp/ben/spack-stage/spack-stage-dQKT1q/spack-src/src' language='LANG_C99'>
     <type-decl name='long long unsigned int' size-in-bits='64' id='3a47d82b'/>
