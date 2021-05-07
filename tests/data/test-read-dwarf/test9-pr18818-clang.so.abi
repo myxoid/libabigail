@@ -1845,11 +1845,7 @@
     <array-type-def dimensions='1' type-id='6255636b' size-in-bits='infinite' id='29aaeeb7'>
       <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
     </array-type-def>
-    <array-type-def dimensions='1' type-id='4ababdf0' size-in-bits='infinite' id='4088669f'>
-      <subrange length='infinite' type-id='4c87fef4' id='031f2035'/>
-    </array-type-def>
     <type-decl name='unnamed-enum-underlying-type-32' is-anonymous='yes' size-in-bits='32' alignment-in-bits='32' id='9cac1fee'/>
-    <typedef-decl name='_Atomic_word' type-id='95e97e5e' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/atomic_word.h' line='32' column='1' id='e9464a99'/>
     <typedef-decl name='__gthread_once_t' type-id='2568d84b' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/gthr-default.h' line='49' column='1' id='33f4033a'/>
     <typedef-decl name='uintmax_t' type-id='7359adad' filepath='/usr/include/stdint.h' line='135' column='1' id='f8b828c9'/>
     <typedef-decl name='pthread_once_t' type-id='95e97e5e' filepath='/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h' line='168' column='1' id='2568d84b'/>
@@ -1970,13 +1966,10 @@
     <qualified-type-def type-id='13956559' const='yes' id='aa70b876'/>
     <qualified-type-def type-id='8a5c8b50' const='yes' id='df5a6aff'/>
     <pointer-type-def type-id='df5a6aff' size-in-bits='64' id='70562d4f'/>
-    <qualified-type-def type-id='eb166b35' const='yes' id='43f3d2f8'/>
-    <reference-type-def kind='lvalue' type-id='43f3d2f8' size-in-bits='64' id='d6d4f37a'/>
     <qualified-type-def type-id='c2931f67' const='yes' id='69463a72'/>
     <reference-type-def kind='lvalue' type-id='69463a72' size-in-bits='64' id='0d8dd23c'/>
     <qualified-type-def type-id='34601093' const='yes' id='08a514ce'/>
     <pointer-type-def type-id='08a514ce' size-in-bits='64' id='7fdfe2ec'/>
-    <qualified-type-def type-id='4ababdf0' const='yes' id='b5b164a0'/>
     <qualified-type-def type-id='d3ef8320' const='yes' id='935eaa6f'/>
     <reference-type-def kind='lvalue' type-id='935eaa6f' size-in-bits='64' id='470610eb'/>
     <pointer-type-def type-id='935eaa6f' size-in-bits='64' id='43060a9f'/>
@@ -1998,8 +1991,6 @@
     <qualified-type-def type-id='819536af' const='yes' id='3a2d5f3f'/>
     <pointer-type-def type-id='a0eb0f08' size-in-bits='64' id='7408d286'/>
     <pointer-type-def type-id='95e97e5e' size-in-bits='64' id='7292109c'/>
-    <reference-type-def kind='lvalue' type-id='c2931f67' size-in-bits='64' id='1a9350bb'/>
-    <pointer-type-def type-id='c2931f67' size-in-bits='64' id='16934a6f'/>
     <reference-type-def kind='lvalue' type-id='34601093' size-in-bits='64' id='6f1c93e7'/>
     <pointer-type-def type-id='34601093' size-in-bits='64' id='631c8103'/>
     <pointer-type-def type-id='d3ef8320' size-in-bits='64' id='a682c6b6'/>
@@ -2016,7 +2007,6 @@
       </function-decl>
     </namespace-decl>
     <namespace-decl name='std'>
-      <class-decl name='__false_type' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/cpp_type_traits.h' line='83' column='1' id='b90ad1b0'/>
       <class-decl name='locale' size-in-bits='64' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/locale_classes.h' line='62' column='1' id='d3ef8320'>
         <member-type access='private'>
           <typedef-decl name='category' type-id='95e97e5e' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/locale_classes.h' line='67' column='1' id='fda11093'/>
@@ -2214,10 +2204,6 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='input_iterator_tag' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='89' column='1' id='06222566'/>
-      <class-decl name='forward_iterator_tag' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='95' column='1' id='ee723d41'>
-        <base-class access='public' layout-offset-in-bits='0' type-id='06222566'/>
-      </class-decl>
       <class-decl name='bidirectional_iterator_tag' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_iterator_base_types.h' line='99' column='1' id='d66e69ff'>
         <base-class access='public' layout-offset-in-bits='0' type-id='ee723d41'/>
       </class-decl>
@@ -2249,7 +2235,6 @@
           <typedef-decl name='type' type-id='261a48bd' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/type_traits' line='1505' column='1' id='e76c6467'/>
         </member-type>
       </class-decl>
-      <typedef-decl name='size_t' type-id='7359adad' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++config.h' line='188' column='1' id='7a51dc7f'/>
       <typedef-decl name='ptrdiff_t' type-id='bd54fe1a' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/c++config.h' line='189' column='1' id='d368b855'/>
       <class-decl name='allocator&lt;char&gt;' visibility='default' is-declaration-only='yes' id='eb166b35'>
         <member-type access='private'>
@@ -5005,24 +4990,6 @@
     </namespace-decl>
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/path_traits.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
-    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='1fa125e9' visibility='default' filepath='/usr/include/wchar.h' line='82' column='1' id='4acf628f'>
-      <member-type access='public'>
-        <union-decl name='__anonymous_union__' size-in-bits='32' is-anonymous='yes' visibility='default' filepath='/usr/include/wchar.h' line='85' column='1' id='ac5e8fad'>
-          <data-member access='public'>
-            <var-decl name='__wch' type-id='f0981eeb' visibility='default' filepath='/usr/include/wchar.h' line='88' column='1'/>
-          </data-member>
-          <data-member access='public'>
-            <var-decl name='__wchb' type-id='8e0573fd' visibility='default' filepath='/usr/include/wchar.h' line='92' column='1'/>
-          </data-member>
-        </union-decl>
-      </member-type>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='__count' type-id='95e97e5e' visibility='default' filepath='/usr/include/wchar.h' line='84' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='32'>
-        <var-decl name='__value' type-id='ac5e8fad' visibility='default' filepath='/usr/include/wchar.h' line='93' column='1'/>
-      </data-member>
-    </class-decl>
     <reference-type-def kind='lvalue' type-id='665f1722' size-in-bits='64' id='e10a1484'/>
     <pointer-type-def type-id='665f1722' size-in-bits='64' id='d50a01a0'/>
     <qualified-type-def type-id='665f1722' const='yes' id='df420823'/>
@@ -5041,8 +5008,6 @@
     <pointer-type-def type-id='45aefa48' size-in-bits='64' id='82a45f7f'/>
     <reference-type-def kind='lvalue' type-id='82a45f7f' size-in-bits='64' id='01c2191b'/>
     <reference-type-def kind='lvalue' type-id='1fa125e9' size-in-bits='64' id='7b42f9e2'/>
-    <reference-type-def kind='lvalue' type-id='08a27e41' size-in-bits='64' id='cf32d62d'/>
-    <pointer-type-def type-id='08a27e41' size-in-bits='64' id='c332c349'/>
     <reference-type-def kind='lvalue' type-id='819536af' size-in-bits='64' id='ced5d720'/>
     <reference-type-def kind='lvalue' type-id='c523b9f1' size-in-bits='64' id='2e3d8d75'/>
     <namespace-decl name='std'>
@@ -5194,11 +5159,8 @@
   <abi-instr address-size='64' path='src/third_party/boost-1.56.0/libs/filesystem/src/unique_path.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
     <reference-type-def kind='lvalue' type-id='4970a619' size-in-bits='64' id='62797165'/>
     <pointer-type-def type-id='4970a619' size-in-bits='64' id='667977b1'/>
-    <pointer-type-def type-id='1cb110d8' size-in-bits='64' id='0208b085'/>
     <qualified-type-def type-id='4970a619' const='yes' id='d1e9564c'/>
     <pointer-type-def type-id='d1e9564c' size-in-bits='64' id='d8530292'/>
-    <qualified-type-def type-id='08a27e41' const='yes' id='787730b6'/>
-    <reference-type-def kind='lvalue' type-id='787730b6' size-in-bits='64' id='33a172b0'/>
     <reference-type-def kind='lvalue' type-id='3a2d5f3f' size-in-bits='64' id='ae6cb45b'/>
     <reference-type-def kind='lvalue' type-id='effb3702' size-in-bits='64' id='ec77cdac'/>
     <qualified-type-def type-id='f077d3f8' const='yes' id='ce9fbc8b'/>

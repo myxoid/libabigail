@@ -720,9 +720,6 @@
     </class-decl>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-connection.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <array-type-def dimensions='1' type-id='5f771b49' size-in-bits='320' id='4797b821'>
-      <subrange length='10' type-id='7359adad' id='487da03a'/>
-    </array-type-def>
     <class-decl name='DBusCMutex' is-struct='yes' visibility='default' is-declaration-only='yes' id='7dd0d8ab'/>
     <class-decl name='DBusCondVar' is-struct='yes' visibility='default' is-declaration-only='yes' id='e09597a4'/>
     <class-decl name='DBusCounter' is-struct='yes' visibility='default' is-declaration-only='yes' id='53ebc74d'/>
@@ -822,59 +819,6 @@
       </data-member>
     </class-decl>
     <class-decl name='DBusWatchList' is-struct='yes' visibility='default' is-declaration-only='yes' id='35965606'/>
-    <type-decl name='long int' size-in-bits='64' id='bd54fe1a'/>
-    <typedef-decl name='dbus_int32_t' type-id='95e97e5e' filepath='../dbus/dbus-arch-deps.h' line='42' column='1' id='9107d76e'/>
-    <typedef-decl name='DBusDataSlotList' type-id='ca2e2627' filepath='../dbus/dbus-dataslot.h' line='31' column='1' id='e381768e'/>
-    <typedef-decl name='DBusDataSlot' type-id='51a2367f' filepath='../dbus/dbus-dataslot.h' line='34' column='1' id='f10c9972'/>
-    <class-decl name='DBusDataSlot' size-in-bits='128' is-struct='yes' visibility='default' filepath='../dbus/dbus-dataslot.h' line='37' column='1' id='51a2367f'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='data' type-id='eaa32e2f' visibility='default' filepath='../dbus/dbus-dataslot.h' line='38' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='free_data_func' type-id='ddc1415c' visibility='default' filepath='../dbus/dbus-dataslot.h' line='39' column='1'/>
-      </data-member>
-    </class-decl>
-    <class-decl name='DBusDataSlotList' size-in-bits='128' is-struct='yes' visibility='default' filepath='../dbus/dbus-dataslot.h' line='70' column='1' id='ca2e2627'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='slots' type-id='46315687' visibility='default' filepath='../dbus/dbus-dataslot.h' line='71' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='n_slots' type-id='95e97e5e' visibility='default' filepath='../dbus/dbus-dataslot.h' line='72' column='1'/>
-      </data-member>
-    </class-decl>
-    <typedef-decl name='DBusHeader' type-id='37633c2a' filepath='../dbus/dbus-marshal-header.h' line='30' column='1' id='a50e11b7'/>
-    <typedef-decl name='DBusHeaderField' type-id='da0ff8be' filepath='../dbus/dbus-marshal-header.h' line='31' column='1' id='5f771b49'/>
-    <class-decl name='DBusHeaderField' size-in-bits='32' is-struct='yes' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='40' column='1' id='da0ff8be'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='value_pos' type-id='95e97e5e' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='41' column='1'/>
-      </data-member>
-    </class-decl>
-    <class-decl name='DBusHeader' size-in-bits='576' is-struct='yes' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='48' column='1' id='37633c2a'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='data' type-id='7d741547' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='49' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='192'>
-        <var-decl name='fields' type-id='4797b821' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='54' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='padding' type-id='9086907d' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='58' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='3'>
-        <var-decl name='byte_order' type-id='9086907d' visibility='default' filepath='../dbus/dbus-marshal-header.h' line='59' column='1'/>
-      </data-member>
-    </class-decl>
-    <typedef-decl name='DBusFreeFunction' type-id='b7f9d8e6' filepath='../dbus/dbus-memory.h' line='64' column='1' id='ddc1415c'/>
-    <typedef-decl name='DBusMessage' type-id='473632d2' filepath='../dbus/dbus-message.h' line='44' column='1' id='45094a95'/>
-    <typedef-decl name='DBusCounter' type-id='53ebc74d' filepath='../dbus/dbus-resources.h' line='32' column='1' id='6ac856b6'/>
-    <typedef-decl name='DBusAtomic' type-id='12b3356e' filepath='../dbus/dbus-sysdeps.h' line='222' column='1' id='1000c06f'/>
-    <class-decl name='DBusAtomic' size-in-bits='32' is-struct='yes' visibility='default' filepath='../dbus/dbus-sysdeps.h' line='228' column='1' id='12b3356e'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='value' type-id='45290571' visibility='default' filepath='../dbus/dbus-sysdeps.h' line='232' column='1'/>
-      </data-member>
-    </class-decl>
-    <typedef-decl name='DBusRMutex' type-id='32b69a8e' filepath='../dbus/dbus-threads-internal.h' line='39' column='1' id='0b952637'/>
-    <typedef-decl name='DBusCMutex' type-id='7dd0d8ab' filepath='../dbus/dbus-threads-internal.h' line='45' column='1' id='3f742c1a'/>
-    <typedef-decl name='DBusCondVar' type-id='e09597a4' filepath='../dbus/dbus-threads.h' line='43' column='1' id='c0f44227'/>
     <class-decl name='DBusPreallocatedSend' size-in-bits='192' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.c' line='241' column='1' id='febaa03f'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='connection' type-id='a25b1cfb' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.c' line='242' column='1'/>
@@ -891,21 +835,12 @@
     <typedef-decl name='DBusPreallocatedSend' type-id='febaa03f' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='47' column='1' id='c7818976'/>
     <typedef-decl name='DBusPendingCall' type-id='d286a1ae' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='49' column='1' id='ca108f9d'/>
     <typedef-decl name='DBusObjectPathVTable' type-id='35b3db65' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='53' column='1' id='e6772f94'/>
-    <enum-decl name='__anonymous_enum__' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='80' column='1' id='08f5ca18'>
-      <underlying-type type-id='9cac1fee'/>
-      <enumerator name='DBUS_DISPATCH_DATA_REMAINS' value='0'/>
-      <enumerator name='DBUS_DISPATCH_COMPLETE' value='1'/>
-      <enumerator name='DBUS_DISPATCH_NEED_MEMORY' value='2'/>
-    </enum-decl>
-    <typedef-decl name='DBusDispatchStatus' type-id='08f5ca18' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='84' column='1' id='770545c2'/>
     <typedef-decl name='DBusAddWatchFunction' type-id='f57bf6c4' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='91' column='1' id='0bde67d0'/>
     <typedef-decl name='DBusWatchToggledFunction' type-id='057cd9d9' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='97' column='1' id='2762a4e3'/>
     <typedef-decl name='DBusRemoveWatchFunction' type-id='057cd9d9' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='103' column='1' id='86b61a5d'/>
     <typedef-decl name='DBusAddTimeoutFunction' type-id='ec4cf230' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='110' column='1' id='7afc4cf0'/>
     <typedef-decl name='DBusTimeoutToggledFunction' type-id='d849c399' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='117' column='1' id='a9588fff'/>
     <typedef-decl name='DBusRemoveTimeoutFunction' type-id='d849c399' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='123' column='1' id='c639be29'/>
-    <typedef-decl name='DBusDispatchStatusFunction' type-id='80e4d755' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='128' column='1' id='812f2056'/>
-    <typedef-decl name='DBusWakeupMainFunction' type-id='b7f9d8e6' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='135' column='1' id='d976896e'/>
     <typedef-decl name='DBusAllowUnixUserFunction' type-id='5a66a449' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='143' column='1' id='f25ccf06'/>
     <typedef-decl name='DBusAllowWindowsUserFunction' type-id='ff0566cc' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='153' column='1' id='c9b65873'/>
     <typedef-decl name='DBusHandleMessageFunction' type-id='c938de37' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='169' column='1' id='4aae3da7'/>
@@ -931,52 +866,6 @@
         <var-decl name='dbus_internal_pad4' type-id='b7f9d8e6' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.h' line='392' column='1'/>
       </data-member>
     </class-decl>
-    <typedef-decl name='DBusHashTable' type-id='ee751e0d' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-hash.h' line='59' column='1' id='ce04288e'/>
-    <class-decl name='DBusMessage' size-in-bits='1472' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='100' column='1' id='473632d2'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='refcount' type-id='1000c06f' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='101' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <var-decl name='header' type-id='a50e11b7' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='103' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='640'>
-        <var-decl name='body' type-id='7d741547' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='105' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='locked' type-id='f0981eeb' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='107' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1'>
-        <var-decl name='in_cache' type-id='f0981eeb' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='110' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='896'>
-        <var-decl name='counters' type-id='860c24f3' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='113' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='960'>
-        <var-decl name='size_counter_delta' type-id='bd54fe1a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='114' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <var-decl name='changed_stamp' type-id='9086907d' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='116' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1088'>
-        <var-decl name='slot_list' type-id='e381768e' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='118' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1216'>
-        <var-decl name='generation' type-id='95e97e5e' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='121' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1280'>
-        <var-decl name='unix_fds' type-id='7292109c' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='125' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1344'>
-        <var-decl name='n_unix_fds' type-id='f0981eeb' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='129' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1376'>
-        <var-decl name='n_unix_fds_allocated' type-id='f0981eeb' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='130' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='1408'>
-        <var-decl name='unix_fd_counter_delta' type-id='bd54fe1a' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-message-private.h' line='132' column='1'/>
-      </data-member>
-    </class-decl>
-    <typedef-decl name='DBusObjectTree' type-id='ec8dcf68' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-object-tree.h' line='30' column='1' id='84b94705'/>
     <enum-decl name='__anonymous_enum__1' is-anonymous='yes' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-shared.h' line='67' column='1' id='08f5ca19'>
       <underlying-type type-id='9cac1fee'/>
       <enumerator name='DBUS_HANDLER_RESULT_HANDLED' value='0'/>
@@ -984,25 +873,11 @@
       <enumerator name='DBUS_HANDLER_RESULT_NEED_MEMORY' value='2'/>
     </enum-decl>
     <typedef-decl name='DBusHandlerResult' type-id='08f5ca19' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-shared.h' line='71' column='1' id='2cbc28cf'/>
-    <typedef-decl name='DBusTimeoutList' type-id='9b71e0e2' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.h' line='38' column='1' id='bbe98fed'/>
-    <typedef-decl name='DBusTransport' type-id='88618050' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-transport.h' line='33' column='1' id='906b0593'/>
-    <typedef-decl name='DBusWatchList' type-id='35965606' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.h' line='38' column='1' id='b74955d1'/>
-    <pointer-type-def type-id='3f742c1a' size-in-bits='64' id='9270a98b'/>
-    <pointer-type-def type-id='c0f44227' size-in-bits='64' id='700d1892'/>
-    <pointer-type-def type-id='6ac856b6' size-in-bits='64' id='b50eaaed'/>
-    <pointer-type-def type-id='f10c9972' size-in-bits='64' id='46315687'/>
-    <pointer-type-def type-id='ce04288e' size-in-bits='64' id='a4aa47bd'/>
-    <pointer-type-def type-id='45094a95' size-in-bits='64' id='77ff0180'/>
-    <pointer-type-def type-id='84b94705' size-in-bits='64' id='5ec9adbe'/>
     <pointer-type-def type-id='ca108f9d' size-in-bits='64' id='7ff886a4'/>
     <pointer-type-def type-id='7ff886a4' size-in-bits='64' id='023bd18a'/>
     <pointer-type-def type-id='c7818976' size-in-bits='64' id='35966c87'/>
-    <pointer-type-def type-id='0b952637' size-in-bits='64' id='fa4b2ae4'/>
     <pointer-type-def type-id='3d58aa21' size-in-bits='64' id='61f110cc'/>
-    <pointer-type-def type-id='bbe98fed' size-in-bits='64' id='3dbedd50'/>
-    <pointer-type-def type-id='906b0593' size-in-bits='64' id='da14ea16'/>
     <pointer-type-def type-id='b6c727f5' size-in-bits='64' id='36f9a538'/>
-    <pointer-type-def type-id='b74955d1' size-in-bits='64' id='d6d1021c'/>
     <pointer-type-def type-id='26a90f95' size-in-bits='64' id='9b23c9ad'/>
     <pointer-type-def type-id='9b23c9ad' size-in-bits='64' id='c0563f85'/>
     <qualified-type-def type-id='e6772f94' const='yes' id='a9fe31c4'/>
@@ -1014,13 +889,10 @@
     <pointer-type-def type-id='6d7f6e3e' size-in-bits='64' id='ec4cf230'/>
     <pointer-type-def type-id='20b6e28a' size-in-bits='64' id='f57bf6c4'/>
     <pointer-type-def type-id='7359adad' size-in-bits='64' id='1d2c2b85'/>
-    <pointer-type-def type-id='25efba21' size-in-bits='64' id='80e4d755'/>
     <pointer-type-def type-id='0d2d75f6' size-in-bits='64' id='cd9549e0'/>
     <pointer-type-def type-id='177be825' size-in-bits='64' id='d849c399'/>
     <pointer-type-def type-id='94ca0625' size-in-bits='64' id='057cd9d9'/>
-    <pointer-type-def type-id='c5c76c9c' size-in-bits='64' id='b7f9d8e6'/>
     <pointer-type-def type-id='eaa32e2f' size-in-bits='64' id='63e171df'/>
-    <qualified-type-def type-id='9107d76e' volatile='yes' id='45290571'/>
     <function-decl name='dbus_connection_has_messages_to_send' mangled-name='dbus_connection_has_messages_to_send' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.c' line='588' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='dbus_connection_has_messages_to_send'>
       <parameter type-id='a25b1cfb' name='connection' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-connection.c' line='588' column='1'/>
       <return type-id='3cc8ee4c'/>
@@ -1933,8 +1805,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-pending-call.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <typedef-decl name='DBusPendingCallNotifyFunction' type-id='091ef42d' filepath='../dbus/dbus-connection.h' line='162' column='1' id='1e4bbcbc'/>
-    <pointer-type-def type-id='e72931c9' size-in-bits='64' id='091ef42d'/>
     <function-decl name='dbus_pending_call_ref' mangled-name='dbus_pending_call_ref' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-pending-call.c' line='577' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='dbus_pending_call_ref'>
       <parameter type-id='7ff886a4' name='pending' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-pending-call.c' line='577' column='1'/>
       <return type-id='7ff886a4'/>
@@ -2406,8 +2276,6 @@
     </function-type>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-timeout.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <typedef-decl name='DBusTimeoutHandler' type-id='4c78c077' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.h' line='41' column='1' id='9f06b367'/>
-    <pointer-type-def type-id='14c19683' size-in-bits='64' id='4c78c077'/>
     <function-decl name='dbus_timeout_get_interval' mangled-name='dbus_timeout_get_interval' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.c' line='416' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='dbus_timeout_get_interval'>
       <parameter type-id='61f110cc' name='timeout' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-timeout.c' line='416' column='1'/>
       <return type-id='95e97e5e'/>
@@ -2445,8 +2313,6 @@
     </function-decl>
   </abi-instr>
   <abi-instr address-size='64' path='dbus-watch.c' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus' language='LANG_C89'>
-    <typedef-decl name='DBusWatchHandler' type-id='5427e7aa' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.h' line='43' column='1' id='e081a6c3'/>
-    <pointer-type-def type-id='04d39780' size-in-bits='64' id='5427e7aa'/>
     <function-decl name='dbus_watch_get_fd' mangled-name='dbus_watch_get_fd' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.c' line='536' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='dbus_watch_get_fd'>
       <parameter type-id='36f9a538' name='watch' filepath='/tmp/legendre/spack-stage/spack-stage-hI99PR/dbus-1.9.0/dbus/dbus-watch.c' line='536' column='1'/>
       <return type-id='95e97e5e'/>

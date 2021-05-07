@@ -3517,17 +3517,7 @@
   </abi-instr>
   <abi-instr address-size='64' path='src/third_party/boost-1.60.0/libs/iostreams/src/mapped_file.cpp' comp-dir-path='/home/andrew/Documents/10gen/dev/src/mongodb' language='LANG_C_plus_plus'>
     <reference-type-def kind='lvalue' type-id='ab6be63b' size-in-bits='64' id='48b9d5bf'/>
-    <pointer-type-def type-id='ab6be63b' size-in-bits='64' id='4cb9dc0b'/>
-    <pointer-type-def type-id='567a2dd9' size-in-bits='64' id='542d0901'/>
-    <pointer-type-def type-id='5b309d11' size-in-bits='64' id='4c01c649'/>
     <reference-type-def kind='lvalue' type-id='db89d74f' size-in-bits='64' id='5b2b39a3'/>
-    <qualified-type-def type-id='ab6be63b' const='yes' id='af484836'/>
-    <reference-type-def kind='lvalue' type-id='af484836' size-in-bits='64' id='fec97130'/>
-    <qualified-type-def type-id='567a2dd9' const='yes' id='aa6a8b02'/>
-    <reference-type-def kind='lvalue' type-id='aa6a8b02' size-in-bits='64' id='69b909ac'/>
     <pointer-type-def type-id='aa6a8b02' size-in-bits='64' id='6db90ff8'/>
-    <qualified-type-def type-id='30a14120' const='yes' id='0aee1fd0'/>
-    <qualified-type-def type-id='5b309d11' const='yes' id='b81acd08'/>
-    <reference-type-def kind='lvalue' type-id='b81acd08' size-in-bits='64' id='0030ff6a'/>
   </abi-instr>
 </abi-corpus>

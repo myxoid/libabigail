@@ -3310,7 +3310,6 @@
     <reference-type-def kind='lvalue' type-id='3b9b6bdb' size-in-bits='64' id='d2aaff47'/>
     <reference-type-def kind='lvalue' type-id='a391c37f' size-in-bits='64' id='d776851b'/>
     <reference-type-def kind='lvalue' type-id='c72e2a72' size-in-bits='64' id='e1aca23c'/>
-    <reference-type-def kind='lvalue' type-id='ff9850b3' size-in-bits='64' id='f1c6da8f'/>
     <qualified-type-def type-id='cdd897c9' const='yes' id='c7287d49'/>
     <reference-type-def kind='lvalue' type-id='c7287d49' size-in-bits='64' id='f3bd75bd'/>
     <qualified-type-def type-id='8f2b8067' const='yes' id='439fb9ee'/>
@@ -4248,15 +4247,11 @@
     <qualified-type-def type-id='979d2044' const='yes' id='1acb5b14'/>
     <reference-type-def kind='lvalue' type-id='1acb5b14' size-in-bits='64' id='60208fb6'/>
     <pointer-type-def type-id='1acb5b14' size-in-bits='64' id='6c20a29a'/>
-    <qualified-type-def type-id='eb166b35' const='yes' id='43f3d2f8'/>
-    <reference-type-def kind='lvalue' type-id='43f3d2f8' size-in-bits='64' id='d6d4f37a'/>
     <pointer-type-def type-id='f85b5150' size-in-bits='64' id='8bd5f9c6'/>
     <reference-type-def kind='lvalue' type-id='00851616' size-in-bits='64' id='e717b4d1'/>
     <reference-type-def kind='rvalue' type-id='00851616' size-in-bits='64' id='c151e0d5'/>
     <reference-type-def kind='lvalue' type-id='979d2044' size-in-bits='64' id='9123b87b'/>
     <pointer-type-def type-id='979d2044' size-in-bits='64' id='8d23b22f'/>
-    <reference-type-def kind='rvalue' type-id='78905d30' size-in-bits='64' id='2ebb0454'/>
-    <pointer-type-def type-id='cdd897b7' size-in-bits='64' id='73de5b4f'/>
     <pointer-type-def type-id='2c0d7a93' size-in-bits='64' id='ea20cb13'/>
     <pointer-type-def type-id='774b367d' size-in-bits='64' id='65cde55d'/>
     <reference-type-def kind='lvalue' type-id='709fdc4e' size-in-bits='64' id='33665125'/>
