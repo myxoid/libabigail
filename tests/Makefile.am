@@ -53,6 +53,10 @@ else
 TESTS += runtestdefaultsupprs.py
 endif
 
+if ENABLE_CXX17
+TESTS += runtestscc
+endif
+
 EXTRA_DIST = \
 runtestcanonicalizetypes.sh.in \
 runtestfedabipkgdiff.py.in \
@@ -165,6 +169,9 @@ testdiff2_LDADD=$(top_builddir)/src/libabigail.la
 
 printdifftree_SOURCES = print-diff-tree.cc
 printdifftree_LDADD = $(top_builddir)/src/libabigail.la
+
+runtestscc_SOURCES = test-scc.cc
+runtestscc_LDADD = libcatch.la
 
 runtestslowselfcompare_sh_SOURCES =
 runtestslowselfcompare.sh$(EXEEXT):
