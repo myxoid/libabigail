@@ -5,6 +5,11 @@ the moment the dependencies are the following Free Software packages:
     libtool
     libxml2
 
+To build the BTF tools, you will need <linux/btf.h> which can be found
+in the development package of:
+
+     linux-libc
+
 If you are building from the Git repository, then you'd also need the
 following packages:
 

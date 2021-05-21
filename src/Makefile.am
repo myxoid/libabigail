@@ -8,6 +8,12 @@ VIZ_SOURCES = abg-viz-common.cc	\
 		abg-viz-dot.cc	\
 		abg-viz-svg.cc
 
+if ENABLE_CXX17
+if HAVE_BTF
+  BTF_SOURCES = abg-btf.cc
+endif
+endif
+
 libabigail_la_SOURCES =			\
 abg-internal.h				\
 abg-traverse.cc				\
@@ -39,7 +45,8 @@ abg-elf-helpers.cc			\
 abg-regex.cc				\
 abg-symtab-reader.h			\
 abg-symtab-reader.cc			\
-$(VIZ_SOURCES)
+$(VIZ_SOURCES)				\
+$(BTF_SOURCES)
 
 libabigail_la_LIBADD = $(DEPS_LIBS)
 libabigail_la_LDFLAGS = -lpthread -Wl,--as-needed -no-undefined

@@ -603,6 +603,13 @@ if test x$ENABLE_CXX17 = xyes; then
 fi
 AM_CONDITIONAL(ENABLE_CXX17, test x$ENABLE_CXX17 = xyes)
 
+dnl Check for the presence of the BTF header.
+HAVE_BTF=no
+AC_CHECK_HEADER([linux/btf.h],
+		[HAVE_BTF=yes],
+		[AC_MSG_NOTICE([No linux/btf.h found, omitted BTF support.])])
+AM_CONDITIONAL(HAVE_BTF, test x$HAVE_BTF = xyes)
+
 dnl Set the list of libraries libabigail depends on
 
 DEPS_LIBS="$XML_LIBS $ELF_LIBS $DW_LIBS"
