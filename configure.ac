@@ -138,6 +138,12 @@ AC_ARG_ENABLE(ubsan,
 	      ENABLE_UBSAN=$enableval,
 	      ENABLE_UBSAN=no)
 
+AC_ARG_ENABLE(cxx17,
+	      AS_HELP_STRING([--enable-cxx17=yes|no],
+			     [enable features that use the C++17 compiler]),
+	      ENABLE_CXX17=$enableval,
+	      ENABLE_CXX17=no)
+
 dnl *************************************************
 dnl check for dependencies
 dnl *************************************************
@@ -153,7 +159,7 @@ AC_LANG([C++])
 AC_LANG_COMPILER_REQUIRE
 
 dnl
-dnl We use C++11
+dnl We use C++11 or C++17 if enabled
 dnl
 CXX_STANDARD=c++11
 
@@ -590,6 +596,12 @@ AX_VALGRIND_DFLT(drd, off)
 AX_VALGRIND_DFLT(sgcheck, off)
 
 AX_VALGRIND_CHECK
+
+dnl Handle conditional use of a C++17 compiler
+if test x$ENABLE_CXX17 = xyes; then
+   CXX_STANDARD=c++17
+fi
+AM_CONDITIONAL(ENABLE_CXX17, test x$ENABLE_CXX17 = xyes)
 
 dnl Set the list of libraries libabigail depends on
 
