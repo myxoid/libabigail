@@ -9,6 +9,12 @@ else
   noinst_SCRIPTS = fedabipkgdiff
 endif
 
+if ENABLE_CXX17
+if HAVE_BTF
+  bin_PROGRAMS += btfinfo btfdiff
+endif
+endif
+
 noinst_PROGRAMS = abisym abinilint
 
 abidiff_SOURCES = abidiff.cc
@@ -44,6 +50,14 @@ kmidiff_SOURCES = kmidiff.cc
 kmidiffdir = $(bindir)
 kmidiff_LDADD = $(abs_top_builddir)/src/libabigail.la
 kmidiff_LDFLAGS = -pthread
+
+btfinfo_SOURCES = btfinfo.cc
+btfinfodir = $(bindir)
+btfinfo_LDADD = ../src/libabigail.la
+
+btfdiff_SOURCES = btfdiff.cc
+btfdiffdir = $(bindir)
+btfdiff_LDADD = ../src/libabigail.la
 
 AM_CXXFLAGS = \
 $(VISIBILITY_FLAGS) -I$(abs_top_srcdir)/include \
