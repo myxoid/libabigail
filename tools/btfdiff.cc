@@ -16,7 +16,9 @@
 
 const int kAbiChange = 4;
 
-int main(int argc, char* argv[]) {
+int
+main(int argc, char* argv[])
+{
   bool use_elf_symbols = true;
   static option opts[]{
       {"symbols", required_argument, nullptr, 's'},
@@ -32,24 +34,26 @@ int main(int argc, char* argv[]) {
 	      << "' unrecognized argument '" << optarg << "'\n";
     return usage();
   };
-  while (true) {
-    int ix;
-    int c = getopt_long(argc, argv, "s:", opts, &ix);
-    if (c == -1)
-      break;
-    switch (c) {
-      case 's':
-        if (!strcmp(optarg, "btf"))
-          use_elf_symbols = false;
-        else if (!strcmp(optarg, "elf"))
-          use_elf_symbols = true;
-        else
-          return bad_arg(ix);
-        break;
-      default:
-        return usage();
+  while (true)
+    {
+      int ix;
+      int c = getopt_long(argc, argv, "s:", opts, &ix);
+      if (c == -1)
+	break;
+      switch (c)
+	{
+	case 's':
+	  if (!strcmp(optarg, "btf"))
+	    use_elf_symbols = false;
+	  else if (!strcmp(optarg, "elf"))
+	    use_elf_symbols = true;
+	  else
+	    return bad_arg(ix);
+	  break;
+	default:
+	  return usage();
+	}
     }
-  }
   if (optind + 2 != argc)
     return usage();
 

@@ -14,7 +14,8 @@
 #include <optional>
 #include <vector>
 
-namespace abigail {
+namespace abigail
+{
 
 /*
  * This is a streamlined Strongly-Connected Component finder for use with
@@ -59,26 +60,33 @@ namespace abigail {
  * the nodes as visited), this should be done now. Otherwise, an empty vector
  * will be returned.
  */
-template<typename Node> class SCC {
- public:
-  explicit SCC(std::function<bool(const Node &, const Node &)> cmp) : cmp_(cmp)
-  {}
-  ~SCC() {
+template <typename Node> class SCC
+{
+public:
+  explicit SCC(std::function<bool(const Node&, const Node&)> cmp) : cmp_(cmp)
+  {
+  }
+  ~SCC()
+  {
     assert(open_.empty());
     assert(root_index_.empty());
   }
 
-  std::optional<size_t> Open(const Node &node) {
-    for (size_t ix = 0; ix < open_.size(); ++ix) {
-      const auto &other = open_[ix];
-      // node == other?
-      if (!cmp_(node, other) && !cmp_(other, node)) {
-        // Pop indices to nodes which cannot be the root of their SCC.
-        while (root_index_.back() > ix)
-          root_index_.pop_back();
-        return {};
+  std::optional<size_t>
+  Open(const Node& node)
+  {
+    for (size_t ix = 0; ix < open_.size(); ++ix)
+      {
+	const auto& other = open_[ix];
+	// node == other?
+	if (!cmp_(node, other) && !cmp_(other, node))
+	  {
+	    // Pop indices to nodes which cannot be the root of their SCC.
+	    while (root_index_.back() > ix)
+	      root_index_.pop_back();
+	    return {};
+	  }
       }
-    }
     // Unvisited, mark node as open and record root index.
     auto ix = open_.size();
     open_.push_back(node);
@@ -86,26 +94,29 @@ template<typename Node> class SCC {
     return ix;
   }
 
-  std::vector<Node> Close(
-      size_t ix, std::function<void(Node &)> update = [](Node &){}) {
+  std::vector<Node>
+  Close(
+      size_t ix, std::function<void(Node&)> update = [](Node&) {})
+  {
     std::vector<Node> scc;
     assert(ix < open_.size());
     update(open_[ix]);
-    if (ix == root_index_.back()) {
-      // Close SCC.
-      root_index_.pop_back();
-      std::move(open_.begin() + ix, open_.end(), std::back_inserter(scc));
-      open_.resize(ix);
-    }
+    if (ix == root_index_.back())
+      {
+	// Close SCC.
+	root_index_.pop_back();
+	std::move(open_.begin() + ix, open_.end(), std::back_inserter(scc));
+	open_.resize(ix);
+      }
     return scc;
   }
 
- private:
-  std::function<bool(const Node &, const Node &)> cmp_;
+private:
+  std::function<bool(const Node&, const Node&)> cmp_;
   std::vector<Node> open_;
   std::vector<size_t> root_index_;
 };
 
-}  // namespace abigail
+} // namespace abigail
 
-#endif  // __ABG_SCC_H__
+#endif // __ABG_SCC_H__
