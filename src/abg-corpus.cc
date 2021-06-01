@@ -1011,7 +1011,7 @@ corpus::is_empty() const
 	}
     }
   return (members_empty
-	  && (!get_symtab() || !get_symtab()->has_symbols())
+	  && !get_symtab()->has_symbols()
 	  && priv_->soname.empty()
 	  && priv_->needed.empty());
 }
