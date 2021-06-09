@@ -13906,6 +13906,9 @@ function_is_suppressed(const read_context& ctxt,
     return false;
 
   string fname = die_string_attribute(function_die, DW_AT_name);
+  bool debug = fname == "AAudioStreamBuilder_setSharingMode";
+  if (debug)
+    sleep(0);
   string flinkage_name = die_linkage_name(function_die);
   if (flinkage_name.empty() && ctxt.die_is_in_c(function_die))
     flinkage_name = fname;
@@ -13922,13 +13925,22 @@ function_is_suppressed(const read_context& ctxt,
     {
       Dwarf_Addr fn_addr;
       if (!ctxt.get_function_address(function_die, fn_addr))
+      {
+        if (debug) cerr << "no address, returning true\n";
 	return true;
+      }
 
       elf_symbol_sptr symbol = ctxt.function_symbol_is_exported(fn_addr);
       if (!symbol)
+      {
+        if (debug) cerr << "no exported symbol at " << fn_addr << ", returning true\n";
 	return true;
+      }
       if (!symbol->is_suppressed())
+      {
+        if (debug) cerr << "symbol not suppressed, returning false\n";
 	return false;
+      }
 
       // Since there is only one symbol in DWARF associated with an elf_symbol,
       // we can assume this is the main symbol then. Otherwise the main hinting
@@ -13994,9 +14006,17 @@ build_or_get_fn_decl_if_not_suppressed(read_context&	  ctxt,
 				       bool		  is_declaration_only,
 				       function_decl_sptr result)
 {
+  string name = die_string_attribute(fn_die, DW_AT_name);
+  bool debug = name == "AAudioStreamBuilder_setSharingMode";
+  if (debug)
+    sleep(0);
   function_decl_sptr fn;
   if (function_is_suppressed(ctxt, scope, fn_die, is_declaration_only))
-    return fn;
+    {
+      if (debug)
+        cerr << "oh no, suppressed\n";
+      return fn;
+    }
 
   string name = die_name(fn_die);
   string linkage_name = die_linkage_name(fn_die);
@@ -14529,6 +14549,8 @@ read_debug_info_into_corpus(read_context& ctxt)
 	translation_unit_sptr ir_node =
 	  build_translation_unit_and_add_to_ir(ctxt, &unit, address_size);
 	ABG_ASSERT(ir_node);
+        if (ctxt.do_log())
+          cerr << " *";
       }
     if (ctxt.do_log())
       {
@@ -15275,6 +15297,10 @@ build_ir_node_from_die(read_context&	ctxt,
 
     case DW_TAG_subprogram:
       {
+        string name = die_string_attribute(die, DW_AT_name);
+        bool debug = name == "AAudioStreamBuilder_setSharingMode";
+        if (debug)
+          sleep(0);
 	Dwarf_Die spec_die;
 	Dwarf_Die abstract_origin_die;
 	Dwarf_Die *interface_die = 0, *origin_die = 0;
