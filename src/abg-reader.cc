@@ -1698,20 +1698,9 @@ read_translation_unit_from_input(read_context&	ctxt)
     }
   else
     {
-      node = 0;
-      for (xmlNodePtr n = ctxt.get_corpus_node();
-	   n;
-	   n = xmlNextElementSibling(n))
-	{
-	  if (!xmlStrEqual(n->name, BAD_CAST("abi-instr")))
-	    return nil;
-	  node = n;
-	  break;
-	}
+      if (!xmlStrEqual(node->name, BAD_CAST("abi-instr")))
+	return nil;
     }
-
-  if (node == 0)
-    return nil;
 
   tu = get_or_read_and_add_translation_unit(ctxt, node);
 
@@ -1862,9 +1851,8 @@ read_elf_needed_from_input(read_context&	ctxt,
   if (!reader)
     return false;
 
-  xmlNodePtr node = 0;
-
-  if (ctxt.get_corpus_node() == 0)
+  xmlNodePtr node = ctxt.get_corpus_node();
+  if (!node)
     {
       int status = 1;
       while (status == 1
@@ -1884,24 +1872,13 @@ read_elf_needed_from_input(read_context&	ctxt,
     }
   else
     {
-      for (xmlNodePtr n = ctxt.get_corpus_node();
-	   n;
-	   n = xmlNextElementSibling(n))
-	{
-	  if (!xmlStrEqual(n->name, BAD_CAST("elf-needed")))
-	    return false;
-	  node = n;
-	  break;
-	}
+      if (!xmlStrEqual(node->name, BAD_CAST("elf-needed")))
+        return false;
     }
 
-  bool result = false;
-  if (node)
-    {
-      result = build_needed(node, needed);
-      node = xmlNextElementSibling(node);
-      ctxt.set_corpus_node(node);
-    }
+  bool result = build_needed(node, needed);
+  node = xmlNextElementSibling(node);
+  ctxt.set_corpus_node(node);
 
   return result;
 }
