@@ -8721,6 +8721,10 @@ read_and_convert_DW_at_bit_offset(const Dwarf_Die* die,
   //       - DW_AT_data_bit_offset(k)
   //       - sizeof_in_bits(k)
   offset = containing_anonymous_object_size - off - bitfield_size;
+  std::cerr << "CAOS=" << containing_anonymous_object_size
+            << " OFF=" << off
+            << " BS=" << bitfield_size
+            << " offset=" << offset << "\n";
 
   return true;
 }

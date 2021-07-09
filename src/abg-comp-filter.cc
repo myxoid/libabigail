@@ -21,6 +21,26 @@ ABG_BEGIN_EXPORT_DECLARATIONS
 ABG_END_EXPORT_DECLARATIONS
 // </headers defining libabigail's API>
 
+#include <map>
+#include <utility>
+#include <iostream>
+std::map<std::pair<size_t, bool>, size_t> raw_counts;
+
+struct Dumper {
+  ~Dumper() {
+    std::map<size_t, size_t> counts;
+    for (const auto kv : raw_counts) {
+      ++counts[kv.second];
+    }
+    std::cerr << "call counts\n";
+    for (const auto kv : counts) {
+      std::cerr << kv.first << ": " << kv.second << "\n";
+    }
+  }
+};
+
+Dumper dumper;
+
 namespace abigail
 {
 namespace comparison
@@ -1814,6 +1834,15 @@ categorize_harmful_diff_node(diff *d, bool pre)
 bool
 harmless_harmful_filter::visit(diff* d, bool pre)
 {
+  size_t kt = ++raw_counts[std::make_pair(reinterpret_cast<size_t>(d), pre)];
+
+  if (kt == 1000000) {
+    std::cerr << d->get_pretty_representation()
+              << ", "
+              << pre
+              << "\n";
+  }
+
   return (categorize_harmless_diff_node(d, pre)
 	  && categorize_harmful_diff_node(d, pre));
 }
