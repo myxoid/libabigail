@@ -400,30 +400,35 @@ public:
   {
     type_base* c = get_exemplar_type(type);
 
-    type_ptr_map::const_iterator it = m_type_id_map.find(c);
-    if (it != m_type_id_map.end())
-      return it->second;
+    auto insertion = m_type_id_map.emplace(c, interned_string());
+    interned_string& id = insertion.first->second;
 
-    switch (m_type_id_style)
-      {
-      case SEQUENCE_TYPE_ID_STYLE:
+    if (insertion.second)
+      switch (m_type_id_style)
 	{
-	  interned_string id = get_id_manager().get_id_with_prefix("type-id-");
-	  return m_type_id_map[c] = id;
+	case SEQUENCE_TYPE_ID_STYLE:
+	  {
+	    id = get_id_manager().get_id_with_prefix("type-id-");
+	    break;
+	  }
+	case HASH_TYPE_ID_STYLE:
+	  {
+	    interned_string pretty = c->get_cached_pretty_representation(true);
+	    size_t hash = hashing::fnv_hash(pretty);
+	    while (!m_used_type_id_hashes.insert(hash).second)
+	      ++hash;
+	    std::ostringstream os;
+	    os << std::hex << std::setfill('0') << std::setw(8) << hash;
+	    id = c->get_environment()->intern(os.str());
+	    break;
+	  }
+	  default: {
+	    ABG_ASSERT_NOT_REACHED;
+	    break;
+	  }
 	}
-      case HASH_TYPE_ID_STYLE:
-	{
-	  interned_string pretty = c->get_cached_pretty_representation(true);
-	  size_t hash = hashing::fnv_hash(pretty);
-	  while (!m_used_type_id_hashes.insert(hash).second)
-	    ++hash;
-	  std::ostringstream os;
-	  os << std::hex << std::setfill('0') << std::setw(8) << hash;
-	  return m_type_id_map[c] = c->get_environment()->intern(os.str());
-	}
-      }
-    ABG_ASSERT_NOT_REACHED;
-    return interned_string();
+
+    return id;
   }
 
   string
