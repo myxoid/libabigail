@@ -2228,9 +2228,11 @@ write_canonical_types_of_scope(const scope_decl	&scope,
 }
 
 /// Test if a type referenced in a given translation unit should be
-/// emitted or not.
+/// emitted and record it if so.
 ///
 /// This is a subroutine of @ref write_translation_unit.
+///
+/// @param types the set of types to update.
 ///
 /// @param t the type to consider.
 ///
@@ -2240,21 +2242,19 @@ write_canonical_types_of_scope(const scope_decl	&scope,
 ///
 /// @param tu_is_last true if @p tu is the last translation unit being
 /// emitted.
-///
-/// @return true iff @p t is to be emitted.
-static bool
-referenced_type_should_be_emitted(const type_base *t,
-				  const write_context& ctxt,
-				  const translation_unit& tu,
-				  bool tu_is_last)
+static void
+record_unemitted_type(type_ptr_set_type& types,
+		      const type_base *t,
+		      const write_context& ctxt,
+		      const translation_unit& tu,
+		      bool tu_is_last)
 {
   if ((tu_is_last || (t->get_translation_unit()
 		      && (t->get_translation_unit()->get_absolute_path()
 			  == tu.get_absolute_path())))
       && !ctxt.type_is_emitted(t)
       && !ctxt.decl_only_type_is_emitted(t))
-    return true;
-  return false;
+    types.insert(t);
 }
 
 /// Emit the types that were referenced by other emitted types.
@@ -2292,21 +2292,21 @@ write_referenced_types(write_context &		ctxt,
        i != ctxt.get_referenced_types().end();
        ++i)
     if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
+      record_unemitted_type(referenced_types_to_emit, *i, ctxt, tu, is_last);
 
   for (fn_type_ptr_set_type::const_iterator i =
 	 ctxt.get_referenced_function_types().begin();
        i != ctxt.get_referenced_function_types().end();
        ++i)
     if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
+      record_unemitted_type(referenced_types_to_emit, *i, ctxt, tu, is_last);
 
   for (type_ptr_set_type::const_iterator i =
 	 ctxt.get_referenced_non_canonical_types().begin();
        i != ctxt.get_referenced_non_canonical_types().end();
        ++i)
     if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
+      record_unemitted_type(referenced_types_to_emit, *i, ctxt, tu, is_last);
 
   // Ok, now let's emit the referenced type for good.
   while (!referenced_types_to_emit.empty())
@@ -2365,14 +2365,14 @@ write_referenced_types(write_context &		ctxt,
 	   i != ctxt.get_referenced_types().end();
 	   ++i)
 	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-	  referenced_types_to_emit.insert(*i);
+	  record_unemitted_type(referenced_types_to_emit, *i, ctxt, tu, is_last);
 
       for (type_ptr_set_type::const_iterator i =
 	     ctxt.get_referenced_non_canonical_types().begin();
 	   i != ctxt.get_referenced_non_canonical_types().end();
 	   ++i)
 	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-	  referenced_types_to_emit.insert(*i);
+	  record_unemitted_type(referenced_types_to_emit, *i, ctxt, tu, is_last);
     }
 }
 
