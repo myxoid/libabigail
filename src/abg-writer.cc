@@ -2327,7 +2327,7 @@ write_referenced_types(write_context &		ctxt,
 	  // We handle types which have declarations *and* function
 	  // types here.
 	  type_base* t = *i;
-	  if (!ctxt.type_is_emitted(t))
+	  if (!ctxt.type_is_emitted(t) && !ctxt.decl_only_type_is_emitted(t))
 	    {
 	      if (decl_base* d = get_type_declaration(t))
 		{
