@@ -27,6 +27,7 @@
 #include "abg-corpus.h"
 #include "abg-reader.h"
 #include "abg-dwarf-reader.h"
+#include "abg-ctf-reader.h"
 #include "abg-writer.h"
 #include "abg-suppression.h"
 
@@ -67,6 +68,7 @@ struct options
   bool				read_tu;
   bool				diff;
   bool				noout;
+  bool				use_ctf;
   std::shared_ptr<char>	di_root_path;
   vector<string>		suppression_paths;
   string			headers_dir;
@@ -77,7 +79,8 @@ struct options
       read_from_stdin(false),
       read_tu(false),
       diff(false),
-      noout(false)
+      noout(false),
+      use_ctf(false)
   {}
 };//end struct options;
 
@@ -99,7 +102,8 @@ display_usage(const string& prog_name, ostream& out)
     "the input and the memory model saved back to disk\n"
     << "  --noout  do not display anything on stdout\n"
     << "  --stdin|--  read abi-file content from stdin\n"
-    << "  --tu  expect a single translation unit file\n";
+    << "  --tu  expect a single translation unit file\n"
+    << "  --ctf use CTF instead of DWARF in ELF files\n";
 }
 
 bool
@@ -173,6 +177,8 @@ parse_command_line(int argc, char* argv[], options& opts)
 	  opts.read_from_stdin = true;
 	else if (!strcmp(argv[i], "--tu"))
 	  opts.read_tu = true;
+        else if (!strcmp(argv[i], "--ctf"))
+          opts.use_ctf = true;
 	else if (!strcmp(argv[i], "--diff"))
 	  opts.diff = true;
 	else if (!strcmp(argv[i], "--noout"))
@@ -338,13 +344,26 @@ main(int argc, char* argv[])
 	    di_root_path = opts.di_root_path.get();
 	    vector<char**> di_roots;
 	    di_roots.push_back(&di_root_path);
-	    abigail::dwarf_reader::read_context_sptr ctxt =
-	      abigail::dwarf_reader::create_read_context(opts.file_path,
-							 di_roots, env.get(),
-							 /*load_all_types=*/false);
-	    assert(ctxt);
-	    set_suppressions(*ctxt, opts);
-	    corp = read_corpus_from_elf(*ctxt, s);
+
+            if (opts.use_ctf)
+              {
+                abigail::ctf_reader::read_context *ctxt
+                  = abigail::ctf_reader::create_read_context (opts.file_path,
+                                                              env.get());
+
+                assert (ctxt);
+                corp = abigail::ctf_reader::read_corpus (ctxt);
+              }
+            else
+              {
+                abigail::dwarf_reader::read_context_sptr ctxt =
+                  abigail::dwarf_reader::create_read_context(opts.file_path,
+                                                             di_roots, env.get(),
+                                                             /*load_all_types=*/false);
+                assert(ctxt);
+                set_suppressions(*ctxt, opts);
+                corp = read_corpus_from_elf(*ctxt, s);
+              }
 	  }
 	  break;
 	case abigail::tools_utils::FILE_TYPE_XML_CORPUS:

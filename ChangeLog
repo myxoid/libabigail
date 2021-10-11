@@ -1,3 +1,21 @@
+2021-10-11  Jose E. Marchesi  <jose.marchesi@oracle.com>
+
+	* configure.ac: Check for libctf.
+	* src/abg-ctf-reader.cc: New file.
+	* include/abg-ctf-reader.h: Likewise.
+	* src/Makefile.am (libabigail_la_SOURCES): Add abg-ctf-reader.cc
+	conditionally.
+	* include/Makefile.am (pkginclude_HEADERS): Add abg-ctf-reader.h
+	conditionally.
+	* tools/abilint.cc (struct options): New option `use_ctf'.
+	(display_usage): Documentation for --ctf.
+	(parse_command_line): Handle --ctf.
+	(main): Honour --ctf.
+	* tools/abidiff.cc (struct options): New option `use_ctf'.
+	(display_usage): Documentation for --ctf.
+	(parse_command_line): Handle --ctf.
+	(main): Honour --ctf.
+
 2021-10-04  Dodji Seketeli <dodji@redhat.com>
 
 	Update NEWS file for 2.0

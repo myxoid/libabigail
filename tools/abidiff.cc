@@ -19,6 +19,7 @@
 #include "abg-tools-utils.h"
 #include "abg-reader.h"
 #include "abg-dwarf-reader.h"
+#include "abg-ctf-reader.h"
 
 using std::vector;
 using std::string;
@@ -104,6 +105,7 @@ struct options
 #ifdef WITH_DEBUG_SELF_COMPARISON
   bool			do_debug;
 #endif
+  bool			use_ctf;
   vector<char*> di_root_paths1;
   vector<char*> di_root_paths2;
   vector<char**> prepared_di_root_paths1;
@@ -144,7 +146,8 @@ struct options
       show_impacted_interfaces(),
       dump_diff_tree(),
       show_stats(),
-      do_log()
+      do_log(),
+      use_ctf()
 #ifdef WITH_DEBUG_SELF_COMPARISON
     ,
     do_debug()
@@ -233,6 +236,7 @@ display_usage(const string& prog_name, ostream& out)
     << " --dump-diff-tree  emit a debug dump of the internal diff tree to "
     "the error output stream\n"
     <<  " --stats  show statistics about various internal stuff\n"
+    << "  --ctf use CTF instead of DWARF in ELF files\n"
 #ifdef WITH_DEBUG_SELF_COMPARISON
     << " --debug debug the process of comparing an ABI corpus against itself"
 #endif
@@ -579,6 +583,8 @@ parse_command_line(int argc, char* argv[], options& opts)
 	opts.show_stats = true;
       else if (!strcmp(argv[i], "--verbose"))
 	opts.do_log = true;
+      else if (!strcmp(argv[i], "--ctf"))
+        opts.use_ctf = true;
 #ifdef WITH_DEBUG_SELF_COMPARISON
       else if (!strcmp(argv[i], "--debug"))
 	opts.do_debug = true;
@@ -1150,23 +1156,35 @@ main(int argc, char* argv[])
 	case abigail::tools_utils::FILE_TYPE_ELF: // fall through
 	case abigail::tools_utils::FILE_TYPE_AR:
 	  {
-	    abigail::dwarf_reader::read_context_sptr ctxt =
-	      abigail::dwarf_reader::create_read_context
-	      (opts.file1, opts.prepared_di_root_paths1,
-	       env.get(), /*read_all_types=*/opts.show_all_types,
-	       opts.linux_kernel_mode);
-	    assert(ctxt);
+            if (opts.use_ctf)
+              {
+                abigail::ctf_reader::read_context *ctxt
+                  = abigail::ctf_reader::create_read_context (opts.file1,
+                                                              env.get());
 
-	    abigail::dwarf_reader::set_show_stats(*ctxt, opts.show_stats);
-	    set_suppressions(*ctxt, opts);
-	    abigail::dwarf_reader::set_do_log(*ctxt, opts.do_log);
-	    c1 = abigail::dwarf_reader::read_corpus_from_elf(*ctxt, c1_status);
-	    if (!c1
-		|| (opts.fail_no_debug_info
-		    && (c1_status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
-		    && (c1_status & STATUS_DEBUG_INFO_NOT_FOUND)))
-	      return handle_error(c1_status, ctxt.get(),
-				  argv[0], opts);
+                assert (ctxt);
+                c1 = abigail::ctf_reader::read_corpus (ctxt);
+              }
+            else
+              {
+                abigail::dwarf_reader::read_context_sptr ctxt =
+                  abigail::dwarf_reader::create_read_context
+                  (opts.file1, opts.prepared_di_root_paths1,
+                   env.get(), /*read_all_types=*/opts.show_all_types,
+                   opts.linux_kernel_mode);
+                assert(ctxt);
+
+                abigail::dwarf_reader::set_show_stats(*ctxt, opts.show_stats);
+                set_suppressions(*ctxt, opts);
+                abigail::dwarf_reader::set_do_log(*ctxt, opts.do_log);
+                c1 = abigail::dwarf_reader::read_corpus_from_elf(*ctxt, c1_status);
+                if (!c1
+                    || (opts.fail_no_debug_info
+                        && (c1_status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
+                        && (c1_status & STATUS_DEBUG_INFO_NOT_FOUND)))
+                  return handle_error(c1_status, ctxt.get(),
+                                      argv[0], opts);
+              }
 	  }
 	  break;
 	case abigail::tools_utils::FILE_TYPE_XML_CORPUS:
@@ -1219,23 +1237,34 @@ main(int argc, char* argv[])
 	case abigail::tools_utils::FILE_TYPE_ELF: // Fall through
 	case abigail::tools_utils::FILE_TYPE_AR:
 	  {
-	    abigail::dwarf_reader::read_context_sptr ctxt =
-	      abigail::dwarf_reader::create_read_context
-	      (opts.file2, opts.prepared_di_root_paths2,
-	       env.get(), /*read_all_types=*/opts.show_all_types,
-	       opts.linux_kernel_mode);
-	    assert(ctxt);
-	    abigail::dwarf_reader::set_show_stats(*ctxt, opts.show_stats);
-	    abigail::dwarf_reader::set_do_log(*ctxt, opts.do_log);
-	    set_suppressions(*ctxt, opts);
+            if (opts.use_ctf)
+              {
+                abigail::ctf_reader::read_context *ctxt
+                  = abigail::ctf_reader::create_read_context (opts.file2,
+                                                              env.get());
 
-	    c2 = abigail::dwarf_reader::read_corpus_from_elf(*ctxt, c2_status);
-	    if (!c2
-		|| (opts.fail_no_debug_info
-		    && (c2_status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
-		    && (c2_status & STATUS_DEBUG_INFO_NOT_FOUND)))
-	      return handle_error(c2_status, ctxt.get(), argv[0], opts);
+                assert (ctxt);
+                c2 = abigail::ctf_reader::read_corpus (ctxt);
+              }
+            else
+              {
+                abigail::dwarf_reader::read_context_sptr ctxt =
+                  abigail::dwarf_reader::create_read_context
+                  (opts.file2, opts.prepared_di_root_paths2,
+                   env.get(), /*read_all_types=*/opts.show_all_types,
+                   opts.linux_kernel_mode);
+                assert(ctxt);
+                abigail::dwarf_reader::set_show_stats(*ctxt, opts.show_stats);
+                abigail::dwarf_reader::set_do_log(*ctxt, opts.do_log);
+                set_suppressions(*ctxt, opts);
 
+                c2 = abigail::dwarf_reader::read_corpus_from_elf(*ctxt, c2_status);
+                if (!c2
+                    || (opts.fail_no_debug_info
+                        && (c2_status & STATUS_ALT_DEBUG_INFO_NOT_FOUND)
+                        && (c2_status & STATUS_DEBUG_INFO_NOT_FOUND)))
+                  return handle_error(c2_status, ctxt.get(), argv[0], opts);
+              }
 	  }
 	  break;
 	case abigail::tools_utils::FILE_TYPE_XML_CORPUS:
