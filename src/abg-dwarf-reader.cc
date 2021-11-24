@@ -8760,27 +8760,60 @@ die_member_offset(const read_context& ctxt,
 
   // Otherwise, let's see if the DW_AT_data_member_location attribute and,
   // optionally, the DW_AT_bit_offset attributes are present.
+  {
+    Dwarf_Op* expr2 = NULL;
+    uint64_t expr_len2 = 0;
+    bool test = die_location_expr(die, DW_AT_data_member_location, &expr2, &expr_len2);
+
+    // The DW_AT_data_member_location attribute is present.
+    // Let's evaluate it and get its constant
+    // sub-expression and return that one.
+    bool offset2_good = false;
+    int64_t offset2 = 0;
+    if (test && !eval_quickly(expr2, expr_len2, offset2))
+      {
+        bool is_tls_address = false;
+        offset2_good = eval_last_constant_dwarf_sub_expr(expr2, expr_len2,
+                                                         offset2, is_tls_address,
+                                                         ctxt.dwarf_expr_eval_ctxt());
+      }
 
     if (!die)
-      return false;
+      {
+        if (offset2_good) std::cerr << __LINE__ << '\n';
+        return false;
+      }
 
     Dwarf_Attribute attr;
     if (!dwarf_attr_integrate(const_cast<Dwarf_Die*>(die), DW_AT_data_member_location, &attr))
-      return false;
+      {
+        if (offset2_good) std::cerr << __LINE__ << '\n';
+        return false;
+      }
 
     if (dwarf_getlocation(&attr, &expr, &expr_len))
-      return false;
+      {
+        if (offset2_good) std::cerr << __LINE__ << '\n';
+        return false;
+      }
     // Ignore location expressions where reading them succeeded but
     // their length is 0.
     if (expr_len == 0)
-      return false;
+      {
+        if (offset2_good) std::cerr << __LINE__ << '\n';
+        return false;
+      }
 
     Dwarf_Attribute result;
     if (!dwarf_getlocation_attr(&attr, expr, &result))
       {
         Dwarf_Word word;
         if (dwarf_formudata(&result, &word))
-          return false;
+          {
+            if (offset2_good) std::cerr << __LINE__ << '\n';
+            return false;
+          }
+        if (offset2_good) std::cerr << __LINE__ << ": got " << word << '\n';
         offset = word;
       }
     else
