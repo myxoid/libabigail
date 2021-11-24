@@ -3666,10 +3666,10 @@ write_class_decl(const class_decl_sptr& d,
 
   // We allow several *declarations* of the same class in the corpus,
   // but only one definition.
-  if (!decl->get_is_declaration_only())
-    ctxt.record_type_as_emitted(decl);
+  if (!d->get_is_declaration_only())
+    ctxt.record_type_as_emitted(d);
   else
-    ctxt.record_decl_only_type_as_emitted(decl);
+    ctxt.record_decl_only_type_as_emitted(d);
 
   return true;
 }
@@ -3810,10 +3810,10 @@ write_union_decl(const union_decl_sptr& d,
 
   // We allow several *declarations* of the same union in the corpus,
   // but only one definition.
-  if (!decl->get_is_declaration_only())
-    ctxt.record_type_as_emitted(decl);
+  if (!d->get_is_declaration_only())
+    ctxt.record_type_as_emitted(d);
   else
-    ctxt.record_decl_only_type_as_emitted(decl);
+    ctxt.record_decl_only_type_as_emitted(d);
 
   return true;
 }
