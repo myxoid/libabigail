@@ -8760,20 +8760,35 @@ die_member_offset(const read_context& ctxt,
 
   // Otherwise, let's see if the DW_AT_data_member_location attribute and,
   // optionally, the DW_AT_bit_offset attributes are present.
-  if (!die_location_expr(die, DW_AT_data_member_location, &expr, &expr_len))
-    return false;
 
-  // The DW_AT_data_member_location attribute is present.
-  // Let's evaluate it and get its constant
-  // sub-expression and return that one.
-  if (!eval_quickly(expr, expr_len, offset))
-    {
-      bool is_tls_address = false;
-      if (!eval_last_constant_dwarf_sub_expr(expr, expr_len,
-					     offset, is_tls_address,
-					     ctxt.dwarf_expr_eval_ctxt()))
-	return false;
-    }
+    if (!die)
+      return false;
+
+    Dwarf_Attribute attr;
+    if (!dwarf_attr_integrate(const_cast<Dwarf_Die*>(die), DW_AT_data_member_location, &attr))
+      return false;
+
+    if (dwarf_getlocation(&attr, &expr, &expr_len))
+      return false;
+    // Ignore location expressions where reading them succeeded but
+    // their length is 0.
+    if (expr_len == 0)
+      return false;
+
+    Dwarf_Attribute result;
+    if (!dwarf_getlocation_attr(&attr, expr, &result))
+      {
+        Dwarf_Word word;
+        if (dwarf_formudata(&result, &word))
+          return false;
+        offset = word;
+      }
+    else
+      {
+        // Just get the offset out of the number field.
+        offset = expr->number;
+      }
+  }
   offset *= 8;
 
   // On little endian machines, we need to convert the
