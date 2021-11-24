@@ -2225,22 +2225,28 @@ write_referenced_types(write_context &		ctxt,
 	 ctxt.get_referenced_types().begin();
        i != ctxt.get_referenced_types().end();
        ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last)) {
+      std::cerr << "to emit: " << *i << '\n';
       referenced_types_to_emit.insert(*i);
+    }
 
   for (fn_type_ptr_set_type::const_iterator i =
 	 ctxt.get_referenced_function_types().begin();
        i != ctxt.get_referenced_function_types().end();
        ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last)) {
+      std::cerr << "to emit: " << *i << '\n';
       referenced_types_to_emit.insert(*i);
+    }
 
   for (type_ptr_set_type::const_iterator i =
 	 ctxt.get_referenced_non_canonical_types().begin();
        i != ctxt.get_referenced_non_canonical_types().end();
        ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last)) {
+      std::cerr << "to emit: " << *i << '\n';
       referenced_types_to_emit.insert(*i);
+    }
 
   // Ok, now let's emit the referenced type for good.
   while (!referenced_types_to_emit.empty())
@@ -2261,16 +2267,20 @@ write_referenced_types(write_context &		ctxt,
 	  // We handle types which have declarations *and* function
 	  // types here.
 	  type_base* t = *i;
+	  std::cerr << "considering: " << t << ' ' << t->get_naked_canonical_type() << '\n';
 	  if (!ctxt.type_is_emitted(t))
 	    {
+	      std::cerr << "really considering: " << t << '\n';
 	      if (decl_base* d = get_type_declaration(t))
 		{
+		  std::cerr << "writing declaration: " << t << '\n';
 		  decl_base_sptr decl(d, noop_deleter());
 		  write_decl_in_scope(decl, ctxt,
 				      indent + c.get_xml_element_indent());
 		}
 	      else if (function_type* f = is_function_type(t))
 		{
+		  std::cerr << "writing function type: " << t << '\n';
 		  function_type_sptr fn_type(f, noop_deleter());
 		  write_function_type(fn_type, ctxt,
 				      indent + c.get_xml_element_indent());
@@ -2298,15 +2308,19 @@ write_referenced_types(write_context &		ctxt,
 	     ctxt.get_referenced_types().begin();
 	   i != ctxt.get_referenced_types().end();
 	   ++i)
-	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last)) {
+          std::cerr << "revisited to emit: " << *i << ' ' << (*i)->get_naked_canonical_type() << '\n';
 	  referenced_types_to_emit.insert(*i);
+        }
 
       for (type_ptr_set_type::const_iterator i =
 	     ctxt.get_referenced_non_canonical_types().begin();
 	   i != ctxt.get_referenced_non_canonical_types().end();
 	   ++i)
-	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last)) {
+          std::cerr << "revisited to emit: " << *i << ' ' << (*i)->get_naked_canonical_type() << '\n';
 	  referenced_types_to_emit.insert(*i);
+        }
     }
 }
 
