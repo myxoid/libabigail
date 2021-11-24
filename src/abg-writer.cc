@@ -3798,6 +3798,12 @@ write_class_decl(const class_decl_sptr& d,
       o << "</class-decl>\n";
     }
 
+  {
+    const type_base* t1 = static_cast<const type_base*>(d.get());
+    const type_base* t2 = static_cast<const type_base*>(decl.get());
+    std::cerr << "d " << d.get() << " (" << t1 << ")"
+              << " decl " << decl.get() << " (" << t2 << ")\n";
+  }
   ctxt.record_type_as_emitted(decl);
 
   return true;
