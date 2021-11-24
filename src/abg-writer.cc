@@ -3859,6 +3859,12 @@ write_class_decl(const class_decl_sptr& d,
 
   // We allow several *declarations* of the same class in the corpus,
   // but only one definition.
+  {
+    const type_base* t1 = static_cast<const type_base*>(d.get());
+    const type_base* t2 = static_cast<const type_base*>(decl.get());
+    std::cerr << "emitted decl d " << d.get() << " (" << t1 << ")"
+              << " as decl " << decl.get() << " (" << t2 << " )\n";
+  }
   if (!decl->get_is_declaration_only())
     ctxt.record_type_as_emitted(decl);
   else
