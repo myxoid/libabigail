@@ -8902,20 +8902,48 @@ die_virtual_function_index(Dwarf_Die* die,
 			   int64_t& vindex)
 {
   if (!die)
-    return false;
+    {
+      std::cerr << __LINE__ << '\n';
+      return false;
+    }
+
+  Dwarf_Attribute attr;
+  if (!dwarf_attr_integrate(die, DW_AT_vtable_elem_location, &attr))
+    {
+      return false;
+    }
 
   Dwarf_Op* expr = NULL;
   uint64_t expr_len = 0;
-  if (!die_location_expr(die, DW_AT_vtable_elem_location,
-			 &expr, &expr_len))
-    return false;
+  if (dwarf_getlocation(&attr, &expr, &expr_len))
+    {
+      std::cerr << __LINE__ << '\n';
+      return false;
+    }
+  // Ignore location expressions where reading them succeeded but
+  // their length is 0.
+  if (expr_len == 0)
+    {
+      std::cerr << __LINE__ << '\n';
+      return false;
+    }
 
-  int64_t i = 0;
-  bool is_tls_addr = false;
-  if (!eval_last_constant_dwarf_sub_expr(expr, expr_len, i, is_tls_addr))
-    return false;
+  Dwarf_Attribute result;
+  Dwarf_Word word;
+  if (dwarf_getlocation_attr(&attr, expr, &result) == 0)
+    {
+      if (dwarf_formudata(&result, &word))
+        {
+          std::cerr << __LINE__ << '\n';
+          return false;
+        }
+      vindex = word;
+      std::cerr << __LINE__ << '\n';
+      return true;
+    }
 
-  vindex = i;
+  vindex = expr->number;
+  std::cerr << __LINE__ << ':' << '\n';
   return true;
 }
 
