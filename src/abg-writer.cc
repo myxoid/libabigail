@@ -493,7 +493,7 @@ public:
       if (!type_is_emitted(t))
 	return false;
 
-    for (const auto t : get_referenced_non_canonical_types())
+    for (const auto t : get_referenced_function_types())
       if (!type_is_emitted(t))
 	return false;
 
@@ -2294,6 +2294,13 @@ write_referenced_types(write_context &		ctxt,
       for (type_ptr_set_type::const_iterator i =
 	     ctxt.get_referenced_types().begin();
 	   i != ctxt.get_referenced_types().end();
+	   ++i)
+	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
+	  referenced_types_to_emit.insert(*i);
+
+      for (fn_type_ptr_set_type::const_iterator i =
+	     ctxt.get_referenced_function_types().begin();
+	   i != ctxt.get_referenced_function_types().end();
 	   ++i)
 	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
 	  referenced_types_to_emit.insert(*i);
