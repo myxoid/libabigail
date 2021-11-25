@@ -230,11 +230,11 @@
     <class-decl name='allocator&lt;char&gt;' visibility='default' is-declaration-only='yes' id='type-id-38'>
       <member-type access='public'>
         <!-- typedef std::size_t allocator<char>::size_type -->
-        <typedef-decl name='size_type' type-id='type-id-76' filepath='/usr/include/c++/4.8.2/bits/allocator.h' line='95' column='1' id='type-id-75'/>
+        <typedef-decl name='size_type' type-id='type-id-75' filepath='/usr/include/c++/4.8.2/bits/allocator.h' line='95' column='1' id='type-id-76'/>
       </member-type>
       <member-type access='public'>
         <!-- typedef std::ptrdiff_t allocator<char>::difference_type -->
-        <typedef-decl name='difference_type' type-id='type-id-78' filepath='/usr/include/c++/4.8.2/bits/allocator.h' line='96' column='1' id='type-id-77'/>
+        <typedef-decl name='difference_type' type-id='type-id-77' filepath='/usr/include/c++/4.8.2/bits/allocator.h' line='96' column='1' id='type-id-78'/>
       </member-type>
       <member-type access='public'>
         <!-- typedef char* allocator<char>::pointer -->
@@ -301,11 +301,11 @@
         </member-type>
         <member-type access='public'>
           <!-- typedef allocator<char>::size_type std::basic_string<char, std::char_traits<char>, std::allocator<char> >::size_type -->
-          <typedef-decl name='size_type' type-id='type-id-75' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='121' column='1' id='type-id-56'/>
+          <typedef-decl name='size_type' type-id='type-id-76' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='121' column='1' id='type-id-56'/>
         </member-type>
         <member-type access='public'>
           <!-- typedef allocator<char>::difference_type std::basic_string<char, std::char_traits<char>, std::allocator<char> >::difference_type -->
-          <typedef-decl name='difference_type' type-id='type-id-77' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='122' column='1' id='type-id-93'/>
+          <typedef-decl name='difference_type' type-id='type-id-78' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='122' column='1' id='type-id-93'/>
         </member-type>
         <member-type access='public'>
           <!-- typedef allocator<char>::reference std::basic_string<char, std::char_traits<char>, std::allocator<char> >::reference -->
@@ -333,11 +333,11 @@
         </member-type>
         <member-type access='public'>
           <!-- typedef std::reverse_iterator<__gnu_cxx::__normal_iterator<char const*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::basic_string<char, std::char_traits<char>, std::allocator<char> >::const_reverse_iterator -->
-          <typedef-decl name='const_reverse_iterator' type-id='type-id-101' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='130' column='1' id='type-id-100'/>
+          <typedef-decl name='const_reverse_iterator' type-id='type-id-100' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='130' column='1' id='type-id-101'/>
         </member-type>
         <member-type access='public'>
           <!-- typedef std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::basic_string<char, std::char_traits<char>, std::allocator<char> >::reverse_iterator -->
-          <typedef-decl name='reverse_iterator' type-id='type-id-103' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='131' column='1' id='type-id-102'/>
+          <typedef-decl name='reverse_iterator' type-id='type-id-102' filepath='/usr/include/c++/4.8.2/bits/basic_string.h' line='131' column='1' id='type-id-103'/>
         </member-type>
         <member-type access='private'>
           <!-- struct std::basic_string<char, std::char_traits<char>, std::allocator<char> >::_Alloc_hider -->
@@ -502,13 +502,13 @@
     <!-- namespace std -->
     <namespace-decl name='std'>
       <!-- typedef unsigned long int std::size_t -->
-      <typedef-decl name='size_t' type-id='type-id-15' filepath='/usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h' line='1857' column='1' id='type-id-76'/>
+      <typedef-decl name='size_t' type-id='type-id-15' filepath='/usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h' line='1857' column='1' id='type-id-75'/>
       <!-- typedef long int std::ptrdiff_t -->
-      <typedef-decl name='ptrdiff_t' type-id='type-id-11' filepath='/usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h' line='1858' column='1' id='type-id-78'/>
+      <typedef-decl name='ptrdiff_t' type-id='type-id-11' filepath='/usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h' line='1858' column='1' id='type-id-77'/>
       <!-- class std::reverse_iterator<__gnu_cxx::__normal_iterator<char const*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > -->
-      <class-decl name='reverse_iterator&lt;__gnu_cxx::__normal_iterator&lt;char const*, std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-101'/>
+      <class-decl name='reverse_iterator&lt;__gnu_cxx::__normal_iterator&lt;char const*, std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-100'/>
       <!-- class std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > -->
-      <class-decl name='reverse_iterator&lt;__gnu_cxx::__normal_iterator&lt;char*, std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-103'/>
+      <class-decl name='reverse_iterator&lt;__gnu_cxx::__normal_iterator&lt;char*, std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;' visibility='default' is-declaration-only='yes' id='type-id-102'/>
     </namespace-decl>
     <!-- void emit(std::string&) -->
     <function-decl name='emit' mangled-name='_Z4emitRSs' filepath='/home/dodji/git/libabigail/PR20369/tests/data/test-read-dwarf/test23-first-tu.cc' line='12' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_Z4emitRSs'>
