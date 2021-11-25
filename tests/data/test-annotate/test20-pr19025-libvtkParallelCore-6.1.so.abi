@@ -1595,7 +1595,7 @@
         <class-decl name='vtkInternals' size-in-bits='640' is-struct='yes' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessStream.cxx' line='23' column='1' id='type-id-88'>
           <member-type access='public'>
             <!-- typedef std::deque<unsigned char, std::allocator<unsigned char> > vtkMultiProcessStream::vtkInternals::DataType -->
-            <typedef-decl name='DataType' type-id='type-id-90' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessStream.cxx' line='25' column='1' id='type-id-89'/>
+            <typedef-decl name='DataType' type-id='type-id-89' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessStream.cxx' line='25' column='1' id='type-id-90'/>
           </member-type>
           <member-type access='public'>
             <!-- enum vtkMultiProcessStream::vtkInternals::Types -->
@@ -1615,7 +1615,7 @@
           </member-type>
           <data-member access='private' layout-offset-in-bits='0'>
             <!-- vtkMultiProcessStream::vtkInternals::DataType vtkMultiProcessStream::vtkInternals::Data -->
-            <var-decl name='Data' type-id='type-id-89' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessStream.cxx' line='26' column='1'/>
+            <var-decl name='Data' type-id='type-id-90' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessStream.cxx' line='26' column='1'/>
           </data-member>
           <member-function access='public'>
             <!-- void vtkMultiProcessStream::vtkInternals::Pop(unsigned char*, size_t) -->
@@ -9026,7 +9026,7 @@
           </member-type>
           <member-type access='private'>
             <!-- typedef vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> > vtkMultiProcessController::vtkInternal::RMICallbackMap -->
-            <typedef-decl name='RMICallbackMap' type-id='type-id-470' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.cxx' line='61' column='1' id='type-id-469'/>
+            <typedef-decl name='RMICallbackMap' type-id='type-id-469' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.cxx' line='61' column='1' id='type-id-470'/>
           </member-type>
           <data-member access='private' layout-offset-in-bits='0'>
             <!-- vtksys::hash_map<int, void (*)(vtkMultiProcessController*, void*), vtksys::hash<int>, std::equal_to<int>, std::allocator<char> > vtkMultiProcessController::vtkInternal::MultipleMethod -->
@@ -9038,7 +9038,7 @@
           </data-member>
           <data-member access='private' layout-offset-in-bits='640'>
             <!-- vtkMultiProcessController::vtkInternal::RMICallbackMap vtkMultiProcessController::vtkInternal::RMICallbacks -->
-            <var-decl name='RMICallbacks' type-id='type-id-469' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.cxx' line='62' column='1'/>
+            <var-decl name='RMICallbacks' type-id='type-id-470' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/Parallel/Core/vtkMultiProcessController.cxx' line='62' column='1'/>
           </data-member>
         </class-decl>
       </member-type>
@@ -10760,7 +10760,7 @@
     <!-- const vtksys::hash<int>* -->
     <pointer-type-def type-id='type-id-804' size-in-bits='64' id='type-id-806'/>
     <!-- const vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> > -->
-    <qualified-type-def type-id='type-id-470' const='yes' id='type-id-807'/>
+    <qualified-type-def type-id='type-id-469' const='yes' id='type-id-807'/>
     <!-- const vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >* -->
     <pointer-type-def type-id='type-id-807' size-in-bits='64' id='type-id-808'/>
     <!-- const vtksys::hash_map<int, void (*)(vtkMultiProcessController*, void*), vtksys::hash<int>, std::equal_to<int>, std::allocator<char> > -->
@@ -11072,9 +11072,9 @@
     <!-- vtksys::_Hashtable_node<std::pair<const int, void*> >**& -->
     <reference-type-def kind='lvalue' type-id='type-id-408' size-in-bits='64' id='type-id-959'/>
     <!-- vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >& -->
-    <reference-type-def kind='lvalue' type-id='type-id-470' size-in-bits='64' id='type-id-960'/>
+    <reference-type-def kind='lvalue' type-id='type-id-469' size-in-bits='64' id='type-id-960'/>
     <!-- vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >* -->
-    <pointer-type-def type-id='type-id-470' size-in-bits='64' id='type-id-961'/>
+    <pointer-type-def type-id='type-id-469' size-in-bits='64' id='type-id-961'/>
     <!-- vtksys::hash_map<int, void (*)(vtkMultiProcessController*, void*), vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-471' size-in-bits='64' id='type-id-962'/>
     <!-- vtksys::hash_map<int, void (*)(vtkMultiProcessController*, void*), vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >* -->
@@ -16327,7 +16327,7 @@
         </member-function>
       </class-decl>
       <!-- class vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> > -->
-      <class-decl name='hash_map&lt;int, std::vector&lt;vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator&lt;vtkMultiProcessController::vtkInternal::vtkRMICallback&gt; &gt;, vtksys::hash&lt;int&gt;, std::equal_to&lt;int&gt;, std::allocator&lt;char&gt; &gt;' size-in-bits='320' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Utilities/KWSys/vtksys/hash_map.hxx' line='82' column='1' id='type-id-470'>
+      <class-decl name='hash_map&lt;int, std::vector&lt;vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator&lt;vtkMultiProcessController::vtkInternal::vtkRMICallback&gt; &gt;, vtksys::hash&lt;int&gt;, std::equal_to&lt;int&gt;, std::allocator&lt;char&gt; &gt;' size-in-bits='320' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Utilities/KWSys/vtksys/hash_map.hxx' line='82' column='1' id='type-id-469'>
         <data-member access='private' layout-offset-in-bits='0'>
           <!-- vtksys::hashtable<std::pair<const int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> > >, int, vtksys::hash<int>, vtksys::hash_select1st<const int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> > >, std::equal_to<int>, std::allocator<char> > vtksys::hash_map<int, std::vector<vtkMultiProcessController::vtkInternal::vtkRMICallback, std::allocator<vtkMultiProcessController::vtkInternal::vtkRMICallback> >, vtksys::hash<int>, std::equal_to<int>, std::allocator<char> >::_M_ht -->
           <var-decl name='_M_ht' type-id='type-id-825' visibility='default' filepath='/tmp/legendre/spack-stage/spack-stage-R_crTC/VTK-6.1.0/spack-build/Utilities/KWSys/vtksys/hash_map.hxx' line='86' column='1'/>
@@ -18802,7 +18802,7 @@
     <!-- const std::basic_string<char, std::char_traits<char>, std::allocator<char> >::_Rep* -->
     <pointer-type-def type-id='type-id-1063' size-in-bits='64' id='type-id-430'/>
     <!-- const std::deque<unsigned char, std::allocator<unsigned char> > -->
-    <qualified-type-def type-id='type-id-90' const='yes' id='type-id-1064'/>
+    <qualified-type-def type-id='type-id-89' const='yes' id='type-id-1064'/>
     <!-- const std::deque<unsigned char, std::allocator<unsigned char> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1064' size-in-bits='64' id='type-id-1065'/>
     <!-- const std::deque<unsigned char, std::allocator<unsigned char> >* -->
@@ -18826,9 +18826,9 @@
     <!-- std::allocator<unsigned char*>* -->
     <pointer-type-def type-id='type-id-1060' size-in-bits='64' id='type-id-1075'/>
     <!-- std::deque<unsigned char, std::allocator<unsigned char> >& -->
-    <reference-type-def kind='lvalue' type-id='type-id-90' size-in-bits='64' id='type-id-1076'/>
+    <reference-type-def kind='lvalue' type-id='type-id-89' size-in-bits='64' id='type-id-1076'/>
     <!-- std::deque<unsigned char, std::allocator<unsigned char> >* -->
-    <pointer-type-def type-id='type-id-90' size-in-bits='64' id='type-id-1077'/>
+    <pointer-type-def type-id='type-id-89' size-in-bits='64' id='type-id-1077'/>
     <!-- unsigned char* const* -->
     <pointer-type-def type-id='type-id-343' size-in-bits='64' id='type-id-413'/>
     <!-- unsigned char** -->
@@ -19451,7 +19451,7 @@
         </member-function>
       </class-decl>
       <!-- class std::deque<unsigned char, std::allocator<unsigned char> > -->
-      <class-decl name='deque&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;' size-in-bits='640' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h' line='639' column='1' id='type-id-90'>
+      <class-decl name='deque&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;' size-in-bits='640' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h' line='639' column='1' id='type-id-89'>
         <!-- class std::_Deque_base<unsigned char, std::allocator<unsigned char> > -->
         <base-class access='protected' layout-offset-in-bits='0' type-id='type-id-1051'/>
         <member-function access='private'>

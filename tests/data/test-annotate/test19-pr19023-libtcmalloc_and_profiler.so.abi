@@ -2931,7 +2931,7 @@
     <class-decl name='HeapCleaner' size-in-bits='8' visibility='default' filepath='./src/gperftools/heap-checker.h' line='403' column='1' id='type-id-130'>
       <member-type access='private'>
         <!-- typedef void ()* HeapCleaner::void_function -->
-        <typedef-decl name='void_function' type-id='type-id-132' filepath='./src/gperftools/heap-checker.h' line='405' column='1' id='type-id-131'/>
+        <typedef-decl name='void_function' type-id='type-id-131' filepath='./src/gperftools/heap-checker.h' line='405' column='1' id='type-id-132'/>
       </member-type>
       <data-member access='private' static='yes'>
         <!-- static std::vector<void (*)(), std::allocator<void (*)()> >* HeapCleaner::heap_cleanups_ -->
@@ -2943,7 +2943,7 @@
           <!-- implicit parameter of type 'HeapCleaner*' -->
           <parameter type-id='type-id-134' is-artificial='yes'/>
           <!-- parameter of type 'typedef HeapCleaner::void_function' -->
-          <parameter type-id='type-id-131'/>
+          <parameter type-id='type-id-132'/>
           <!-- void -->
           <return type-id='type-id-55'/>
         </function-decl>
@@ -3276,7 +3276,7 @@
     <class-decl name='GoogleInitializer' size-in-bits='128' visibility='default' filepath='src/base/googleinit.h' line='39' column='1' id='type-id-176'>
       <member-type access='private'>
         <!-- typedef void ()* GoogleInitializer::VoidFunction -->
-        <typedef-decl name='VoidFunction' type-id='type-id-132' filepath='src/base/googleinit.h' line='41' column='1' id='type-id-177'/>
+        <typedef-decl name='VoidFunction' type-id='type-id-131' filepath='src/base/googleinit.h' line='41' column='1' id='type-id-177'/>
       </member-type>
       <data-member access='private' layout-offset-in-bits='0'>
         <!-- const char* const GoogleInitializer::name_ -->
@@ -4869,7 +4869,7 @@
       </member-type>
       <member-type access='private'>
         <!-- typedef void* (typedef size_t)* HeapProfileTable::Allocator -->
-        <typedef-decl name='Allocator' type-id='type-id-279' filepath='src/heap-profile-table.h' line='83' column='1' id='type-id-278'/>
+        <typedef-decl name='Allocator' type-id='type-id-278' filepath='src/heap-profile-table.h' line='83' column='1' id='type-id-279'/>
       </member-type>
       <member-type access='private'>
         <!-- typedef void (void*)* HeapProfileTable::DeAllocator -->
@@ -4881,7 +4881,7 @@
       </member-type>
       <member-type access='private'>
         <!-- typedef void (const HeapProfileTable::AllocContextInfo&)* HeapProfileTable::AllocContextIterator -->
-        <typedef-decl name='AllocContextIterator' type-id='type-id-283' filepath='src/heap-profile-table.h' line='147' column='1' id='type-id-282'/>
+        <typedef-decl name='AllocContextIterator' type-id='type-id-282' filepath='src/heap-profile-table.h' line='147' column='1' id='type-id-283'/>
       </member-type>
       <member-type access='private'>
         <!-- struct HeapProfileTable::AllocValue -->
@@ -5125,7 +5125,7 @@
               <!-- implicit parameter of type 'HeapProfileTable::Snapshot*' -->
               <parameter type-id='type-id-166' is-artificial='yes'/>
               <!-- parameter of type 'typedef HeapProfileTable::Allocator' -->
-              <parameter type-id='type-id-278'/>
+              <parameter type-id='type-id-279'/>
               <!-- parameter of type 'typedef HeapProfileTable::DeAllocator' -->
               <parameter type-id='type-id-280'/>
               <!-- void -->
@@ -5236,7 +5236,7 @@
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
         <!-- HeapProfileTable::Allocator HeapProfileTable::alloc_ -->
-        <var-decl name='alloc_' type-id='type-id-278' visibility='default' filepath='src/heap-profile-table.h' line='325' column='1'/>
+        <var-decl name='alloc_' type-id='type-id-279' visibility='default' filepath='src/heap-profile-table.h' line='325' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='64'>
         <!-- HeapProfileTable::DeAllocator HeapProfileTable::dealloc_ -->
@@ -5268,7 +5268,7 @@
           <!-- implicit parameter of type 'HeapProfileTable*' -->
           <parameter type-id='type-id-308' is-artificial='yes'/>
           <!-- parameter of type 'typedef HeapProfileTable::Allocator' -->
-          <parameter type-id='type-id-278'/>
+          <parameter type-id='type-id-279'/>
           <!-- parameter of type 'typedef HeapProfileTable::DeAllocator' -->
           <parameter type-id='type-id-280'/>
           <!-- parameter of type 'bool' -->
@@ -5434,7 +5434,7 @@
           <!-- implicit parameter of type 'const HeapProfileTable*' -->
           <parameter type-id='type-id-310' is-artificial='yes'/>
           <!-- parameter of type 'typedef HeapProfileTable::AllocContextIterator' -->
-          <parameter type-id='type-id-282'/>
+          <parameter type-id='type-id-283'/>
           <!-- void -->
           <return type-id='type-id-55'/>
         </function-decl>
@@ -5819,11 +5819,11 @@
       </member-type>
       <member-type access='private'>
         <!-- typedef std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > MemoryRegionMap::RegionSet -->
-        <typedef-decl name='RegionSet' type-id='type-id-328' filepath='src/memory_region_map.h' line='263' column='1' id='type-id-327'/>
+        <typedef-decl name='RegionSet' type-id='type-id-327' filepath='src/memory_region_map.h' line='263' column='1' id='type-id-328'/>
       </member-type>
       <member-type access='private'>
         <!-- typedef std::_Rb_tree_const_iterator<MemoryRegionMap::Region> MemoryRegionMap::RegionIterator -->
-        <typedef-decl name='RegionIterator' type-id='type-id-330' filepath='src/memory_region_map.h' line='268' column='1' id='type-id-329'/>
+        <typedef-decl name='RegionIterator' type-id='type-id-329' filepath='src/memory_region_map.h' line='268' column='1' id='type-id-330'/>
       </member-type>
       <data-member access='private' static='yes'>
         <!-- static int MemoryRegionMap::client_count_ -->
@@ -5939,14 +5939,14 @@
         <!-- MemoryRegionMap::RegionIterator MemoryRegionMap::EndRegionLocked() -->
         <function-decl name='EndRegionLocked' mangled-name='_ZN15MemoryRegionMap15EndRegionLockedEv' filepath='src/memory_region_map.h' line='278' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MemoryRegionMap15EndRegionLockedEv'>
           <!-- typedef MemoryRegionMap::RegionIterator -->
-          <return type-id='type-id-329'/>
+          <return type-id='type-id-330'/>
         </function-decl>
       </member-function>
       <member-function access='private' static='yes'>
         <!-- MemoryRegionMap::RegionIterator MemoryRegionMap::BeginRegionLocked() -->
         <function-decl name='BeginRegionLocked' mangled-name='_ZN15MemoryRegionMap17BeginRegionLockedEv' filepath='src/memory_region_map.h' line='277' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MemoryRegionMap17BeginRegionLockedEv'>
           <!-- typedef MemoryRegionMap::RegionIterator -->
-          <return type-id='type-id-329'/>
+          <return type-id='type-id-330'/>
         </function-decl>
       </member-function>
       <member-function access='private' static='yes'>
@@ -6508,7 +6508,7 @@
     <!-- const std::_Rb_tree<std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > >, std::_Select1st<std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > > >, std::less<std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> > >, STL_Allocator<std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > >, HeapLeakChecker::Allocator> >* -->
     <pointer-type-def type-id='type-id-456' size-in-bits='64' id='type-id-458'/>
     <!-- const std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-    <qualified-type-def type-id='type-id-330' const='yes' id='type-id-459'/>
+    <qualified-type-def type-id='type-id-329' const='yes' id='type-id-459'/>
     <!-- const std::_Rb_tree_const_iterator<MemoryRegionMap::Region>& -->
     <reference-type-def kind='lvalue' type-id='type-id-459' size-in-bits='64' id='type-id-460'/>
     <!-- const std::_Rb_tree_const_iterator<MemoryRegionMap::Region>* -->
@@ -6758,9 +6758,9 @@
     <!-- std::_Rb_tree<std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > >, std::_Select1st<std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > > >, std::less<std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> > >, STL_Allocator<std::pair<const std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> >, std::vector<AllocObject, STL_Allocator<AllocObject, HeapLeakChecker::Allocator> > >, HeapLeakChecker::Allocator> >::_Rb_tree_impl<std::less<std::basic_string<char, std::char_traits<char>, STL_Allocator<char, HeapLeakChecker::Allocator> > >, false>* -->
     <pointer-type-def type-id='type-id-619' size-in-bits='64' id='type-id-620'/>
     <!-- std::_Rb_tree_const_iterator<MemoryRegionMap::Region>& -->
-    <reference-type-def kind='lvalue' type-id='type-id-330' size-in-bits='64' id='type-id-621'/>
+    <reference-type-def kind='lvalue' type-id='type-id-329' size-in-bits='64' id='type-id-621'/>
     <!-- std::_Rb_tree_const_iterator<MemoryRegionMap::Region>* -->
-    <pointer-type-def type-id='type-id-330' size-in-bits='64' id='type-id-622'/>
+    <pointer-type-def type-id='type-id-329' size-in-bits='64' id='type-id-622'/>
     <!-- std::_Rb_tree_const_iterator<long unsigned int>& -->
     <reference-type-def kind='lvalue' type-id='type-id-462' size-in-bits='64' id='type-id-623'/>
     <!-- std::_Rb_tree_const_iterator<long unsigned int>* -->
@@ -6904,21 +6904,21 @@
     <!-- unsigned long int* -->
     <pointer-type-def type-id='type-id-5' size-in-bits='64' id='type-id-198'/>
     <!-- void ()* const -->
-    <qualified-type-def type-id='type-id-132' const='yes' id='type-id-694'/>
+    <qualified-type-def type-id='type-id-131' const='yes' id='type-id-694'/>
     <!-- void ()* const& -->
     <reference-type-def kind='lvalue' type-id='type-id-694' size-in-bits='64' id='type-id-695'/>
     <!-- void ()* const* -->
     <pointer-type-def type-id='type-id-694' size-in-bits='64' id='type-id-696'/>
     <!-- void ()*& -->
-    <reference-type-def kind='lvalue' type-id='type-id-132' size-in-bits='64' id='type-id-697'/>
+    <reference-type-def kind='lvalue' type-id='type-id-131' size-in-bits='64' id='type-id-697'/>
     <!-- void ()** -->
-    <pointer-type-def type-id='type-id-132' size-in-bits='64' id='type-id-698'/>
+    <pointer-type-def type-id='type-id-131' size-in-bits='64' id='type-id-698'/>
     <!-- void ()** const -->
     <qualified-type-def type-id='type-id-698' const='yes' id='type-id-699'/>
     <!-- void ()** const& -->
     <reference-type-def kind='lvalue' type-id='type-id-699' size-in-bits='64' id='type-id-700'/>
     <!-- void (const HeapProfileTable::AllocContextInfo&)* -->
-    <pointer-type-def type-id='type-id-701' size-in-bits='64' id='type-id-283'/>
+    <pointer-type-def type-id='type-id-701' size-in-bits='64' id='type-id-282'/>
     <!-- void (void*, HeapProfileTable::AllocValue*, void (void*, const HeapProfileTable::AllocInfo&)*)* -->
     <pointer-type-def type-id='type-id-702' size-in-bits='64' id='type-id-160'/>
     <!-- void (void*, const HeapProfileTable::AllocInfo&)* -->
@@ -6932,7 +6932,7 @@
     <!-- void (void*, void*, typedef size_t, int, int, int, typedef off_t)** -->
     <pointer-type-def type-id='type-id-139' size-in-bits='64' id='type-id-707'/>
     <!-- void* (typedef size_t)* -->
-    <pointer-type-def type-id='type-id-708' size-in-bits='64' id='type-id-279'/>
+    <pointer-type-def type-id='type-id-708' size-in-bits='64' id='type-id-278'/>
     <!-- void* const -->
     <qualified-type-def type-id='type-id-53' const='yes' id='type-id-54'/>
     <!-- void* const& -->
@@ -8838,7 +8838,7 @@
         </member-function>
       </class-decl>
       <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-      <class-decl name='_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='224' column='1' id='type-id-330'>
+      <class-decl name='_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='224' column='1' id='type-id-329'>
         <data-member access='public' layout-offset-in-bits='0'>
           <!-- std::_Rb_tree_node_base::_Const_Base_ptr std::_Rb_tree_const_iterator<MemoryRegionMap::Region>::_M_node -->
           <var-decl name='_M_node' type-id='type-id-742' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='294' column='1'/>
@@ -15777,7 +15777,7 @@
       <!-- parameter of type 'pthread_once_t*' -->
       <parameter type-id='type-id-946' name='ctl' filepath='src/maybe_threads.cc' line='128' column='1'/>
       <!-- parameter of type 'void ()*' -->
-      <parameter type-id='type-id-132' name='init_routine' filepath='src/maybe_threads.cc' line='129' column='1'/>
+      <parameter type-id='type-id-131' name='init_routine' filepath='src/maybe_threads.cc' line='129' column='1'/>
       <!-- int -->
       <return type-id='type-id-1'/>
     </function-decl>
@@ -16052,7 +16052,7 @@
     <!-- MemoryRegionMap::Region& -->
     <reference-type-def kind='lvalue' type-id='type-id-320' size-in-bits='64' id='type-id-958'/>
     <!-- MemoryRegionMap::RegionSet* -->
-    <pointer-type-def type-id='type-id-327' size-in-bits='64' id='type-id-331'/>
+    <pointer-type-def type-id='type-id-328' size-in-bits='64' id='type-id-331'/>
     <!-- MemoryRegionMap::RegionSetRep* -->
     <pointer-type-def type-id='type-id-315' size-in-bits='64' id='type-id-959'/>
     <!-- STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator>* -->
@@ -16094,7 +16094,7 @@
     <!-- const std::_Rb_tree_node<MemoryRegionMap::Region>& -->
     <reference-type-def kind='lvalue' type-id='type-id-498' size-in-bits='64' id='type-id-974'/>
     <!-- const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > -->
-    <qualified-type-def type-id='type-id-328' const='yes' id='type-id-975'/>
+    <qualified-type-def type-id='type-id-327' const='yes' id='type-id-975'/>
     <!-- const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-975' size-in-bits='64' id='type-id-976'/>
     <!-- const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >* -->
@@ -16122,9 +16122,9 @@
     <!-- std::pair<std::_Rb_tree_iterator<MemoryRegionMap::Region>, bool>* -->
     <pointer-type-def type-id='type-id-987' size-in-bits='64' id='type-id-988'/>
     <!-- std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >& -->
-    <reference-type-def kind='lvalue' type-id='type-id-328' size-in-bits='64' id='type-id-989'/>
+    <reference-type-def kind='lvalue' type-id='type-id-327' size-in-bits='64' id='type-id-989'/>
     <!-- std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >* -->
-    <pointer-type-def type-id='type-id-328' size-in-bits='64' id='type-id-990'/>
+    <pointer-type-def type-id='type-id-327' size-in-bits='64' id='type-id-990'/>
     <!-- void (const MemoryRegionMap::Region&)* -->
     <pointer-type-def type-id='type-id-991' size-in-bits='64' id='type-id-337'/>
     <!-- namespace std -->
@@ -16163,7 +16163,7 @@
       <class-decl name='pair&lt;std::_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;, bool&gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='68' column='1' id='type-id-985'>
         <data-member access='public' layout-offset-in-bits='0'>
           <!-- std::_Rb_tree_const_iterator<MemoryRegionMap::Region> std::pair<std::_Rb_tree_const_iterator<MemoryRegionMap::Region>, bool>::first -->
-          <var-decl name='first' type-id='type-id-330' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='72' column='1'/>
+          <var-decl name='first' type-id='type-id-329' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='72' column='1'/>
         </data-member>
         <data-member access='public' layout-offset-in-bits='64'>
           <!-- bool std::pair<std::_Rb_tree_const_iterator<MemoryRegionMap::Region>, bool>::second -->
@@ -16226,7 +16226,7 @@
         </member-function>
       </class-decl>
       <!-- class std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > -->
-      <class-decl name='set&lt;MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator&lt;MemoryRegionMap::Region, MemoryRegionMap::MyAllocator&gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='88' column='1' id='type-id-328'>
+      <class-decl name='set&lt;MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator&lt;MemoryRegionMap::Region, MemoryRegionMap::MyAllocator&gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='88' column='1' id='type-id-327'>
         <data-member access='private' layout-offset-in-bits='0'>
           <!-- std::_Rb_tree<MemoryRegionMap::Region, MemoryRegionMap::Region, std::_Identity<MemoryRegionMap::Region>, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> > std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >::_M_t -->
           <var-decl name='_M_t' type-id='type-id-970' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='112' column='1'/>
@@ -16270,7 +16270,7 @@
             <!-- implicit parameter of type 'const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-977' is-artificial='yes'/>
             <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -16279,7 +16279,7 @@
             <!-- implicit parameter of type 'const std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-977' is-artificial='yes'/>
             <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -16290,7 +16290,7 @@
             <!-- parameter of type 'const MemoryRegionMap::Region&' -->
             <parameter type-id='type-id-325'/>
             <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -16319,7 +16319,7 @@
             <!-- implicit parameter of type 'std::set<MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-990' is-artificial='yes'/>
             <!-- parameter of type 'struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region>' -->
-            <parameter type-id='type-id-330'/>
+            <parameter type-id='type-id-329'/>
             <!-- void -->
             <return type-id='type-id-55'/>
           </function-decl>
@@ -16440,7 +16440,7 @@
             <!-- implicit parameter of type 'const std::_Rb_tree<MemoryRegionMap::Region, MemoryRegionMap::Region, std::_Identity<MemoryRegionMap::Region>, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-973' is-artificial='yes'/>
             <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -16449,7 +16449,7 @@
             <!-- implicit parameter of type 'const std::_Rb_tree<MemoryRegionMap::Region, MemoryRegionMap::Region, std::_Identity<MemoryRegionMap::Region>, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-973' is-artificial='yes'/>
             <!-- struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region> -->
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='protected' static='yes'>
@@ -16587,7 +16587,7 @@
             <!-- implicit parameter of type 'std::_Rb_tree<MemoryRegionMap::Region, MemoryRegionMap::Region, std::_Identity<MemoryRegionMap::Region>, MemoryRegionMap::RegionCmp, STL_Allocator<MemoryRegionMap::Region, MemoryRegionMap::MyAllocator> >*' -->
             <parameter type-id='type-id-981' is-artificial='yes'/>
             <!-- parameter of type 'struct std::_Rb_tree_const_iterator<MemoryRegionMap::Region>' -->
-            <parameter type-id='type-id-330'/>
+            <parameter type-id='type-id-329'/>
             <!-- void -->
             <return type-id='type-id-55'/>
           </function-decl>
@@ -16805,11 +16805,11 @@
       </member-type>
       <member-type access='private'>
         <!-- typedef std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> > ProfileHandler::CallbackList -->
-        <typedef-decl name='CallbackList' type-id='type-id-1003' filepath='src/profile-handler.cc' line='199' column='1' id='type-id-1002'/>
+        <typedef-decl name='CallbackList' type-id='type-id-1002' filepath='src/profile-handler.cc' line='199' column='1' id='type-id-1003'/>
       </member-type>
       <member-type access='private'>
         <!-- typedef std::_List_iterator<ProfileHandlerToken*> ProfileHandler::CallbackIterator -->
-        <typedef-decl name='CallbackIterator' type-id='type-id-1005' filepath='src/profile-handler.cc' line='200' column='1' id='type-id-1004'/>
+        <typedef-decl name='CallbackIterator' type-id='type-id-1004' filepath='src/profile-handler.cc' line='200' column='1' id='type-id-1005'/>
       </member-type>
       <data-member access='private' static='yes'>
         <!-- static const int32 ProfileHandler::kMaxFrequency -->
@@ -16869,7 +16869,7 @@
       </data-member>
       <data-member access='private' layout-offset-in-bits='320'>
         <!-- ProfileHandler::CallbackList ProfileHandler::callbacks_ -->
-        <var-decl name='callbacks_' type-id='type-id-1002' visibility='default' filepath='src/profile-handler.cc' line='201' column='1'/>
+        <var-decl name='callbacks_' type-id='type-id-1003' visibility='default' filepath='src/profile-handler.cc' line='201' column='1'/>
       </data-member>
       <member-function access='private' constructor='yes'>
         <!-- ProfileHandler::ProfileHandler() -->
@@ -17117,7 +17117,7 @@
     <!-- const std::_List_base<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >* -->
     <pointer-type-def type-id='type-id-1034' size-in-bits='64' id='type-id-1035'/>
     <!-- const std::_List_iterator<ProfileHandlerToken*> -->
-    <qualified-type-def type-id='type-id-1005' const='yes' id='type-id-1036'/>
+    <qualified-type-def type-id='type-id-1004' const='yes' id='type-id-1036'/>
     <!-- const std::_List_iterator<ProfileHandlerToken*>& -->
     <reference-type-def kind='lvalue' type-id='type-id-1036' size-in-bits='64' id='type-id-1037'/>
     <!-- const std::_List_iterator<ProfileHandlerToken*>* -->
@@ -17137,7 +17137,7 @@
     <!-- const std::allocator<std::_List_node<ProfileHandlerToken*> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1047' size-in-bits='64' id='type-id-1048'/>
     <!-- const std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> > -->
-    <qualified-type-def type-id='type-id-1003' const='yes' id='type-id-1049'/>
+    <qualified-type-def type-id='type-id-1002' const='yes' id='type-id-1049'/>
     <!-- const std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1049' size-in-bits='64' id='type-id-1050'/>
     <!-- const std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >* -->
@@ -17147,9 +17147,9 @@
     <!-- std::_List_base<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >::_List_impl* -->
     <pointer-type-def type-id='type-id-1053' size-in-bits='64' id='type-id-1054'/>
     <!-- std::_List_iterator<ProfileHandlerToken*>& -->
-    <reference-type-def kind='lvalue' type-id='type-id-1005' size-in-bits='64' id='type-id-1055'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1004' size-in-bits='64' id='type-id-1055'/>
     <!-- std::_List_iterator<ProfileHandlerToken*>* -->
-    <pointer-type-def type-id='type-id-1005' size-in-bits='64' id='type-id-1056'/>
+    <pointer-type-def type-id='type-id-1004' size-in-bits='64' id='type-id-1056'/>
     <!-- std::_List_node<ProfileHandlerToken*>& -->
     <reference-type-def kind='lvalue' type-id='type-id-1039' size-in-bits='64' id='type-id-1057'/>
     <!-- std::_List_node<ProfileHandlerToken*>* -->
@@ -17165,9 +17165,9 @@
     <!-- std::allocator<std::_List_node<ProfileHandlerToken*> >* -->
     <pointer-type-def type-id='type-id-1046' size-in-bits='64' id='type-id-1064'/>
     <!-- std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >& -->
-    <reference-type-def kind='lvalue' type-id='type-id-1003' size-in-bits='64' id='type-id-1065'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1002' size-in-bits='64' id='type-id-1065'/>
     <!-- std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >* -->
-    <pointer-type-def type-id='type-id-1003' size-in-bits='64' id='type-id-1066'/>
+    <pointer-type-def type-id='type-id-1002' size-in-bits='64' id='type-id-1066'/>
     <!-- timer_id_holder* -->
     <pointer-type-def type-id='type-id-1013' size-in-bits='64' id='type-id-1014'/>
     <!-- void (int, siginfo_t*, void*, void*)* -->
@@ -17269,7 +17269,7 @@
         </data-member>
       </class-decl>
       <!-- struct std::_List_iterator<ProfileHandlerToken*> -->
-      <class-decl name='_List_iterator&lt;ProfileHandlerToken*&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='114' column='1' id='type-id-1005'>
+      <class-decl name='_List_iterator&lt;ProfileHandlerToken*&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='114' column='1' id='type-id-1004'>
         <data-member access='public' layout-offset-in-bits='0'>
           <!-- std::_List_node_base* std::_List_iterator<ProfileHandlerToken*>::_M_node -->
           <var-decl name='_M_node' type-id='type-id-1061' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='179' column='1'/>
@@ -17450,7 +17450,7 @@
         </member-function>
       </class-decl>
       <!-- class std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> > -->
-      <class-decl name='list&lt;ProfileHandlerToken*, std::allocator&lt;ProfileHandlerToken*&gt; &gt;' size-in-bits='128' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='418' column='1' id='type-id-1003'>
+      <class-decl name='list&lt;ProfileHandlerToken*, std::allocator&lt;ProfileHandlerToken*&gt; &gt;' size-in-bits='128' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='418' column='1' id='type-id-1002'>
         <!-- class std::_List_base<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> > -->
         <base-class access='protected' layout-offset-in-bits='0' type-id='type-id-1033'/>
         <member-function access='private'>
@@ -17505,7 +17505,7 @@
             <!-- implicit parameter of type 'std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >*' -->
             <parameter type-id='type-id-1066' is-artificial='yes'/>
             <!-- struct std::_List_iterator<ProfileHandlerToken*> -->
-            <return type-id='type-id-1005'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -17514,7 +17514,7 @@
             <!-- implicit parameter of type 'std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >*' -->
             <parameter type-id='type-id-1066' is-artificial='yes'/>
             <!-- struct std::_List_iterator<ProfileHandlerToken*> -->
-            <return type-id='type-id-1005'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='protected'>
@@ -17523,7 +17523,7 @@
             <!-- implicit parameter of type 'std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >*' -->
             <parameter type-id='type-id-1066' is-artificial='yes'/>
             <!-- parameter of type 'struct std::_List_iterator<ProfileHandlerToken*>' -->
-            <parameter type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
             <!-- void -->
             <return type-id='type-id-55'/>
           </function-decl>
@@ -17534,9 +17534,9 @@
             <!-- implicit parameter of type 'std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >*' -->
             <parameter type-id='type-id-1066' is-artificial='yes'/>
             <!-- parameter of type 'struct std::_List_iterator<ProfileHandlerToken*>' -->
-            <parameter type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
             <!-- struct std::_List_iterator<ProfileHandlerToken*> -->
-            <return type-id='type-id-1005'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='protected'>
@@ -17556,7 +17556,7 @@
             <!-- implicit parameter of type 'std::list<ProfileHandlerToken*, std::allocator<ProfileHandlerToken*> >*' -->
             <parameter type-id='type-id-1066' is-artificial='yes'/>
             <!-- parameter of type 'struct std::_List_iterator<ProfileHandlerToken*>' -->
-            <parameter type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
             <!-- parameter of type 'ProfileHandlerToken* const&' -->
             <parameter type-id='type-id-1018'/>
             <!-- void -->
@@ -18880,7 +18880,7 @@
     <class-decl name='SymbolTable' size-in-bits='448' visibility='default' filepath='src/symbolize.h' line='50' column='1' id='type-id-1147'>
       <member-type access='private'>
         <!-- typedef std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > > SymbolTable::SymbolMap -->
-        <typedef-decl name='SymbolMap' type-id='type-id-1149' filepath='src/symbolize.h' line='72' column='1' id='type-id-1148'/>
+        <typedef-decl name='SymbolMap' type-id='type-id-1148' filepath='src/symbolize.h' line='72' column='1' id='type-id-1149'/>
       </member-type>
       <data-member access='private' static='yes'>
         <!-- static const int SymbolTable::kSymbolSize -->
@@ -18888,7 +18888,7 @@
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
         <!-- SymbolTable::SymbolMap SymbolTable::symbolization_table_ -->
-        <var-decl name='symbolization_table_' type-id='type-id-1148' visibility='default' filepath='src/symbolize.h' line='78' column='1'/>
+        <var-decl name='symbolization_table_' type-id='type-id-1149' visibility='default' filepath='src/symbolize.h' line='78' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='384'>
         <!-- char* SymbolTable::symbol_buffer_ -->
@@ -19009,7 +19009,7 @@
     <!-- const std::less<const void*>* -->
     <pointer-type-def type-id='type-id-1188' size-in-bits='64' id='type-id-1190'/>
     <!-- const std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > > -->
-    <qualified-type-def type-id='type-id-1149' const='yes' id='type-id-1191'/>
+    <qualified-type-def type-id='type-id-1148' const='yes' id='type-id-1191'/>
     <!-- const std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >& -->
     <reference-type-def kind='lvalue' type-id='type-id-1191' size-in-bits='64' id='type-id-1192'/>
     <!-- const std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >* -->
@@ -19045,9 +19045,9 @@
     <!-- std::allocator<std::pair<const void* const, const char*> >* -->
     <pointer-type-def type-id='type-id-1184' size-in-bits='64' id='type-id-1210'/>
     <!-- std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >& -->
-    <reference-type-def kind='lvalue' type-id='type-id-1149' size-in-bits='64' id='type-id-1211'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1148' size-in-bits='64' id='type-id-1211'/>
     <!-- std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >* -->
-    <pointer-type-def type-id='type-id-1149' size-in-bits='64' id='type-id-1212'/>
+    <pointer-type-def type-id='type-id-1148' size-in-bits='64' id='type-id-1212'/>
     <!-- std::pair<const void* const, const char*>& -->
     <reference-type-def kind='lvalue' type-id='type-id-1194' size-in-bits='64' id='type-id-1213'/>
     <!-- std::pair<const void* const, const char*>* -->
@@ -19178,7 +19178,7 @@
         </member-function>
       </class-decl>
       <!-- class std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > > -->
-      <class-decl name='map&lt;const void*, const char*, std::less&lt;const void*&gt;, std::allocator&lt;std::pair&lt;const void* const, const char*&gt; &gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_map.h' line='87' column='1' id='type-id-1149'>
+      <class-decl name='map&lt;const void*, const char*, std::less&lt;const void*&gt;, std::allocator&lt;std::pair&lt;const void* const, const char*&gt; &gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_map.h' line='87' column='1' id='type-id-1148'>
         <member-type access='private'>
           <!-- class std::map<const void*, const char*, std::less<const void*>, std::allocator<std::pair<const void* const, const char*> > >::value_compare -->
           <class-decl name='value_compare' visibility='default' is-declaration-only='yes' id='type-id-1219'/>
@@ -22790,7 +22790,7 @@
     <!-- uint64_t* -->
     <pointer-type-def type-id='type-id-11' size-in-bits='64' id='type-id-1469'/>
     <!-- void ()* -->
-    <pointer-type-def type-id='type-id-1470' size-in-bits='64' id='type-id-132'/>
+    <pointer-type-def type-id='type-id-1470' size-in-bits='64' id='type-id-131'/>
     <!-- void (void*)* -->
     <pointer-type-def type-id='type-id-1471' size-in-bits='64' id='type-id-137'/>
     <!-- void (void*)** -->
@@ -24444,7 +24444,7 @@
     <!-- int atexit(void ()*) -->
     <function-decl name='atexit' filepath='/usr/include/stdlib.h' line='518' column='1' visibility='default' binding='global' size-in-bits='64'>
       <!-- parameter of type 'void ()*' -->
-      <parameter type-id='type-id-132'/>
+      <parameter type-id='type-id-131'/>
       <!-- int -->
       <return type-id='type-id-1'/>
     </function-decl>
