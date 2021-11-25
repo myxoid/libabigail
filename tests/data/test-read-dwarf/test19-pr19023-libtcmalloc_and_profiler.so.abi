@@ -1666,7 +1666,7 @@
     <typedef-decl name='RawFD' type-id='type-id-1' filepath='./src/base/logging.h' line='251' column='1' id='type-id-67'/>
     <class-decl name='HeapCleaner' size-in-bits='8' visibility='default' filepath='./src/gperftools/heap-checker.h' line='403' column='1' id='type-id-130'>
       <member-type access='private'>
-        <typedef-decl name='void_function' type-id='type-id-132' filepath='./src/gperftools/heap-checker.h' line='405' column='1' id='type-id-131'/>
+        <typedef-decl name='void_function' type-id='type-id-131' filepath='./src/gperftools/heap-checker.h' line='405' column='1' id='type-id-132'/>
       </member-type>
       <data-member access='private' static='yes'>
         <var-decl name='heap_cleanups_' type-id='type-id-133' mangled-name='_ZN11HeapCleaner14heap_cleanups_E' visibility='default' filepath='./src/gperftools/heap-checker.h' line='409' column='1' elf-symbol-id='_ZN11HeapCleaner14heap_cleanups_E'/>
@@ -1674,7 +1674,7 @@
       <member-function access='private' constructor='yes'>
         <function-decl name='HeapCleaner' mangled-name='_ZN11HeapCleanerC1EPFvvE' filepath='./src/gperftools/heap-checker.h' line='406' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN11HeapCleanerC1EPFvvE'>
           <parameter type-id='type-id-134' is-artificial='yes'/>
-          <parameter type-id='type-id-131'/>
+          <parameter type-id='type-id-132'/>
           <return type-id='type-id-55'/>
         </function-decl>
       </member-function>
@@ -1890,7 +1890,7 @@
     </class-decl>
     <class-decl name='GoogleInitializer' size-in-bits='128' visibility='default' filepath='src/base/googleinit.h' line='39' column='1' id='type-id-176'>
       <member-type access='private'>
-        <typedef-decl name='VoidFunction' type-id='type-id-132' filepath='src/base/googleinit.h' line='41' column='1' id='type-id-177'/>
+        <typedef-decl name='VoidFunction' type-id='type-id-131' filepath='src/base/googleinit.h' line='41' column='1' id='type-id-177'/>
       </member-type>
       <data-member access='private' layout-offset-in-bits='0'>
         <var-decl name='name_' type-id='type-id-178' visibility='default' filepath='src/base/googleinit.h' line='55' column='1'/>
@@ -2945,7 +2945,7 @@
         </class-decl>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='Allocator' type-id='type-id-279' filepath='src/heap-profile-table.h' line='83' column='1' id='type-id-278'/>
+        <typedef-decl name='Allocator' type-id='type-id-278' filepath='src/heap-profile-table.h' line='83' column='1' id='type-id-279'/>
       </member-type>
       <member-type access='private'>
         <typedef-decl name='DeAllocator' type-id='type-id-137' filepath='src/heap-profile-table.h' line='84' column='1' id='type-id-280'/>
@@ -2954,7 +2954,7 @@
         <typedef-decl name='AllocIterator' type-id='type-id-161' filepath='src/heap-profile-table.h' line='138' column='1' id='type-id-281'/>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='AllocContextIterator' type-id='type-id-283' filepath='src/heap-profile-table.h' line='147' column='1' id='type-id-282'/>
+        <typedef-decl name='AllocContextIterator' type-id='type-id-282' filepath='src/heap-profile-table.h' line='147' column='1' id='type-id-283'/>
       </member-type>
       <member-type access='private'>
         <class-decl name='AllocValue' size-in-bits='128' is-struct='yes' visibility='default' filepath='src/heap-profile-table.h' line='190' column='1' id='type-id-175'>
@@ -3124,7 +3124,7 @@
           <member-function access='private' constructor='yes'>
             <function-decl name='Snapshot' filepath='src/heap-profile-table.h' line='378' column='1' visibility='default' binding='global' size-in-bits='64'>
               <parameter type-id='type-id-166' is-artificial='yes'/>
-              <parameter type-id='type-id-278'/>
+              <parameter type-id='type-id-279'/>
               <parameter type-id='type-id-280'/>
               <return type-id='type-id-55'/>
             </function-decl>
@@ -3196,7 +3196,7 @@
         <var-decl name='kMaxStackDepth' type-id='type-id-113' mangled-name='_ZN16HeapProfileTable14kMaxStackDepthE' visibility='default' filepath='src/heap-profile-table.h' line='58' column='1' elf-symbol-id='_ZN16HeapProfileTable14kMaxStackDepthE'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
-        <var-decl name='alloc_' type-id='type-id-278' visibility='default' filepath='src/heap-profile-table.h' line='325' column='1'/>
+        <var-decl name='alloc_' type-id='type-id-279' visibility='default' filepath='src/heap-profile-table.h' line='325' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='64'>
         <var-decl name='dealloc_' type-id='type-id-280' visibility='default' filepath='src/heap-profile-table.h' line='326' column='1'/>
@@ -3219,7 +3219,7 @@
       <member-function access='private' constructor='yes'>
         <function-decl name='HeapProfileTable' mangled-name='_ZN16HeapProfileTableC2EPFPvmEPFvS0_Eb' filepath='src/heap-profile-table.h' line='88' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN16HeapProfileTableC2EPFPvmEPFvS0_Eb'>
           <parameter type-id='type-id-308' is-artificial='yes'/>
-          <parameter type-id='type-id-278'/>
+          <parameter type-id='type-id-279'/>
           <parameter type-id='type-id-280'/>
           <parameter type-id='type-id-56'/>
           <return type-id='type-id-55'/>
@@ -3323,7 +3323,7 @@
       <member-function access='private'>
         <function-decl name='IterateOrderedAllocContexts' mangled-name='_ZNK16HeapProfileTable27IterateOrderedAllocContextsEPFvRKNS_16AllocContextInfoEE' filepath='src/heap-profile-table.h' line='152' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZNK16HeapProfileTable27IterateOrderedAllocContextsEPFvRKNS_16AllocContextInfoEE'>
           <parameter type-id='type-id-310' is-artificial='yes'/>
-          <parameter type-id='type-id-282'/>
+          <parameter type-id='type-id-283'/>
           <return type-id='type-id-55'/>
         </function-decl>
       </member-function>
@@ -3574,10 +3574,10 @@
         </class-decl>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='RegionSet' type-id='type-id-328' filepath='src/memory_region_map.h' line='263' column='1' id='type-id-327'/>
+        <typedef-decl name='RegionSet' type-id='type-id-327' filepath='src/memory_region_map.h' line='263' column='1' id='type-id-328'/>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='RegionIterator' type-id='type-id-330' filepath='src/memory_region_map.h' line='268' column='1' id='type-id-329'/>
+        <typedef-decl name='RegionIterator' type-id='type-id-329' filepath='src/memory_region_map.h' line='268' column='1' id='type-id-330'/>
       </member-type>
       <data-member access='private' static='yes'>
         <var-decl name='client_count_' type-id='type-id-1' mangled-name='_ZN15MemoryRegionMap13client_count_E' visibility='default' filepath='src/memory_region_map.h' line='292' column='1' elf-symbol-id='_ZN15MemoryRegionMap13client_count_E'/>
@@ -3660,12 +3660,12 @@
       </member-function>
       <member-function access='private' static='yes'>
         <function-decl name='EndRegionLocked' mangled-name='_ZN15MemoryRegionMap15EndRegionLockedEv' filepath='src/memory_region_map.h' line='278' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MemoryRegionMap15EndRegionLockedEv'>
-          <return type-id='type-id-329'/>
+          <return type-id='type-id-330'/>
         </function-decl>
       </member-function>
       <member-function access='private' static='yes'>
         <function-decl name='BeginRegionLocked' mangled-name='_ZN15MemoryRegionMap17BeginRegionLockedEv' filepath='src/memory_region_map.h' line='277' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN15MemoryRegionMap17BeginRegionLockedEv'>
-          <return type-id='type-id-329'/>
+          <return type-id='type-id-330'/>
         </function-decl>
       </member-function>
       <member-function access='private' static='yes'>
@@ -3973,7 +3973,7 @@
     <qualified-type-def type-id='type-id-455' const='yes' id='type-id-456'/>
     <reference-type-def kind='lvalue' type-id='type-id-456' size-in-bits='64' id='type-id-457'/>
     <pointer-type-def type-id='type-id-456' size-in-bits='64' id='type-id-458'/>
-    <qualified-type-def type-id='type-id-330' const='yes' id='type-id-459'/>
+    <qualified-type-def type-id='type-id-329' const='yes' id='type-id-459'/>
     <reference-type-def kind='lvalue' type-id='type-id-459' size-in-bits='64' id='type-id-460'/>
     <pointer-type-def type-id='type-id-459' size-in-bits='64' id='type-id-461'/>
     <qualified-type-def type-id='type-id-462' const='yes' id='type-id-463'/>
@@ -4098,8 +4098,8 @@
     <reference-type-def kind='lvalue' type-id='type-id-455' size-in-bits='64' id='type-id-617'/>
     <pointer-type-def type-id='type-id-455' size-in-bits='64' id='type-id-618'/>
     <pointer-type-def type-id='type-id-619' size-in-bits='64' id='type-id-620'/>
-    <reference-type-def kind='lvalue' type-id='type-id-330' size-in-bits='64' id='type-id-621'/>
-    <pointer-type-def type-id='type-id-330' size-in-bits='64' id='type-id-622'/>
+    <reference-type-def kind='lvalue' type-id='type-id-329' size-in-bits='64' id='type-id-621'/>
+    <pointer-type-def type-id='type-id-329' size-in-bits='64' id='type-id-622'/>
     <reference-type-def kind='lvalue' type-id='type-id-462' size-in-bits='64' id='type-id-623'/>
     <pointer-type-def type-id='type-id-462' size-in-bits='64' id='type-id-624'/>
     <reference-type-def kind='lvalue' type-id='type-id-466' size-in-bits='64' id='type-id-625'/>
@@ -4171,21 +4171,21 @@
     <pointer-type-def type-id='type-id-692' size-in-bits='64' id='type-id-173'/>
     <reference-type-def kind='lvalue' type-id='type-id-5' size-in-bits='64' id='type-id-693'/>
     <pointer-type-def type-id='type-id-5' size-in-bits='64' id='type-id-198'/>
-    <qualified-type-def type-id='type-id-132' const='yes' id='type-id-694'/>
+    <qualified-type-def type-id='type-id-131' const='yes' id='type-id-694'/>
     <reference-type-def kind='lvalue' type-id='type-id-694' size-in-bits='64' id='type-id-695'/>
     <pointer-type-def type-id='type-id-694' size-in-bits='64' id='type-id-696'/>
-    <reference-type-def kind='lvalue' type-id='type-id-132' size-in-bits='64' id='type-id-697'/>
-    <pointer-type-def type-id='type-id-132' size-in-bits='64' id='type-id-698'/>
+    <reference-type-def kind='lvalue' type-id='type-id-131' size-in-bits='64' id='type-id-697'/>
+    <pointer-type-def type-id='type-id-131' size-in-bits='64' id='type-id-698'/>
     <qualified-type-def type-id='type-id-698' const='yes' id='type-id-699'/>
     <reference-type-def kind='lvalue' type-id='type-id-699' size-in-bits='64' id='type-id-700'/>
-    <pointer-type-def type-id='type-id-701' size-in-bits='64' id='type-id-283'/>
+    <pointer-type-def type-id='type-id-701' size-in-bits='64' id='type-id-282'/>
     <pointer-type-def type-id='type-id-702' size-in-bits='64' id='type-id-160'/>
     <pointer-type-def type-id='type-id-703' size-in-bits='64' id='type-id-161'/>
     <pointer-type-def type-id='type-id-704' size-in-bits='64' id='type-id-141'/>
     <pointer-type-def type-id='type-id-141' size-in-bits='64' id='type-id-705'/>
     <pointer-type-def type-id='type-id-706' size-in-bits='64' id='type-id-139'/>
     <pointer-type-def type-id='type-id-139' size-in-bits='64' id='type-id-707'/>
-    <pointer-type-def type-id='type-id-708' size-in-bits='64' id='type-id-279'/>
+    <pointer-type-def type-id='type-id-708' size-in-bits='64' id='type-id-278'/>
     <qualified-type-def type-id='type-id-53' const='yes' id='type-id-54'/>
     <reference-type-def kind='lvalue' type-id='type-id-54' size-in-bits='64' id='type-id-234'/>
     <pointer-type-def type-id='type-id-54' size-in-bits='64' id='type-id-276'/>
@@ -5425,7 +5425,7 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='224' column='1' id='type-id-330'>
+      <class-decl name='_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='224' column='1' id='type-id-329'>
         <data-member access='public' layout-offset-in-bits='0'>
           <var-decl name='_M_node' type-id='type-id-742' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='294' column='1'/>
         </data-member>
@@ -9710,7 +9710,7 @@
     </function-decl>
     <function-decl name='perftools_pthread_once' mangled-name='_Z22perftools_pthread_oncePiPFvvE' filepath='src/maybe_threads.cc' line='128' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_Z22perftools_pthread_oncePiPFvvE'>
       <parameter type-id='type-id-946' name='ctl' filepath='src/maybe_threads.cc' line='128' column='1'/>
-      <parameter type-id='type-id-132' name='init_routine' filepath='src/maybe_threads.cc' line='129' column='1'/>
+      <parameter type-id='type-id-131' name='init_routine' filepath='src/maybe_threads.cc' line='129' column='1'/>
       <return type-id='type-id-1'/>
     </function-decl>
   </abi-instr>
@@ -9883,7 +9883,7 @@
     </class-decl>
     <pointer-type-def type-id='type-id-273' size-in-bits='64' id='type-id-333'/>
     <reference-type-def kind='lvalue' type-id='type-id-320' size-in-bits='64' id='type-id-958'/>
-    <pointer-type-def type-id='type-id-327' size-in-bits='64' id='type-id-331'/>
+    <pointer-type-def type-id='type-id-328' size-in-bits='64' id='type-id-331'/>
     <pointer-type-def type-id='type-id-315' size-in-bits='64' id='type-id-959'/>
     <pointer-type-def type-id='type-id-952' size-in-bits='64' id='type-id-953'/>
     <reference-type-def kind='lvalue' type-id='type-id-956' size-in-bits='64' id='type-id-960'/>
@@ -9904,7 +9904,7 @@
     <pointer-type-def type-id='type-id-971' size-in-bits='64' id='type-id-973'/>
     <pointer-type-def type-id='type-id-479' size-in-bits='64' id='type-id-745'/>
     <reference-type-def kind='lvalue' type-id='type-id-498' size-in-bits='64' id='type-id-974'/>
-    <qualified-type-def type-id='type-id-328' const='yes' id='type-id-975'/>
+    <qualified-type-def type-id='type-id-327' const='yes' id='type-id-975'/>
     <reference-type-def kind='lvalue' type-id='type-id-975' size-in-bits='64' id='type-id-976'/>
     <pointer-type-def type-id='type-id-975' size-in-bits='64' id='type-id-977'/>
     <qualified-type-def type-id='type-id-978' const='yes' id='type-id-979'/>
@@ -9918,8 +9918,8 @@
     <pointer-type-def type-id='type-id-497' size-in-bits='64' id='type-id-744'/>
     <pointer-type-def type-id='type-id-985' size-in-bits='64' id='type-id-986'/>
     <pointer-type-def type-id='type-id-987' size-in-bits='64' id='type-id-988'/>
-    <reference-type-def kind='lvalue' type-id='type-id-328' size-in-bits='64' id='type-id-989'/>
-    <pointer-type-def type-id='type-id-328' size-in-bits='64' id='type-id-990'/>
+    <reference-type-def kind='lvalue' type-id='type-id-327' size-in-bits='64' id='type-id-989'/>
+    <pointer-type-def type-id='type-id-327' size-in-bits='64' id='type-id-990'/>
     <pointer-type-def type-id='type-id-991' size-in-bits='64' id='type-id-337'/>
     <namespace-decl name='std'>
       <class-decl name='__miter_base&lt;const void**, false&gt;' size-in-bits='8' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_algobase.h' line='285' column='1' id='type-id-992'>
@@ -9943,7 +9943,7 @@
       </class-decl>
       <class-decl name='pair&lt;std::_Rb_tree_const_iterator&lt;MemoryRegionMap::Region&gt;, bool&gt;' size-in-bits='128' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='68' column='1' id='type-id-985'>
         <data-member access='public' layout-offset-in-bits='0'>
-          <var-decl name='first' type-id='type-id-330' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='72' column='1'/>
+          <var-decl name='first' type-id='type-id-329' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='72' column='1'/>
         </data-member>
         <data-member access='public' layout-offset-in-bits='64'>
           <var-decl name='second' type-id='type-id-56' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h' line='73' column='1'/>
@@ -9985,7 +9985,7 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='set&lt;MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator&lt;MemoryRegionMap::Region, MemoryRegionMap::MyAllocator&gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='88' column='1' id='type-id-328'>
+      <class-decl name='set&lt;MemoryRegionMap::Region, MemoryRegionMap::RegionCmp, STL_Allocator&lt;MemoryRegionMap::Region, MemoryRegionMap::MyAllocator&gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='88' column='1' id='type-id-327'>
         <data-member access='private' layout-offset-in-bits='0'>
           <var-decl name='_M_t' type-id='type-id-970' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='112' column='1'/>
         </data-member>
@@ -10013,20 +10013,20 @@
         <member-function access='private'>
           <function-decl name='begin' mangled-name='_ZNKSt3setIN15MemoryRegionMap6RegionENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE5beginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='291' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-977' is-artificial='yes'/>
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='end' mangled-name='_ZNKSt3setIN15MemoryRegionMap6RegionENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE3endEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='300' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-977' is-artificial='yes'/>
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='lower_bound' mangled-name='_ZNSt3setIN15MemoryRegionMap6RegionENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE11lower_boundERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='568' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-990' is-artificial='yes'/>
             <parameter type-id='type-id-325'/>
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
@@ -10045,7 +10045,7 @@
         <member-function access='private'>
           <function-decl name='erase' mangled-name='_ZNSt3setIN15MemoryRegionMap6RegionENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE5eraseESt23_Rb_tree_const_iteratorIS1_E' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h' line='475' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-990' is-artificial='yes'/>
-            <parameter type-id='type-id-330'/>
+            <parameter type-id='type-id-329'/>
             <return type-id='type-id-55'/>
           </function-decl>
         </member-function>
@@ -10125,13 +10125,13 @@
         <member-function access='private'>
           <function-decl name='begin' mangled-name='_ZNKSt8_Rb_treeIN15MemoryRegionMap6RegionES1_St9_IdentityIS1_ENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE5beginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='632' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-973' is-artificial='yes'/>
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='end' mangled-name='_ZNKSt8_Rb_treeIN15MemoryRegionMap6RegionES1_St9_IdentityIS1_ENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE3endEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='643' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-973' is-artificial='yes'/>
-            <return type-id='type-id-330'/>
+            <return type-id='type-id-329'/>
           </function-decl>
         </member-function>
         <member-function access='protected' static='yes'>
@@ -10221,7 +10221,7 @@
         <member-function access='private'>
           <function-decl name='erase' mangled-name='_ZNSt8_Rb_treeIN15MemoryRegionMap6RegionES1_St9_IdentityIS1_ENS0_9RegionCmpE13STL_AllocatorIS1_NS0_11MyAllocatorEEE5eraseESt23_Rb_tree_const_iteratorIS1_E' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h' line='1355' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-981' is-artificial='yes'/>
-            <parameter type-id='type-id-330'/>
+            <parameter type-id='type-id-329'/>
             <return type-id='type-id-55'/>
           </function-decl>
         </member-function>
@@ -10356,10 +10356,10 @@
         </enum-decl>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='CallbackList' type-id='type-id-1003' filepath='src/profile-handler.cc' line='199' column='1' id='type-id-1002'/>
+        <typedef-decl name='CallbackList' type-id='type-id-1002' filepath='src/profile-handler.cc' line='199' column='1' id='type-id-1003'/>
       </member-type>
       <member-type access='private'>
-        <typedef-decl name='CallbackIterator' type-id='type-id-1005' filepath='src/profile-handler.cc' line='200' column='1' id='type-id-1004'/>
+        <typedef-decl name='CallbackIterator' type-id='type-id-1004' filepath='src/profile-handler.cc' line='200' column='1' id='type-id-1005'/>
       </member-type>
       <data-member access='private' static='yes'>
         <var-decl name='kMaxFrequency' type-id='type-id-1006' mangled-name='_ZN14ProfileHandler13kMaxFrequencyE' visibility='default' filepath='src/profile-handler.cc' line='128' column='1' elf-symbol-id='_ZN14ProfileHandler13kMaxFrequencyE'/>
@@ -10404,7 +10404,7 @@
         <var-decl name='signal_lock_' type-id='type-id-183' visibility='default' filepath='src/profile-handler.cc' line='184' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='320'>
-        <var-decl name='callbacks_' type-id='type-id-1002' visibility='default' filepath='src/profile-handler.cc' line='201' column='1'/>
+        <var-decl name='callbacks_' type-id='type-id-1003' visibility='default' filepath='src/profile-handler.cc' line='201' column='1'/>
       </data-member>
       <member-function access='private' constructor='yes'>
         <function-decl name='ProfileHandler' mangled-name='_ZN14ProfileHandlerC1Ev' filepath='src/profile-handler.cc' line='124' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='_ZN14ProfileHandlerC1Ev'>
@@ -10562,7 +10562,7 @@
     <qualified-type-def type-id='type-id-65' const='yes' id='type-id-1006'/>
     <qualified-type-def type-id='type-id-1033' const='yes' id='type-id-1034'/>
     <pointer-type-def type-id='type-id-1034' size-in-bits='64' id='type-id-1035'/>
-    <qualified-type-def type-id='type-id-1005' const='yes' id='type-id-1036'/>
+    <qualified-type-def type-id='type-id-1004' const='yes' id='type-id-1036'/>
     <reference-type-def kind='lvalue' type-id='type-id-1036' size-in-bits='64' id='type-id-1037'/>
     <pointer-type-def type-id='type-id-1036' size-in-bits='64' id='type-id-1038'/>
     <qualified-type-def type-id='type-id-1039' const='yes' id='type-id-1040'/>
@@ -10572,13 +10572,13 @@
     <reference-type-def kind='lvalue' type-id='type-id-1044' size-in-bits='64' id='type-id-1045'/>
     <qualified-type-def type-id='type-id-1046' const='yes' id='type-id-1047'/>
     <reference-type-def kind='lvalue' type-id='type-id-1047' size-in-bits='64' id='type-id-1048'/>
-    <qualified-type-def type-id='type-id-1003' const='yes' id='type-id-1049'/>
+    <qualified-type-def type-id='type-id-1002' const='yes' id='type-id-1049'/>
     <reference-type-def kind='lvalue' type-id='type-id-1049' size-in-bits='64' id='type-id-1050'/>
     <pointer-type-def type-id='type-id-1049' size-in-bits='64' id='type-id-1051'/>
     <pointer-type-def type-id='type-id-1033' size-in-bits='64' id='type-id-1052'/>
     <pointer-type-def type-id='type-id-1053' size-in-bits='64' id='type-id-1054'/>
-    <reference-type-def kind='lvalue' type-id='type-id-1005' size-in-bits='64' id='type-id-1055'/>
-    <pointer-type-def type-id='type-id-1005' size-in-bits='64' id='type-id-1056'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1004' size-in-bits='64' id='type-id-1055'/>
+    <pointer-type-def type-id='type-id-1004' size-in-bits='64' id='type-id-1056'/>
     <reference-type-def kind='lvalue' type-id='type-id-1039' size-in-bits='64' id='type-id-1057'/>
     <pointer-type-def type-id='type-id-1039' size-in-bits='64' id='type-id-1058'/>
     <reference-type-def kind='lvalue' type-id='type-id-1059' size-in-bits='64' id='type-id-1060'/>
@@ -10586,8 +10586,8 @@
     <pointer-type-def type-id='type-id-1043' size-in-bits='64' id='type-id-1062'/>
     <reference-type-def kind='lvalue' type-id='type-id-1046' size-in-bits='64' id='type-id-1063'/>
     <pointer-type-def type-id='type-id-1046' size-in-bits='64' id='type-id-1064'/>
-    <reference-type-def kind='lvalue' type-id='type-id-1003' size-in-bits='64' id='type-id-1065'/>
-    <pointer-type-def type-id='type-id-1003' size-in-bits='64' id='type-id-1066'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1002' size-in-bits='64' id='type-id-1065'/>
+    <pointer-type-def type-id='type-id-1002' size-in-bits='64' id='type-id-1066'/>
     <pointer-type-def type-id='type-id-1013' size-in-bits='64' id='type-id-1014'/>
     <pointer-type-def type-id='type-id-1067' size-in-bits='64' id='type-id-1015'/>
     <namespace-decl name='std'>
@@ -10652,7 +10652,7 @@
           <var-decl name='_M_prev' type-id='type-id-1061' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='74' column='1'/>
         </data-member>
       </class-decl>
-      <class-decl name='_List_iterator&lt;ProfileHandlerToken*&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='114' column='1' id='type-id-1005'>
+      <class-decl name='_List_iterator&lt;ProfileHandlerToken*&gt;' size-in-bits='64' is-struct='yes' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='114' column='1' id='type-id-1004'>
         <data-member access='public' layout-offset-in-bits='0'>
           <var-decl name='_M_node' type-id='type-id-1061' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='179' column='1'/>
         </data-member>
@@ -10772,7 +10772,7 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='list&lt;ProfileHandlerToken*, std::allocator&lt;ProfileHandlerToken*&gt; &gt;' size-in-bits='128' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='418' column='1' id='type-id-1003'>
+      <class-decl name='list&lt;ProfileHandlerToken*, std::allocator&lt;ProfileHandlerToken*&gt; &gt;' size-in-bits='128' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='418' column='1' id='type-id-1002'>
         <base-class access='protected' layout-offset-in-bits='0' type-id='type-id-1033'/>
         <member-function access='private'>
           <function-decl name='list' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='499' column='1' visibility='default' binding='global' size-in-bits='64'>
@@ -10806,27 +10806,27 @@
         <member-function access='private'>
           <function-decl name='begin' mangled-name='_ZNSt4listIP19ProfileHandlerTokenSaIS1_EE5beginEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='689' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-1066' is-artificial='yes'/>
-            <return type-id='type-id-1005'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='end' mangled-name='_ZNSt4listIP19ProfileHandlerTokenSaIS1_EE3endEv' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='707' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-1066' is-artificial='yes'/>
-            <return type-id='type-id-1005'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='protected'>
           <function-decl name='_M_erase' mangled-name='_ZNSt4listIP19ProfileHandlerTokenSaIS1_EE8_M_eraseESt14_List_iteratorIS1_E' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='1422' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-1066' is-artificial='yes'/>
-            <parameter type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
             <return type-id='type-id-55'/>
           </function-decl>
         </member-function>
         <member-function access='private'>
           <function-decl name='erase' mangled-name='_ZNSt4listIP19ProfileHandlerTokenSaIS1_EE5eraseESt14_List_iteratorIS1_E' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/list.tcc' line='107' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-1066' is-artificial='yes'/>
-            <parameter type-id='type-id-1005'/>
-            <return type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
+            <return type-id='type-id-1004'/>
           </function-decl>
         </member-function>
         <member-function access='protected'>
@@ -10839,7 +10839,7 @@
         <member-function access='protected'>
           <function-decl name='_M_insert' mangled-name='_ZNSt4listIP19ProfileHandlerTokenSaIS1_EE9_M_insertESt14_List_iteratorIS1_ERKS1_' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h' line='1405' column='1' visibility='default' binding='global' size-in-bits='64'>
             <parameter type-id='type-id-1066' is-artificial='yes'/>
-            <parameter type-id='type-id-1005'/>
+            <parameter type-id='type-id-1004'/>
             <parameter type-id='type-id-1018'/>
             <return type-id='type-id-55'/>
           </function-decl>
@@ -11707,13 +11707,13 @@
   <abi-instr address-size='64' path='src/symbolize.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-kFgaKP/gperftools-2.4' language='LANG_C_plus_plus'>
     <class-decl name='SymbolTable' size-in-bits='448' visibility='default' filepath='src/symbolize.h' line='50' column='1' id='type-id-1147'>
       <member-type access='private'>
-        <typedef-decl name='SymbolMap' type-id='type-id-1149' filepath='src/symbolize.h' line='72' column='1' id='type-id-1148'/>
+        <typedef-decl name='SymbolMap' type-id='type-id-1148' filepath='src/symbolize.h' line='72' column='1' id='type-id-1149'/>
       </member-type>
       <data-member access='private' static='yes'>
         <var-decl name='kSymbolSize' type-id='type-id-113' visibility='default' filepath='src/symbolize.h' line='75' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='0'>
-        <var-decl name='symbolization_table_' type-id='type-id-1148' visibility='default' filepath='src/symbolize.h' line='78' column='1'/>
+        <var-decl name='symbolization_table_' type-id='type-id-1149' visibility='default' filepath='src/symbolize.h' line='78' column='1'/>
       </data-member>
       <data-member access='private' layout-offset-in-bits='384'>
         <var-decl name='symbol_buffer_' type-id='type-id-90' visibility='default' filepath='src/symbolize.h' line='81' column='1'/>
@@ -11783,7 +11783,7 @@
     <qualified-type-def type-id='type-id-1187' const='yes' id='type-id-1188'/>
     <reference-type-def kind='lvalue' type-id='type-id-1188' size-in-bits='64' id='type-id-1189'/>
     <pointer-type-def type-id='type-id-1188' size-in-bits='64' id='type-id-1190'/>
-    <qualified-type-def type-id='type-id-1149' const='yes' id='type-id-1191'/>
+    <qualified-type-def type-id='type-id-1148' const='yes' id='type-id-1191'/>
     <reference-type-def kind='lvalue' type-id='type-id-1191' size-in-bits='64' id='type-id-1192'/>
     <pointer-type-def type-id='type-id-1191' size-in-bits='64' id='type-id-1193'/>
     <qualified-type-def type-id='type-id-1194' const='yes' id='type-id-1195'/>
@@ -11801,8 +11801,8 @@
     <reference-type-def kind='lvalue' type-id='type-id-1181' size-in-bits='64' id='type-id-1208'/>
     <pointer-type-def type-id='type-id-1181' size-in-bits='64' id='type-id-1209'/>
     <pointer-type-def type-id='type-id-1184' size-in-bits='64' id='type-id-1210'/>
-    <reference-type-def kind='lvalue' type-id='type-id-1149' size-in-bits='64' id='type-id-1211'/>
-    <pointer-type-def type-id='type-id-1149' size-in-bits='64' id='type-id-1212'/>
+    <reference-type-def kind='lvalue' type-id='type-id-1148' size-in-bits='64' id='type-id-1211'/>
+    <pointer-type-def type-id='type-id-1148' size-in-bits='64' id='type-id-1212'/>
     <reference-type-def kind='lvalue' type-id='type-id-1194' size-in-bits='64' id='type-id-1213'/>
     <pointer-type-def type-id='type-id-1194' size-in-bits='64' id='type-id-1214'/>
     <pointer-type-def type-id='type-id-1215' size-in-bits='64' id='type-id-1216'/>
@@ -11883,7 +11883,7 @@
           </function-decl>
         </member-function>
       </class-decl>
-      <class-decl name='map&lt;const void*, const char*, std::less&lt;const void*&gt;, std::allocator&lt;std::pair&lt;const void* const, const char*&gt; &gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_map.h' line='87' column='1' id='type-id-1149'>
+      <class-decl name='map&lt;const void*, const char*, std::less&lt;const void*&gt;, std::allocator&lt;std::pair&lt;const void* const, const char*&gt; &gt; &gt;' size-in-bits='384' visibility='default' filepath='/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_map.h' line='87' column='1' id='type-id-1148'>
         <member-type access='private'>
           <class-decl name='value_compare' visibility='default' is-declaration-only='yes' id='type-id-1219'/>
         </member-type>
@@ -14203,7 +14203,7 @@
     <pointer-type-def type-id='type-id-1260' size-in-bits='64' id='type-id-1468'/>
     <pointer-type-def type-id='type-id-1242' size-in-bits='64' id='type-id-64'/>
     <pointer-type-def type-id='type-id-11' size-in-bits='64' id='type-id-1469'/>
-    <pointer-type-def type-id='type-id-1470' size-in-bits='64' id='type-id-132'/>
+    <pointer-type-def type-id='type-id-1470' size-in-bits='64' id='type-id-131'/>
     <pointer-type-def type-id='type-id-1471' size-in-bits='64' id='type-id-137'/>
     <pointer-type-def type-id='type-id-137' size-in-bits='64' id='type-id-1472'/>
     <pointer-type-def type-id='type-id-1473' size-in-bits='64' id='type-id-135'/>
@@ -15254,7 +15254,7 @@
       <return type-id='type-id-55'/>
     </function-decl>
     <function-decl name='atexit' filepath='/usr/include/stdlib.h' line='518' column='1' visibility='default' binding='global' size-in-bits='64'>
-      <parameter type-id='type-id-132'/>
+      <parameter type-id='type-id-131'/>
       <return type-id='type-id-1'/>
     </function-decl>
     <function-decl name='getenv' filepath='/usr/include/stdlib.h' line='567' column='1' visibility='default' binding='global' size-in-bits='64'>

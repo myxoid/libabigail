@@ -3785,9 +3785,6 @@ write_member_type(const type_base_sptr& t, write_context& ctxt, unsigned indent)
 
   write_member_type_opening_tag(t, ctxt, indent);
 
-  // TODO: remove this early type id allocation
-  ctxt.get_id_for_type(t);
-
   unsigned nb_ws = get_indent_to_level(ctxt, indent, 1);
   ABG_ASSERT(write_qualified_type_def(dynamic_pointer_cast<qualified_type_def>(t),
 				  ctxt, nb_ws)
