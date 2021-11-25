@@ -833,14 +833,12 @@ static bool write_member_type_opening_tag(const type_base_sptr&,
 					  write_context&, unsigned);
 static bool write_member_type(const type_base_sptr&,
 			      write_context&, unsigned);
-static bool write_class_decl_opening_tag(const class_decl_sptr&, const string&,
+static bool write_class_decl_opening_tag(const class_decl_sptr&,
 					 write_context&, unsigned, bool);
 static bool write_class_decl(const class_decl_sptr&,
 			     write_context&, unsigned);
-static bool write_union_decl_opening_tag(const union_decl_sptr&, const string&,
+static bool write_union_decl_opening_tag(const union_decl_sptr&,
 					 write_context&, unsigned, bool);
-static bool write_union_decl(const union_decl_sptr&, const string&,
-			     write_context&, unsigned);
 static bool write_union_decl(const union_decl_sptr&, write_context&, unsigned);
 static bool write_type_tparameter
 (const shared_ptr<type_tparameter>, write_context&, unsigned);
@@ -1790,8 +1788,7 @@ write_naming_typedef(const decl_base_sptr& decl, write_context& ctxt)
 
   if (typedef_decl_sptr typedef_type = decl->get_naming_typedef())
     {
-      string id = ctxt.get_id_for_type(typedef_type);
-      o << " naming-typedef-id='" << id << "'";
+      o << " naming-typedef-id='" << ctxt.get_id_for_type(typedef_type) << "'";
       ctxt.record_type_as_referenced(typedef_type);
     }
 }
@@ -1936,7 +1933,7 @@ write_decl_in_scope(const decl_base_sptr&	decl,
       else if (class_decl* c = is_class_type(*i))
 	{
 	  class_decl_sptr class_type(c, noop_deleter());
-	  write_class_decl_opening_tag(class_type, "", ctxt, indent,
+	  write_class_decl_opening_tag(class_type, ctxt, indent,
 				       /*prepare_to_handle_members=*/false);
 	  closing_tags.push("</class-decl>");
 	  closing_indents.push(indent);
@@ -1950,7 +1947,7 @@ write_decl_in_scope(const decl_base_sptr&	decl,
       else if (union_decl *u = is_union_type(*i))
 	{
 	  union_decl_sptr union_type(u, noop_deleter());
-	  write_union_decl_opening_tag(union_type, "", ctxt, indent,
+	  write_union_decl_opening_tag(union_type, ctxt, indent,
 				       /*prepare_to_handle_members=*/false);
 	  closing_tags.push("</union-decl>");
 	  closing_indents.push(indent);
@@ -2536,14 +2533,6 @@ write_namespace_decl(const namespace_decl_sptr& decl,
 ///
 /// @param decl the qualfied type declaration to write.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the write context.
 ///
 /// @param indent the number of space to indent to during the
@@ -2552,9 +2541,8 @@ write_namespace_decl(const namespace_decl_sptr& decl,
 /// @return true upon successful completion, false otherwise.
 static bool
 write_qualified_type_def(const qualified_type_def_sptr&	decl,
-			 const string&				id,
 			 write_context&			ctxt,
-			 unsigned				indent)
+			 unsigned			indent)
 {
   if (!decl)
     return false;
@@ -2582,32 +2570,12 @@ write_qualified_type_def(const qualified_type_def_sptr&	decl,
 
   write_location(static_pointer_cast<decl_base>(decl), ctxt);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-
-  o << " id='" << i << "'/>\n";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'/>\n";
 
   ctxt.record_type_as_emitted(decl);
 
   return true;
 }
-
-/// Serialize a qualified type declaration to an output stream.
-///
-/// @param decl the qualfied type declaration to write.
-///
-/// @param ctxt the write context.
-///
-/// @param indent the number of space to indent to during the
-/// serialization.
-///
-/// @return true upon successful completion, false otherwise.
-static bool
-write_qualified_type_def(const qualified_type_def_sptr&	decl,
-			 write_context&			ctxt,
-			 unsigned				indent)
-{return write_qualified_type_def(decl, "", ctxt, indent);}
 
 /// Serialize a pointer to an instance of pointer_type_def.
 ///
@@ -2625,12 +2593,11 @@ write_qualified_type_def(const qualified_type_def_sptr&	decl,
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_pointer_type_def(const pointer_type_def_sptr&	decl,
-		       const string&			id,
 		       write_context&			ctxt,
-		       unsigned			indent)
+		       unsigned				indent)
 {
   if (!decl)
     return false;
@@ -2655,11 +2622,8 @@ write_pointer_type_def(const pointer_type_def_sptr&	decl,
 			    : decl->get_translation_unit()->get_address_size()),
 			   0);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-
-  o << " id='" << i << "'";
+  string id = ctxt.get_id_for_type(decl);
+  o << " id='" << id << "'";
 
   write_location(static_pointer_cast<decl_base>(decl), ctxt);
   o << "/>\n";
@@ -2669,43 +2633,19 @@ write_pointer_type_def(const pointer_type_def_sptr&	decl,
   return true;
 }
 
-/// Serialize a pointer to an instance of pointer_type_def.
-///
-/// @param decl the pointer_type_def to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the number of indentation white spaces to use.
-///
-/// @return true upon succesful completion, false otherwise.
-static bool
-write_pointer_type_def(const pointer_type_def_sptr&	decl,
-		       write_context&			ctxt,
-		       unsigned			indent)
-{return write_pointer_type_def(decl, "", ctxt, indent);}
-
 /// Serialize a pointer to an instance of reference_type_def.
 ///
 /// @param decl the reference_type_def to serialize.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the context of the serialization.
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_reference_type_def(const reference_type_def_sptr&	decl,
-			 const string&				id,
 			 write_context&			ctxt,
-			 unsigned				indent)
+			 unsigned			indent)
 {
   if (!decl)
     return false;
@@ -2737,10 +2677,7 @@ write_reference_type_def(const reference_type_def_sptr&	decl,
 			    : decl->get_translation_unit()->get_address_size()),
 			   0);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-  o << " id='" << i << "'";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'";
 
   write_location(static_pointer_cast<decl_base>(decl), ctxt);
 
@@ -2750,21 +2687,6 @@ write_reference_type_def(const reference_type_def_sptr&	decl,
 
   return true;
 }
-
-/// Serialize a pointer to an instance of reference_type_def.
-///
-/// @param decl the reference_type_def to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the number of indentation white spaces to use.
-///
-/// @return true upon succesful completion, false otherwise.
-static bool
-write_reference_type_def(const reference_type_def_sptr&	decl,
-			 write_context&			ctxt,
-			 unsigned				indent)
-{return write_reference_type_def(decl, "", ctxt, indent);}
 
 /// Serialize an instance of @ref array_type_def::subrange_type.
 ///
@@ -2836,22 +2758,13 @@ write_array_subrange_type(const array_type_def::subrange_sptr&	decl,
 ///
 /// @param decl the array_type_def to serialize.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the context of the serialization.
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_array_type_def(const array_type_def_sptr&	decl,
-		     const string&			id,
 		     write_context&			ctxt,
 		     unsigned				indent)
 {
@@ -2874,10 +2787,7 @@ write_array_type_def(const array_type_def_sptr&	decl,
 
   write_array_size_and_alignment(decl, o);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-  o << " id='" << i << "'";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'";
 
   write_location(static_pointer_cast<decl_base>(decl), ctxt);
 
@@ -2906,41 +2816,17 @@ write_array_type_def(const array_type_def_sptr&	decl,
   return true;
 }
 
-/// Serialize a pointer to an instance of array_type_def.
-///
-/// @param decl the array_type_def to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the number of indentation white spaces to use.
-///
-/// @return true upon succesful completion, false otherwise.
-static bool
-write_array_type_def(const array_type_def_sptr& decl,
-		     write_context&		ctxt,
-		     unsigned			indent)
-{return write_array_type_def(decl, "", ctxt, indent);}
-
 /// Serialize a pointer to an instance of enum_type_decl.
 ///
 /// @param decl the enum_type_decl to serialize.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the context of the serialization.
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_enum_type_decl(const enum_type_decl_sptr& d,
-		     const string&		id,
 		     write_context&		ctxt,
 		     unsigned			indent)
 {
@@ -2969,10 +2855,7 @@ write_enum_type_decl(const enum_type_decl_sptr& d,
   write_location(decl, ctxt);
   write_is_declaration_only(decl, o);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-  o << " id='" << i << "'>\n";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'>\n";
 
   do_indent(o, indent + ctxt.get_config().get_xml_element_indent());
   o << "<underlying-type type-id='"
@@ -2999,21 +2882,6 @@ write_enum_type_decl(const enum_type_decl_sptr& d,
 
   return true;
 }
-
-/// Serialize a pointer to an instance of enum_type_decl.
-///
-/// @param decl the enum_type_decl to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the number of indentation white spaces to use.
-///
-/// @return true upon succesful completion, false otherwise.
-static bool
-write_enum_type_decl(const enum_type_decl_sptr& decl,
-		     write_context&		ctxt,
-		     unsigned			indent)
-{return write_enum_type_decl(decl, "", ctxt, indent);}
 
 /// Serialize an @ref elf_symbol to an XML element of name
 /// 'elf-symbol'.
@@ -3138,22 +3006,13 @@ write_elf_needed(const vector<string>&	needed,
 ///
 /// @param decl the typedef_decl to serialize.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the context of the serialization.
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_typedef_decl(const typedef_decl_sptr&	decl,
-		   const string&		id,
 		   write_context&		ctxt,
 		   unsigned			indent)
 {
@@ -3171,37 +3030,17 @@ write_typedef_decl(const typedef_decl_sptr&	decl,
     << "'";
 
   type_base_sptr underlying_type = decl->get_underlying_type();
-  string type_id = ctxt.get_id_for_type(underlying_type);
-  o << " type-id='" <<  type_id << "'";
+  o << " type-id='" << ctxt.get_id_for_type(underlying_type) << "'";
   ctxt.record_type_as_referenced(underlying_type);
 
   write_location(decl, ctxt);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-
-  o << " id='" << i << "'/>\n";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'/>\n";
 
   ctxt.record_type_as_emitted(decl);
 
   return true;
 }
-
-/// Serialize a pointer to an instance of typedef_decl.
-///
-/// @param decl the typedef_decl to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the number of indentation white spaces to use.
-///
-/// @return true upon succesful completion, false otherwise.
-static bool
-write_typedef_decl(const typedef_decl_sptr&	decl,
-		   write_context&		ctxt,
-		   unsigned			indent)
-{return write_typedef_decl(decl, "", ctxt, indent);}
 
 /// Serialize a pointer to an instances of var_decl.
 ///
@@ -3214,7 +3053,7 @@ write_typedef_decl(const typedef_decl_sptr&	decl,
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_var_decl(const var_decl_sptr& decl, write_context& ctxt,
 	       bool write_linkage_name, unsigned indent)
@@ -3266,7 +3105,7 @@ write_var_decl(const var_decl_sptr& decl, write_context& ctxt,
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_function_decl(const function_decl_sptr& decl, write_context& ctxt,
 		    bool skip_first_parm, unsigned indent)
@@ -3365,7 +3204,7 @@ write_function_decl(const function_decl_sptr& decl, write_context& ctxt,
 ///
 /// @param indent the number of indentation white spaces to use.
 ///
-/// @return true upon succesful completion, false otherwise.
+/// @return true upon successful completion, false otherwise.
 static bool
 write_function_type(const function_type_sptr& fn_type,
 		    write_context& ctxt, unsigned indent)
@@ -3398,11 +3237,7 @@ write_function_type(const function_type_sptr& fn_type,
 			       /*is_static=*/false, o);
     }
 
-  interned_string id = ctxt.get_id_for_type(fn_type);
-
-  o << " id='"
-    <<  id << "'"
-    << ">\n";
+  o << " id='" << ctxt.get_id_for_type(fn_type) << "'" << ">\n";
 
   type_base_sptr parm_type;
   for (vector<function_decl::parameter_sptr>::const_iterator pi =
@@ -3457,9 +3292,6 @@ write_function_type(const function_type_sptr& fn_type,
 ///
 /// @param decl the class declaration to serialize.
 ///
-/// @param the type ID to use for the 'class-decl' element,, or empty
-/// if we need to build a new one.
-///
 /// @param ctxt the write context to use.
 ///
 /// @param indent the number of white space to use for indentation.
@@ -3472,7 +3304,6 @@ write_function_type(const function_type_sptr& fn_type,
 /// @return true upon successful completion.
 static bool
 write_class_decl_opening_tag(const class_decl_sptr&	decl,
-			     const string&		id,
 			     write_context&		ctxt,
 			     unsigned			indent,
 			     bool			prepare_to_handle_members)
@@ -3512,10 +3343,7 @@ write_class_decl_opening_tag(const class_decl_sptr&	decl,
 	<< "'";
     }
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-  o << " id='" << i << "'";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'";
 
   if (prepare_to_handle_members && decl->has_no_base_nor_member())
     o << "/>\n";
@@ -3529,9 +3357,6 @@ write_class_decl_opening_tag(const class_decl_sptr&	decl,
 ///
 /// @param decl the union declaration to serialize.
 ///
-/// @param the type ID to use for the 'union-decl' element, or empty
-/// if we need to build a new one.
-///
 /// @param ctxt the write context to use.
 ///
 /// @param indent the number of white space to use for indentation.
@@ -3544,7 +3369,6 @@ write_class_decl_opening_tag(const class_decl_sptr&	decl,
 /// @return true upon successful completion.
 static bool
 write_union_decl_opening_tag(const union_decl_sptr&	decl,
-			     const string&		id,
 			     write_context&		ctxt,
 			     unsigned			indent,
 			     bool			prepare_to_handle_members)
@@ -3575,10 +3399,7 @@ write_union_decl_opening_tag(const union_decl_sptr&	decl,
 
   write_is_declaration_only(decl, o);
 
-  string i = id;
-  if (i.empty())
-    i = ctxt.get_id_for_type(decl);
-  o << " id='" << i << "'";
+  o << " id='" << ctxt.get_id_for_type(decl) << "'";
 
   if (prepare_to_handle_members && decl->has_no_member())
     o << "/>\n";
@@ -3592,21 +3413,12 @@ write_union_decl_opening_tag(const union_decl_sptr&	decl,
 ///
 /// @param d the pointer to class_decl to serialize.
 ///
-/// @param id the type id identitifier to use in the serialized
-/// output.  If this is empty, the function will compute an
-/// appropriate one.  This is useful when this function is called to
-/// serialize the underlying type of a member type; in that case, the
-/// caller has already computed the id of the *member type*, and that
-/// id is the one to be written as the value of the 'id' attribute of
-/// the XML element of the underlying type.
-///
 /// @param ctxt the context of the serialization.
 ///
 /// @param indent the initial indentation to use.
 static bool
 write_class_decl(const class_decl_sptr& d,
-		 const string&		id,
-		 write_context&	ctxt,
+		 write_context&		ctxt,
 		 unsigned		indent)
 {
   if (!d)
@@ -3618,7 +3430,7 @@ write_class_decl(const class_decl_sptr& d,
 
   ostream& o = ctxt.get_ostream();
 
-  write_class_decl_opening_tag(decl, id, ctxt, indent,
+  write_class_decl_opening_tag(decl, ctxt, indent,
 			       /*prepare_to_handle_members=*/true);
 
   if (!decl->has_no_base_nor_member())
@@ -3789,21 +3601,6 @@ write_class_decl(const class_decl_sptr& d,
   return true;
 }
 
-/// Serialize a class_decl type.
-///
-/// @param decl the pointer to class_decl to serialize.
-///
-/// @param ctxt the context of the serialization.
-///
-/// @param indent the initial indentation to use.
-///
-/// @return true upon successful completion.
-static bool
-write_class_decl(const class_decl_sptr& decl,
-		 write_context&	ctxt,
-		 unsigned		indent)
-{return write_class_decl(decl, "", ctxt, indent);}
-
 /// Serialize a @ref union_decl type.
 ///
 /// @param d the pointer to @ref union_decl to serialize.
@@ -3815,7 +3612,6 @@ write_class_decl(const class_decl_sptr& decl,
 /// @return true upon successful completion.
 static bool
 write_union_decl(const union_decl_sptr& d,
-		 const string& id,
 		 write_context& ctxt,
 		 unsigned indent)
 {
@@ -3828,7 +3624,7 @@ write_union_decl(const union_decl_sptr& d,
 
   ostream& o = ctxt.get_ostream();
 
-  write_union_decl_opening_tag(decl, id, ctxt, indent,
+  write_union_decl_opening_tag(decl, ctxt, indent,
 			       /*prepare_to_handle_members=*/true);
   if (!decl->has_no_member())
     {
@@ -3944,12 +3740,6 @@ write_union_decl(const union_decl_sptr& d,
   return true;
 }
 
-static bool
-write_union_decl(const union_decl_sptr& decl,
-		 write_context& ctxt,
-		 unsigned indent)
-{return write_union_decl(decl, "", ctxt, indent);}
-
 /// Write the opening tag for a 'member-type' element.
 ///
 /// @param t the member type to consider.
@@ -3980,11 +3770,6 @@ write_member_type_opening_tag(const type_base_sptr& t,
 
 /// Serialize a member type.
 ///
-/// Note that the id written as the value of the 'id' attribute of the
-/// underlying type is actually the id of the member type, not the one
-/// for the underying type.  That id takes in account, the access
-/// specifier and the qualified name of the member type.
-///
 /// @param decl the declaration of the member type to serialize.
 ///
 /// @param ctxt the write context to use.
@@ -4000,25 +3785,26 @@ write_member_type(const type_base_sptr& t, write_context& ctxt, unsigned indent)
 
   write_member_type_opening_tag(t, ctxt, indent);
 
-  string id = ctxt.get_id_for_type(t);
+  // TODO: remove this early type id allocation
+  ctxt.get_id_for_type(t);
 
   unsigned nb_ws = get_indent_to_level(ctxt, indent, 1);
   ABG_ASSERT(write_qualified_type_def(dynamic_pointer_cast<qualified_type_def>(t),
-				  id, ctxt, nb_ws)
+				  ctxt, nb_ws)
 	 || write_pointer_type_def(dynamic_pointer_cast<pointer_type_def>(t),
-				   id, ctxt, nb_ws)
+				   ctxt, nb_ws)
 	 || write_reference_type_def(dynamic_pointer_cast<reference_type_def>(t),
-				     id, ctxt, nb_ws)
+				     ctxt, nb_ws)
 	 || write_array_type_def(dynamic_pointer_cast<array_type_def>(t),
-			         id, ctxt, nb_ws)
+				 ctxt, nb_ws)
 	 || write_enum_type_decl(dynamic_pointer_cast<enum_type_decl>(t),
-				 id, ctxt, nb_ws)
+				 ctxt, nb_ws)
 	 || write_typedef_decl(dynamic_pointer_cast<typedef_decl>(t),
-			       id, ctxt, nb_ws)
+			       ctxt, nb_ws)
 	 || write_union_decl(dynamic_pointer_cast<union_decl>(t),
-			     id, ctxt, nb_ws)
+			     ctxt, nb_ws)
 	 || write_class_decl(dynamic_pointer_cast<class_decl>(t),
-			     id, ctxt, nb_ws));
+			     ctxt, nb_ws));
 
   do_indent_to_level(ctxt, indent, 0);
   o << "</member-type>\n";
@@ -4053,7 +3839,7 @@ write_type_tparameter(const type_tparameter_sptr	decl,
     id_attr_name = "id";
 
   o << "<template-type-parameter "
-    << id_attr_name << "='" <<  ctxt.get_id_for_type(decl) << "'";
+    << id_attr_name << "='" << ctxt.get_id_for_type(decl) << "'";
 
   std::string name = xml::escape_xml_string(decl->get_name ());
   if (!name.empty())
