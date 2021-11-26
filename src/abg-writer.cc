@@ -1959,9 +1959,6 @@ write_decl_in_scope(const decl_base_sptr&	decl,
   type_base_sptr type = is_type(decl);
   ABG_ASSERT(type);
 
-  if (ctxt.type_is_emitted(type))
-    return;
-
   list<scope_decl*> scopes;
   for (scope_decl* s = decl->get_scope();
        s && !is_global_scope(s);
@@ -2319,23 +2316,22 @@ write_referenced_types(write_context &		ctxt,
 	  // We handle types which have declarations *and* function
 	  // types here.
 	  type_base* t = *i;
-	  if (!ctxt.type_is_emitted(t))
+          if (ctxt.type_is_emitted(t) || ctxt.decl_only_type_is_emitted(t))
+            continue;
+	  if (decl_base* d = get_type_declaration(t))
 	    {
-	      if (decl_base* d = get_type_declaration(t))
-		{
-		  decl_base_sptr decl(d, noop_deleter());
-		  write_decl_in_scope(decl, ctxt,
-				      indent + c.get_xml_element_indent());
-		}
-	      else if (function_type* f = is_function_type(t))
-		{
-		  function_type_sptr fn_type(f, noop_deleter());
-		  write_function_type(fn_type, ctxt,
-				      indent + c.get_xml_element_indent());
-		}
-	      else
-		ABG_ASSERT_NOT_REACHED;
+	      decl_base_sptr decl(d, noop_deleter());
+	      write_decl_in_scope(decl, ctxt,
+				  indent + c.get_xml_element_indent());
 	    }
+	  else if (function_type* f = is_function_type(t))
+	    {
+	      function_type_sptr fn_type(f, noop_deleter());
+	      write_function_type(fn_type, ctxt,
+				  indent + c.get_xml_element_indent());
+	    }
+	  else
+	    ABG_ASSERT_NOT_REACHED;
 	}
 
       // So all the (referenced) types that we wanted to emit were
@@ -2459,6 +2455,7 @@ write_translation_unit(write_context&		ctxt,
 	  // considered "opaque".
 	  if (class_decl_sptr class_type = is_class_type(t))
 	    if (class_type->get_is_declaration_only()
+		&& !ctxt.decl_only_type_is_emitted(t)
 		&& !ctxt.type_is_emitted(class_type))
 	      write_type(class_type, ctxt,
 			 indent + c.get_xml_element_indent());
@@ -2484,7 +2481,8 @@ write_translation_unit(write_context&		ctxt,
     {
       function_type_sptr fn_type = is_function_type(*i);
 
-      if (fn_type->get_is_artificial() || ctxt.type_is_emitted(fn_type))
+      if (fn_type->get_is_artificial() || ctxt.type_is_emitted(fn_type)
+	  || ctxt.decl_only_type_is_emitted(fn_type))
 	// This function type is either already emitted or it's
 	// artificial (i.e, artificially created just to represent the
 	// conceptual type of a function), so skip it.
@@ -2583,7 +2581,7 @@ write_namespace_decl(const namespace_decl_sptr& decl,
   for (const_iterator i = d.begin(); i != d.end(); ++i)
     {
       if (type_base_sptr t = is_type(*i))
-	if (ctxt.type_is_emitted(t))
+	if (ctxt.type_is_emitted(t) || ctxt.decl_only_type_is_emitted(t))
 	  // This type has already been emitted to the current
 	  // translation unit so do not emit it again.
 	  continue;
