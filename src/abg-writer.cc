@@ -3492,7 +3492,7 @@ write_class_decl(const class_decl_sptr& d,
   if (!d)
     return false;
 
-  class_decl_sptr decl = is_class_type(look_through_decl_only_class(d));
+  class_decl_sptr decl = d;
 
   annotate(decl, ctxt, indent);
 
@@ -3691,7 +3691,7 @@ write_union_decl(const union_decl_sptr& d,
   if (!d)
     return false;
 
-  union_decl_sptr decl = is_union_type(look_through_decl_only_class(d));
+  union_decl_sptr decl = d;
 
   annotate(decl, ctxt, indent);
 

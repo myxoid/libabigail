@@ -1,2 +1,10 @@
-==== SELF CHECK SUCCEEDED for 'libdw-0.183.so' ====
-==== SELF CHECK SUCCEEDED for 'libasm-0.183.so' ====
+======== comparing'libdw-0.183.so' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (174 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'libdw-0.183.so'
+======== comparing'libasm-0.183.so' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (5 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'libasm-0.183.so'

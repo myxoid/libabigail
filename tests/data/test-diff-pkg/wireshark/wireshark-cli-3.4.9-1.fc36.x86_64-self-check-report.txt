@@ -1,5 +1,13 @@
-==== SELF CHECK SUCCEEDED for 'libwireshark.so.14.0.9' ====
-==== SELF CHECK SUCCEEDED for 'libwiretap.so.11.0.9' ====
+======== comparing'libwireshark.so.14.0.9' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (1268 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed (8 filtered out), 0 Added variables
+
+===SELF CHECK FAILED for 'libwireshark.so.14.0.9'
+======== comparing'libwiretap.so.11.0.9' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (101 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed (1 filtered out), 0 Added variable
+
+===SELF CHECK FAILED for 'libwiretap.so.11.0.9'
 ==== SELF CHECK SUCCEEDED for 'tshark' ====
 ==== SELF CHECK SUCCEEDED for 'sharkd' ====
 ==== SELF CHECK SUCCEEDED for 'libwsutil.so.12.0.0' ====

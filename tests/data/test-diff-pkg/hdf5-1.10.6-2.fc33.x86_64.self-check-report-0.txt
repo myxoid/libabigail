@@ -1,4 +1,8 @@
-==== SELF CHECK SUCCEEDED for 'libhdf5.so.103.2.0' ====
+======== comparing'libhdf5.so.103.2.0' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (1333 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed (95 filtered out), 0 Added variables
+
+===SELF CHECK FAILED for 'libhdf5.so.103.2.0'
 ==== SELF CHECK SUCCEEDED for 'libhdf5_cpp.so.103.2.0' ====
 ==== SELF CHECK SUCCEEDED for 'libhdf5_fortran.so.102.0.1' ====
 ==== SELF CHECK SUCCEEDED for 'h5diff' ====

@@ -3130,16 +3130,7 @@
     <!-- void (backtrace_state*, typedef uintptr_t, typedef backtrace_syminfo_callback, typedef backtrace_error_callback, void*)* -->
     <pointer-type-def type-id='type-id-21' size-in-bits='64' id='type-id-5'/>
     <!-- struct backtrace_freelist_struct -->
-    <class-decl name='backtrace_freelist_struct' size-in-bits='128' is-struct='yes' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='55' column='1' id='type-id-14'>
-      <data-member access='public' layout-offset-in-bits='0'>
-        <!-- backtrace_freelist_struct* backtrace_freelist_struct::next -->
-        <var-decl name='next' type-id='type-id-9' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='58' column='1'/>
-      </data-member>
-      <data-member access='public' layout-offset-in-bits='64'>
-        <!-- size_t backtrace_freelist_struct::size -->
-        <var-decl name='size' type-id='type-id-11' visibility='default' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/mmap.c' line='60' column='1'/>
-      </data-member>
-    </class-decl>
+    <class-decl name='backtrace_freelist_struct' size-in-bits='128' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-14'/>
     <!-- int __asan_backtrace_dwarf_add(backtrace_state*, uintptr_t, const unsigned char*, size_t, const unsigned char*, size_t, const unsigned char*, size_t, const unsigned char*, size_t, const unsigned char*, size_t, int, backtrace_error_callback, void*, fileline*) -->
     <function-decl name='__asan_backtrace_dwarf_add' mangled-name='__asan_backtrace_dwarf_add' filepath='../../.././libsanitizer/libbacktrace/../../libbacktrace/dwarf.c' line='2958' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='__asan_backtrace_dwarf_add'>
       <!-- parameter of type 'backtrace_state*' -->

@@ -1,2 +1,6 @@
-==== SELF CHECK SUCCEEDED for 'nmap' ====
+======== comparing'nmap' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (14 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'nmap'
 ==== SELF CHECK SUCCEEDED for 'nping' ====

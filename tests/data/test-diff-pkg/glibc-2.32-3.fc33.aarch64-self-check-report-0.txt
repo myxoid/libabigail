@@ -1,6 +1,14 @@
-==== SELF CHECK SUCCEEDED for 'libc-2.32.so' ====
+======== comparing'libc-2.32.so' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (299 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed (10 filtered out), 0 Added variables
+
+===SELF CHECK FAILED for 'libc-2.32.so'
 ==== SELF CHECK SUCCEEDED for 'libm-2.32.so' ====
-==== SELF CHECK SUCCEEDED for 'ldconfig' ====
+======== comparing'ldconfig' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (115 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed (31 filtered out), 0 Added variables
+
+===SELF CHECK FAILED for 'ldconfig'
 ==== SELF CHECK SUCCEEDED for 'libCNS.so' ====
 ==== SELF CHECK SUCCEEDED for 'libpthread-2.32.so' ====
 ==== SELF CHECK SUCCEEDED for 'ld-2.32.so' ====
@@ -12,7 +20,11 @@
 ==== SELF CHECK SUCCEEDED for 'libnss_files-2.32.so' ====
 ==== SELF CHECK SUCCEEDED for 'libnss_compat-2.32.so' ====
 ==== SELF CHECK SUCCEEDED for 'libdl-2.32.so' ====
-==== SELF CHECK SUCCEEDED for 'iconvconfig' ====
+======== comparing'iconvconfig' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (5 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'iconvconfig'
 ==== SELF CHECK SUCCEEDED for 'libanl-2.32.so' ====
 ==== SELF CHECK SUCCEEDED for 'libutil-2.32.so' ====
 ==== SELF CHECK SUCCEEDED for 'libnss_dns-2.32.so' ====

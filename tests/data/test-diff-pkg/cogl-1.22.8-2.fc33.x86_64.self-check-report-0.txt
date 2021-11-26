@@ -1,3 +1,7 @@
-==== SELF CHECK SUCCEEDED for 'libcogl.so.20.4.3' ====
+======== comparing'libcogl.so.20.4.3' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (403 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'libcogl.so.20.4.3'
 ==== SELF CHECK SUCCEEDED for 'libcogl-path.so.20.4.3' ====
 ==== SELF CHECK SUCCEEDED for 'libcogl-pango.so.20.4.3' ====

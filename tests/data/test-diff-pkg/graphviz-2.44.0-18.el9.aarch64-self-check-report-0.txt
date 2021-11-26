@@ -1,7 +1,11 @@
 ==== SELF CHECK SUCCEEDED for 'liblab_gamut.so.1.0.0' ====
 ==== SELF CHECK SUCCEEDED for 'libgvplugin_neato_layout.so.6.0.0' ====
 ==== SELF CHECK SUCCEEDED for 'libgvc.so.6.0.0' ====
-==== SELF CHECK SUCCEEDED for 'libgvpr.so.2.0.0' ====
+======== comparing'libgvpr.so.2.0.0' to itself wrongly yielded result: ===========
+  Functions changes summary: 0 Removed, 0 Changed (13 filtered out), 0 Added functions
+  Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
+
+===SELF CHECK FAILED for 'libgvpr.so.2.0.0'
 ==== SELF CHECK SUCCEEDED for 'gvmap' ====
 ==== SELF CHECK SUCCEEDED for 'lefty' ====
 ==== SELF CHECK SUCCEEDED for 'libgvplugin_dot_layout.so.6.0.0' ====
