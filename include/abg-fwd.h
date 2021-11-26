@@ -512,28 +512,19 @@ method_type*
 is_method_type(type_or_decl_base*);
 
 class_or_union_sptr
-look_through_decl_only_class(const class_or_union&);
-
-class_or_union_sptr
 look_through_decl_only_class(class_or_union_sptr);
 
 class_or_union*
 look_through_decl_only_class(class_or_union*);
 
 enum_type_decl_sptr
-look_through_decl_only_enum(const enum_type_decl&);
-
-enum_type_decl_sptr
 look_through_decl_only_enum(enum_type_decl_sptr);
-
-decl_base_sptr
-look_through_decl_only(const decl_base&);
 
 decl_base*
 look_through_decl_only(decl_base*);
 
 decl_base_sptr
-look_through_decl_only(const decl_base_sptr&);
+look_through_decl_only(decl_base_sptr);
 
 var_decl*
 is_var_decl(const type_or_decl_base*);
