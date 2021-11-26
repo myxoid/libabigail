@@ -10023,32 +10023,12 @@ look_through_decl_only_class(class_or_union* the_class)
 /// If a class (or union) is a decl-only class, get its definition.
 /// Otherwise, just return the initial class.
 ///
-/// @param the_class the class (or union) to consider.
-///
-/// @return either the definition of the class, or the class itself.
-class_or_union_sptr
-look_through_decl_only_class(const class_or_union& the_class)
-{return is_class_or_union_type(look_through_decl_only(the_class));}
-
-/// If a class (or union) is a decl-only class, get its definition.
-/// Otherwise, just return the initial class.
-///
 /// @param klass the class (or union) to consider.
 ///
 /// @return either the definition of the class, or the class itself.
 class_or_union_sptr
 look_through_decl_only_class(class_or_union_sptr klass)
 {return is_class_or_union_type(look_through_decl_only(klass));}
-
-/// If an enum is a decl-only enum, get its definition.
-/// Otherwise, just return the initial enum.
-///
-/// @param the_enum the enum to consider.
-///
-/// @return either the definition of the enum, or the enum itself.
-enum_type_decl_sptr
-look_through_decl_only_enum(const enum_type_decl& the_enum)
-{return is_enum_type(look_through_decl_only(the_enum));}
 
 /// If an enum is a decl-only enum, get its definition.
 /// Otherwise, just return the initial enum.
@@ -10060,28 +10040,6 @@ enum_type_decl_sptr
 look_through_decl_only_enum(enum_type_decl_sptr enom)
 {return is_enum_type(look_through_decl_only(enom));}
 
-/// If a decl is decl-only get its definition.  Otherwise, just return nil.
-///
-/// @param d the decl to consider.
-///
-/// @return either the definition of the decl, or nil.
-decl_base_sptr
-look_through_decl_only(const decl_base& d)
-{
-  decl_base_sptr decl;
-  if (d.get_is_declaration_only())
-    decl = d.get_definition_of_declaration();
-
-  if (!decl)
-    return decl;
-
-  while (decl->get_is_declaration_only()
-	 && decl->get_definition_of_declaration())
-    decl = decl->get_definition_of_declaration();
-
-  return decl;
-}
-
 /// If a decl is decl-only enum, get its definition.  Otherwise, just
 /// return the initial decl.
 ///
@@ -10091,14 +10049,8 @@ look_through_decl_only(const decl_base& d)
 decl_base*
 look_through_decl_only(decl_base* d)
 {
-  if (!d)
-    return d;
-
-  decl_base* result = look_through_decl_only(*d).get();
-  if (!result)
-    result = d;
-
-  return result;
+  decl_base_sptr decl(d, sptr_utils::noop_deleter());
+  return look_through_decl_only(decl).get();
 }
 
 /// If a decl is decl-only get its definition.  Otherwise, just return nil.
@@ -10107,16 +10059,20 @@ look_through_decl_only(decl_base* d)
 ///
 /// @return either the definition of the decl, or nil.
 decl_base_sptr
-look_through_decl_only(const decl_base_sptr& d)
+look_through_decl_only(decl_base_sptr d)
 {
   if (!d)
     return d;
 
-  decl_base_sptr result = look_through_decl_only(*d);
-  if (!result)
-    result = d;
+  while (d->get_is_declaration_only())
+    {
+      decl_base_sptr definition = d->get_definition_of_declaration();
+      if (!definition)
+        break;
+      d = definition;
+    }
 
-  return result;
+  return d;
 }
 
 /// Tests if a declaration is a variable declaration.
