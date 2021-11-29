@@ -5,8 +5,8 @@ Variables changes summary: 0 Removed, 0 Changed, 0 Added variable
 
   [C] 'function void foo(E)' at test-PR28316-v1.cc:9:1 has some indirect sub-type changes:
     parameter 1 of type 'typedef E' has sub-type changes:
-      underlying type 'enum E' at test-PR28316-v0.cc:1:1 changed:
+      underlying type 'enum __anonymous_enum__' at test-PR28316-v0.cc:1:1 changed:
         type size hasn't changed
         1 enumerator insertion:
-          'E::v3' value '3'
+          '__anonymous_enum__::v3' value '3'
 
