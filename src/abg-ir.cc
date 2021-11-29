@@ -4632,53 +4632,32 @@ decl_base::get_naming_typedef() const
 
 /// Set the naming typedef of the current instance of @ref decl_base.
 ///
-/// Consider the C idiom:
+/// Consider the C idioms:
 ///
 ///    typedef struct {int member;} foo_type;
+///    typedef struct foo_type {int member;} foo_type;
+///    typedef struct bar_type {int member;} foo_type;
 ///
-/// In that idiom, foo_type is the naming typedef of the anonymous
-/// struct that is declared.
-///
-/// After completion of this function, the decl will not be considered
-/// anonymous anymore.  It's name is going to be the name of the
-/// naming typedef.
+/// In that idiom, foo_type is the naming typedef of the struct that is
+/// declared.
 ///
 /// @param typedef_type the new naming typedef.
 void
 decl_base::set_naming_typedef(const typedef_decl_sptr& t)
-{
-  // A naming typedef is usually for an anonymous type.
-  ABG_ASSERT(get_is_anonymous()
-	     // Whe the typedef-named decl is saved into abixml, it's
-	     // not anonymous anymore.  Its name is the typedef name.
-	     // So when we read it back, we must still be able to
-	     // apply the naming typedef to the decl.
-	     || t->get_name() == get_name());
-  // Only non canonicalized types can be edited this way.
-  ABG_ASSERT(is_type(this)
-	     && is_type(this)->get_naked_canonical_type() == nullptr);
-
-  priv_->naming_typedef_ = t;
-  set_name(t->get_name());
-  set_qualified_name(t->get_qualified_name());
-  set_is_anonymous(false);
-  // Now that the qualified type of the decl has changed, let's update
-  // the qualified names of the member types of this decls.
-  update_qualified_name(this);
-}
+{priv_->naming_typedef_ = t;}
 
 /// Getter for the mangled name.
 ///
 /// @return the new mangled name.
 const interned_string&
-decl_base::get_linkage_name() const
+    decl_base::get_linkage_name() const
 {return priv_->linkage_name_;}
 
 /// Setter for the linkage name.
 ///
 /// @param m the new linkage name.
 void
-decl_base::set_linkage_name(const string& m)
+    decl_base::set_linkage_name(const string& m)
 {
   const environment* env = get_environment();
   ABG_ASSERT(env);
@@ -4689,14 +4668,14 @@ decl_base::set_linkage_name(const string& m)
 ///
 /// @return the new visibility.
 decl_base::visibility
-decl_base::get_visibility() const
+    decl_base::get_visibility() const
 {return priv_->visibility_;}
 
 /// Setter for the visibility of the decl.
 ///
 /// @param v the new visibility.
 void
-decl_base::set_visibility(visibility v)
+    decl_base::set_visibility(visibility v)
 {priv_->visibility_ = v;}
 
 /// Return the type containing the current decl, if any.
@@ -4704,7 +4683,7 @@ decl_base::set_visibility(visibility v)
 /// @return the type that contains the current decl, or NULL if there
 /// is none.
 scope_decl*
-decl_base::get_scope() const
+    decl_base::get_scope() const
 {
   if (priv_->context_)
     return priv_->context_->get_scope();
@@ -4716,14 +4695,14 @@ decl_base::get_scope() const
 ///
 /// @return the newly-built qualified name of the of the current decl.
 const interned_string&
-decl_base::get_qualified_parent_name() const
+    decl_base::get_qualified_parent_name() const
 {return priv_->qualified_parent_name_;}
 
 /// Getter for the name of the current decl.
 ///
 /// @return the name of the current decl.
 const interned_string&
-decl_base::get_name() const
+    decl_base::get_name() const
 {return priv_->name_;}
 
 /// Compute the qualified name of the decl.
@@ -4735,7 +4714,7 @@ decl_base::get_name() const
 /// otherwise.  If you don't know what this is for, then set it to
 /// false.
 void
-decl_base::get_qualified_name(interned_string& qn, bool internal) const
+    decl_base::get_qualified_name(interned_string& qn, bool internal) const
 {qn = get_qualified_name(internal);}
 
 /// Get the pretty representatin of the current declaration.
@@ -4758,27 +4737,27 @@ decl_base::get_qualified_name(interned_string& qn, bool internal) const
 /// basically the fully qualified name of the decl optionally prefixed
 /// with a meaningful string to add context for the user.
 string
-decl_base::get_pretty_representation(bool internal,
-				     bool qualified_name) const
+    decl_base::get_pretty_representation(bool internal,
+                                         bool qualified_name) const
 {
   if (internal
       && get_is_anonymous()
       && has_generic_anonymous_internal_type_name(this))
-    {
-      // We are looking at an anonymous enum, union or class and we
-      // want an *internal* pretty representation for it.  All
-      // anonymous types of this kind in the same namespace must have
-      // the same internal representation for type canonicalization to
-      // work properly.
-      //
-      // OK, in practise, we are certainly looking at an enum because
-      // classes and unions should have their own overloaded virtual
-      // member function for this.
-      string name = get_generic_anonymous_internal_type_name(this);
-      if (qualified_name && !get_qualified_parent_name().empty())
-	name = get_qualified_parent_name() + "::" + name;
-      return name;
-    }
+  {
+    // We are looking at an anonymous enum, union or class and we
+    // want an *internal* pretty representation for it.  All
+    // anonymous types of this kind in the same namespace must have
+    // the same internal representation for type canonicalization to
+    // work properly.
+    //
+    // OK, in practise, we are certainly looking at an enum because
+    // classes and unions should have their own overloaded virtual
+    // member function for this.
+    string name = get_generic_anonymous_internal_type_name(this);
+    if (qualified_name && !get_qualified_parent_name().empty())
+      name = get_qualified_parent_name() + "::" + name;
+    return name;
+  }
 
   if (qualified_name)
     return get_qualified_name(internal);
@@ -4801,7 +4780,7 @@ decl_base::get_pretty_representation(bool internal,
 ///
 /// @return the resulting qualified name.
 const interned_string&
-decl_base::get_qualified_name(bool /*internal*/) const
+    decl_base::get_qualified_name(bool /*internal*/) const
 {return priv_->qualified_name_;}
 
 /// Return the scoped name of the decl.
@@ -4815,7 +4794,7 @@ decl_base::get_qualified_name(bool /*internal*/) const
 ///
 /// @return the scoped name of the decl.
 const interned_string&
-decl_base::get_scoped_name() const
+    decl_base::get_scoped_name() const
 {return priv_->scoped_name_;}
 
 /// If this @ref decl_base is a definition, get its earlier
@@ -4823,7 +4802,7 @@ decl_base::get_scoped_name() const
 ///
 /// @return the earlier declaration of the class, if any.
 const decl_base_sptr
-decl_base::get_earlier_declaration() const
+    decl_base::get_earlier_declaration() const
 {return priv_->declaration_;}
 
 /// set the earlier declaration of this @ref decl_base definition.
@@ -4831,7 +4810,7 @@ decl_base::get_earlier_declaration() const
 /// @param d the earlier declaration to set.  Note that it's set only
 /// if it's a pure declaration.
 void
-decl_base::set_earlier_declaration(const decl_base_sptr& d)
+    decl_base::set_earlier_declaration(const decl_base_sptr& d)
 {
   if (d && d->get_is_declaration_only())
     priv_->declaration_ = d;
@@ -4843,7 +4822,7 @@ decl_base::set_earlier_declaration(const decl_base_sptr& d)
 ///
 /// @return the definition of this decl-only @ref decl_base.
 const decl_base_sptr
-decl_base::get_definition_of_declaration() const
+    decl_base::get_definition_of_declaration() const
 {return priv_->definition_of_declaration_.lock();}
 
 ///  If this @ref decl_base is declaration-only, get its definition,
@@ -4859,14 +4838,14 @@ decl_base::get_definition_of_declaration() const
 ///
 /// @return the definition of the declaration.
 const decl_base*
-decl_base::get_naked_definition_of_declaration() const
+    decl_base::get_naked_definition_of_declaration() const
 {return priv_->naked_definition_of_declaration_;}
 
 /// Test if a @ref decl_base is a declaration-only decl.
 ///
 /// @return true iff the current @ref decl_base is declaration-only.
 bool
-decl_base::get_is_declaration_only() const
+    decl_base::get_is_declaration_only() const
 {return priv_->is_declaration_only_;}
 
 /// Set a flag saying if the @ref enum_type_decl is a declaration-only
@@ -4875,7 +4854,7 @@ decl_base::get_is_declaration_only() const
 /// @param f true if the @ref enum_type_decl is a declaration-only
 /// @ref enum_type_decl.
 void
-decl_base::set_is_declaration_only(bool f)
+    decl_base::set_is_declaration_only(bool f)
 {
   bool update_types_lookup_map = !f && priv_->is_declaration_only_;
 
@@ -4883,38 +4862,38 @@ decl_base::set_is_declaration_only(bool f)
 
   if (update_types_lookup_map)
     if (scope_decl* s = get_scope())
-      {
-	scope_decl::declarations::iterator i;
-	if (s->find_iterator_for_member(this, i))
-	  maybe_update_types_lookup_map(*i);
-	else
-	  ABG_ASSERT_NOT_REACHED;
-      }
+    {
+      scope_decl::declarations::iterator i;
+      if (s->find_iterator_for_member(this, i))
+        maybe_update_types_lookup_map(*i);
+      else
+        ABG_ASSERT_NOT_REACHED;
+    }
 }
 
 change_kind
-operator|(change_kind l, change_kind r)
+    operator|(change_kind l, change_kind r)
 {
   return static_cast<change_kind>(static_cast<unsigned>(l)
 				  | static_cast<unsigned>(r));
 }
 
 change_kind
-operator&(change_kind l, change_kind r)
+    operator&(change_kind l, change_kind r)
 {
   return static_cast<change_kind>(static_cast<unsigned>(l)
 				  & static_cast<unsigned>(r));
 }
 
 change_kind&
-operator|=(change_kind& l, change_kind r)
+    operator|=(change_kind& l, change_kind r)
 {
   l = l | r;
   return l;
 }
 
 change_kind&
-operator&=(change_kind& l, change_kind r)
+    operator&=(change_kind& l, change_kind r)
 {
   l = l & r;
   return l;
@@ -4939,43 +4918,43 @@ operator&=(change_kind& l, change_kind r)
 ///
 /// @return true iff @p l compare equals, as a member decl, to @p r.
 bool
-maybe_compare_as_member_decls(const decl_base& l,
-			      const decl_base& r,
-			      change_kind* k)
+    maybe_compare_as_member_decls(const decl_base& l,
+                                  const decl_base& r,
+                                  change_kind* k)
 {
   bool result = true;
   if (is_member_decl(l) && is_member_decl(r))
-    {
-      context_rel* r1 = const_cast<context_rel*>(l.get_context_rel());
-      context_rel *r2 = const_cast<context_rel*>(r.get_context_rel());
+  {
+    context_rel* r1 = const_cast<context_rel*>(l.get_context_rel());
+    context_rel *r2 = const_cast<context_rel*>(r.get_context_rel());
 
-      access_specifier la = no_access, ra = no_access;
-      bool member_types_or_functions =
+    access_specifier la = no_access, ra = no_access;
+    bool member_types_or_functions =
 	((is_type(l) && is_type(r))
 	 || (is_function_decl(l) && is_function_decl(r)));
 
-      if (member_types_or_functions)
-	{
-	  // Access specifiers on member types in DWARF is not
-	  // reliable; in the same DSO, the same struct can be either
-	  // a class or a struct, and the access specifiers of its
-	  // member types are not necessarily given, so they
-	  // effectively can be considered differently, again, in the
-	  // same DSO.  So, here, let's avoid considering those!
-	  // during comparison.
-	  la = r1->get_access_specifier();
-	  ra = r2->get_access_specifier();
-	  r1->set_access_specifier(no_access);
-	  r2->set_access_specifier(no_access);
-	}
+    if (member_types_or_functions)
+    {
+      // Access specifiers on member types in DWARF is not
+      // reliable; in the same DSO, the same struct can be either
+      // a class or a struct, and the access specifiers of its
+      // member types are not necessarily given, so they
+      // effectively can be considered differently, again, in the
+      // same DSO.  So, here, let's avoid considering those!
+      // during comparison.
+      la = r1->get_access_specifier();
+      ra = r2->get_access_specifier();
+      r1->set_access_specifier(no_access);
+      r2->set_access_specifier(no_access);
+    }
 
-      bool rels_are_different = *r1 != *r2;
+    bool rels_are_different = *r1 != *r2;
 
-      if (member_types_or_functions)
-	{
-	  // restore the access specifiers.
-	  r1->set_access_specifier(la);
-	  r2->set_access_specifier(ra);
+    if (member_types_or_functions)
+    {
+      // restore the access specifiers.
+      r1->set_access_specifier(la);
+r2->set_access_specifier(ra);
 	}
 
       if (rels_are_different)
@@ -9602,18 +9581,7 @@ is_anonymous_type(const type_base* t)
 {
   const decl_base* d = get_type_declaration(t);
   if (d)
-    if (d->get_is_anonymous())
-      {
-	if (class_or_union *cou = is_class_or_union_type(t))
-	  {
-	    // An anonymous class that is named by a typedef is not
-	    // considered anonymous anymore.
-	    if (!cou->get_naming_typedef())
-	      return true;
-	  }
-	else
-	  return true;
-      }
+    return d->get_is_anonymous();
   return false;
 }
 

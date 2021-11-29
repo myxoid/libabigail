@@ -10114,18 +10114,18 @@
     <pointer-type-def type-id='type-id-144' size-in-bits='64' id='type-id-147'/>
   </abi-instr>
   <abi-instr address-size='64' path='libnurbs/internals/displaylist.cc' comp-dir-path='/tmp/legendre/spack-stage/spack-stage-T0fsxk/Mesa-8.0.5/src/glu/sgi' language='LANG_C_plus_plus'>
-    <!-- struct PFVS -->
-    <class-decl name='PFVS' size-in-bits='128' is-struct='yes' naming-typedef-id='type-id-228' visibility='default' filepath='libnurbs/internals/displaylist.h' line='46' column='1' id='type-id-229'>
+    <!-- struct {void (NurbsTessellator*, void*)* __pfn; long int __delta;} -->
+    <class-decl name='__anonymous_struct__' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-228' visibility='default' filepath='libnurbs/internals/displaylist.h' line='46' column='1' id='type-id-229'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- void (NurbsTessellator*, void*)* PFVS::__pfn -->
+        <!-- void (NurbsTessellator*, void*)* __pfn -->
         <var-decl name='__pfn' type-id='type-id-230' visibility='default' filepath='libnurbs/internals/displaylist.h' line='46' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='64'>
-        <!-- long int PFVS::__delta -->
+        <!-- long int __delta -->
         <var-decl name='__delta' type-id='type-id-38' visibility='default' filepath='libnurbs/internals/displaylist.h' line='46' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef PFVS PFVS -->
+    <!-- typedef __anonymous_struct__ PFVS -->
     <typedef-decl name='PFVS' type-id='type-id-229' filepath='libnurbs/internals/displaylist.h' line='46' column='1' id='type-id-228'/>
     <!-- struct Dlnode -->
     <class-decl name='Dlnode' size-in-bits='384' is-struct='yes' visibility='default' filepath='libnurbs/internals/displaylist.h' line='48' column='1' id='type-id-231'>
@@ -14077,14 +14077,14 @@
     <typedef-decl name='GLUtesselator' type-id='type-id-323' filepath='../../../include/GL/glu.h' line='276' column='1' id='type-id-324'/>
     <!-- typedef long int[8] __jmp_buf -->
     <typedef-decl name='__jmp_buf' type-id='type-id-319' filepath='/usr/include/bits/setjmp.h' line='32' column='1' id='type-id-325'/>
-    <!-- struct __sigset_t -->
-    <class-decl name='__sigset_t' size-in-bits='1024' is-struct='yes' naming-typedef-id='type-id-326' visibility='default' filepath='/usr/include/bits/sigset.h' line='30' column='1' id='type-id-327'>
+    <!-- struct {unsigned long int __val[16];} -->
+    <class-decl name='__anonymous_struct__2' size-in-bits='1024' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-326' visibility='default' filepath='/usr/include/bits/sigset.h' line='30' column='1' id='type-id-327'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- unsigned long int __sigset_t::__val[16] -->
+        <!-- unsigned long int __val[16] -->
         <var-decl name='__val' type-id='type-id-321' visibility='default' filepath='/usr/include/bits/sigset.h' line='31' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef __sigset_t __sigset_t -->
+    <!-- typedef __anonymous_struct__2 __sigset_t -->
     <typedef-decl name='__sigset_t' type-id='type-id-327' filepath='/usr/include/bits/sigset.h' line='32' column='1' id='type-id-326'/>
     <!-- struct __jmp_buf_tag -->
     <class-decl name='__jmp_buf_tag' size-in-bits='1600' is-struct='yes' visibility='default' filepath='/usr/include/setjmp.h' line='36' column='1' id='type-id-316'>
@@ -14275,27 +14275,27 @@
     <typedef-decl name='PQHeapHandle' type-id='type-id-38' filepath='libtess/priorityq-heap.h' line='80' column='1' id='type-id-350'/>
     <!-- typedef PriorityQHeap PriorityQHeap -->
     <typedef-decl name='PriorityQHeap' type-id='type-id-351' filepath='libtess/priorityq-heap.h' line='81' column='1' id='type-id-352'/>
-    <!-- struct PQnode -->
-    <class-decl name='PQnode' size-in-bits='64' is-struct='yes' naming-typedef-id='type-id-353' visibility='default' filepath='libtess/priorityq-heap.h' line='83' column='1' id='type-id-354'>
+    <!-- struct {PQHeapHandle handle;} -->
+    <class-decl name='__anonymous_struct__' size-in-bits='64' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-353' visibility='default' filepath='libtess/priorityq-heap.h' line='83' column='1' id='type-id-354'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- PQHeapHandle PQnode::handle -->
+        <!-- PQHeapHandle handle -->
         <var-decl name='handle' type-id='type-id-350' visibility='default' filepath='libtess/priorityq-heap.h' line='83' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef PQnode PQnode -->
+    <!-- typedef __anonymous_struct__ PQnode -->
     <typedef-decl name='PQnode' type-id='type-id-354' filepath='libtess/priorityq-heap.h' line='83' column='1' id='type-id-353'/>
-    <!-- struct PQhandleElem -->
-    <class-decl name='PQhandleElem' size-in-bits='128' is-struct='yes' naming-typedef-id='type-id-355' visibility='default' filepath='libtess/priorityq-heap.h' line='84' column='1' id='type-id-356'>
+    <!-- struct {PQHeapKey key; PQHeapHandle node;} -->
+    <class-decl name='__anonymous_struct__1' size-in-bits='128' is-struct='yes' is-anonymous='yes' naming-typedef-id='type-id-355' visibility='default' filepath='libtess/priorityq-heap.h' line='84' column='1' id='type-id-356'>
       <data-member access='public' layout-offset-in-bits='0'>
-        <!-- PQHeapKey PQhandleElem::key -->
+        <!-- PQHeapKey key -->
         <var-decl name='key' type-id='type-id-349' visibility='default' filepath='libtess/priorityq-heap.h' line='84' column='1'/>
       </data-member>
       <data-member access='public' layout-offset-in-bits='64'>
-        <!-- PQHeapHandle PQhandleElem::node -->
+        <!-- PQHeapHandle node -->
         <var-decl name='node' type-id='type-id-350' visibility='default' filepath='libtess/priorityq-heap.h' line='84' column='1'/>
       </data-member>
     </class-decl>
-    <!-- typedef PQhandleElem PQhandleElem -->
+    <!-- typedef __anonymous_struct__1 PQhandleElem -->
     <typedef-decl name='PQhandleElem' type-id='type-id-356' filepath='libtess/priorityq-heap.h' line='84' column='1' id='type-id-355'/>
     <!-- struct PriorityQHeap -->
     <class-decl name='PriorityQHeap' size-in-bits='448' is-struct='yes' visibility='default' filepath='libtess/priorityq-heap.h' line='86' column='1' id='type-id-351'>
