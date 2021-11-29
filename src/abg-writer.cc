@@ -695,6 +695,23 @@ public:
   void
   record_type_as_emitted(const type_base* t)
   {
+    if (auto d = const_cast<class_decl*>(dynamic_cast<const class_decl*>(t))) {
+      bool debug = d->get_name() == "DBusMessage";
+      if (debug) {
+        auto look_through = is_class_type(look_through_decl_only_class(d));
+        std::cerr << "RECORD_TYPE_AS_EMITTED:"
+                  << " class_decl=" << d
+                  << " type_base=" << t
+                  << " canonical_type=" << t->get_naked_canonical_type()
+                  << " is_declaration_only=" << d->get_is_declaration_only()
+                  << " is_emitted=" << type_is_emitted(t)
+                  << " look_through_class_decl=" << look_through
+                  << " look_through_type_base=" << static_cast<type_base*>(look_through)
+                  << " look_through_is_declaration_only=" << look_through->get_is_declaration_only()
+                  << " look_through_is_emitted=" << type_is_emitted(look_through)
+                  << '\n';
+      }
+    }
     type_base* c = get_exemplar_type(t);
     m_emitted_type_set.insert(c);
   }
@@ -3625,6 +3642,21 @@ write_class_decl(const class_decl_sptr& d,
 {
   if (!d)
     return false;
+
+  bool debug = d->get_name() == "DBusMessage";
+  if (debug) {
+    auto look_through = is_class_type(look_through_decl_only_class(d));
+    std::cerr << "WRITE_CLASS_DECL:"
+              << " class_decl=" << d.get()
+              << " type_base=" << static_cast<type_base*>(d.get())
+              << " is_declaration_only=" << d->get_is_declaration_only()
+              << " is_emitted=" << ctxt.type_is_emitted(d)
+              << " look_through_class_decl=" << look_through.get()
+              << " look_through_type_base=" << static_cast<type_base*>(look_through.get())
+              << " look_through_is_declaration_only=" << look_through->get_is_declaration_only()
+              << " look_through_is_emitted=" << ctxt.type_is_emitted(look_through)
+              << '\n';
+  }
 
   class_decl_sptr decl = is_class_type(look_through_decl_only_class(d));
 
