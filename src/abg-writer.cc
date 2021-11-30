@@ -2696,6 +2696,22 @@ write_pointer_type_def(const pointer_type_def_sptr&	decl,
 
   ostream& o = ctxt.get_ostream();
 
+  bool debug = decl->get_pointed_to_type()->get_pretty_representation(false, false) == "void";
+  if (debug) {
+    auto& d = decl;
+    // auto look_through = is_class_type(look_through_decl_only_class(d));
+    std::cerr << "WRITE_POINTER_TYPE_DECL:"
+              << " class_decl=" << d.get()
+              << " type_base=" << static_cast<type_base*>(d.get())
+              << " is_declaration_only=" << d->get_is_declaration_only()
+              << " is_emitted=" << ctxt.type_is_emitted(d)
+              // << " look_through_class_decl=" << look_through.get()
+              // << " look_through_type_base=" << static_cast<type_base*>(look_through.get())
+              // << " look_through_is_declaration_only=" << look_through->get_is_declaration_only()
+              // << " look_through_is_emitted=" << ctxt.type_is_emitted(look_through)
+              << '\n';
+  }
+
   type_base_sptr pointed_to_type = decl->get_pointed_to_type();
 
   annotate(decl->get_canonical_type(), ctxt, indent);
