@@ -788,9 +788,12 @@ public:
                   << '\n';
       }
     }
-    class_or_union* cl = is_class_or_union_type(t);
+    type_base* c = t->get_naked_canonical_type();
+    if (c == 0)
+      c = t;
+    class_or_union* cl = is_class_or_union_type(c);
     ABG_ASSERT(cl && cl->get_is_declaration_only());
-    m_emitted_decl_only_set.insert(t);
+    m_emitted_decl_only_set.insert(c);
   }
 
   /// Record a declaration-only class as being emitted.
@@ -812,10 +815,10 @@ public:
   bool
   decl_only_type_is_emitted(const type_base* t) const
   {
-    type_ptr_set_type::const_iterator i = m_emitted_decl_only_set.find(t);
-    if (i == m_emitted_decl_only_set.end())
-      return false;
-    return true;
+    type_base* c = t->get_naked_canonical_type();
+    if (c == 0)
+      c = const_cast<type_base*>(t);
+    return m_emitted_decl_only_set.find(c) != m_emitted_decl_only_set.end();
   }
 
   /// Test if a declaration-only class has been emitted.
