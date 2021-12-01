@@ -2436,10 +2436,12 @@ write_translation_unit(write_context&		ctxt,
 	}
     }
 
+  std::cout << "<!-- phase A -->\n";
   write_referenced_types(ctxt, tu, indent, is_last);
 
   // Now handle all function types that were not only referenced by
   // emitted types.
+  std::cout << "<!-- phase B -->\n";
   const vector<function_type_sptr>& t = tu.get_live_fn_types();
   vector<type_base_sptr> sorted_types;
   ctxt.sort_types(t, sorted_types);
@@ -2462,6 +2464,7 @@ write_translation_unit(write_context&		ctxt,
 
   // After we've written out the live function types, we need to write
   // the types they referenced.
+  std::cout << "<!-- phase C -->\n";
   write_referenced_types(ctxt, tu, indent, is_last);
 
   do_indent(o, indent);
