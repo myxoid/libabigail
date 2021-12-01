@@ -2498,6 +2498,11 @@ write_type_decl(const type_decl_sptr& d, write_context& ctxt, unsigned indent)
   if (!d)
     return false;
 
+  bool debug = d->get_name() == "unsigned int";
+  if (debug) {
+    sleep(0);
+  }
+
   ostream& o = ctxt.get_ostream();
 
   annotate(d, ctxt, indent);
