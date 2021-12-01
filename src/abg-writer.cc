@@ -2409,9 +2409,11 @@ write_translation_unit(write_context&		ctxt,
 
   o << ">\n";
 
+  std::cout << "<!-- phase X -->\n";
   write_canonical_types_of_scope(*tu.get_global_scope(),
 				 ctxt, indent + c.get_xml_element_indent());
 
+  std::cout << "<!-- phase Y -->\n";
   typedef scope_decl::declarations declarations;
   const declarations& decls = tu.get_global_scope()->get_sorted_member_decls();
 
@@ -2424,10 +2426,15 @@ write_translation_unit(write_context&		ctxt,
 	  // that only contain member types.  They can also be classes
 	  // considered "opaque".
 	  if (class_decl_sptr class_type = is_class_type(t))
-	    if (class_type->get_is_declaration_only()
-		&& !ctxt.type_is_emitted(class_type))
-	      write_type(class_type, ctxt,
-			 indent + c.get_xml_element_indent());
+	    {
+	      bool debug = class_type->get_name() == "anon_vma";
+	      if (debug)
+		sleep(0);
+	      if (class_type->get_is_declaration_only()
+		  && !ctxt.type_is_emitted(class_type))
+		write_type(class_type, ctxt,
+			   indent + c.get_xml_element_indent());
+	    }
 	}
       else
 	{
