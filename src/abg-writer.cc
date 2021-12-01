@@ -680,6 +680,11 @@ public:
       sorted.push_back(*i);
     type_ptr_cmp comp(&m_type_id_map);
     sort(sorted.begin(), sorted.end(), comp);
+    std::cout << "<!-- sorted some functions\n";
+    for (const auto& f : sorted) {
+      std::cout << f->get_pretty_representation(false) << '\n';
+    }
+    std::cout << "sorted some functions -->\n";
   }
 
   /// Flag a type as having been written out to the XML output.
@@ -2265,9 +2270,12 @@ write_referenced_types(write_context &		ctxt,
       referenced_types_to_emit.insert(*i);
     }
 
+  int round = 1;
+
   // Ok, now let's emit the referenced type for good.
   while (!referenced_types_to_emit.empty())
     {
+      std::cout << "<!-- round " << round++ << " -->\n";
       // But first, we need to sort them, otherwise, emitting the ABI
       // (in xml) of the same binary twice will yield different
       // results, because we'd be walking an *unordered* hash table.
@@ -2498,7 +2506,7 @@ write_type_decl(const type_decl_sptr& d, write_context& ctxt, unsigned indent)
   if (!d)
     return false;
 
-  bool debug = d->get_name() == "unsigned int";
+  bool debug = false; // d->get_name() == "unsigned long int" || d->get_name() == "unsigned short int";
   if (debug) {
     sleep(0);
   }
@@ -2681,8 +2689,12 @@ write_pointer_type_def(const pointer_type_def_sptr&	decl,
   if (!decl)
     return false;
 
-  ostream& o = ctxt.get_ostream();
+  bool debug = false; // decl->get_pretty_representation(false) == "backtrace_state*";
+  if (debug) {
+    sleep(0);
+  }
 
+  ostream& o = ctxt.get_ostream();
 
   type_base_sptr pointed_to_type = decl->get_pointed_to_type();
 
@@ -3418,6 +3430,15 @@ write_function_type(const function_type_sptr& fn_type,
 {
   if (!fn_type)
     return false;
+
+  auto x = fn_type->get_pretty_representation(false);
+  std::cout << "<< " << x << " >>\n";
+
+  bool debug = x == "function type int (backtrace_state*, typedef uintptr_t, typedef backtrace_full_callback, typedef backtrace_error_callback, void*)"
+               || x == "function type void (backtrace_state*, typedef uintptr_t, typedef backtrace_syminfo_callback, typedef backtrace_error_callback, void*)";
+  if (debug) {
+    sleep(0);
+  }
 
   ostream &o = ctxt.get_ostream();
 
