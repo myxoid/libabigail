@@ -25257,6 +25257,7 @@ is_non_canonicalized_type(const type_base *t)
 type_base*
 get_exemplar_type(const type_base* type)
 {
+  auto tu_path = type->get_translation_unit()->get_absolute_path();
   if (decl_base * decl = is_decl(type))
     {
       // Make sure we get the real definition of a decl-only type.
@@ -25273,6 +25274,10 @@ get_exemplar_type(const type_base* type)
       exemplar = const_cast<type_base*>(type);
       ABG_ASSERT(is_non_canonicalized_type(exemplar));
     }
+  auto exemplar_tu_path = exemplar->get_translation_unit()->get_absolute_path();
+  if (tu_path != exemplar_tu_path) {
+    std::cerr << type << " vs " << exemplar << " in different TUs\n";
+  }
   return exemplar;
 }
 
