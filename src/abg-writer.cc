@@ -3001,9 +3001,9 @@ write_array_type_def(const array_type_def_sptr& decl,
 /// @return true upon succesful completion, false otherwise.
 static bool
 write_enum_type_decl(const enum_type_decl_sptr& d,
-		     const string& id,
-		     write_context& ctxt,
-		     unsigned indent)
+		     const string&		id,
+		     write_context&		ctxt,
+		     unsigned			indent)
 {
   if (!d)
     return false;
