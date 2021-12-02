@@ -2821,6 +2821,7 @@ write_enum_type_decl(const enum_type_decl_sptr& d,
   o << "<underlying-type type-id='"
     << ctxt.get_id_for_type(decl->get_underlying_type())
     << "'/>\n";
+  // could record the underlying type as referenced but it makes no difference
 
   for (enum_type_decl::enumerators::const_iterator i =
 	 decl->get_enumerators().begin();
@@ -3191,6 +3192,7 @@ write_function_type(const function_type_sptr& fn_type,
       o << " method-class-id='"
 	<< ctxt.get_id_for_type(method_type->get_class_type())
 	<< "'";
+      // could record method_type as referenced but it makes no difference
 
       write_cdtor_const_static(/*is_ctor=*/false, /*is_dtor=*/false,
 			       /*is_const=*/method_type->get_is_const(),
