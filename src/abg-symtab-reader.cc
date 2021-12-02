@@ -451,8 +451,13 @@ symtab::update_main_symbol(GElf_Addr addr, const std::string& name)
   elf_symbol_sptr new_main = symbol->update_main_symbol(name);
 
   // also update the default symbol we return when looked up by address
-  if (new_main)
+  if (new_main) {
+    std::cerr << "MAP UPDATE: " << std::ios::hex << addr
+              << ' ' << addr_symbol_map_[addr]->get_name()
+              << ' ' << new_main->get_name()
+              << '\n';
     addr_symbol_map_[addr] = new_main;
+  }
 }
 
 /// Various adjustments and bookkeeping may be needed to provide a correct
