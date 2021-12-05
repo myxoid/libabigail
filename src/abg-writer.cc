@@ -2211,86 +2211,14 @@ write_referenced_types(write_context &		ctxt,
   //   1/ Types without canonical type
   //   2/ or function types (these might have no scope).
 
-  // So this map of type -> string is to contain the referenced types
-  // we need to emit.
-  type_ptr_set_type referenced_types_to_emit;
-
-  // For each referenced type, ensure that it is either emitted in the
-  // translation unit to which it belongs or in the last translation
-  // unit as a last resort.
-  for (type_ptr_set_type::const_iterator i =
-	 ctxt.get_referenced_types().begin();
-       i != ctxt.get_referenced_types().end();
-       ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
-
-  for (fn_type_ptr_set_type::const_iterator i =
-	 ctxt.get_referenced_function_types().begin();
-       i != ctxt.get_referenced_function_types().end();
-       ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
-
-  for (type_ptr_set_type::const_iterator i =
-	 ctxt.get_referenced_non_canonical_types().begin();
-       i != ctxt.get_referenced_non_canonical_types().end();
-       ++i)
-    if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
-      referenced_types_to_emit.insert(*i);
-
-  // Ok, now let's emit the referenced type for good.
-  while (!referenced_types_to_emit.empty())
+  while (true)
     {
-      // But first, we need to sort them, otherwise, emitting the ABI
-      // (in xml) of the same binary twice will yield different
-      // results, because we'd be walking an *unordered* hash table.
-      vector<type_base*> sorted_referenced_types;
-      ctxt.sort_types(referenced_types_to_emit,
-		      sorted_referenced_types);
+      // This set will contain the referenced types we need to emit.
+      type_ptr_set_type referenced_types_to_emit;
 
-      // Now, emit the referenced decls in a sorted order.
-      for (vector<type_base*>::const_iterator i =
-	     sorted_referenced_types.begin();
-	   i != sorted_referenced_types.end();
-	   ++i)
-	{
-	  // We handle types which have declarations *and* function
-	  // types here.
-	  type_base* t = *i;
-	  if (!ctxt.type_is_emitted(t))
-	    {
-	      if (decl_base* d = get_type_declaration(t))
-		{
-		  decl_base_sptr decl(d, noop_deleter());
-		  write_decl_in_scope(decl, ctxt,
-				      indent + c.get_xml_element_indent());
-		}
-	      else if (function_type* f = is_function_type(t))
-		{
-		  function_type_sptr fn_type(f, noop_deleter());
-		  write_function_type(fn_type, ctxt,
-				      indent + c.get_xml_element_indent());
-		}
-	      else
-		ABG_ASSERT_NOT_REACHED;
-	    }
-	}
-
-      // So all the (referenced) types that we wanted to emit were
-      // emitted.
-      referenced_types_to_emit.clear();
-
-      // But then, while emitting those referenced type, other types
-      // might have been referenced by those referenced types
-      // themselves!  So let's look at the sets of referenced type
-      // that are maintained for the entire ABI corpus and see if
-      // there are still some referenced types in there that are not
-      // emitted yet.  If yes, then we'll emit those again.
-
-      // For each referenced type, ensure that it is either emitted in
-      // the translation unit to which it belongs or in the last
-      // translation unit as a last resort.
+      // For each referenced type, ensure that it is either emitted in the
+      // translation unit to which it belongs or in the last translation
+      // unit as a last resort.
       for (type_ptr_set_type::const_iterator i =
 	     ctxt.get_referenced_types().begin();
 	   i != ctxt.get_referenced_types().end();
@@ -2311,6 +2239,35 @@ write_referenced_types(write_context &		ctxt,
 	   ++i)
 	if (referenced_type_should_be_emitted(*i, ctxt, tu, is_last))
 	  referenced_types_to_emit.insert(*i);
+
+      if (referenced_types_to_emit.empty())
+        break;
+      // Ok, now let's emit the referenced type for good.
+
+      // But first, we need to sort them, otherwise, emitting the ABI
+      // (in xml) of the same binary twice will yield different
+      // results, because we'd be walking an *unordered* hash table.
+      vector<type_base*> sorted_types;
+      ctxt.sort_types(referenced_types_to_emit, sorted_types);
+
+      // Now, emit the referenced decls in a sorted order.
+      for (type_base* t : sorted_types)
+	// We handle types which have declarations *and* function
+	// types here.
+	if (ctxt.type_is_emitted(t))
+	  continue;
+	else if (decl_base* d = get_type_declaration(t))
+	  write_decl_in_scope(decl_base_sptr(d, noop_deleter()), ctxt,
+			      indent + c.get_xml_element_indent());
+	else if (function_type* f = is_function_type(t))
+	  write_function_type(function_type_sptr(f, noop_deleter()), ctxt,
+			      indent + c.get_xml_element_indent());
+	else
+	  ABG_ASSERT_NOT_REACHED;
+
+      // While emitting those referenced type, other types
+      // might have been referenced by those referenced types
+      // themselves!  So let's go around again.
     }
 }
 
