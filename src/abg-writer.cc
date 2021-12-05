@@ -624,40 +624,17 @@ public:
   ///
   /// @param types the map to sort.
   ///
-  /// @param sorted the resulted sorted vector.  It's set by this
-  /// function with the result of the sorting.
-  void
-  sort_types(type_ptr_set_type& types,
-	     vector<type_base*>& sorted)
+  /// @return the resulting sorted vector.
+  vector<type_base*>
+  sort_types(type_ptr_set_type& types)
   {
-    string id;
-    for (type_ptr_set_type::const_iterator i = types.begin();
-	 i != types.end();
-	 ++i)
-      sorted.push_back(const_cast<type_base*>(*i));
+    vector<type_base*> sorted;
+    sorted.reserve(types.size());
+    for (const type_base* t : types)
+      sorted.push_back(const_cast<type_base*>(t));
     type_ptr_cmp comp(&m_type_id_map);
     sort(sorted.begin(), sorted.end(), comp);
-  }
-
-  /// Sort the content of a map of type pointers into a vector.
-  ///
-  /// The pointers are sorted by using their string representation as
-  /// the key to sort, lexicographically.
-  ///
-  /// @param types the map to sort.
-  ///
-  /// @param sorted the resulted sorted vector.  It's set by this
-  /// function with the result of the sorting.
-  void
-  sort_types(const istring_type_base_wptr_map_type& types,
-	     vector<type_base_sptr> &sorted)
-  {
-    for (istring_type_base_wptr_map_type::const_iterator i = types.begin();
-	 i != types.end();
-	 ++i)
-      sorted.push_back(type_base_sptr(i->second));
-    type_ptr_cmp comp(&m_type_id_map);
-    sort(sorted.begin(), sorted.end(), comp);
+    return sorted;
   }
 
   /// Sort the content of a vector of function types into a vector of
@@ -666,20 +643,19 @@ public:
   /// The pointers are sorted by using their string representation as
   /// the key to sort, lexicographically.
   ///
-  /// @param types the vector of function types to store.
+  /// @param types the vector of function types to sort.
   ///
-  /// @param sorted the resulted sorted vector.  It's set by this
-  /// function with the result of the sorting.
-  void
-  sort_types(const vector<function_type_sptr>& types,
-	     vector<type_base_sptr> &sorted)
+  /// @return the resulting sorted vector.
+  vector<type_base_sptr>
+  sort_types(const vector<function_type_sptr>& types)
   {
-    for (vector<function_type_sptr>::const_iterator i = types.begin();
-	 i != types.end();
-	 ++i)
-      sorted.push_back(*i);
+    vector<type_base_sptr> sorted;
+    sorted.reserve(types.size());
+    for (const auto& t : types)
+      sorted.push_back(t);
     type_ptr_cmp comp(&m_type_id_map);
     sort(sorted.begin(), sorted.end(), comp);
+    return sorted;
   }
 
   /// Flag a type as having been written out to the XML output.
@@ -2267,8 +2243,7 @@ write_referenced_types(write_context &		ctxt,
       // But first, we need to sort them, otherwise, emitting the ABI
       // (in xml) of the same binary twice will yield different
       // results, because we'd be walking an *unordered* hash table.
-      vector<type_base*> sorted_types;
-      ctxt.sort_types(types, sorted_types);
+      vector<type_base*> sorted_types = ctxt.sort_types(types);
 
       // Now, emit the referenced decls in a sorted order.
       for (type_base* t : sorted_types)
@@ -2393,9 +2368,7 @@ write_translation_unit(write_context&		ctxt,
 
   // Now handle all function types that were not only referenced by
   // emitted types.
-  const vector<function_type_sptr>& t = tu.get_live_fn_types();
-  vector<type_base_sptr> sorted_types;
-  ctxt.sort_types(t, sorted_types);
+  vector<type_base_sptr> sorted_types = ctxt.sort_types(tu.get_live_fn_types());
 
   for (vector<type_base_sptr>::const_iterator i = sorted_types.begin();
        i != sorted_types.end();
