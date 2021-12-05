@@ -9779,6 +9779,7 @@ die_pretty_print_type(read_context& ctxt,
       // this to be a lot of hassle for no great return.  Until proven
       // otherwise, of course.
       repr = "string type";
+      break;
 
     case DW_TAG_unspecified_type:
     case DW_TAG_ptr_to_member_type:
