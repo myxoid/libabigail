@@ -3102,6 +3102,7 @@ write_function_decl(const function_decl_sptr& decl, write_context& ctxt,
 			    ? 0
 			    : decl->get_translation_unit()->get_address_size()),
 			   0);
+  std::cerr << "writing " << decl.get() << " " << decl->get_name() << "\n";
   write_elf_symbol_reference(decl->get_symbol(), o);
 
   o << ">\n";

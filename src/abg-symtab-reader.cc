@@ -325,6 +325,7 @@ symtab::load_(Elf*	       elf_handle,
 
       // add to the name->symbol lookup
       name_symbol_map_[name].push_back(symbol_sptr);
+      std::cerr << "adding: '" << name << '\n';
 
       // add to the addr->symbol lookup
       if (symbol_sptr->is_common_symbol())
@@ -475,6 +476,7 @@ symtab::setup_symbol_lookup_tables(Elf* elf_handle,
 				   const elf_symbol_sptr& symbol_sptr)
 {
   const bool is_arm32 = elf_helpers::architecture_is_arm32(elf_handle);
+  std::cerr << "is_arm32=" << is_arm32 << '\n';
   const bool is_arm64 = elf_helpers::architecture_is_arm64(elf_handle);
   const bool is_ppc64 = elf_helpers::architecture_is_ppc64(elf_handle);
   const bool is_ppc32 = elf_helpers::architecture_is_ppc32(elf_handle);
