@@ -409,7 +409,7 @@ struct environment::priv
     : canonicalization_is_done_(),
       do_on_the_fly_canonicalization_(true),
       decl_only_class_equals_definition_(false),
-      use_enum_binary_only_equality_(true)
+      use_enum_binary_only_equality_(false)
 #ifdef WITH_DEBUG_SELF_COMPARISON
     ,
       self_comparison_debug_on_(false)
@@ -917,4 +917,3 @@ struct class_or_union::priv
 } // end namespace abigail
 
 #endif // __ABG_IR_PRIV_H__
-
