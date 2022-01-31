@@ -7604,6 +7604,8 @@ compare_dies_string_attribute_value(const Dwarf_Die *l, const Dwarf_Die *r,
       || !dwarf_attr_integrate(const_cast<Dwarf_Die*>(r), attr_name, &r_attr))
     return false;
 
+  abg_compat::optional<bool> fast_result;
+
   ABG_ASSERT(l_attr.form == DW_FORM_strp
 	     || l_attr.form == DW_FORM_string
 	     || l_attr.form == DW_FORM_GNU_strp_alt
@@ -7631,12 +7633,11 @@ compare_dies_string_attribute_value(const Dwarf_Die *l, const Dwarf_Die *r,
       //
       // This is the fast path.
       if (l_attr.valp == r_attr.valp)
-	  result = true;
+	  fast_result = true;
       else if (l_attr.valp && r_attr.valp)
-	result = *l_attr.valp == *r_attr.valp;
+	fast_result = *l_attr.valp == *r_attr.valp;
       else
-	result = false;
-      return true;
+	fast_result = false;
     }
 
   // If we reached this point it means we couldn't use the fast path
@@ -7647,6 +7648,12 @@ compare_dies_string_attribute_value(const Dwarf_Die *l, const Dwarf_Die *r,
     r_str = die_string_attribute(r, attr_name);
   result = l_str == r_str;
 
+  if (fast_result) {
+    if (result != *fast_result) {
+      std::cerr << '"' << l_str << "\" == \"" << r_str << "\"? fast=" << *fast_result
+                << " l_form=" << l_attr.form << " r_form=" << r_attr.form << '\n';
+    }
+  }
   return true;
 }
 
