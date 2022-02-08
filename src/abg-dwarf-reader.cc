@@ -5088,10 +5088,12 @@ public:
   corpus_sptr
   should_reuse_type_from_corpus_group() const
   {
+#if 0
     if (has_corpus_group() && is_c_language(cur_transl_unit()->get_language()))
       if (corpus_sptr main_corpus = main_corpus_from_current_group())
 	if (!current_corpus_is_main_corpus_from_current_group())
 	  return current_corpus_group();
+#endif
 
     return corpus_sptr();
   }
