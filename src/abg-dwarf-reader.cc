@@ -10240,6 +10240,7 @@ compare_dies(const read_context& ctxt,
     return l_canonical_die_offset == r_canonical_die_offset;
 
   bool result = true;
+  bool aggregate_redundancy_detected = false;
 
   switch (l_tag)
     {
@@ -10353,7 +10354,11 @@ compare_dies(const read_context& ctxt,
       {
 	if (has_offset_pair(aggregates_being_compared,
 			    die_offset(l), die_offset(r)))
-	  result = true;
+	  {
+	    result = true;
+	    aggregate_redundancy_detected = true;
+	    break;
+	  }
 	else if (!compare_as_decl_dies(l, r) || !compare_as_type_dies(l, r))
 	  result = false;
 	else
@@ -10481,6 +10486,7 @@ compare_dies(const read_context& ctxt,
 			    die_offset(r)))
 	  {
 	    result = true;
+	    aggregate_redundancy_detected = true;
 	    break;
 	  }
 	else if (l_tag == DW_TAG_subroutine_type)
@@ -10676,6 +10682,7 @@ compare_dies(const read_context& ctxt,
     }
 
   if (result == true
+      && !aggregate_redundancy_detected
       && update_canonical_dies_on_the_fly
       && is_canonicalizeable_type_tag(l_tag))
     {
