@@ -922,6 +922,7 @@ private:
 	     visibility		vi,
 	     bool		is_in_ksymtab = false,
 	     const abg_compat::optional<uint64_t>&	crc = {},
+	     const abg_compat::optional<std::string>&	ns = {},
 	     bool		is_suppressed = false);
 
   elf_symbol(const elf_symbol&);
@@ -947,6 +948,7 @@ public:
 	 visibility	    vi,
 	 bool		    is_in_ksymtab = false,
 	 const abg_compat::optional<uint64_t>&		crc = {},
+	 const abg_compat::optional<std::string>&	ns = {},
 	 bool		    is_suppressed = false);
 
   const environment*
@@ -1023,6 +1025,12 @@ public:
 
   void
   set_crc(const abg_compat::optional<uint64_t>& crc);
+
+  const abg_compat::optional<std::string>&
+  get_namespace() const;
+
+  void
+  set_namespace(const abg_compat::optional<std::string>& ns);
 
   bool
   is_suppressed() const;
