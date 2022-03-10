@@ -235,6 +235,7 @@ symtab::load_(Elf*	       elf_handle,
   const bool is_kernel = elf_helpers::is_linux_kernel(elf_handle);
   std::unordered_set<std::string> exported_kernel_symbols;
   std::unordered_map<std::string, uint64_t> crc_values;
+  std::unordered_map<std::string, std::string> namespaces;
 
   for (size_t i = 0; i < number_syms; ++i)
     {
@@ -283,6 +284,12 @@ symtab::load_(Elf*	       elf_handle,
       if (is_kernel && name.rfind("__crc_", 0) == 0)
 	{
 	  ABG_ASSERT(crc_values.emplace(name.substr(6), sym->st_value).second);
+	  continue;
+	}
+      if (is_kernel && name.rfind("__kstrtabns_", 0) == 0)
+	{
+	  std::string ns; // sym->st_value
+	  ABG_ASSERT(namespaces.emplace(name.substr(12), ns).second);
 	  continue;
 	}
 
@@ -372,6 +379,17 @@ symtab::load_(Elf*	       elf_handle,
 
       for (const auto& symbol : r->second)
 	symbol->set_crc(crc_entry.second);
+    }
+
+  // Now add the namespaces
+  for (const auto& namespace_entry : namespaces)
+    {
+      const auto r = name_symbol_map_.find(namespace_entry.first);
+      if (r == name_symbol_map_.end())
+	continue;
+
+      for (const auto& symbol : r->second)
+	symbol->set_namespace(namespace_entry.second);
     }
 
   // sort the symbols for deterministic output

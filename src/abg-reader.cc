@@ -3269,6 +3269,13 @@ build_elf_symbol(read_context& ctxt, const xmlNodePtr node,
   if (crc != 0)
     e->set_crc(crc);
 
+  if (xml_char_sptr s = XML_NODE_GET_ATTRIBUTE(node, "ns"))
+    {
+      std::string ns;
+      xml::xml_char_sptr_to_string(s, ns);
+      e->set_namespace({ns});
+    }
+
   return e;
 }
 
