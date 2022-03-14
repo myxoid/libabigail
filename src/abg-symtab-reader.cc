@@ -232,6 +232,9 @@ symtab::load_(Elf*	       elf_handle,
       return false;
     }
 
+  size_t strtab_ndx;
+  bool have_strtab = elf_getshdrstrndx(elf_handle, &strtab_ndx) == 0;
+
   const bool is_kernel = elf_helpers::is_linux_kernel(elf_handle);
   std::unordered_set<std::string> exported_kernel_symbols;
   std::unordered_map<std::string, uint64_t> crc_values;
@@ -286,10 +289,11 @@ symtab::load_(Elf*	       elf_handle,
 	  ABG_ASSERT(crc_values.emplace(name.substr(6), sym->st_value).second);
 	  continue;
 	}
-      if (is_kernel && name.rfind("__kstrtabns_", 0) == 0)
+      if (have_strtab && is_kernel && name.rfind("__kstrtabns_", 0) == 0)
 	{
-	  std::string ns; // sym->st_value
-	  ABG_ASSERT(namespaces.emplace(name.substr(12), ns).second);
+	  const char* ns = elf_strptr(elf_handle, strtab_ndx, sym->st_value);
+          if (ns)
+             ABG_ASSERT(namespaces.emplace(name.substr(12), ns).second);
 	  continue;
 	}
 
@@ -389,7 +393,7 @@ symtab::load_(Elf*	       elf_handle,
 	continue;
 
       for (const auto& symbol : r->second)
-	symbol->set_namespace(namespace_entry.second);
+	symbol->set_namespace({namespace_entry.second});
     }
 
   // sort the symbols for deterministic output

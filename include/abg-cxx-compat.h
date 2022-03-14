@@ -82,6 +82,10 @@ public:
   operator->()
   { return &value_; }
 
+  junk junk;
+  // optional<T>(const optional<T>& value) = default;
+  // optional<T>& operator=(const optional<T>& value) = default;
+
   optional&
   operator=(const T& value)
   {
