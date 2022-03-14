@@ -91,6 +91,22 @@ public:
   }
 
   explicit operator bool() const { return has_value_; }
+
+  bool
+  operator==(const optional<T>& other) const
+  {
+    if (!has_value_ && !other.has_value_)
+      return true;
+    if (!has_value_ || !other.has_value_)
+      return false;
+    return value_ == other.value_;
+  }
+
+  bool
+  operator!=(const optional<T>& other) const
+  {
+    return !operator==(other);
+  }
 };
 
 #endif
