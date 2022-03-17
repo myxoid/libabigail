@@ -1388,53 +1388,6 @@ lookup_symbol_from_elf(const environment*		env,
 					 syms_found);
 }
 
-/// Look into the symbol tables of the underlying elf file and see if
-/// we find a given public (global or weak) symbol of function type.
-///
-/// @param env the environment we are operating from.
-///
-/// @param elf_handle the elf handle to use for the query.
-///
-/// @param symbol_name the function symbol to look for.
-///
-/// @param func_syms the vector of public functions symbols found, if
-/// any.
-///
-/// @return true iff the symbol was found.
-static bool
-lookup_public_function_symbol_from_elf(const environment*		env,
-				       Elf*				elf_handle,
-				       const string&			symbol_name,
-				       vector<elf_symbol_sptr>&	func_syms)
-{
-  vector<elf_symbol_sptr> syms_found;
-  bool found = false;
-
-  if (lookup_symbol_from_elf(env, elf_handle, symbol_name,
-			     /*demangle=*/false, syms_found))
-    {
-      for (vector<elf_symbol_sptr>::const_iterator i = syms_found.begin();
-	   i != syms_found.end();
-	   ++i)
-	{
-	  elf_symbol::type type = (*i)->get_type();
-	  elf_symbol::binding binding = (*i)->get_binding();
-
-	  if ((type == elf_symbol::FUNC_TYPE
-	       || type == elf_symbol::GNU_IFUNC_TYPE
-	       || type == elf_symbol::COMMON_TYPE)
-	      && (binding == elf_symbol::GLOBAL_BINDING
-		  || binding == elf_symbol::WEAK_BINDING))
-	    {
-	      func_syms.push_back(*i);
-	      found = true;
-	    }
-	}
-    }
-
-  return found;
-}
-
 /// Get data tag information of an ELF file by looking up into its
 /// dynamic segment
 ///
@@ -15857,48 +15810,6 @@ lookup_symbol_from_elf(const environment*		env,
 
   bool value = lookup_symbol_from_elf(env, elf, symbol_name,
 				      demangle, syms);
-  elf_end(elf);
-  close(fd);
-
-  return value;
-}
-
-/// Look into the symbol tables of an elf file to see if a public
-/// function of a given name is found.
-///
-/// @param env the environment we are operating from.
-///
-/// @param elf_path the path to the elf file to consider.
-///
-/// @param symbol_name the name of the function to look for.
-///
-/// @param syms the vector of public function symbols found with the
-/// name @p symname.
-///
-/// @return true iff a function with symbol name @p symbol_name is
-/// found.
-bool
-lookup_public_function_symbol_from_elf(const environment*		env,
-				       const string&			path,
-				       const string&			symname,
-				       vector<elf_symbol_sptr>&	syms)
-{
-  if (elf_version(EV_CURRENT) == EV_NONE)
-    return false;
-
-  int fd = open(path.c_str(), O_RDONLY);
-  if (fd < 0)
-    return false;
-
-  struct stat s;
-  if (fstat(fd, &s))
-    return false;
-
-  Elf* elf = elf_begin(fd, ELF_C_READ, 0);
-  if (elf == 0)
-    return false;
-
-  bool value = lookup_public_function_symbol_from_elf(env, elf, symname, syms);
   elf_end(elf);
   close(fd);
 
