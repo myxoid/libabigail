@@ -1149,13 +1149,12 @@ maybe_report_diff_for_symbol(const elf_symbol_sptr&	symbol1,
 	  << "\n";
     }
 
-  const abg_compat::optional<uint64_t>& crc1 = symbol1->get_crc();
-  const abg_compat::optional<uint64_t>& crc2 = symbol2->get_crc();
+  const abg_compat::optional<CRC>& crc1 = symbol1->get_crc();
+  const abg_compat::optional<CRC>& crc2 = symbol2->get_crc();
   if (crc1 != crc2)
     {
       const std::string none = "(none)";
-      out << indent << "CRC (modversions) changed from "
-	  << std::showbase << std::hex;
+      out << indent << "CRC (modversions) changed from ";
       if (crc1.has_value())
 	out << crc1.value();
       else
@@ -1165,8 +1164,7 @@ maybe_report_diff_for_symbol(const elf_symbol_sptr&	symbol1,
 	out << crc2.value();
       else
 	out << none;
-      out << std::noshowbase << std::dec
-	  << "\n";
+      out << "\n";
     }
 
   const abg_compat::optional<std::string>& ns1 = symbol1->get_namespace();

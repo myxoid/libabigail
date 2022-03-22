@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <cstdlib>
 #include <functional>
+#include <iostream>
 #include <set>
 #include <unordered_map>
 #include "abg-cxx-compat.h"
@@ -860,6 +861,25 @@ string_elf_symbols_map_type;
 /// string_elf_symbols_map_type.
 typedef shared_ptr<string_elf_symbols_map_type> string_elf_symbols_map_sptr;
 
+/// Wrapper type for Linux kernel symbol CRCs.
+struct CRC {
+  uintptr_t number;
+};
+
+inline bool operator==(CRC crc1, CRC crc2)
+{return crc1.number == crc2.number;}
+
+inline bool operator!=(CRC crc1, CRC crc2)
+{return !(crc1 == crc2);}
+
+inline std::ostream& operator<<(std::ostream& os, CRC crc)
+{
+  const std::ios_base::fmtflags flags = os.flags();
+  os << std::showbase << std::hex << crc.number;
+  os.flags(flags);
+  return os;
+}
+
 /// Abstraction of an elf symbol.
 ///
 /// This is useful when a given corpus has been read from an ELF file.
@@ -921,7 +941,7 @@ private:
 	     const version&	ve,
 	     visibility		vi,
 	     bool		is_in_ksymtab = false,
-	     const abg_compat::optional<uint64_t>&	crc = {},
+	     const abg_compat::optional<CRC>&		crc = {},
 	     const abg_compat::optional<std::string>&	ns = {},
 	     bool		is_suppressed = false);
 
@@ -947,7 +967,7 @@ public:
 	 const version&	    ve,
 	 visibility	    vi,
 	 bool		    is_in_ksymtab = false,
-	 const abg_compat::optional<uint64_t>&		crc = {},
+	 const abg_compat::optional<CRC>&		crc = {},
 	 const abg_compat::optional<std::string>&	ns = {},
 	 bool		    is_suppressed = false);
 
@@ -1020,11 +1040,11 @@ public:
   void
   set_is_in_ksymtab(bool is_in_ksymtab);
 
-  const abg_compat::optional<uint64_t>&
+  const abg_compat::optional<CRC>&
   get_crc() const;
 
   void
-  set_crc(const abg_compat::optional<uint64_t>& crc);
+  set_crc(const abg_compat::optional<CRC>& crc);
 
   const abg_compat::optional<std::string>&
   get_namespace() const;
