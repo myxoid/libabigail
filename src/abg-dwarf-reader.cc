@@ -11,6 +11,8 @@
 /// de-serialize an instance of @ref abigail::corpus from a file in
 /// elf format, containing dwarf information.
 
+#include <iostream>
+
 #include "config.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -5287,12 +5289,15 @@ public:
   elf_symbol_sptr
   variable_symbol_is_exported(GElf_Addr symbol_address) const
   {
+    std::cerr << "a: " << std::hex << std::showbase << symbol_address << std::noshowbase << std::dec << '\n';
     elf_symbol_sptr symbol = symtab()->lookup_symbol(symbol_address);
     if (!symbol)
       return symbol;
+    std::cerr << "b: " << std::hex << std::showbase << symbol_address << std::noshowbase << std::dec << '\n';
 
     if (!symbol->is_variable() || !symbol->is_public())
       return elf_symbol_sptr();
+    std::cerr << "c: " << std::hex << std::showbase << symbol_address << std::noshowbase << std::dec << '\n';
 
     address_set_sptr set;
     bool looking_at_linux_kernel_binary =
@@ -8912,6 +8917,7 @@ die_location_address(Dwarf_Die*	die,
 
   // Just get the address out of the number field.
   address = expr->number;
+  std::cerr << std::hex << std::showbase << address << std::noshowbase << std::dec << '\n';
   return true;
 }
 
@@ -13766,8 +13772,20 @@ build_or_get_var_decl_if_not_suppressed(read_context&	ctxt,
 					bool is_required_decl_spec)
 {
   var_decl_sptr var;
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    std::cerr << "J: " << name << '\n';
+  }
   if (variable_is_suppressed(ctxt, scope, die, is_required_decl_spec))
     return var;
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    std::cerr << "K: " << name << '\n';
+  }
 
   if (class_decl* class_type = is_class_type(scope))
     {
@@ -13776,7 +13794,19 @@ build_or_get_var_decl_if_not_suppressed(read_context&	ctxt,
 	if ((var = class_type->find_data_member(var_name)))
 	  return var;
     }
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    std::cerr << "L: " << name << '\n';
+  }
   var = build_var_decl(ctxt, die, where_offset, result);
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    std::cerr << "M: " << name << '\n';
+  }
   return var;
 }
 
@@ -13806,6 +13836,13 @@ build_var_decl(read_context&	ctxt,
 {
   if (!die)
     return result;
+
+  {
+    string name, linkage_name;
+    location loc;
+    die_loc_and_name(ctxt, die, loc, name, linkage_name);
+    std::cerr << "Z: " << name << '\n';
+  }
 
   int tag = dwarf_tag(die);
   ABG_ASSERT(tag == DW_TAG_variable || tag == DW_TAG_member);
@@ -13852,6 +13889,7 @@ build_var_decl(read_context&	ctxt,
     {
       elf_symbol_sptr var_sym;
       Dwarf_Addr      var_addr;
+      std::cerr << "Y: " << result->get_name() << '\n';
       if (ctxt.get_variable_address(die, var_addr))
 	{
 	  ctxt.symtab()->update_main_symbol(var_addr,
@@ -14088,12 +14126,31 @@ variable_is_suppressed(const read_context& ctxt,
   if (!is_class_type(scope) && !is_required_decl_spec)
     {
       Dwarf_Addr var_addr = 0;
+      {
+        string name, linkage_name;
+        location loc;
+        die_loc_and_name(ctxt, variable_die, loc, name, linkage_name);
+        std::cerr << "S: " << name << '\n';
+      }
       if (!ctxt.get_variable_address(variable_die, var_addr))
 	return true;
+      {
+        string name, linkage_name;
+        location loc;
+        die_loc_and_name(ctxt, variable_die, loc, name, linkage_name);
+        std::cerr << "T: " << name << '\n';
+      }
 
+      std::cerr << "addr: " << std::hex << std::showbase << var_addr << std::noshowbase << std::dec << '\n';
       elf_symbol_sptr symbol = ctxt.variable_symbol_is_exported(var_addr);
       if (!symbol)
 	return true;
+      {
+        string name, linkage_name;
+        location loc;
+        die_loc_and_name(ctxt, variable_die, loc, name, linkage_name);
+        std::cerr << "U: " << name << '\n';
+      }
       if (!symbol->is_suppressed())
 	return false;
 
@@ -15211,6 +15268,13 @@ build_ir_node_from_die(read_context&	ctxt,
 	Dwarf_Die spec_die;
 	bool var_is_cloned = false;
 
+        {
+          string name, linkage_name;
+          location loc;
+          die_loc_and_name(ctxt, die, loc, name, linkage_name);
+          std::cerr << "A: " << name << '\n';
+        }
+
 	if (tag == DW_TAG_member)
 	  ABG_ASSERT(!is_c_language(ctxt.cur_transl_unit()->get_language()));
 
@@ -15218,6 +15282,12 @@ build_ir_node_from_die(read_context&	ctxt,
 	    || (var_is_cloned = die_die_attribute(die, DW_AT_abstract_origin,
 						  spec_die, false)))
 	  {
+            {
+              string name, linkage_name;
+              location loc;
+              die_loc_and_name(ctxt, die, loc, name, linkage_name);
+              std::cerr << "B: " << name << '\n';
+            }
 	    scope_decl_sptr spec_scope =
 	      get_scope_for_die(ctxt, &spec_die,
 				/*called_from_public_decl=*/
@@ -15225,6 +15295,12 @@ build_ir_node_from_die(read_context&	ctxt,
 				where_offset);
 	    if (spec_scope)
 	      {
+                {
+                  string name, linkage_name;
+                  location loc;
+                  die_loc_and_name(ctxt, die, loc, name, linkage_name);
+                  std::cerr << "C: " << name << '\n';
+                }
 		decl_base_sptr d =
 		  is_decl(build_ir_node_from_die(ctxt, &spec_die,
 						 spec_scope.get(),
@@ -15234,6 +15310,12 @@ build_ir_node_from_die(read_context&	ctxt,
 						 /*is_required_decl_spec=*/true));
 		if (d)
 		  {
+                    {
+                      string name, linkage_name;
+                      location loc;
+                      die_loc_and_name(ctxt, die, loc, name, linkage_name);
+                      std::cerr << "D: " << name << '\n';
+                    }
 		    var_decl_sptr m =
 		      dynamic_pointer_cast<var_decl>(d);
 		    if (var_is_cloned)
@@ -15262,6 +15344,12 @@ build_ir_node_from_die(read_context&	ctxt,
 							 /*result=*/var_decl_sptr(),
 							 is_required_decl_spec))
 	  {
+            {
+              string name, linkage_name;
+              location loc;
+              die_loc_and_name(ctxt, die, loc, name, linkage_name);
+              std::cerr << "E: " << name << '\n';
+            }
 	    result = add_decl_to_scope(v, scope);
 	    ABG_ASSERT(is_decl(result)->get_scope());
 	    v = dynamic_pointer_cast<var_decl>(result);

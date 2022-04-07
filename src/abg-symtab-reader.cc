@@ -10,6 +10,8 @@
 ///
 /// This contains the definition of the symtab reader
 
+#include <iostream>
+
 #include <algorithm>
 #include <iostream>
 #include <unordered_map>
@@ -499,6 +501,7 @@ symtab::setup_symbol_lookup_tables(Elf* elf_handle,
     {
       const auto result =
 	addr_symbol_map_.emplace(symbol_value, symbol_sptr);
+      std::cerr << "_: " << name << " = " << std::hex << std::showbase << symbol_value << std::noshowbase << std::dec << '\n';
       if (!result.second)
 	// A symbol with the same address already exists.  This
 	// means this symbol is an alias of the main symbol with
