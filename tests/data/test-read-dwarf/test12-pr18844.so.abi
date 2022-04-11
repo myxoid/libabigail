@@ -4645,7 +4645,7 @@
     <typedef-decl name='__hash_code' type-id='type-id-1280' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/hashtable_policy.h' line='1251' column='1' id='type-id-2818'/>
     <typedef-decl name='__node_base' type-id='type-id-2109' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/hashtable_policy.h' line='1904' column='1' id='type-id-115'/>
     <typedef-decl name='__bucket_type' type-id='type-id-116' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/hashtable_policy.h' line='1905' column='1' id='type-id-83'/>
-    <typedef-decl name='size_type' type-id='type-id-1280' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/bits/stl_list.h' line='468' column='1' id='type-id-2791'/>
+    <typedef-decl name='size_type' type-id='type-id-1280' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/ext/new_allocator.h' line='61' column='1' id='type-id-2791'/>
     <typedef-decl name='_Atomic_word' type-id='type-id-43' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/x86_64-linux-gnu/c++/4.9/bits/atomic_word.h' line='32' column='1' id='type-id-2819'/>
     <namespace-decl name='std'>
       <class-decl name='atomic&lt;unsigned int&gt;' size-in-bits='32' is-struct='yes' visibility='default' filepath='/usr/bin/../lib/gcc/x86_64-linux-gnu/4.9/../../../../include/c++/4.9/atomic' line='617' column='1' id='type-id-1130'>

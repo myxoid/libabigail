@@ -6934,9 +6934,6 @@
         <member-type access='public'>
           <typedef-decl name='_Link_type' type-id='type-id-961' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='185' column='1' id='type-id-1345'/>
         </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='type-id-1062' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='177' column='1' id='type-id-1343'/>
-        </member-type>
         <data-member access='public' layout-offset-in-bits='0'>
           <var-decl name='_M_node' type-id='type-id-1342' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='240' column='1'/>
         </data-member>
@@ -7022,9 +7019,6 @@
         </member-type>
         <member-type access='public'>
           <typedef-decl name='_Link_type' type-id='type-id-963' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='185' column='1' id='type-id-1349'/>
-        </member-type>
-        <member-type access='public'>
-          <typedef-decl name='reference' type-id='type-id-1074' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='177' column='1' id='type-id-1347'/>
         </member-type>
         <data-member access='public' layout-offset-in-bits='0'>
           <var-decl name='_M_node' type-id='type-id-1346' visibility='default' filepath='/export/users/iverbin/gcc_build_host/x86_64-pc-linux-gnu/libstdc++-v3/include/bits/stl_tree.h' line='240' column='1'/>
