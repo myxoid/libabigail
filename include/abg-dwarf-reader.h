@@ -15,6 +15,7 @@
 #define __ABG_DWARF_READER_H__
 
 #include <ostream>
+#include <vector>
 #include <elfutils/libdwfl.h>
 #include "abg-corpus.h"
 #include "abg-suppression.h"

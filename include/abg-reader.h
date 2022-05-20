@@ -15,6 +15,7 @@
 #define __ABG_READER_H__
 
 #include <istream>
+#include <vector>
 #include "abg-corpus.h"
 #include "abg-suppression.h"
 

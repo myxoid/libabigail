@@ -23,6 +23,7 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 #include "abg-fwd.h"
 #include "abg-hash.h"
 #include "abg-traverse.h"
@@ -97,6 +98,7 @@ namespace ir
 // Inject some std types in here.
 using std::unordered_map;
 using std::unordered_set;
+using std::vector;
 
 /// A convenience typedef for an unordered set of pointer values
 typedef unordered_set<uintptr_t> pointer_set;

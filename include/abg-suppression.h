@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <unordered_set>
+#include <vector>
 
 #include "abg-ini.h"
 #include "abg-comparison.h"

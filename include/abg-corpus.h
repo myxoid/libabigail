@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <unordered_set>
+#include <vector>
 
 #include <abg-ir.h>
 

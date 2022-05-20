@@ -13,6 +13,8 @@
 #ifndef __ABG_COMP_FILTER_H__
 #define __ABG_COMP_FILTER_H__
 
+#include <vector>
+
 #include "abg-comparison.h"
 
 namespace abigail

@@ -14,6 +14,7 @@
 #include <ostream>
 #include <set>
 #include <string>
+#include <vector>
 #include "abg-suppression.h"
 
 namespace abigail

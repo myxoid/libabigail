@@ -14,6 +14,7 @@
 #include <ostream>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 #include "abg-corpus.h"
 #include "abg-diff-utils.h"
 #include "abg-reporter.h"
