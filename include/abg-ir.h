@@ -96,6 +96,7 @@ namespace ir
 
 // Inject some std types in here.
 using std::unordered_map;
+using std::unordered_set;
 
 /// A convenience typedef for an unordered set of pointer values
 typedef unordered_set<uintptr_t> pointer_set;
