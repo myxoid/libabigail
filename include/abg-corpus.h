@@ -9,6 +9,7 @@
 #define __ABG_CORPUS_H__
 
 #include <memory>
+#include <unordered_set>
 
 #include <abg-ir.h>
 

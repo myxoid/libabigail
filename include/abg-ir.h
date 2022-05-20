@@ -22,6 +22,7 @@
 #include <memory>
 #include <set>
 #include <unordered_map>
+#include <unordered_set>
 #include "abg-fwd.h"
 #include "abg-hash.h"
 #include "abg-traverse.h"
