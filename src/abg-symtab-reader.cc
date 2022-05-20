@@ -18,7 +18,6 @@
 #include "abg-elf-helpers.h"
 #include "abg-fwd.h"
 #include "abg-internal.h"
-#include "abg-tools-utils.h"
 
 // Though this is an internal header, we need to export the symbols to be able
 // to test this code.  TODO: find a way to export symbols just for unit tests.
