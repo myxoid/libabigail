@@ -8,6 +8,8 @@
 #ifndef __ABG_CORPUS_H__
 #define __ABG_CORPUS_H__
 
+#include <memory>
+
 #include <abg-ir.h>
 
 namespace abigail

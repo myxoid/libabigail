@@ -8,6 +8,7 @@
 #ifndef __ABG_SUPPRESSION_H__
 #define __ABG_SUPPRESSION_H__
 
+#include <memory>
 #include <unordered_set>
 
 #include "abg-ini.h"

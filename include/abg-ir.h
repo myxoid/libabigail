@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <cstdlib>
 #include <functional>
+#include <memory>
 #include <set>
 #include <unordered_map>
 #include "abg-fwd.h"

@@ -8,6 +8,8 @@
 #ifndef __ABG_TRAVERSE_H__
 #define __ABG_TRAVERSE_H__
 
+#include <memory>
+
 #include "abg-fwd.h"
 
 namespace abigail

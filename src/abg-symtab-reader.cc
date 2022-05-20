@@ -11,6 +11,7 @@
 /// This contains the definition of the symtab reader
 
 #include <algorithm>
+#include <memory>
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
