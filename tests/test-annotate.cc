@@ -148,7 +148,7 @@ main()
   string abidw;
 
   abidw = string(get_build_dir()) + "/tools/abidw "
-    "--annotate --no-corpus-path";
+    "--annotate --no-corpus-path --type-id-style hash";
   for (InOutSpec* s = in_out_specs; s->in_elf_path; ++s)
     {
       bool is_ok = true;

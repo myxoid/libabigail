@@ -1430,6 +1430,30 @@ Variable symbols changes summary: 0 Removed, 0 Added variable symbol not referen
   [C] 'method void std::vector<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >::_M_emplace_back_aux<const VarTable::Entry*>(const VarTable::Entry*&&)' has some indirect sub-type changes:
     Please note that the symbol of this function is _ZNSt6vectorIPKN8VarTable5EntryESaIS3_EE19_M_emplace_back_auxIJS3_EEEvDpOT_
      and it aliases symbol: _ZNSt6vectorIPKN8VarTable5EntryESaIS3_EE19_M_emplace_back_auxIIS3_EEEvDpOT_
+    implicit parameter 0 of type 'std::vector<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >*' has sub-type changes:
+      in pointed to type 'class std::vector<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >':
+        type size hasn't changed
+        1 base class change:
+          'struct std::_Vector_base<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >' changed:
+            type size hasn't changed
+            1 data member change:
+              type of 'std::_Vector_base<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >::_Vector_impl _M_impl' changed:
+                type size hasn't changed
+                3 data member changes:
+                  type of 'std::_Vector_base<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >::pointer _M_start' changed:
+                    underlying type 'typedef __gnu_cxx::__alloc_traits<std::allocator<const VarTable::Entry*> >::pointer' changed:
+                      underlying type 'typedef std::allocator_traits<std::allocator<const VarTable::Entry*> >::pointer' changed:
+                        underlying type 'typedef std::__detected_or_t' changed:
+                          underlying type 'typedef std::__detector<std::_List_node<coibuffer*>*, void, std::__allocator_traits_base::__pointer, std::allocator<std::_List_node<coibuffer*> > >::type' changed:
+                            underlying type 'typedef std::__allocator_traits_base::__pointer' changed:
+                              underlying type 'typedef std::allocator<PersistData>::pointer' changed:
+                                typedef name changed from std::allocator<PersistData>::pointer to std::allocator<char>::pointer
+                                underlying type 'PersistData*' changed:
+                                  in pointed to type 'struct PersistData':
+                                    entity changed from 'struct PersistData' to 'char'
+                                    type size changed from 256 to 8 (in bits)
+                  type of 'std::_Vector_base<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >::pointer _M_finish' changed, as reported earlier
+                  type of 'std::_Vector_base<const VarTable::Entry*, std::allocator<const VarTable::Entry*> >::pointer _M_end_of_storage' changed, as reported earlier
     parameter 1 of type 'const VarTable::Entry*&&' changed:
       rvalue reference type 'const VarTable::Entry*&& became an lvalue reference type: 'const VarTable::Entry*&'
 

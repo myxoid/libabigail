@@ -8,29 +8,29 @@
   </elf-function-symbols>
   <abi-instr address-size='64' path='test4.c' comp-dir-path='/home/byby/oracle/src/libabigail/tests/data/test-read-common' language='LANG_C99'>
     <!-- char -->
-    <type-decl name='char' size-in-bits='8' id='type-id-1'/>
+    <type-decl name='char' size-in-bits='8' id='a84c031d'/>
     <!-- unsigned int -->
-    <type-decl name='unsigned int' size-in-bits='32' id='type-id-2'/>
+    <type-decl name='unsigned int' size-in-bits='32' id='f0981eeb'/>
     <!-- char* -->
-    <pointer-type-def type-id='type-id-1' size-in-bits='64' id='type-id-3'/>
+    <pointer-type-def type-id='a84c031d' size-in-bits='64' id='26a90f95'/>
     <!-- char* restrict -->
-    <qualified-type-def type-id='type-id-3' restrict='yes' id='type-id-4'/>
+    <qualified-type-def type-id='26a90f95' restrict='yes' id='266fe297'/>
     <!-- const char -->
-    <qualified-type-def type-id='type-id-1' const='yes' id='type-id-5'/>
+    <qualified-type-def type-id='a84c031d' const='yes' id='9b45d938'/>
     <!-- const char* -->
-    <pointer-type-def type-id='type-id-5' size-in-bits='64' id='type-id-6'/>
+    <pointer-type-def type-id='9b45d938' size-in-bits='64' id='80f4b756'/>
     <!-- const char* restrict -->
-    <qualified-type-def type-id='type-id-6' restrict='yes' id='type-id-7'/>
+    <qualified-type-def type-id='80f4b756' restrict='yes' id='9d26089a'/>
     <!-- char* cpy(char* restrict, const char* restrict, unsigned int) -->
     <function-decl name='cpy' mangled-name='cpy' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='cpy'>
       <!-- parameter of type 'char* restrict' -->
-      <parameter type-id='type-id-4' name='s1' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
+      <parameter type-id='266fe297' name='s1' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
       <!-- parameter of type 'const char* restrict' -->
-      <parameter type-id='type-id-7' name='s2' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
+      <parameter type-id='9d26089a' name='s2' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
       <!-- parameter of type 'unsigned int' -->
-      <parameter type-id='type-id-2' name='n' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
+      <parameter type-id='f0981eeb' name='n' filepath='/home/byby/oracle/src/libabigail/tests/data/test-read-common/test4.c' line='4' column='1'/>
       <!-- char* -->
-      <return type-id='type-id-3'/>
+      <return type-id='26a90f95'/>
     </function-decl>
   </abi-instr>
 </abi-corpus>
